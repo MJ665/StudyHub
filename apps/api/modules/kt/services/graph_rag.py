@@ -136,17 +136,36 @@ async def graph_context(
         if not triples:
             return None
 
-        lines = [f"- {s} —{rel}→ {t}" for s, rel, t in triples[:MAX_TRIPLES]]
+        used = triples[:MAX_TRIPLES]
+        lines = [f"- {s} —{rel}→ {t}" for s, rel, t in used]
         content = (
             "Knowledge-graph relationships relevant to the question "
             "(extracted from approved documents):\n" + "\n".join(lines)
         )
+
+        # Structured subgraph for the interactive canvas: distinct entity nodes
+        # + directed relationship edges. Seed nodes are flagged so the UI can
+        # highlight the query's entry points.
+        node_names: dict = {}
+        for s, _rel, t in used:
+            for nm in (s, t):
+                key = nm.strip().lower()
+                if key and key not in node_names:
+                    node_names[key] = {
+                        "id": nm,
+                        "label": nm,
+                        "seed": key in seed_norms,
+                    }
+        edges = [{"source": s, "target": t, "relation": rel} for s, rel, t in used]
+
         return {
             "episode_id": "graph_context",
             "content": content,
             "doc_id": next(iter(doc_ids)) if doc_ids else "",
             "score": 0.95,
             "is_graph": True,
+            "graph_nodes": list(node_names.values()),
+            "graph_edges": edges,
         }
 
     try:

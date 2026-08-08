@@ -370,6 +370,17 @@ async def stream_kt_chatbot_response(
 
     sources = _extract_citations(full_response, chunks)
 
+    # Traversed knowledge subgraph (for the interactive graph canvas), if the
+    # GraphRAG blend produced one.
+    graph_payload = None
+    for c in chunks:
+        if c.get("is_graph") and (c.get("graph_nodes") or c.get("graph_edges")):
+            graph_payload = {
+                "nodes": c.get("graph_nodes", []),
+                "edges": c.get("graph_edges", []),
+            }
+            break
+
     # "Both" confidence: retrieval composite blended with an LLM groundedness
     # check (one cheap call after the answer streams — a ~2s tail, not blocking
     # the token stream the user already saw).
@@ -390,5 +401,6 @@ async def stream_kt_chatbot_response(
             "sources": sources,
             "full_response": full_response,
             "confidence_score": confidence,
+            "graph": graph_payload,
         }
     ) + "\n"

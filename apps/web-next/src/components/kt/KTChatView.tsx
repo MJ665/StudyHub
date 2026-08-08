@@ -3,12 +3,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   MessageSquare, Send, Loader2, Bot, User, ShieldCheck, FileText,
-  Plus, Trash2, Pencil, Copy, Check, ThumbsUp, ThumbsDown,
+  Plus, Trash2, Pencil, Copy, Check, ThumbsUp, ThumbsDown, Share2,
 } from 'lucide-react';
 import ApiService from '@/services/ApiService';
 import { useKTNavStore } from '@/stores/ktNavStore';
 import { useKTGateStore } from '@/stores/ktGateStore';
 import KTGate from './KTGate';
+import KTGraphCanvas from './KTGraphCanvas';
 import { ChatMarkdown } from './ChatMarkdown';
 import { toast } from 'react-hot-toast';
 
@@ -23,6 +24,7 @@ interface ChatMsg {
   feedback?: boolean | null;
   isError?: boolean;
   streaming?: boolean;
+  graph?: { nodes: any[]; edges: any[] } | null;
 }
 interface SessionRow {
   session_id: string;
@@ -164,7 +166,7 @@ export default function KTChatView() {
           if (!s.trim()) continue;
           let d: any; try { d = JSON.parse(s); } catch { continue; }
           if (d.done) {
-            apply({ streaming: false, content: d.full_response || acc, sources: d.sources || [], confidence: d.confidence_score });
+            apply({ streaming: false, content: d.full_response || acc, sources: d.sources || [], confidence: d.confidence_score, graph: d.graph || null });
           } else if (d.token) {
             acc += d.token; apply({ content: acc });
           }
@@ -284,6 +286,17 @@ export default function KTChatView() {
                             <FileText size={10} /><span className="truncate max-w-[160px]">{src.doc_title || src.title || 'Document'}</span>
                           </div>
                         ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {!isUser && msg.graph && (msg.graph.nodes?.length > 0) && (
+                    <div className="pt-3 mt-3 border-t border-slate-800/40">
+                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-2 flex items-center gap-1.5">
+                        <Share2 size={10} /> Knowledge graph traversed for this answer
+                      </p>
+                      <div className="h-[360px] w-full">
+                        <KTGraphCanvas nodes={msg.graph.nodes} edges={msg.graph.edges} className="h-full w-full" />
                       </div>
                     </div>
                   )}
