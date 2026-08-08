@@ -3,6 +3,7 @@ import { LogOut, Map, Sparkles, Flame } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ApiService from '../../services/ApiService';
 import { isGroupAdminPlus, isMentorPlus, isLDAdminPlus } from '../../lib/kt/permissions';
+import ThemeSwitcher from '../theme/ThemeSwitcher';
 
 interface SidebarProps {
   currentView: string;
@@ -180,7 +181,11 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
             <p className="text-[10px] uppercase text-[var(--color-brand-primary-container)] font-black truncate">{user?.role}</p>
           </div>
         </button>
-        
+
+        <div className="mb-2">
+          <ThemeSwitcher />
+        </div>
+
         <button
           onClick={onLogout}
           className="w-full flex items-center justify-center gap-2 p-3 text-rose-400 hover:bg-rose-950/30 rounded-xl transition-colors font-bold border border-transparent hover:border-rose-900/50"

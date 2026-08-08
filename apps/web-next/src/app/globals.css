@@ -1,21 +1,67 @@
 @import "tailwindcss";
 
 @theme {
+  /* Classic (default) — the original cool lavender/teal dark palette. These are
+     the compile-time token names Tailwind utilities reference (bg-surface-*,
+     text-on-surface, text-brand-primary, …). Runtime themes below override the
+     VALUES via [data-theme], so any token-based component re-themes for free. */
   --color-surface-dim: #0c1324;
   --color-surface-container-low: #151b2d;
   --color-surface-container: #191f31;
   --color-surface-container-high: #23293c;
   --color-surface-container-highest: #2e3447;
   --color-surface-bright: #33394c;
-  
+
   --color-on-surface: #dce1fb;
   --color-on-surface-variant: #c7c4d7;
   --color-outline-variant: #464554;
-  
+
   --color-brand-primary: #c0c1ff;
   --color-brand-primary-container: #8083ff;
   --color-brand-secondary: #4edea3;
   --color-brand-tertiary: #ffb2b7;
+}
+
+/* ── Warm Minimalism · DARK ─────────────────────────────────────────────────
+   Near-black warm neutrals + a single terracotta accent. */
+:root[data-theme="warm-dark"] {
+  color-scheme: dark;
+  --color-surface-dim: #14100c;
+  --color-surface-container-low: #1c1712;
+  --color-surface-container: #241d16;
+  --color-surface-container-high: #2e251c;
+  --color-surface-container-highest: #3a2f24;
+  --color-surface-bright: #47392c;
+
+  --color-on-surface: #f6f0e8;
+  --color-on-surface-variant: #cbbba9;
+  --color-outline-variant: #4a3e32;
+
+  --color-brand-primary: #e0a184;        /* terracotta (readable on dark) */
+  --color-brand-primary-container: #c9764f;
+  --color-brand-secondary: #e0a06a;
+  --color-brand-tertiary: #e8b4a0;
+}
+
+/* ── Warm Minimalism · LIGHT ────────────────────────────────────────────────
+   Warm off-white (never pure white) + terracotta accent. */
+:root[data-theme="warm-light"] {
+  color-scheme: light;
+  --color-surface-dim: #ece5db;
+  --color-surface-container-low: #f5f0e8;
+  --color-surface-container: #faf7f1;    /* warm off-white */
+  --color-surface-container-high: #efe8dd;
+  --color-surface-container-highest: #e5dccd;
+  --color-surface-bright: #ffffff;
+
+  --color-on-surface: #2b2119;           /* warm near-black text */
+  --color-on-surface-variant: #6c5d4d;
+  --color-outline-variant: #d9ccbb;
+
+  --color-brand-primary: #b6602f;        /* terracotta (readable on light) */
+  --color-brand-primary-container: #9c4f22;
+  --color-brand-secondary: #a06a3a;
+  --color-brand-tertiary: #c9764f;
 }
 
 @layer base {

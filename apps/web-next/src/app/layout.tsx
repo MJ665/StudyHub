@@ -2,8 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import { ReactQueryProvider } from '@/lib/ReactQueryProvider';
 import { BrandingProvider } from '@/components/common/Branding';
 import { ServiceWorkerRegistrar } from '@/components/common/ServiceWorkerRegistrar';
+import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import './globals.css';
 import 'katex/dist/katex.min.css';
+
+const DEFAULT_THEME = process.env.NEXT_PUBLIC_DEFAULT_THEME || 'classic';
 
 export const metadata: Metadata = {
   title: 'StudyBuddy — AI Assessment Platform',
@@ -31,6 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* No-flash theme: set data-theme before paint from stored pref / env default. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('sb-theme')||'${DEFAULT_THEME}';if(t&&t!=='classic')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+          }}
+        />
         {/* Google Fonts — Inter */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -46,11 +55,13 @@ export default function RootLayout({
       </head>
       <body>
         <ServiceWorkerRegistrar />
-        <ReactQueryProvider>
-          <BrandingProvider>
-            {children}
-          </BrandingProvider>
-        </ReactQueryProvider>
+        <ThemeProvider>
+          <ReactQueryProvider>
+            <BrandingProvider>
+              {children}
+            </BrandingProvider>
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
