@@ -65,21 +65,28 @@ export default function KTAnalyticsView() {
     );
   }
 
-  // Pre-process chart data
-  const coverageOverTime = summary?.coverage_over_time || [
-    { month: 'Jan', score: 65, docs: 12 },
-    { month: 'Feb', score: 70, docs: 19 },
-    { month: 'Mar', score: 72, docs: 24 },
-    { month: 'Apr', score: 78, docs: 31 },
-    { month: 'May', score: 85, docs: 45 },
-  ];
+  // Real analytics from Postgres (no mock fallbacks). Field names match the
+  // backend /kt/insights/summary payload.
+  const coverage = Math.round(summary?.overall_health ?? 0);
+  const docCount = summary?.doc_count ?? 0;
+  const ingestedCount = summary?.ingested_count ?? 0;
+  const entityCount = summary?.graph?.entities ?? 0;
 
-  const radarData = summary?.radar_data || [
-    { subject: 'Architecture', A: 85, B: 110, fullMark: 150 },
-    { subject: 'Database', A: 98, B: 130, fullMark: 150 },
-    { subject: 'FastAPI Spec', A: 86, B: 130, fullMark: 150 },
-    { subject: 'Onboarding', A: 70, B: 100, fullMark: 150 },
-    { subject: 'Security Auth', A: 90, B: 90, fullMark: 150 },
+  // Ingestion activity over the last 30 days (documents created per day).
+  const activityData = (summary?.activity_last_30d || []).map((d: any) => ({
+    month: (d.date || '').slice(5), // MM-DD
+    docs: d.count,
+  }));
+
+  // Knowledge-domain health radar, built from the real metrics object.
+  const m = summary?.metrics || {};
+  const radarData = [
+    { subject: 'Coverage', A: Math.round(m.coverage_health ?? 0) },
+    { subject: 'Freshness', A: Math.round(m.freshness_health ?? 0) },
+    { subject: 'Depth', A: Math.round(m.depth_health ?? 0) },
+    { subject: 'Engagement', A: Math.round(m.engagement_health ?? 0) },
+    { subject: 'Collaboration', A: Math.round(m.collaboration_health ?? 0) },
+    { subject: 'Handoff', A: Math.round(m.handoff_health ?? 0) },
   ];
 
   return (
@@ -99,28 +106,28 @@ export default function KTAnalyticsView() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Knowledge Coverage</p>
-          <h3 className="text-3xl font-black text-white">{summary?.average_coverage_score || 82}%</h3>
+          <h3 className="text-3xl font-black text-white">{coverage}%</h3>
           <div className="w-full h-1 bg-slate-950 rounded-full overflow-hidden mt-3 border border-slate-850">
-            <div className="h-full bg-gradient-to-r from-indigo-500 to-teal-500" style={{ width: `${summary?.average_coverage_score || 82}%` }} />
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-teal-500" style={{ width: `${coverage}%` }} />
           </div>
         </div>
 
         <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Total Documents</p>
-          <h3 className="text-3xl font-black text-white">{summary?.total_documents || 148}</h3>
-          <p className="text-[10px] text-emerald-400 font-bold mt-2">Active codebase indexes</p>
+          <h3 className="text-3xl font-black text-white">{docCount}</h3>
+          <p className="text-[10px] text-emerald-400 font-bold mt-2">Documents in the workspace</p>
         </div>
 
         <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Ingestion Efficiency</p>
-          <h3 className="text-3xl font-black text-emerald-400">{summary?.ingestion_ratio || '92.4'}%</h3>
-          <p className="text-[10px] text-slate-500 font-bold mt-2">Successfully loaded in graph</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Indexed for retrieval</p>
+          <h3 className="text-3xl font-black text-emerald-400">{ingestedCount}</h3>
+          <p className="text-[10px] text-slate-500 font-bold mt-2">of {docCount} approved &amp; ingested</p>
         </div>
 
         <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Peer endorsements</p>
-          <h3 className="text-3xl font-black text-indigo-400">{summary?.endorsement_count || 37}</h3>
-          <p className="text-[10px] text-slate-500 font-bold mt-2">Validated by senior staff</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Graph entities</p>
+          <h3 className="text-3xl font-black text-indigo-400">{entityCount}</h3>
+          <p className="text-[10px] text-slate-500 font-bold mt-2">Extracted knowledge nodes</p>
         </div>
       </div>
 
@@ -131,12 +138,17 @@ export default function KTAnalyticsView() {
         <div className="bg-slate-900 border border-slate-850 rounded-[2rem] p-8 space-y-6">
           <h3 className="text-lg font-bold text-white flex items-center gap-2">
             <Activity className="text-indigo-400" size={18} />
-            <span>Coverage Growth & Ingestions</span>
+            <span>Documentation Activity (30 days)</span>
           </h3>
 
           <div className="h-80 w-full">
+            {activityData.length === 0 ? (
+              <div className="h-full flex items-center justify-center text-sm text-slate-500">
+                No documents created in the last 30 days.
+              </div>
+            ) : (
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={coverageOverTime} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <AreaChart data={activityData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2}/>
@@ -145,11 +157,12 @@ export default function KTAnalyticsView() {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis dataKey="month" stroke="#64748b" fontSize={11} tickLine={false} />
-                <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
+                <YAxis stroke="#64748b" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }} />
-                <Area type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" name="Coverage Score %" />
+                <Area type="monotone" dataKey="docs" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" name="Documents created" />
               </AreaChart>
             </ResponsiveContainer>
+            )}
           </div>
         </div>
 
@@ -165,9 +178,8 @@ export default function KTAnalyticsView() {
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                 <PolarGrid stroke="#1e293b" />
                 <PolarAngleAxis dataKey="subject" stroke="#64748b" fontSize={10} />
-                <PolarRadiusAxis stroke="#1e293b" fontSize={9} />
-                <Radar name="Target Base" dataKey="B" stroke="#6366f1" fill="#6366f1" fillOpacity={0.1} />
-                <Radar name="Current Base" dataKey="A" stroke="#14b8a6" fill="#14b8a6" fillOpacity={0.2} />
+                <PolarRadiusAxis stroke="#1e293b" fontSize={9} domain={[0, 100]} />
+                <Radar name="Health %" dataKey="A" stroke="#14b8a6" fill="#14b8a6" fillOpacity={0.25} />
                 <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }} />
               </RadarChart>
             </ResponsiveContainer>

@@ -56,7 +56,7 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                     <div className="flex gap-4">
                       <input 
                         type="text"
-                        placeholder="Add technology (e.g. Neo4j, Redis, FastAPI)..."
+                        placeholder="Add technology (e.g. PostgreSQL, Redis, FastAPI)..."
                         className="flex-1 bg-slate-950/50 border border-slate-800 rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-white placeholder:text-slate-800"
                         value={tagInput}
                         onChange={e => setTagInput(e.target.value)}

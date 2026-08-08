@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Edit3, Eye, Save, Loader2 } from 'lucide-react';
+import { Edit3, Eye, Save, Loader2, Send } from 'lucide-react';
 import Editor from '@monaco-editor/react';
 import ApiService from '@/services/ApiService';
 import { toast } from 'react-hot-toast';
+import EnterpriseMarkdownPreview from './EnterpriseMarkdownPreview';
 
 export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, onSave: (d: any) => void, onCancel: () => void }) {
   const [formData, setFormData] = useState({
@@ -21,8 +22,12 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
     change_summary: '',
   });
   const [saving, setSaving] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
-  
+
+  const status = (doc.status || 'DRAFT').toString().toUpperCase();
+  const canSubmit = status === 'DRAFT' || status === 'REJECTED';
+
   const handleSave = async () => {
     setSaving(true);
     try {
@@ -36,6 +41,26 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
       toast.error(err.message || 'Save failed');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleFinalize = async () => {
+    setSubmitting(true);
+    try {
+      // Persist the latest edits first, then submit for mentor review. The
+      // backend assigns the doc's mentor (or falls back to any mentor in scope)
+      // so it lands in a review inbox.
+      await ApiService.request(`/kt/documents/${doc.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(formData)
+      });
+      const updated = await ApiService.submitKTDocument(doc.id, doc.mentor_id ? { mentor_id: doc.mentor_id } : {});
+      toast.success('Submitted for review — a mentor has been notified.');
+      onSave(updated || { ...doc, status: 'SUBMITTED' });
+    } catch (err: any) {
+      toast.error(err.message || 'Submit failed');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -60,10 +85,16 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
             {previewMode ? 'Edit' : 'Preview'}
           </button>
           <button onClick={onCancel} className="text-slate-400 px-3">Cancel</button>
-          <button onClick={handleSave} disabled={saving} className="bg-indigo-600 px-4 py-2 rounded-xl text-white flex items-center gap-2">
+          <button onClick={handleSave} disabled={saving || submitting} className="bg-indigo-600 px-4 py-2 rounded-xl text-white flex items-center gap-2">
             {saving ? <Loader2 className="animate-spin" size={14} /> : <Save size={14} />}
             Save Changes
           </button>
+          {canSubmit && (
+            <button onClick={handleFinalize} disabled={saving || submitting} className="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-xl text-white flex items-center gap-2 font-bold">
+              {submitting ? <Loader2 className="animate-spin" size={14} /> : <Send size={14} />}
+              Finalize &amp; Submit for review
+            </button>
+          )}
         </div>
       </div>
       
@@ -75,7 +106,7 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
         className="text-3xl font-black bg-transparent border-b border-slate-800 pb-2 text-white focus:outline-none focus:border-indigo-500 w-full"
       />
       
-      {/* Monaco Editor for body */}
+      {/* Monaco Editor for body + live markdown preview */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-[600px]">
         <div className={previewMode ? 'hidden lg:block' : 'block col-span-2'}>
           <Editor
@@ -94,6 +125,13 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
             }}
           />
         </div>
+        {previewMode && (
+          <div className="block col-span-1 max-h-[600px] overflow-y-auto custom-scrollbar bg-slate-950 border border-slate-800 rounded-2xl p-6">
+            {formData.body_markdown?.trim()
+              ? <EnterpriseMarkdownPreview content={formData.body_markdown} showToc={false} />
+              : <p className="text-slate-500 text-sm italic">Nothing to preview yet — start writing in the editor.</p>}
+          </div>
+        )}
       </div>
       
       {/* Structured fields edit */}

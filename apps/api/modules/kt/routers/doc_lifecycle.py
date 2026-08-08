@@ -487,6 +487,20 @@ async def submit_document(
     if body.mentor_id:
         doc.mentor_id = body.mentor_id
 
+    # Fallback: if no mentor was ever chosen, route to any mentor in the
+    # author's org so the doc actually lands in a review inbox (otherwise the
+    # inbox filter — mentor-assigned only — hides it and the loop stalls).
+    if not doc.mentor_id:
+        fallback_mentor = (
+            await db.execute(
+                select(User.id)
+                .where(User.role == "Mentor", User.organization_id == org_id, User.is_active == True)  # noqa: E712
+                .limit(1)
+            )
+        ).scalar_one_or_none()
+        if fallback_mentor:
+            doc.mentor_id = fallback_mentor
+
     logger.info(
         f"📄 Doc {doc.id} submitted for review by user {uid} to mentor {doc.mentor_id}"
     )

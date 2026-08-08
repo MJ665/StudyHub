@@ -351,7 +351,7 @@ export default function KTMentorInboxView() {
             <div className="bg-slate-900/10 border border-slate-850 rounded-[2rem] p-12 text-center">
               <Mail className="mx-auto text-slate-700 mb-3" size={36} />
               <p className="text-slate-400 font-bold">Review Inbox Clear</p>
-              <p className="text-xs text-slate-500 mt-1">All incoming engineering docs are validated and indexed in the Neo4j knowledge graph.</p>
+              <p className="text-xs text-slate-500 mt-1">All incoming engineering docs are validated, embedded, and indexed into the knowledge graph for grounded retrieval.</p>
             </div>
           )}
         </div>

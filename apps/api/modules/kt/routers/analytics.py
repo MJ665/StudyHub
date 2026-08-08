@@ -20,7 +20,12 @@ async def mentor_inbox(
     )
     role = _db_user_res.scalar_one_or_none() or current_user.get("role", "Member")
 
-    q = select(KTDocument).where(
+    from sqlalchemy.orm import selectinload
+
+    # Eager-load endorsements: KTDocumentOut serializes them during
+    # model_validate, and a lazy load in this async path raises MissingGreenlet
+    # (500). This only surfaced once submitted docs actually reached the inbox.
+    q = select(KTDocument).options(selectinload(KTDocument.endorsements)).where(
         KTDocument.organization_id == org_id,
         KTDocument.status.in_([DocStatusEnum.SUBMITTED, DocStatusEnum.UNDER_REVIEW]),
     )

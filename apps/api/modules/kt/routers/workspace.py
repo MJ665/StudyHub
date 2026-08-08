@@ -81,28 +81,28 @@ async def search_coauthors(
     Frontend shows this in a picker — NOT free text entry.
     """
     uid = int(current_user["sub"])
-    org_id = int(current_user["organization_id"])
 
-    from models import Department, Group
+    from auth_utils import caller_super_org_id_async
+    from models import Group, Organization
 
-    # Multi-tenant scoping: find users belonging to departments in this org
+    # Co-authors are drawn from the whole super-organization (content is shared
+    # super-org-wide), not just the caller's single org. The previous org+
+    # department-join scoping returned "No users found" for anyone whose org
+    # differed or who had no department.
+    super_id = await caller_super_org_id_async(current_user, db)
+
     query = (
         select(User.id, User.full_name, User.email, Group.name.label("group_name"))
         .outerjoin(Group, User.group_id == Group.id)
-        .outerjoin(
-            Department,
-            or_(
-                User.department_id == Department.id,
-                Group.department_id == Department.id,
-            ),
-        )
+        .outerjoin(Organization, User.organization_id == Organization.id)
         .where(
-            Department.organization_id == org_id,
             User.is_active == True,
             User.id != uid,
             or_(User.full_name.ilike(f"%{q}%"), User.email.ilike(f"%{q}%")),
         )
     )
+    if super_id is not None:
+        query = query.where(Organization.super_organization_id == super_id)
     if group_id:
         query = query.where(User.group_id == group_id)
 
