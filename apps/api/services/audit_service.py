@@ -86,13 +86,18 @@ def log_email_dispatch(
     Email Logging Protocol (AUD-301).
     Ensures administrative visibility of all outgoing system communications.
     """
+    # NOTE: EmailLog has no error_message column; fold any failure detail into
+    # the status string so nothing is lost, and avoid the TypeError that made
+    # every log_email_dispatch call 500 (e.g. performance interventions).
+    effective_status = status
+    if error_message and status != "sent":
+        effective_status = f"{status}: {error_message}"[:50]  # status is String(50)
     log_entry = models.EmailLog(
         user_id=user_id,
         recipient_email=recipient_email,
         email_type=email_type,
         subject=subject,
-        status=status,
-        error_message=error_message,
+        status=effective_status,
     )
     db.add(log_entry)
     if commit:

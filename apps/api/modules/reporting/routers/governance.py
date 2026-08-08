@@ -255,15 +255,25 @@ def seed_daily_on_demand(
 def notify_intervention(
     req: schemas.InterventionRequest,
     db: Session = Depends(get_db),
-    current_user: dict = Depends(require_ldadmin),
+    current_user: dict = Depends(require_mentor_or_above),
 ):
     """
-    SECTION 12: Trigger targeted performance interventions.
-    Enables L&D Executives to synchronize learning paths via direct email triggers.
+    SECTION 12: Trigger targeted performance interventions ("Dispatch
+    pedagogical guidance"). Available to mentors and above; a non-LDAdmin
+    caller may only target learners inside their own organization.
     """
+    from auth_utils import caller_org_id, is_platform_admin
     from services.email_service import send_intervention_email
 
     users = db.query(models.User).filter(models.User.id.in_(req.user_ids)).all()
+
+    # Scope: mentors/group-admins can only intervene on learners in their org.
+    if not is_platform_admin(current_user) and current_user.get("role") != "LDAdmin":
+        caller_org = caller_org_id(current_user)
+        users = [u for u in users if u.organization_id == caller_org]
+        if not users:
+            raise HTTPException(403, "No targeted learners are within your scope.")
+
     success_count = 0
 
     for user in users:
