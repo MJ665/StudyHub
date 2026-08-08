@@ -690,6 +690,18 @@ async def submit_exam(
     attempt.status = "expired" if expired else "submitted"
     attempt.submitted_at = _now()
 
+    # Mettl-style visibility: immediate reveals now (result_status=released);
+    # review_release hides the score until the conductor releases it. Back-compat
+    # with the legacy show_results_immediately flag.
+    _mode = settings.get("score_visibility_mode") or (
+        "immediate" if settings.get("show_results_immediately", True) else "review_release"
+    )
+    if _mode == "immediate":
+        attempt.result_status = "released"
+        attempt.released_at = _now()
+    else:
+        attempt.result_status = "pending"
+
     # Mark the candidate's invite as submitted (dashboard progression).
     _inv = await db.execute(
         select(models.ExamInvite).where(
@@ -704,9 +716,8 @@ async def submit_exam(
 
     await db.commit()
 
-    # Honor "show results immediately": when off, withhold the score at submit
-    # (the L&D releases results later); the candidate just sees a confirmation.
-    if not settings.get("show_results_immediately", True):
+    # Withhold the score at submit when results aren't released yet (review_release).
+    if attempt.result_status != "released":
         return {
             "attempt_id": attempt.id,
             "status": attempt.status,
@@ -928,22 +939,21 @@ def exam_attempts_for_review(
     db: Session = Depends(get_db),
     current_user: dict = Depends(require_mentor_or_above),
 ):
-    """Proctor review: attempts with score + integrity flag counts."""
+    """Conductor results/review: attempts with score, verdict, release status +
+    integrity flags. L&D (and Platform) see ALL candidates across the exam's
+    super-org — including exams a mentor conducted; mentors/group-admins stay
+    ORG-scoped to their own unit's candidates."""
+    from auth_utils import is_ld_admin_plus, is_platform_admin
+
     exam = db.query(models.Exam).filter(models.Exam.id == exam_id).first()
     assert_same_super_org(exam, current_user, db, "Exam")
-    # Attempts stay ORG-scoped: a sibling unit may reuse the exam but must not see
-    # this unit's candidates.
+
+    base_q = db.query(models.ExamAttempt).filter(models.ExamAttempt.exam_id == exam_id)
+    if not (is_ld_admin_plus(current_user) or is_platform_admin(current_user)):
+        # Mentor / GroupAdmin: only their own unit's candidates.
+        base_q = scope_to_org(base_q, models.ExamAttempt, current_user)
     attempts = (
-        scope_to_org(
-            db.query(models.ExamAttempt).filter(
-                models.ExamAttempt.exam_id == exam_id
-            ),
-            models.ExamAttempt,
-            current_user,
-        )
-        .order_by(models.ExamAttempt.started_at.desc())
-        .limit(limit)  # cap: a large cohort would otherwise return every attempt
-        .all()
+        base_q.order_by(models.ExamAttempt.started_at.desc()).limit(limit).all()
     )
 
     # Bug 8: resolve candidate identities so the review UI shows name + email
@@ -968,12 +978,219 @@ def exam_attempts_for_review(
                 "score": a.score,
                 "total": a.total,
                 "passed": a.passed,
+                # Effective verdict: conductor override (result_verdict) wins,
+                # else computed pass/fail.
+                "verdict": (a.result_verdict or ("pass" if a.passed else "fail")) if a.status != "in_progress" else None,
+                "result_status": a.result_status,
+                "released_at": a.released_at.isoformat() if a.released_at else None,
                 "flags": a.flags_count,
                 "submitted_at": a.submitted_at.isoformat() if a.submitted_at else None,
             }
             for a in attempts
         ]
     }
+
+
+# ── Mettl-style result release + manual verdict overrides ─────────────────────
+class ReleaseRequest(BaseModel):
+    attempt_ids: list[int]
+
+
+class MarkRequest(BaseModel):
+    attempt_ids: list[int]
+    verdict: str = Field(pattern="^(pass|fail|withhold)$")
+
+
+def _conductor_attempts(exam_id: int, attempt_ids, db, current_user):
+    """This exam's attempts by id, RBAC-scoped (LDAdmin+ = whole super-org,
+    mentor/group-admin = own org)."""
+    from auth_utils import is_ld_admin_plus, is_platform_admin
+
+    q = db.query(models.ExamAttempt).filter(
+        models.ExamAttempt.exam_id == exam_id,
+        models.ExamAttempt.id.in_(attempt_ids or []),
+    )
+    if not (is_ld_admin_plus(current_user) or is_platform_admin(current_user)):
+        q = scope_to_org(q, models.ExamAttempt, current_user)
+    return q.all()
+
+
+@router.post("/{exam_id}/results/release")
+def release_exam_results(
+    exam_id: int,
+    body: ReleaseRequest,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_mentor_or_above),
+):
+    """Reveal results to the selected candidates. Releasing a PASSING candidate
+    (when certificates are enabled) auto-issues their certificate + notifies
+    them. Non-selected candidates stay pending."""
+    exam = db.query(models.Exam).filter(models.Exam.id == exam_id).first()
+    assert_same_super_org(exam, current_user, db, "Exam")
+    attempts = _conductor_attempts(exam_id, body.attempt_ids, db, current_user)
+    certs_enabled = bool((exam.settings or {}).get("certificates_enabled"))
+    now = _now()
+    released = issued = 0
+    for a in attempts:
+        if a.status == "in_progress":
+            continue
+        a.result_status = "released"
+        a.released_at = now
+        a.released_by = int(current_user["sub"])
+        released += 1
+        verdict = a.result_verdict or ("pass" if a.passed else "fail")
+        db.add(models.Notification(
+            user_id=a.user_id, notification_type="exam_result",
+            title="Your exam result is available",
+            body=f'Results for "{exam.title}" have been released.',
+            link_type="exam", link_id=exam_id,
+        ))
+        if certs_enabled and verdict == "pass":
+            issued += 1
+            db.add(models.Notification(
+                user_id=a.user_id, notification_type="certificate",
+                title="Certificate issued",
+                body=f'Your certificate for "{exam.title}" is ready to download.',
+                link_type="exam", link_id=exam_id,
+            ))
+    db.commit()
+    from services.audit_service import log_admin_action
+
+    log_admin_action(
+        db=db, actor_id=int(current_user["sub"]), actor_role=current_user["role"],
+        action="RELEASE_EXAM_RESULTS", resource_type="EXAM", resource_id=exam_id,
+        details={"released": released, "certificates_issued": issued},
+    )
+    return {"success": True, "released": released, "certificates_issued": issued}
+
+
+@router.post("/{exam_id}/results/mark")
+def mark_exam_results(
+    exam_id: int,
+    body: MarkRequest,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_mentor_or_above),
+):
+    """Force a manual verdict (pass/fail — e.g. video-caught cheating or an
+    exception) or withhold results for the selected candidates."""
+    exam = db.query(models.Exam).filter(models.Exam.id == exam_id).first()
+    assert_same_super_org(exam, current_user, db, "Exam")
+    attempts = _conductor_attempts(exam_id, body.attempt_ids, db, current_user)
+    updated = 0
+    for a in attempts:
+        if body.verdict == "withhold":
+            a.result_status = "withheld"
+        else:
+            a.result_verdict = body.verdict
+            a.passed = body.verdict == "pass"  # keep computed field in sync
+        updated += 1
+    db.commit()
+    from services.audit_service import log_admin_action
+
+    log_admin_action(
+        db=db, actor_id=int(current_user["sub"]), actor_role=current_user["role"],
+        action="MARK_EXAM_RESULTS", resource_type="EXAM", resource_id=exam_id,
+        details={"updated": updated, "verdict": body.verdict},
+    )
+    return {"success": True, "updated": updated, "verdict": body.verdict}
+
+
+# ── Exam certificate (gated on certificates_enabled + released + passed) ───────
+def _exam_cert_gate(attempt, exam) -> bool:
+    if not attempt or not exam:
+        return False
+    certs_enabled = bool((exam.settings or {}).get("certificates_enabled"))
+    verdict = attempt.result_verdict or ("pass" if attempt.passed else "fail")
+    return certs_enabled and attempt.result_status == "released" and verdict == "pass"
+
+
+@router.get("/attempts/{attempt_id}/certificate")
+def exam_certificate(
+    attempt_id: int,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(verify_token),
+):
+    from urllib.parse import quote
+
+    from modules.assessment.routers.quiz_shared import (
+        CERT_TOKEN_TTL_SECONDS,
+        _certificate_token,
+    )
+    from services.certificate_service import verification_code
+
+    a = db.query(models.ExamAttempt).filter(models.ExamAttempt.id == attempt_id).first()
+    if not a:
+        raise HTTPException(404, "Attempt not found")
+    if a.user_id != int(current_user["sub"]):
+        raise HTTPException(403, "Not your attempt.")
+    exam = db.query(models.Exam).filter(models.Exam.id == a.exam_id).first()
+    if not _exam_cert_gate(a, exam):
+        raise HTTPException(403, "Exam certificate is not available for this attempt.")
+
+    import os
+    import time as _time
+
+    _exp = int(_time.time()) + CERT_TOKEN_TTL_SECONDS
+    _tok = _certificate_token(attempt_id, _exp)
+    path = f"/api/exams/attempts/{attempt_id}/certificate/download?exp={_exp}&token={_tok}"
+    base = os.getenv("FRONTEND_URL", "https://studybuddy.mj665.in").rstrip("/")
+    return {
+        "success": True,
+        "certificate_url": path,
+        "verification_id": verification_code("exam", attempt_id),
+        "share_url": "https://www.linkedin.com/sharing/share-offsite/?url=" + quote(f"{base}{path}", safe=""),
+    }
+
+
+@router.get("/attempts/{attempt_id}/certificate/download")
+def exam_certificate_download(
+    attempt_id: int,
+    exp: int = Query(...),
+    token: str = Query(...),
+    db: Session = Depends(get_db),
+):
+    from fastapi.responses import Response
+
+    from modules.assessment.routers.quiz_shared import _verify_certificate_token
+    from services import certificate_service
+
+    _verify_certificate_token(attempt_id, exp, token)
+    a = db.query(models.ExamAttempt).filter(models.ExamAttempt.id == attempt_id).first()
+    if not a:
+        raise HTTPException(404, "Attempt not found")
+    exam = db.query(models.Exam).filter(models.Exam.id == a.exam_id).first()
+    if not _exam_cert_gate(a, exam):
+        raise HTTPException(403, "Exam certificate is not available for this attempt.")
+    user = db.query(models.User).filter(models.User.id == a.user_id).first()
+
+    _brand = "StudyBuddy"
+    try:
+        _org = (
+            db.query(models.Organization)
+            .filter(models.Organization.id == exam.organization_id)
+            .first()
+            if exam.organization_id else None
+        )
+        if _org:
+            _brand = getattr(_org, "brand_name", None) or _org.name
+    except Exception:  # noqa: BLE001
+        pass
+    sig_name, sig_title, sig_bytes = certificate_service.resolve_signatory(
+        db, exam.super_organization_id
+    )
+    total = a.total or 0
+    pct = (a.score / total * 100) if total else 0.0
+    pdf = certificate_service.render_certificate_pdf(
+        recipient_name=(user.full_name if user else "Participant"),
+        title=(exam.title or "Examination"),
+        score=a.score, total=a.total, pct=pct, passed=True,
+        verification_id=certificate_service.verification_code("exam", attempt_id),
+        kind_label="Achievement",
+        achievement_line="has successfully passed the examination",
+        org_brand=_brand, signatory_name=sig_name, signatory_title=sig_title,
+        signature_png_bytes=sig_bytes,
+    )
+    return Response(content=pdf, media_type="application/pdf")
 
 
 @router.get("/{exam_id}/stats")
