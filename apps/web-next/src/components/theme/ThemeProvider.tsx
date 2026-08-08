@@ -21,11 +21,29 @@ const THEME_IDS = THEME_REGISTRY.map((t) => t.id);
 const ENV_DEFAULT = (process.env.NEXT_PUBLIC_DEFAULT_THEME as Theme) || 'classic';
 const STORAGE_KEY = 'sb-theme';
 
+// Native shell colors per theme (mirror globals.css --color-surface-dim) so the
+// Expo WebView wrapper can match its status bar + background to the web theme.
+const NATIVE_SHELL: Record<Theme, { bg: string; dark: boolean }> = {
+  classic: { bg: '#0c1324', dark: true },
+  'warm-dark': { bg: '#14100c', dark: true },
+  'warm-light': { bg: '#faf7f1', dark: false },
+};
+
+function postThemeToNative(t: Theme) {
+  if (typeof window === 'undefined') return;
+  const rn = (window as any).ReactNativeWebView;
+  if (!rn?.postMessage) return;
+  try {
+    rn.postMessage(JSON.stringify({ type: 'THEME', theme: t, ...NATIVE_SHELL[t] }));
+  } catch { /* ignore */ }
+}
+
 function applyTheme(t: Theme) {
   if (typeof document === 'undefined') return;
   const el = document.documentElement;
   if (t === 'classic') el.removeAttribute('data-theme');
   else el.setAttribute('data-theme', t);
+  postThemeToNative(t); // keep the mobile shell in sync when inside the WebView
 }
 
 interface ThemeCtx { theme: Theme; setTheme: (t: Theme) => void; }

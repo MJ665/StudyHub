@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
 import type { WebViewNavigation } from 'react-native-webview';
+import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as SplashScreen from 'expo-splash-screen';
@@ -67,6 +68,9 @@ export default function WebAppScreen() {
   const [online, setOnline] = useState(true);
   const [errored, setErrored] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
+  // Native shell colors, kept in sync with the web theme via the THEME bridge.
+  const [shellBg, setShellBg] = useState('#0c1324');   // Classic default
+  const [shellDark, setShellDark] = useState(true);
 
   // Never leave the native splash stuck: once we decide to show the offline/error
   // screen (a cold launch that's offline or a failed first load never fires
@@ -124,6 +128,12 @@ export default function WebAppScreen() {
     try {
       const msg = JSON.parse(e.nativeEvent.data);
       if (msg?.type === 'AUTH' && msg.token) setAuthToken(msg.token);
+      // Web theme bridge: match the native shell (status bar + background) to
+      // the theme the user picked inside the WebView (Classic/Warm-Dark/Light).
+      if (msg?.type === 'THEME' && typeof msg.bg === 'string') {
+        setShellBg(msg.bg);
+        setShellDark(msg.dark !== false);
+      }
     } catch (err) {
       // Non-JSON bridge messages are expected; record as a breadcrumb only.
       Sentry.addBreadcrumb({ category: 'webview', message: 'non-JSON message', level: 'debug' });
@@ -163,7 +173,8 @@ export default function WebAppScreen() {
   }
 
   return (
-    <View style={[styles.fill, { paddingTop: insets.top, backgroundColor: '#0c1324' }]}>
+    <View style={[styles.fill, { paddingTop: insets.top, backgroundColor: shellBg }]}>
+      <StatusBar style={shellDark ? 'light' : 'dark'} backgroundColor={shellBg} />
       <ScrollView
         contentContainerStyle={styles.fill}
         // ScrollView only exists to host pull-to-refresh; the WebView owns scroll.
@@ -199,7 +210,7 @@ export default function WebAppScreen() {
               );
             }
           }}
-          renderError={() => <View style={{ flex: 1, backgroundColor: '#0c1324' }} />}
+          renderError={() => <View style={{ flex: 1, backgroundColor: shellBg }} />}
           // Persistence + storage so login survives restarts.
           javaScriptEnabled
           domStorageEnabled
@@ -210,7 +221,7 @@ export default function WebAppScreen() {
           allowsInlineMediaPlayback
           mediaCapturePermissionGrantType="grant"
           setSupportMultipleWindows={false}
-          style={{ backgroundColor: '#0c1324' }}
+          style={{ backgroundColor: shellBg }}
         />
       </ScrollView>
 
