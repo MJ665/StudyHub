@@ -315,6 +315,17 @@ Rules:
             raw_qs = json.loads(raw)
             from schemas_ai import AIQuizQuestionBase
 
+            def _infer_format(text: str) -> str:
+                """Align generated questions with the canonical rich schema:
+                detect LaTeX ($…$) / fenced code, else markdown (renders plain
+                text identically but enables rich formatting downstream)."""
+                t = text or ""
+                if "```" in t:
+                    return "code" if t.strip().startswith("```") else "markdown"
+                if "$" in t and t.count("$") >= 2:
+                    return "latex"
+                return "markdown"
+
             questions = []
             for item in raw_qs:
                 try:
@@ -322,11 +333,16 @@ Rules:
                         # Free-text: require question + model_answer (no options).
                         if not item.get("question") or not item.get("model_answer"):
                             raise ValueError("missing question/model_answer")
+                        item.setdefault("content_format", _infer_format(item.get("question", "")))
+                        item.setdefault("question_type", _qt)
                         questions.append(item)
                     else:
                         q_val = AIQuizQuestionBase(**item)
-                        # Preserve the generated question_type if the model set one.
-                        questions.append({**q_val.model_dump(), "question_type": item.get("question_type", _qt)})
+                        questions.append({
+                            **q_val.model_dump(),
+                            "question_type": item.get("question_type", _qt),
+                            "content_format": item.get("content_format") or _infer_format(item.get("question", "")),
+                        })
                 except Exception as e:
                     logger.warning(f"AI Quiz JSON array element validation failed: {e}")
 
@@ -380,6 +396,7 @@ Rules:
                         options=[] if _is_free else q.get("options", []),
                         answer="" if _is_free else q.get("correct_answer", ""),
                         question_type=_qt,
+                        content_format=q.get("content_format", "markdown"),
                         model_answer=q.get("model_answer") if _is_free else None,
                         rubric={"criteria": q.get("rubric")} if (_is_free and q.get("rubric")) else None,
                         difficulty=q.get("difficulty", req.difficulty),
