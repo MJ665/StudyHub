@@ -48,7 +48,7 @@ export default function AssessmentResultPage() {
       className="min-h-screen bg-slate-950 text-slate-200 flex items-center justify-center p-6"
     >
       <div className="w-full max-w-2xl">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10 shadow-2xl text-center mb-8 relative overflow-hidden">
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 shadow-2xl text-center mb-8 relative overflow-hidden">
           <div
             className={`absolute inset-0 opacity-5 pointer-events-none ${
               accuracy >= 70
@@ -74,7 +74,7 @@ export default function AssessmentResultPage() {
           <h2 className="text-3xl font-bold text-white mb-2">Quiz Complete!</h2>
           <p className="text-slate-400 mb-8">{bank?.name || 'Assessment'}</p>
 
-          <div className="grid grid-cols-4 gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
               <Trophy size={18} className="text-indigo-400 mx-auto mb-2" />
               <p className="text-xl font-bold text-white">

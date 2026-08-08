@@ -12,6 +12,23 @@ import {
   MessageSquare, Info, Loader2
 } from 'lucide-react';
 import ApiService from '../../services/ApiService';
+import { useRouter } from 'next/navigation';
+
+/** Map a notification's link_type/link_id to an in-app route (or null). */
+function notifLink(n: any): string | null {
+  const t = (n?.link_type || '').toLowerCase();
+  const id = n?.link_id;
+  if (!t) return null;
+  switch (t) {
+    case 'exam': return id ? `/exam/${id}` : '/exams';
+    case 'attempt': return '/history';
+    case 'document':
+    case 'kt': return '/kt';
+    case 'assignment': return '/assignments';
+    case 'profile': return '/profile';
+    default: return null;
+  }
+}
 
 function DynamicIcon({ name, size = 12, className = '' }: { name: string; size?: number; className?: string }) {
   const IconComponent = (LucideIcons as any)[name];
@@ -41,6 +58,13 @@ export default function NotificationCenter({ compact = false }: NotificationCent
   const [filter, setFilter] = useState<'all' | 'unread'>('all');
   const [typeConfig, setTypeConfig] = useState<any[]>([]);
   const panelRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const handleNotifClick = (n: any) => {
+    if (!n.is_read) markRead(n.id);
+    const href = notifLink(n);
+    if (href) { setOpen(false); router.push(href); }
+  };
 
   useEffect(() => {
     ApiService.getSystemConfig().then(config => {
@@ -266,7 +290,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                           className={`group relative flex items-start gap-3 px-5 py-4 transition-colors hover:bg-white/[0.02] cursor-pointer ${
                             !n.is_read ? 'bg-indigo-500/[0.03]' : ''
                           }`}
-                          onClick={() => !n.is_read && markRead(n.id)}
+                          onClick={() => handleNotifClick(n)}
                         >
                           {/* unread dot */}
                           {!n.is_read && (
@@ -280,10 +304,18 @@ export default function NotificationCenter({ compact = false }: NotificationCent
 
                           {/* Content */}
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs font-bold leading-relaxed ${n.is_read ? 'text-slate-400' : 'text-white'}`}>
-                              {n.message}
+                            <p className={`text-xs font-bold leading-relaxed break-words ${n.is_read ? 'text-slate-400' : 'text-white'}`}>
+                              {n.title || n.message}
                             </p>
+                            {n.body && (
+                              <p className="text-[11px] text-slate-400 leading-relaxed mt-0.5 break-words">
+                                {n.body}
+                              </p>
+                            )}
                             <div className="flex items-center gap-2 mt-1">
+                              {notifLink(n) && (
+                                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400">View →</span>
+                              )}
                               <span className={`text-[9px] font-black uppercase tracking-widest ${config.color}`}>
                                 {n.notification_type?.replace(/_/g, ' ')}
                               </span>
