@@ -119,7 +119,7 @@ export default function KTViewport({ user }: KTViewportProps) {
             onEndorse={() => handleEndorse(selectedDocId)}
           />
         ) : (
-          <div className="p-8 text-slate-500">No document selected.</div>
+          <div className="p-8 text-[var(--color-on-surface-variant)]">No document selected.</div>
         );
       
       case 'graph':
@@ -167,7 +167,7 @@ export default function KTViewport({ user }: KTViewportProps) {
   // ── Gate screens (consumers only) ────────────────────────────────────────
   if (gate === 'checking') {
     return (
-      <div className="flex-1 flex items-center justify-center text-slate-400">
+      <div className="flex-1 flex items-center justify-center text-[var(--color-on-surface-variant)]">
         <Loader2 className="animate-spin mr-2" size={18} /> Verifying knowledge access…
       </div>
     );
@@ -175,12 +175,12 @@ export default function KTViewport({ user }: KTViewportProps) {
   if (gate === 'locked') {
     return (
       <div className="flex-1 flex items-center justify-center p-6">
-        <div className="max-w-md w-full rounded-2xl bg-slate-900 border border-slate-800 p-8 text-center">
+        <div className="max-w-md w-full rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 text-center">
           <div className="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-4">
-            <KeyRound className="text-indigo-400" size={26} />
+            <KeyRound className="text-[var(--color-brand-primary)]" size={26} />
           </div>
-          <h2 className="text-xl font-black text-white mb-2">Access key required</h2>
-          <p className="text-slate-400 text-sm mb-6">
+          <h2 className="text-xl font-black text-[var(--color-on-surface)] mb-2">Access key required</h2>
+          <p className="text-[var(--color-on-surface-variant)] text-sm mb-6">
             The Knowledge Hub is protected. Enter the access key shared with you to
             unlock the projects and chatbot you&apos;ve been granted.
           </p>
@@ -189,13 +189,13 @@ export default function KTViewport({ user }: KTViewportProps) {
             onChange={(e) => setKeyInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && redeem()}
             placeholder="sh_kt_…"
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2.5 text-sm font-mono text-white mb-3 focus:outline-none focus:border-indigo-500"
+            className="w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-3 py-2.5 text-sm font-mono text-[var(--color-on-surface)] mb-3 focus:outline-none focus:border-indigo-500"
           />
           {gateError && <p className="text-rose-400 text-xs mb-3">{gateError}</p>}
           <button
             onClick={redeem}
             disabled={redeeming || !keyInput.trim()}
-            className="w-full rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 py-2.5 font-bold text-sm text-white"
+            className="w-full rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 py-2.5 font-bold text-sm text-[var(--color-on-surface)]"
           >
             {redeeming ? 'Verifying…' : 'Unlock knowledge'}
           </button>
@@ -231,7 +231,7 @@ export default function KTViewport({ user }: KTViewportProps) {
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               onClick={() => setHistoryDocId(null)}
-              className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm"
+              className="fixed inset-0 z-40 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm"
             />
             {/* Slide-out Panel */}
             <motion.div
@@ -239,7 +239,7 @@ export default function KTViewport({ user }: KTViewportProps) {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 w-[450px] h-screen z-50 shadow-2xl bg-slate-900 border-l border-slate-800"
+              className="fixed top-0 right-0 w-[450px] h-screen z-50 shadow-2xl bg-[var(--color-surface-container)] border-l border-[var(--color-outline-variant)]"
             >
               <KnowledgeVersionHistory
                 docId={historyDocId}

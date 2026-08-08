@@ -53,11 +53,11 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
         <div className="p-8 relative">
           <div className="flex justify-between items-start mb-6">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/40 rounded-2xl text-indigo-600 dark:text-indigo-400">
+              <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/40 rounded-2xl text-indigo-600 dark:text-[var(--color-brand-primary)]">
                 <Sparkles className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-xl font-black text-gray-900 dark:text-white">Daily Challenge</h2>
+                <h2 className="text-xl font-black text-gray-900 dark:text-[var(--color-on-surface)]">Daily Challenge</h2>
                 <div className="flex items-center gap-2 mt-0.5">
                   <span className="text-xs font-semibold px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 rounded-full">
                     {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -103,7 +103,7 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                     >
                       <div className="flex items-center gap-3 relative z-10">
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
-                          selectedOption === opt ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+                          selectedOption === opt ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
                         }`}>
                           {String.fromCharCode(65 + idx)}
                         </div>
@@ -119,7 +119,7 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                   <button
                     onClick={handleSubmit}
                     disabled={!selectedOption || isSubmitting}
-                    className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 dark:disabled:bg-gray-800 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-700 disabled:bg-gray-300 dark:disabled:bg-gray-800 text-[var(--color-on-surface)] rounded-2xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? 'Verifying...' : (
                       <>
@@ -143,7 +143,7 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2">
+                <h3 className="text-2xl font-black text-gray-900 dark:text-[var(--color-on-surface)] mb-2">
                   {result.score > 0 ? 'Outstanding!' : 'Not quite right'}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 mb-8">
@@ -155,17 +155,17 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                 <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 flex justify-around mb-8 border border-gray-100 dark:border-gray-800">
                   <div className="text-center">
                     <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Score</p>
-                    <p className="text-xl font-black text-gray-900 dark:text-white">{result.score}/1</p>
+                    <p className="text-xl font-black text-gray-900 dark:text-[var(--color-on-surface)]">{result.score}/1</p>
                   </div>
                   <div className="text-center border-l border-gray-200 dark:border-gray-700 pl-8">
                     <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Time</p>
-                    <p className="text-xl font-black text-gray-900 dark:text-white">{result.time_taken || 0}s</p>
+                    <p className="text-xl font-black text-gray-900 dark:text-[var(--color-on-surface)]">{result.time_taken || 0}s</p>
                   </div>
                 </div>
 
                 <button
                   onClick={onClose}
-                  className="w-full py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-2xl font-bold transition-all active:scale-[0.98]"
+                  className="w-full py-4 bg-gray-900 dark:bg-white text-[var(--color-on-surface)] dark:text-gray-900 rounded-2xl font-bold transition-all active:scale-[0.98]"
                 >
                   Return to Dashboard
                 </button>

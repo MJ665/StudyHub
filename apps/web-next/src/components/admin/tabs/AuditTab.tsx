@@ -191,19 +191,19 @@ export default function AuditTab({ ctx }: { ctx: AdminTabCtx }) {
                   <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-8">
                       <div>
-                        <h3 className="text-2xl font-black text-white">Governance & Auditing</h3>
-                        <p className="text-[10px] text-indigo-400 font-black uppercase tracking-[0.3em] mt-1">Immutable Immutable Audit Trail (AUD-205)</p>
+                        <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Governance & Auditing</h3>
+                        <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">Immutable Immutable Audit Trail (AUD-205)</p>
                       </div>
-                      <div className="flex bg-slate-900 p-1 rounded-xl border border-white/5">
+                      <div className="flex bg-[var(--color-surface-container)] p-1 rounded-xl border border-white/5">
                         <button
                           onClick={() => setAuditSubTab('Audit')}
-                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Audit' ? 'bg-indigo-600 text-white' : 'text-slate-500 hover:text-white'}`}
+                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Audit' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                         >
                           Actions
                         </button>
                         <button
                           onClick={() => setAuditSubTab('Email')}
-                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Email' ? 'bg-indigo-600 text-white' : 'text-slate-500 hover:text-white'}`}
+                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Email' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                         >
                           Mail Logs
                         </button>
@@ -216,7 +216,7 @@ export default function AuditTab({ ctx }: { ctx: AdminTabCtx }) {
                       >
                         <Download size={16} /> Download Global Activity
                       </button>
-                      <div className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400">
+                      <div className="p-3 bg-indigo-500/10 rounded-2xl text-[var(--color-brand-primary)]">
                         <Clock size={20} />
                       </div>
                     </div>

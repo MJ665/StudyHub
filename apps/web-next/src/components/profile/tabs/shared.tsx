@@ -45,7 +45,7 @@ export function KPICard({ label, value, icon, color = 'indigo', sub }: {
   label: string; value: React.ReactNode; icon?: React.ReactNode; color?: string; sub?: string;
 }) {
   const colorMap: Record<string, string> = {
-    indigo: 'text-indigo-400 bg-indigo-500/10',
+    indigo: 'text-[var(--color-brand-primary)] bg-indigo-500/10',
     violet: 'text-violet-400 bg-violet-500/10',
     emerald: 'text-emerald-400 bg-emerald-500/10',
     amber: 'text-amber-400 bg-amber-500/10',
@@ -53,13 +53,13 @@ export function KPICard({ label, value, icon, color = 'indigo', sub }: {
   };
   const cls = colorMap[color] || colorMap.indigo;
   return (
-    <div className="p-5 bg-slate-900/60 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
+    <div className="p-5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
       {icon && (
         <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-3 ${cls}`}>
           {icon}
         </div>
       )}
-      <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">{label}</p>
+      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{label}</p>
       <p className={`text-2xl font-black ${cls.split(' ')[0]}`}>{value}</p>
       {sub && <p className="text-[10px] text-slate-600 font-bold mt-1">{sub}</p>}
     </div>
@@ -70,7 +70,7 @@ export function KPICard({ label, value, icon, color = 'indigo', sub }: {
 export function Field({ label, icon, children }: { label: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div>
-      <label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-2 block flex items-center gap-2">
+      <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2 block flex items-center gap-2">
         {icon} {label}
       </label>
       {children}

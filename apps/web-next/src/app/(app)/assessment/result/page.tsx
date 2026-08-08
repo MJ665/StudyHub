@@ -45,10 +45,10 @@ export default function AssessmentResultPage() {
     <motion.div
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="min-h-screen bg-slate-950 text-slate-200 flex items-center justify-center p-6"
+      className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-6"
     >
       <div className="w-full max-w-2xl">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 shadow-2xl text-center mb-8 relative overflow-hidden">
+        <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 md:p-10 shadow-2xl text-center mb-8 relative overflow-hidden">
           <div
             className={`absolute inset-0 opacity-5 pointer-events-none ${
               accuracy >= 70
@@ -71,48 +71,48 @@ export default function AssessmentResultPage() {
             {accuracy}%
           </div>
 
-          <h2 className="text-3xl font-bold text-white mb-2">Quiz Complete!</h2>
-          <p className="text-slate-400 mb-8">{bank?.name || 'Assessment'}</p>
+          <h2 className="text-3xl font-bold text-[var(--color-on-surface)] mb-2">Quiz Complete!</h2>
+          <p className="text-[var(--color-on-surface-variant)] mb-8">{bank?.name || 'Assessment'}</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-              <Trophy size={18} className="text-indigo-400 mx-auto mb-2" />
-              <p className="text-xl font-bold text-white">
+            <div className="bg-[var(--color-surface-container-high)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
+              <Trophy size={18} className="text-[var(--color-brand-primary)] mx-auto mb-2" />
+              <p className="text-xl font-bold text-[var(--color-on-surface)]">
                 {result.score}/{result.total}
               </p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider mt-1">Raw Score</p>
+              <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-wider mt-1">Raw Score</p>
             </div>
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-              <BrainCircuit size={18} className="text-indigo-400 mx-auto mb-2" />
-              <p className="text-xl font-bold text-white">
+            <div className="bg-[var(--color-surface-container-high)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
+              <BrainCircuit size={18} className="text-[var(--color-brand-primary)] mx-auto mb-2" />
+              <p className="text-xl font-bold text-[var(--color-on-surface)]">
                 {result.weighted_score?.toFixed(1) || '0.0'}/{result.total_weight?.toFixed(1) || '0.0'}
               </p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider mt-1">Weighted</p>
+              <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-wider mt-1">Weighted</p>
             </div>
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-              <Target size={18} className="text-indigo-400 mx-auto mb-2" />
-              <p className="text-xl font-bold text-white">{accuracy}%</p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider mt-1">Accuracy</p>
+            <div className="bg-[var(--color-surface-container-high)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
+              <Target size={18} className="text-[var(--color-brand-primary)] mx-auto mb-2" />
+              <p className="text-xl font-bold text-[var(--color-on-surface)]">{accuracy}%</p>
+              <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-wider mt-1">Accuracy</p>
             </div>
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-              <Clock size={18} className="text-indigo-400 mx-auto mb-2" />
-              <p className="text-xl font-bold text-white">
+            <div className="bg-[var(--color-surface-container-high)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
+              <Clock size={18} className="text-[var(--color-brand-primary)] mx-auto mb-2" />
+              <p className="text-xl font-bold text-[var(--color-on-surface)]">
                 {Math.floor(result.timeTaken / 60)}m {result.timeTaken % 60}s
               </p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider mt-1">Time</p>
+              <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-wider mt-1">Time</p>
             </div>
           </div>
 
           <div className="flex gap-3">
             <button
               onClick={() => bank && startBankQuiz(bank, quiz.questions.length)}
-              className="flex-1 flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition-all border border-slate-700"
+              className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all border border-[var(--color-outline-variant)]"
             >
               <RotateCcw size={18} /> Retake
             </button>
             <button
               onClick={() => router.push('/leaderboard')}
-              className="flex-1 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+              className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
             >
               View Leaderboard <ChevronRight size={18} />
             </button>
@@ -120,8 +120,8 @@ export default function AssessmentResultPage() {
         </div>
 
         {result.breakdown && result.breakdown.length > 0 && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-            <h3 className="font-bold text-white mb-4 text-lg">Answer Breakdown</h3>
+          <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 shadow-xl">
+            <h3 className="font-bold text-[var(--color-on-surface)] mb-4 text-lg">Answer Breakdown</h3>
             <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
               {result.breakdown.map((item, i) => (
                 <div
@@ -132,7 +132,7 @@ export default function AssessmentResultPage() {
                       : 'bg-rose-900/10 border-rose-500/20'
                   }`}
                 >
-                  <p className="text-slate-300 font-medium mb-2">
+                  <p className="text-[var(--color-on-surface-variant)] font-medium mb-2">
                     {i + 1}. {item.question_text}
                   </p>
                   <div className="flex gap-4 flex-wrap mb-2">

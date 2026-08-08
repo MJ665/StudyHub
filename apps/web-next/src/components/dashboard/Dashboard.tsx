@@ -191,10 +191,10 @@ export default function Dashboard({
               {myExams.map((e: any) => {
                 const open = e.window_state === 'open';
                 return (
-                  <div key={e.id} className="flex items-center justify-between gap-3 flex-wrap rounded-2xl bg-slate-900/60 border border-white/5 p-4">
+                  <div key={e.id} className="flex items-center justify-between gap-3 flex-wrap rounded-2xl bg-[var(--color-surface-container)]/60 border border-white/5 p-4">
                     <div className="min-w-0">
-                      <div className="font-bold text-white truncate">{e.title}</div>
-                      <div className="text-xs text-slate-400">
+                      <div className="font-bold text-[var(--color-on-surface)] truncate">{e.title}</div>
+                      <div className="text-xs text-[var(--color-on-surface-variant)]">
                         {e.question_count} questions · {e.duration_minutes} min
                         {e.window_label ? ` · 🗓️ ${e.window_label}` : ''}
                       </div>
@@ -205,7 +205,7 @@ export default function Dashboard({
                       </span>
                       <a
                         href={open ? `/exam/${e.id}` : '/exams'}
-                        className={`px-4 py-2 rounded-lg text-sm font-bold ${open ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'}`}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold ${open ? 'bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]'}`}
                       >
                         {open ? (e.my_status === 'started' ? 'Resume' : 'Start') : 'View'}
                       </a>
@@ -246,18 +246,18 @@ export default function Dashboard({
         {activeTab === 'assignments' ? (
           <div>
             <div className="mb-10">
-              <h3 className="text-3xl font-bold text-white mb-2">Mandatory Assignments</h3>
-              <p className="text-slate-400">Complete these quizzes before the deadline.</p>
+              <h3 className="text-3xl font-bold text-[var(--color-on-surface)] mb-2">Mandatory Assignments</h3>
+              <p className="text-[var(--color-on-surface-variant)]">Complete these quizzes before the deadline.</p>
             </div>
 
             {dailyChallenge ? (
               <div className="mb-10 bg-gradient-to-r from-indigo-900/60 to-purple-900/60 border border-indigo-500/30 rounded-3xl p-8 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 opacity-10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:opacity-20 transition-opacity" />
-                <div className="flex items-center gap-2 mb-4 text-indigo-400">
+                <div className="flex items-center gap-2 mb-4 text-[var(--color-brand-primary)]">
                    <Timer size={20} className="animate-pulse" />
                    <span className="font-bold uppercase tracking-widest text-sm">Challenge of the Day</span>
                 </div>
-                <h4 className="text-2xl font-bold text-white mb-4 line-clamp-2">{dailyChallenge.question?.question}</h4>
+                <h4 className="text-2xl font-bold text-[var(--color-on-surface)] mb-4 line-clamp-2">{dailyChallenge.question?.question}</h4>
                 <div className="flex items-center justify-between mt-6">
                   <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider ${
                       dailyChallenge.question?.difficulty === 'Easy' ? 'bg-emerald-500/20 text-emerald-400' :
@@ -277,7 +277,7 @@ export default function Dashboard({
                 </div>
               </div>
             ) : (
-              <div className="mb-10 bg-slate-900/50 border border-slate-800 rounded-3xl p-8 text-center text-slate-400">
+              <div className="mb-10 bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-3xl p-8 text-center text-[var(--color-on-surface-variant)]">
                 <Timer size={32} className="mx-auto mb-4 opacity-50" />
                 <p className="font-bold text-lg mb-1">No Daily Challenge Available</p>
                 <p className="text-sm">Check back tomorrow for a new mandatory challenge.</p>
@@ -289,23 +289,23 @@ export default function Dashboard({
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {myAssignments.length === 0 ? (
-                  <div className="col-span-full py-20 text-center border-2 border-dashed border-slate-800 rounded-3xl">
-                     <p className="text-slate-500">You have no pending mandatory assignments.</p>
+                  <div className="col-span-full py-20 text-center border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
+                     <p className="text-[var(--color-on-surface-variant)]">You have no pending mandatory assignments.</p>
                   </div>
                 ) : (
                   myAssignments.map((a: any) => (
-                    <motion.div key={a.assignment_id} whileHover={{ y: -4 }} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 flex flex-col items-start shadow-xl relative overflow-hidden group">
+                    <motion.div key={a.assignment_id} whileHover={{ y: -4 }} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 flex flex-col items-start shadow-xl relative overflow-hidden group">
                       <div className="flex w-full items-center justify-between mb-4">
                         <span className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${a.is_completed ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}`}>
                            {a.is_completed ? 'Completed' : 'Pending'}
                         </span>
-                        <span className="text-xs font-mono text-slate-400"><Clock size={12} className="inline mr-1" /> {new Date(a.due_date).toLocaleDateString()}</span>
+                        <span className="text-xs font-mono text-[var(--color-on-surface-variant)]"><Clock size={12} className="inline mr-1" /> {new Date(a.due_date).toLocaleDateString()}</span>
                       </div>
-                      <h4 className="text-xl font-bold text-white mb-2 leading-tight">{a.bank_name}</h4>
+                      <h4 className="text-xl font-bold text-[var(--color-on-surface)] mb-2 leading-tight">{a.bank_name}</h4>
                       
                       <div className="flex flex-wrap gap-2 mb-4">
                         {a.max_attempts && (
-                          <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded-lg border border-indigo-500/20 font-bold uppercase tracking-widest">
+                          <span className="text-[10px] bg-indigo-500/10 text-[var(--color-brand-primary)] px-2 py-1 rounded-lg border border-indigo-500/20 font-bold uppercase tracking-widest">
                             Max Attempts: {a.max_attempts}
                           </span>
                         )}
@@ -340,8 +340,8 @@ export default function Dashboard({
         ) : activeTab === 'bookmarks' ? (
           <div>
             <div className="mb-10">
-              <h3 className="text-3xl font-bold text-white mb-2">Bookmarked Questions</h3>
-              <p className="text-slate-400">Review your saved questions for later study.</p>
+              <h3 className="text-3xl font-bold text-[var(--color-on-surface)] mb-2">Bookmarked Questions</h3>
+              <p className="text-[var(--color-on-surface-variant)]">Review your saved questions for later study.</p>
             </div>
             
             {loading ? (
@@ -349,8 +349,8 @@ export default function Dashboard({
             ) : (
               <div className="space-y-6">
                 {bookmarkedQuestions.length === 0 ? (
-                  <div className="py-20 text-center border-2 border-dashed border-slate-800 rounded-3xl">
-                     <p className="text-slate-500">You haven't bookmarked any questions yet.</p>
+                  <div className="py-20 text-center border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
+                     <p className="text-[var(--color-on-surface-variant)]">You haven't bookmarked any questions yet.</p>
                   </div>
                 ) : (
                   bookmarkedQuestions.map((q: any) => (
@@ -361,8 +361,8 @@ export default function Dashboard({
                              <Star size={18} fill="currentColor" />
                            </div>
                            <div>
-                             <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Saved Question</p>
-                             <p className="text-xs font-bold text-slate-400">Question ID: #{q.id}</p>
+                             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Saved Question</p>
+                             <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">Question ID: #{q.id}</p>
                            </div>
                         </div>
                         <button 
@@ -388,14 +388,14 @@ export default function Dashboard({
                       
                       <div className="flex flex-wrap gap-2 mb-6">
                          {q.options.map((opt: string, idx: number) => (
-                           <div key={idx} className={`px-4 py-2 rounded-xl text-xs font-bold border ${q.answer === opt ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-slate-950 border-white/5 text-slate-500'}`}>
+                           <div key={idx} className={`px-4 py-2 rounded-xl text-xs font-bold border ${q.answer === opt ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--color-surface-dim)] border-white/5 text-[var(--color-on-surface-variant)]'}`}>
                              {opt}
                            </div>
                          ))}
                       </div>
 
                       {q.explanation && (
-                        <div className="p-4 bg-slate-950 rounded-2xl border border-white/5 text-xs text-slate-400 leading-relaxed">
+                        <div className="p-4 bg-[var(--color-surface-dim)] rounded-2xl border border-white/5 text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
                           <span className="font-black text-brand-primary uppercase tracking-widest mr-2">Explanation:</span>
                           {q.explanation}
                         </div>
@@ -409,8 +409,8 @@ export default function Dashboard({
         ) : activeTab === 'coding' ? (
           <div>
             <div className="mb-10">
-              <h3 className="text-3xl font-bold text-white mb-2">Coding Practice</h3>
-              <p className="text-slate-400">Master concepts with AI-evaluated coding challenges.</p>
+              <h3 className="text-3xl font-bold text-[var(--color-on-surface)] mb-2">Coding Practice</h3>
+              <p className="text-[var(--color-on-surface-variant)]">Master concepts with AI-evaluated coding challenges.</p>
             </div>
             
             {loading ? (
@@ -428,9 +428,9 @@ export default function Dashboard({
                        }`}>
                          {q.difficulty}
                        </span>
-                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{q.language}</span>
+                       <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">{q.language}</span>
                     </div>
-                    <h4 className="text-lg font-bold text-white mb-4">{q.title}</h4>
+                    <h4 className="text-lg font-bold text-[var(--color-on-surface)] mb-4">{q.title}</h4>
                     <p className="text-sm text-on-surface-variant mb-6 line-clamp-2 h-10">{q.description}</p>
                     <button 
                       onClick={() => onStartCoding(q)}
@@ -468,8 +468,8 @@ export default function Dashboard({
           <>
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
           <div>
-            <h3 className="text-3xl font-bold text-white mb-2">Question Banks</h3>
-            <p className="text-slate-400">Select a bank to challenge your skills.</p>
+            <h3 className="text-3xl font-bold text-[var(--color-on-surface)] mb-2">Question Banks</h3>
+            <p className="text-[var(--color-on-surface-variant)]">Select a bank to challenge your skills.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <button 
@@ -480,18 +480,18 @@ export default function Dashboard({
             </button>
             <button 
               onClick={() => setShowBankModal(true)}
-              className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/30 transition-all active:scale-[0.98] whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-5 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/30 transition-all active:scale-[0.98] whitespace-nowrap"
             >
               <Plus size={18} /> Create Bank
             </button>
-            <div className="relative w-full sm:w-64 border-slate-700">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+            <div className="relative w-full sm:w-64 border-[var(--color-outline-variant)]">
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" />
               <input
                 type="text"
                 placeholder="Search banks..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-12 pr-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-inner"
+                className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-4 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-inner"
               />
             </div>
           </div>
@@ -538,7 +538,7 @@ export default function Dashboard({
                 {/* "Needs Attention" badge — PRD Section D */}
                 {isWeakest && (
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-400
+                    <span className="px-2.5 py-1 rounded-full bg-indigo-500/20 text-[var(--color-brand-primary)]
                                      text-[9px] font-black uppercase tracking-widest border border-indigo-500/30
                                      shadow-[0_0_12px_rgba(99,102,241,0.3)]">
                       Needs Attention
@@ -556,9 +556,9 @@ export default function Dashboard({
                 {/* ─── SECTION D: Icon + Difficulty Badge ─────────────── */}
                 <div className="flex justify-between items-start mb-6 align-top">
                   {/* Icon — auto-detected from bank chapter/name */}
-                  <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center
-                                  group-hover:scale-110 transition-transform border border-slate-700">
-                    <span className="material-symbols-outlined text-indigo-400 text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center
+                                  group-hover:scale-110 transition-transform border border-[var(--color-outline-variant)]">
+                    <span className="material-symbols-outlined text-[var(--color-brand-primary)] text-2xl">
                       {iconName}
                     </span>
                   </div>
@@ -569,7 +569,7 @@ export default function Dashboard({
                         bank.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                         bank.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
                         bank.difficulty === 'Hard' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-                        'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                        'bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20'
                       }`}>
                       {bank.difficulty}
                     </span>
@@ -584,19 +584,19 @@ export default function Dashboard({
                   </div>
                 </div>
 
-                <h4 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-brand-primary transition-colors">{bank.name}</h4>
+                <h4 className="text-xl font-bold text-[var(--color-on-surface)] mb-2 leading-tight group-hover:text-brand-primary transition-colors">{bank.name}</h4>
                 <p className="text-on-surface-variant text-sm mb-6 line-clamp-2 md:h-10">{bank.description || 'No description provided.'}</p>
 
                 {/* ─── SECTION D: 2-Column Stat Grid ─────────────────── */}
-                <div className="grid grid-cols-2 gap-3 mt-auto mb-6 pt-4 border-t border-slate-800">
+                <div className="grid grid-cols-2 gap-3 mt-auto mb-6 pt-4 border-t border-[var(--color-outline-variant)]">
                   {[
                     { icon: 'quiz',     value: `${bank.question_count} questions` },
                     { icon: 'schedule', value: `${bank.time_per_question || 30}s / q` },
                     { icon: 'history',  value: `${bank.attempt_count || 0} attempts` },
                     { icon: 'book',     value: bank.chapter || bank.difficulty },
                   ].map(stat => (
-                    <div key={stat.icon} className="flex items-center gap-2 text-slate-400">
-                      <span className="material-symbols-outlined text-indigo-400"
+                    <div key={stat.icon} className="flex items-center gap-2 text-[var(--color-on-surface-variant)]">
+                      <span className="material-symbols-outlined text-[var(--color-brand-primary)]"
                             style={{ fontSize: '14px' }}>{stat.icon}</span>
                       <span className="text-xs font-medium">{stat.value}</span>
                     </div>
@@ -606,7 +606,7 @@ export default function Dashboard({
                 {/* Settings badges — show what the creator configured */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {bank.show_timer !== false && (
-                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20">
                       <Timer size={10} /> Timer
                     </span>
                   )}
@@ -625,13 +625,13 @@ export default function Dashboard({
                 <div className="mt-auto flex gap-3 z-10">
                   <button
                     onClick={() => setQuizConfigModal(bank)}
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl transition-all font-bold text-sm shadow-lg shadow-indigo-600/20 active:scale-[0.98]"
+                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl transition-all font-bold text-sm shadow-lg shadow-indigo-600/20 active:scale-[0.98]"
                   >
                     Start Quiz
                   </button>
                   <button
                     onClick={() => onViewLeaderboard(bank)}
-                    className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors border border-slate-700 hover:border-slate-600"
+                    className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-xl transition-colors border border-[var(--color-outline-variant)] hover:border-slate-600"
                     title="Leaderboard"
                   >
                     <Trophy size={20} />
@@ -644,8 +644,8 @@ export default function Dashboard({
               <>{Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} className="h-40" lines={2} />)}</>
             )}
             {banks.length === 0 && !loading && (
-               <div className="col-span-full py-20 text-center border-2 border-dashed border-slate-800 rounded-3xl">
-                  <p className="text-slate-500">No question banks found for this course.</p>
+               <div className="col-span-full py-20 text-center border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
+                  <p className="text-[var(--color-on-surface-variant)]">No question banks found for this course.</p>
                </div>
             )}
           </div>
@@ -656,50 +656,50 @@ export default function Dashboard({
         {/* Start Quiz Modal */}
         <AnimatePresence>
           {quizConfigModal && (
-            <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-6">
+            <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm flex items-center justify-center z-50 p-6">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-slate-900 border border-slate-800 p-8 rounded-3xl w-full max-w-sm shadow-2xl relative overflow-hidden"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-3xl w-full max-w-sm shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500" />
                 <div className="flex justify-between items-start mb-6 pt-2">
-                  <h3 className="text-xl font-bold text-white pr-4 leading-tight">Start: {quizConfigModal.name}</h3>
-                  <button onClick={() => setQuizConfigModal(null)} className="text-slate-500 hover:text-white shrink-0">
+                  <h3 className="text-xl font-bold text-[var(--color-on-surface)] pr-4 leading-tight">Start: {quizConfigModal.name}</h3>
+                  <button onClick={() => setQuizConfigModal(null)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] shrink-0">
                     <XCircle size={24} />
                   </button>
                 </div>
 
                 <div className="mb-8">
-                  <label className="block text-sm font-medium text-slate-400 mb-2">Questions to attempt</label>
+                  <label className="block text-sm font-medium text-[var(--color-on-surface-variant)] mb-2">Questions to attempt</label>
                   <div className="relative">
                     <input
                       type="number"
                       value={quizMaxQuestions}
                       onChange={e => setQuizMaxQuestions(Math.max(1, parseInt(e.target.value) || 1))}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 pl-12 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-4 pl-12 text-[var(--color-on-surface)] text-lg font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       min={1}
                       max={quizConfigModal.question_count}
                     />
-                    <BookOpen size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <BookOpen size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" />
                   </div>
                   <div className="flex justify-between mt-2 px-1">
-                     <p className="text-xs text-slate-500">Available: {quizConfigModal.question_count}</p>
-                     <button onClick={() => setQuizMaxQuestions(quizConfigModal.question_count)} className="text-xs text-indigo-400 font-bold hover:underline">Select All</button>
+                     <p className="text-xs text-[var(--color-on-surface-variant)]">Available: {quizConfigModal.question_count}</p>
+                     <button onClick={() => setQuizMaxQuestions(quizConfigModal.question_count)} className="text-xs text-[var(--color-brand-primary)] font-bold hover:underline">Select All</button>
                   </div>
                 </div>
 
                 <div className="flex gap-3">
                   <button
                     onClick={() => setQuizConfigModal(null)}
-                    className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition-all border border-slate-700"
+                    className="flex-1 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all border border-[var(--color-outline-variant)]"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={() => onStartQuiz(quizConfigModal, quizMaxQuestions)}
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
                   >
                     Begin
                   </button>
@@ -751,27 +751,27 @@ export default function Dashboard({
           className="p-6 bg-gradient-to-br from-indigo-600/20 to-violet-600/20 border border-indigo-500/30 rounded-3xl cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all group"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 group-hover:rotate-12 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-[var(--color-on-surface)] shadow-lg shadow-indigo-500/30 group-hover:rotate-12 transition-transform">
               <Users size={20} />
             </div>
             <div>
-              <p className="text-sm font-black text-white">Community</p>
-              <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest">Discussion Forum</p>
+              <p className="text-sm font-black text-[var(--color-on-surface)]">Community</p>
+              <p className="text-[10px] text-[var(--color-brand-primary)] font-bold uppercase tracking-widest">Discussion Forum</p>
             </div>
           </div>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
             Collaborate with peers, share tactical insights, and upvote the best solutions.
           </p>
         </div>
 
         {/* Quick Navigation Section */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 mb-4">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4">Navigation</p>
+        <div className="bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-3xl p-5 mb-4">
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4">Navigation</p>
           <div className="space-y-1">
             {[
               { label: 'Assignments', icon: ClipboardList, color: 'text-rose-400', onClick: onViewAssignments },
               { label: 'Attempt History', icon: History, color: 'text-amber-400', onClick: onViewHistory },
-              { label: 'Question Library', icon: BookOpen, color: 'text-indigo-400', onClick: onViewLibrary },
+              { label: 'Question Library', icon: BookOpen, color: 'text-[var(--color-brand-primary)]', onClick: onViewLibrary },
               { label: 'Notifications', icon: Timer, color: 'text-emerald-400', onClick: onViewNotifications },
             ].map(nav => (
               <button 
@@ -780,12 +780,12 @@ export default function Dashboard({
                 className="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-white/5 transition-all group text-left"
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-xl bg-slate-950 flex items-center justify-center ${nav.color}`}>
+                  <div className={`w-8 h-8 rounded-xl bg-[var(--color-surface-dim)] flex items-center justify-center ${nav.color}`}>
                     <nav.icon size={16} />
                   </div>
-                  <span className="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">{nav.label}</span>
+                  <span className="text-xs font-bold text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-on-surface)] transition-colors">{nav.label}</span>
                 </div>
-                <ChevronRight size={14} className="text-slate-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                <ChevronRight size={14} className="text-slate-600 group-hover:text-[var(--color-on-surface)] group-hover:translate-x-1 transition-all" />
               </button>
             ))}
           </div>
@@ -798,24 +798,24 @@ export default function Dashboard({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-slate-900/60 border border-slate-800 rounded-3xl p-5"
+            className="bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-3xl p-5"
           >
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4">My Progress</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4">My Progress</p>
             <div className="space-y-3">
               {[
-                { label: 'Total Attempts', value: myStats.total_attempts || 0, color: 'text-indigo-400' },
+                { label: 'Total Attempts', value: myStats.total_attempts || 0, color: 'text-[var(--color-brand-primary)]' },
                 { label: 'Avg Accuracy', value: `${myStats.overall_accuracy || 0}%`, color: myStats.overall_accuracy >= 70 ? 'text-emerald-400' : myStats.overall_accuracy >= 40 ? 'text-amber-400' : 'text-rose-400' },
                 { label: 'Streak 🔥', value: `${myStats.streak_count || 0} days`, color: 'text-orange-400' },
               ].map(stat => (
                 <div key={stat.label} className="flex justify-between items-center">
-                  <span className="text-xs text-slate-500">{stat.label}</span>
+                  <span className="text-xs text-[var(--color-on-surface-variant)]">{stat.label}</span>
                   <span className={`text-sm font-black ${stat.color}`}>{stat.value}</span>
                 </div>
               ))}
             </div>
             <button 
               onClick={onViewHistory}
-              className="w-full mt-6 py-3 bg-white/5 hover:bg-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-300 transition-all border border-white/5"
+              className="w-full mt-6 py-3 bg-white/5 hover:bg-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] transition-all border border-white/5"
             >
               View Detailed History
             </button>

@@ -59,9 +59,9 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
             <motion.div key="skills" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="space-y-6 pb-16">
               {/* Skill tags */}
-              <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
-                  <Layers size={14} className="text-indigo-400" /> Technical Skills & Tags
+              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
+                  <Layers size={14} className="text-[var(--color-brand-primary)]" /> Technical Skills & Tags
                 </h3>
                 {expertiseSkills.length > 0 ? (
                   <div className="flex flex-wrap gap-2">
@@ -79,7 +79,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 )}
                 {isOwnProfile && (
                   <button onClick={openEdit}
-                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl text-xs font-bold border border-white/10 transition-all">
+                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl text-xs font-bold border border-white/10 transition-all">
                     <Plus size={12} /> Add / Edit Skills
                   </button>
                 )}
@@ -87,18 +87,18 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
               {/* Strength bars (if set) */}
               {strengthEntries.length > 0 && (
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <Star size={14} className="text-amber-400" /> Proficiency Ratings
                   </h3>
                   <div className="space-y-4">
                     {strengthEntries.map(([sk, val]: [string, any]) => (
                       <div key={sk}>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-slate-300 font-bold">{sk}</span>
-                          <span className="text-indigo-400 font-black">{val}%</span>
+                          <span className="text-[var(--color-on-surface-variant)] font-bold">{sk}</span>
+                          <span className="text-[var(--color-brand-primary)] font-black">{val}%</span>
                         </div>
-                        <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                           <motion.div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full"
                             initial={{ width: 0 }} animate={{ width: `${val}%` }} transition={{ duration: 0.8, ease: 'easeOut' }} />
                         </div>
@@ -110,18 +110,18 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
               {/* Knowledge stack from quiz history */}
               {registry?.topic_breakdown && Object.keys(registry.topic_breakdown).length > 0 && (
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <BrainCircuit size={14} className="text-violet-400" /> Knowledge Stack (from Quizzes)
                   </h3>
                   <div className="space-y-3">
                     {Object.entries(registry.topic_breakdown).map(([topic, data]: any) => (
                       <div key={topic}>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-slate-300 font-bold">{topic}</span>
-                          <span className="text-indigo-400 font-black">{data.avg?.toFixed(0) ?? 0}%</span>
+                          <span className="text-[var(--color-on-surface-variant)] font-bold">{topic}</span>
+                          <span className="text-[var(--color-brand-primary)] font-black">{data.avg?.toFixed(0) ?? 0}%</span>
                         </div>
-                        <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                           <div className="h-full bg-indigo-500/70 rounded-full" style={{ width: `${data.avg ?? 0}%` }} />
                         </div>
                       </div>

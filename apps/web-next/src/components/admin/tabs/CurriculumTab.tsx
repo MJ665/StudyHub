@@ -191,7 +191,7 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
                 <div className="bg-surface-container border border-surface-bright rounded-[3rem] p-8">
                   <div className="flex justify-between items-center mb-8">
                     <div>
-                      <h3 className="text-2xl font-black text-white">Dynamic Curriculum</h3>
+                      <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Dynamic Curriculum</h3>
                       <p className="text-[10px] text-brand-primary font-black uppercase tracking-[0.3em] mt-1">Course Catalog & Strategy</p>
                     </div>
                     <button
@@ -209,11 +209,11 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
                       className="p-6 bg-white/5 border border-white/10 rounded-3xl mb-8 flex gap-4 items-end"
                     >
                       <div className="flex-1">
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-widest">Course Designation</label>
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-widest">Course Designation</label>
                         <input
                           value={newCourseName}
                           onChange={e => setNewCourseName(e.target.value)}
-                          className="w-full bg-slate-900 border border-white/5 rounded-2xl p-4 text-white font-bold outline-none ring-1 ring-white/10 focus:ring-brand-primary/30"
+                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none ring-1 ring-white/10 focus:ring-brand-primary/30"
                           placeholder="e.g. Advanced Distributed Systems"
                         />
                       </div>
@@ -228,15 +228,15 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {courses.map(c => (
-                      <div key={c.id} className="p-6 bg-slate-900/50 border border-white/5 rounded-[2.5rem] flex items-center justify-between group hover:border-brand-primary/30 transition-all">
+                      <div key={c.id} className="p-6 bg-[var(--color-surface-container)]/50 border border-white/5 rounded-[2.5rem] flex items-center justify-between group hover:border-brand-primary/30 transition-all">
                         <div className="flex items-center gap-4">
                           <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-brand-primary font-black text-xs">
                             {c.name?.[0]}
                           </div>
-                          <span className="text-sm font-black text-white">{c.name}</span>
+                          <span className="text-sm font-black text-[var(--color-on-surface)]">{c.name}</span>
                         </div>
                         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                          <button className="p-2 text-slate-500 hover:text-white"><Settings size={14} /></button>
+                          <button className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><Settings size={14} /></button>
                         </div>
                       </div>
                     ))}

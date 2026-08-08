@@ -25,8 +25,8 @@ export default function DataIntegrityDashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Database className="w-6 h-6 text-indigo-400" />
+          <h2 className="text-2xl font-bold tracking-tight text-[var(--color-on-surface)] flex items-center gap-2">
+            <Database className="w-6 h-6 text-[var(--color-brand-primary)]" />
             Data Integrity & Scrubbing
           </h2>
           <p className="text-zinc-400">Run enterprise data scrubbing and integrity tools</p>
@@ -41,7 +41,7 @@ export default function DataIntegrityDashboard() {
               <Merge className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">Merge Duplicate Users</h3>
+              <h3 className="text-lg font-semibold text-[var(--color-on-surface)]">Merge Duplicate Users</h3>
               <p className="text-sm text-zinc-400 mt-1">
                 Scans the relational database for users with matching emails or conflicting UUIDs and merges their attempts, roles, and profiles.
               </p>
@@ -50,7 +50,7 @@ export default function DataIntegrityDashboard() {
           <button 
             onClick={() => runTaskMutation.mutate('merge_duplicate_users')}
             disabled={runTaskMutation.isPending}
-            className="mt-auto flex items-center justify-center gap-2 w-full bg-zinc-800 hover:bg-zinc-700 text-white py-2 rounded-lg transition-colors disabled:opacity-50"
+            className="mt-auto flex items-center justify-center gap-2 w-full bg-zinc-800 hover:bg-zinc-700 text-[var(--color-on-surface)] py-2 rounded-lg transition-colors disabled:opacity-50"
           >
             {runTaskMutation.isPending ? <RefreshCcw className="w-4 h-4 animate-spin" /> : 'Run Merge Tool'}
           </button>
@@ -63,7 +63,7 @@ export default function DataIntegrityDashboard() {
               <AlertTriangle className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">Fix Orphaned Records</h3>
+              <h3 className="text-lg font-semibold text-[var(--color-on-surface)]">Fix Orphaned Records</h3>
               <p className="text-sm text-zinc-400 mt-1">
                 Identifies and cleans up attempts, assignments, and roles that are missing valid parent group references.
               </p>
@@ -72,7 +72,7 @@ export default function DataIntegrityDashboard() {
           <button 
             onClick={() => runTaskMutation.mutate('fix_orphaned_records')}
             disabled={runTaskMutation.isPending}
-            className="mt-auto flex items-center justify-center gap-2 w-full bg-zinc-800 hover:bg-zinc-700 text-white py-2 rounded-lg transition-colors disabled:opacity-50"
+            className="mt-auto flex items-center justify-center gap-2 w-full bg-zinc-800 hover:bg-zinc-700 text-[var(--color-on-surface)] py-2 rounded-lg transition-colors disabled:opacity-50"
           >
             {runTaskMutation.isPending ? <RefreshCcw className="w-4 h-4 animate-spin" /> : 'Run Orphan Fix'}
           </button>
@@ -85,7 +85,7 @@ export default function DataIntegrityDashboard() {
               <CloudOff className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">S3 Resource Pruning</h3>
+              <h3 className="text-lg font-semibold text-[var(--color-on-surface)]">S3 Resource Pruning</h3>
               <p className="text-sm text-zinc-400 mt-1">
                 Removes unlinked files, temporary exports, and abandoned profile photo uploads from AWS S3 buckets to reduce cloud storage costs.
               </p>
@@ -94,7 +94,7 @@ export default function DataIntegrityDashboard() {
           <button 
             onClick={() => runTaskMutation.mutate('prune_s3_resources')}
             disabled={runTaskMutation.isPending}
-            className="mt-auto flex items-center justify-center gap-2 w-full bg-zinc-800 hover:bg-zinc-700 text-white py-2 rounded-lg transition-colors disabled:opacity-50"
+            className="mt-auto flex items-center justify-center gap-2 w-full bg-zinc-800 hover:bg-zinc-700 text-[var(--color-on-surface)] py-2 rounded-lg transition-colors disabled:opacity-50"
           >
             {runTaskMutation.isPending ? <RefreshCcw className="w-4 h-4 animate-spin" /> : 'Execute Storage Prune'}
           </button>

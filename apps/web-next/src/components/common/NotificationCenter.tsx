@@ -74,7 +74,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
 
   const getNotifStyle = (type: string) => {
     const config = typeConfig.find(c => c.id === type) || typeConfig.find(c => c.id === 'system');
-    if (!config) return { icon: 'Info', color: 'text-slate-400', bg: 'bg-slate-500/10' };
+    if (!config) return { icon: 'Info', color: 'text-[var(--color-on-surface-variant)]', bg: 'bg-slate-500/10' };
     return config;
   };
 
@@ -181,14 +181,14 @@ export default function NotificationCenter({ compact = false }: NotificationCent
       <button
         onClick={() => setOpen(!open)}
         id="notification-bell-btn"
-        className="relative p-2 text-slate-500 hover:text-white transition-colors group"
+        className="relative p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors group"
       >
-        <Bell size={20} className={open ? 'text-indigo-400' : ''} />
+        <Bell size={20} className={open ? 'text-[var(--color-brand-primary)]' : ''} />
         {unreadCount > 0 && (
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-rose-500 rounded-full text-[8px] font-black text-white flex items-center justify-center"
+            className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-rose-500 rounded-full text-[8px] font-black text-[var(--color-on-surface)] flex items-center justify-center"
           >
             {unreadCount > 9 ? '9+' : unreadCount}
           </motion.span>
@@ -210,13 +210,13 @@ export default function NotificationCenter({ compact = false }: NotificationCent
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 16, scale: 0.98 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="absolute right-0 top-10 z-50 w-96 max-w-[92vw] bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden"
+              className="absolute right-0 top-10 z-50 w-96 max-w-[92vw] bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl shadow-2xl overflow-hidden"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-outline-variant)]">
                 <div className="flex items-center gap-2">
-                  <Bell size={16} className="text-indigo-400" />
-                  <span className="text-sm font-black text-white">Notifications</span>
+                  <Bell size={16} className="text-[var(--color-brand-primary)]" />
+                  <span className="text-sm font-black text-[var(--color-on-surface)]">Notifications</span>
                   {unreadCount > 0 && (
                     <span className="px-1.5 py-0.5 bg-rose-500/20 border border-rose-500/30 rounded-md text-[9px] font-black text-rose-400">
                       {unreadCount} new
@@ -226,7 +226,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                 <div className="flex items-center gap-1">
                   <button
                     onClick={fetchNotifications}
-                    className="p-1.5 text-slate-500 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                    className="p-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors rounded-lg hover:bg-white/5"
                     title="Refresh"
                   >
                     <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
@@ -234,7 +234,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                   {unreadCount > 0 && (
                     <button
                       onClick={markAllRead}
-                      className="p-1.5 text-slate-500 hover:text-emerald-400 transition-colors rounded-lg hover:bg-white/5"
+                      className="p-1.5 text-[var(--color-on-surface-variant)] hover:text-emerald-400 transition-colors rounded-lg hover:bg-white/5"
                       title="Mark all read"
                     >
                       <CheckCheck size={13} />
@@ -242,7 +242,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                   )}
                   <button
                     onClick={() => setOpen(false)}
-                    className="p-1.5 text-slate-500 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                    className="p-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors rounded-lg hover:bg-white/5"
                   >
                     <X size={13} />
                   </button>
@@ -257,8 +257,8 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                     onClick={() => setFilter(f)}
                     className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${
                       filter === f
-                        ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
-                        : 'text-slate-500 hover:text-white'
+                        ? 'bg-indigo-500/20 text-[var(--color-brand-primary)] border border-indigo-500/30'
+                        : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
                     }`}
                   >
                     {f === 'all' ? `All (${notifications.length})` : `Unread (${unreadCount})`}
@@ -270,7 +270,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
               <div className="max-h-[480px] overflow-y-auto">
                 {loading ? (
                   <div className="flex items-center justify-center py-12">
-                    <Loader2 size={24} className="text-indigo-400 animate-spin" />
+                    <Loader2 size={24} className="text-[var(--color-brand-primary)] animate-spin" />
                   </div>
                 ) : filtered.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 gap-3">
@@ -304,17 +304,17 @@ export default function NotificationCenter({ compact = false }: NotificationCent
 
                           {/* Content */}
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs font-bold leading-relaxed break-words ${n.is_read ? 'text-slate-400' : 'text-white'}`}>
+                            <p className={`text-xs font-bold leading-relaxed break-words ${n.is_read ? 'text-[var(--color-on-surface-variant)]' : 'text-[var(--color-on-surface)]'}`}>
                               {n.title || n.message}
                             </p>
                             {n.body && (
-                              <p className="text-[11px] text-slate-400 leading-relaxed mt-0.5 break-words">
+                              <p className="text-[11px] text-[var(--color-on-surface-variant)] leading-relaxed mt-0.5 break-words">
                                 {n.body}
                               </p>
                             )}
                             <div className="flex items-center gap-2 mt-1">
                               {notifLink(n) && (
-                                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400">View →</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">View →</span>
                               )}
                               <span className={`text-[9px] font-black uppercase tracking-widest ${config.color}`}>
                                 {n.notification_type?.replace(/_/g, ' ')}
@@ -351,11 +351,11 @@ export default function NotificationCenter({ compact = false }: NotificationCent
 
               {/* Footer */}
               {notifications.length > 0 && (
-                <div className="px-5 py-3 border-t border-slate-800 flex justify-between items-center">
+                <div className="px-5 py-3 border-t border-[var(--color-outline-variant)] flex justify-between items-center">
                   <p className="text-[9px] text-slate-600 font-bold">{notifications.length} total notifications</p>
                   <button
                     onClick={markAllRead}
-                    className="text-[9px] text-indigo-400 hover:text-indigo-300 font-black uppercase tracking-widest transition-colors"
+                    className="text-[9px] text-[var(--color-brand-primary)] hover:text-indigo-300 font-black uppercase tracking-widest transition-colors"
                   >
                     Mark all read
                   </button>

@@ -99,12 +99,12 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
     <div className="flex-1 p-8 overflow-y-auto custom-scrollbar relative z-10 max-w-7xl mx-auto w-full">
       <header className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-2 text-indigo-400">
+          <div className="flex items-center gap-2 mb-2 text-[var(--color-brand-primary)]">
             <Sparkles size={16} />
             <span className="text-xs font-black uppercase tracking-widest">{selectedCompany?.name} Space</span>
           </div>
-          <h1 className="text-4xl font-black text-white tracking-tight">Technical Projects</h1>
-          <p className="text-slate-400 text-sm mt-1 max-w-xl">
+          <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Technical Projects</h1>
+          <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
             Inspect project coverage scopes, engineering knowledge graphs, and tech stack configurations for {selectedCompany?.name}.
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
         {isAdmin && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 border border-indigo-500/30"
+            className="bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 border border-indigo-500/30"
           >
             <Plus size={18} />
             <span>Create Project</span>
@@ -122,27 +122,27 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
 
       {/* New Project Modal Overlay */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm">
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 max-w-xl w-full shadow-2xl relative overflow-hidden"
+            className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 max-w-xl w-full shadow-2xl relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-[60px] pointer-events-none" />
             
-            <h2 className="text-2xl font-black text-white mb-2 flex items-center gap-3">
-              <FolderKanban className="text-indigo-400" size={24} />
+            <h2 className="text-2xl font-black text-[var(--color-on-surface)] mb-2 flex items-center gap-3">
+              <FolderKanban className="text-[var(--color-brand-primary)]" size={24} />
               <span>Create New Project</span>
             </h2>
-            <p className="text-slate-400 text-xs mb-6">Initialize a new codebase registry container scoped to {selectedCompany?.name}.</p>
+            <p className="text-[var(--color-on-surface-variant)] text-xs mb-6">Initialize a new codebase registry container scoped to {selectedCompany?.name}.</p>
 
             <form onSubmit={handleCreateProject} className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Project Name</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Project Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Customer Portal API"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
@@ -150,11 +150,11 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Description</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Description</label>
                 <textarea
                   placeholder="Enter core description, system boundaries, or architecture notes..."
                   rows={3}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm resize-none"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm resize-none"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -162,39 +162,39 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Client / Product Owner</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Client / Product Owner</label>
                   <input
                     type="text"
                     placeholder="e.g. Internal Products"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Tech Stack (comma-separated)</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Tech Stack (comma-separated)</label>
                   <input
                     type="text"
                     placeholder="e.g. Next.js, Python, FastAPI"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                     value={techStackInput}
                     onChange={(e) => setTechStackInput(e.target.value)}
                   />
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-slate-800/40">
+              <div className="flex gap-3 pt-4 border-t border-[var(--color-outline-variant)]/40">
                 <button
                   type="submit"
                   disabled={creating}
-                  className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2"
+                  className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2"
                 >
                   {creating ? <Loader2 className="animate-spin" size={18} /> : 'Launch Project container'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-4 rounded-2xl font-bold transition-all border border-slate-700"
+                  className="bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] px-6 py-4 rounded-2xl font-bold transition-all border border-[var(--color-outline-variant)]"
                 >
                   Close
                 </button>
@@ -216,7 +216,7 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
         <div className="h-[400px] flex items-center justify-center">
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="animate-spin text-indigo-500" size={36} />
-            <p className="text-xs font-black uppercase tracking-widest text-slate-500">Scanning codebase indices...</p>
+            <p className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Scanning codebase indices...</p>
           </div>
         </div>
       ) : (
@@ -229,7 +229,7 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
               <div
                 key={project.id}
                 onClick={() => selectProject(project)}
-                className="group bg-slate-900/40 hover:bg-slate-900 border border-slate-850 hover:border-slate-750 rounded-[2rem] p-8 cursor-pointer transition-all shadow-xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between min-h-[320px]"
+                className="group bg-[var(--color-surface-container)]/40 hover:bg-[var(--color-surface-container)] border border-slate-850 hover:border-slate-750 rounded-[2rem] p-8 cursor-pointer transition-all shadow-xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between min-h-[320px]"
               >
                 {/* Visual Accent */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -237,8 +237,8 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
                 <div className="space-y-4">
                   {/* Top info row */}
                   <div className="flex items-start justify-between gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 group-hover:bg-indigo-600/10 transition-all">
-                      <FolderKanban size={24} className="text-indigo-400 group-hover:scale-110 transition-transform" />
+                    <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 group-hover:bg-[var(--color-brand-primary-container)]/10 transition-all">
+                      <FolderKanban size={24} className="text-[var(--color-brand-primary)] group-hover:scale-110 transition-transform" />
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -263,10 +263,10 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
 
                   {/* Title & Description */}
                   <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors truncate">
+                    <h3 className="text-xl font-bold text-[var(--color-on-surface)] group-hover:text-[var(--color-brand-primary)] transition-colors truncate">
                       {project.name}
                     </h3>
-                    <p className="text-slate-400 text-xs mt-2 line-clamp-3 leading-relaxed">
+                    <p className="text-[var(--color-on-surface-variant)] text-xs mt-2 line-clamp-3 leading-relaxed">
                       {project.description || 'No system definition or architectural documentation has been submitted yet for this workspace container.'}
                     </p>
                   </div>
@@ -275,13 +275,13 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
                   {project.tech_stack && project.tech_stack.length > 0 && (
                     <div className="flex flex-wrap gap-2 pt-2">
                       {project.tech_stack.slice(0, 4).map((tech, i) => (
-                        <span key={i} className="text-[10px] font-bold bg-slate-950 border border-slate-800 text-slate-400 px-2.5 py-1 rounded-xl flex items-center gap-1">
+                        <span key={i} className="text-[10px] font-bold bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] px-2.5 py-1 rounded-xl flex items-center gap-1">
                           <Code size={10} className="text-indigo-500" />
                           {tech}
                         </span>
                       ))}
                       {project.tech_stack.length > 4 && (
-                        <span className="text-[9px] font-black uppercase tracking-wider text-slate-500 py-1 px-1">
+                        <span className="text-[9px] font-black uppercase tracking-wider text-[var(--color-on-surface-variant)] py-1 px-1">
                           +{project.tech_stack.length - 4} more
                         </span>
                       )}
@@ -294,31 +294,31 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
                   <div className="flex items-center gap-6">
                     {/* Coverage bar preview */}
                     <div>
-                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Knowledge Coverage</p>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Knowledge Coverage</p>
                       <div className="flex items-center gap-2.5">
-                        <div className="w-24 h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                        <div className="w-24 h-1.5 bg-[var(--color-surface-dim)] rounded-full overflow-hidden border border-[var(--color-outline-variant)]">
                           <div 
                             className="h-full bg-gradient-to-r from-indigo-500 to-teal-500" 
                             style={{ width: `${coverage}%` }}
                           />
                         </div>
-                        <span className="text-xs font-bold text-white">{coverage}%</span>
+                        <span className="text-xs font-bold text-[var(--color-on-surface)]">{coverage}%</span>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-4">
                       <div className="text-center">
-                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Docs</p>
-                        <p className="text-sm font-bold text-white">{project.doc_count || 0}</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Docs</p>
+                        <p className="text-sm font-bold text-[var(--color-on-surface)]">{project.doc_count || 0}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Ingested</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Ingested</p>
                         <p className="text-sm font-bold text-emerald-400">{project.ingested_doc_count || 0}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="w-8 h-8 rounded-full bg-slate-950 flex items-center justify-center text-slate-500 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                  <div className="w-8 h-8 rounded-full bg-[var(--color-surface-dim)] flex items-center justify-center text-[var(--color-on-surface-variant)] group-hover:bg-[var(--color-brand-primary-container)] group-hover:text-[var(--color-on-surface)] transition-all">
                     <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </div>
@@ -327,10 +327,10 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
           })}
 
           {projects.length === 0 && (
-            <div className="col-span-2 bg-slate-900/20 border border-slate-850 rounded-[2.5rem] p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
+            <div className="col-span-2 bg-[var(--color-surface-container)]/20 border border-slate-850 rounded-[2.5rem] p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
               <FolderKanban size={40} className="text-slate-700 mb-4" />
-              <h3 className="text-lg font-bold text-slate-400">No Projects Found</h3>
-              <p className="text-xs text-slate-500 mt-2 max-w-sm">
+              <h3 className="text-lg font-bold text-[var(--color-on-surface-variant)]">No Projects Found</h3>
+              <p className="text-xs text-[var(--color-on-surface-variant)] mt-2 max-w-sm">
                 Register a technical project container inside {selectedCompany?.name} to start uploading architecture and onboarding files.
               </p>
             </div>

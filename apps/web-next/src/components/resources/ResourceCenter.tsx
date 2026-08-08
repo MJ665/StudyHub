@@ -218,30 +218,30 @@ export default function ResourceCenter({ group, user, onBack }: any) {
 
   const getCategoryStyle = (category: string) => {
     const colors: Record<string, string> = {
-      'General': 'bg-slate-700 text-slate-300',
+      'General': 'bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]',
       'Lecture Notes': 'bg-blue-900/40 text-blue-300',
       'Reference': 'bg-emerald-900/40 text-emerald-300',
       'Cheat Sheet': 'bg-amber-900/40 text-amber-300',
       'Assessment': 'bg-rose-900/40 text-rose-300',
       'Other': 'bg-purple-900/40 text-purple-300',
     };
-    return colors[category] || 'bg-slate-800 text-slate-400 border border-slate-700';
+    return colors[category] || 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]';
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 p-6">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] p-6">
       <div className="max-w-4xl mx-auto">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 uppercase tracking-widest font-bold mb-8">
-          <span className="hover:text-indigo-400 cursor-pointer transition-colors" onClick={onBack}>Dashboard</span>
+        <div className="flex items-center gap-2 text-xs text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-8">
+          <span className="hover:text-[var(--color-brand-primary)] cursor-pointer transition-colors" onClick={onBack}>Dashboard</span>
           <ChevronRight size={12} />
           <span className="text-indigo-500">Resource Center</span>
         </div>
 
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2">Study Materials</h2>
-            <p className="text-slate-400">Secure PDFs shared within {group.name}</p>
+            <h2 className="text-3xl font-bold text-[var(--color-on-surface)] mb-2">Study Materials</h2>
+            <p className="text-[var(--color-on-surface-variant)]">Secure PDFs shared within {group.name}</p>
           </div>
 
           <div>
@@ -249,8 +249,8 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <label
               htmlFor="pdf-upload"
               aria-label="Upload PDF file"
-              className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold transition-all shadow-lg cursor-pointer ${uploading ? 'bg-indigo-600/50 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-500'
-                } text-white`}
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold transition-all shadow-lg cursor-pointer ${uploading ? 'bg-[var(--color-brand-primary-container)]/50 cursor-not-allowed' : 'bg-[var(--color-brand-primary-container)] hover:bg-indigo-500'
+                } text-[var(--color-on-surface)]`}
             >
               {uploading ? <Loader2 size={20} className="animate-spin" /> : <UploadCloud size={20} />}
               {uploading ? 'Uploading...' : 'Upload PDF'}
@@ -267,12 +267,12 @@ export default function ResourceCenter({ group, user, onBack }: any) {
 
         {/* III: Upload progress bar */}
         {uploading && (
-          <div className="mb-6 bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <div className="mb-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Uploading to S3...</span>
-              <span className="text-indigo-400 font-bold">{uploadProgress}%</span>
+              <span className="text-xs text-[var(--color-on-surface-variant)] font-bold uppercase tracking-wider">Uploading to S3...</span>
+              <span className="text-[var(--color-brand-primary)] font-bold">{uploadProgress}%</span>
             </div>
-            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-200 ease-out"
                 style={{ width: `${uploadProgress}%` }}
@@ -287,20 +287,20 @@ export default function ResourceCenter({ group, user, onBack }: any) {
               <Loader2 size={32} className="animate-spin text-indigo-500" />
             </div>
           ) : resources.length === 0 ? (
-            <div className="col-span-2 py-20 text-center border-2 border-dashed border-slate-800 rounded-3xl">
+            <div className="col-span-2 py-20 text-center border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
               <UploadCloud size={48} className="mx-auto text-slate-700 mb-4" />
-              <p className="text-slate-400 font-bold mb-2">No study materials yet</p>
+              <p className="text-[var(--color-on-surface-variant)] font-bold mb-2">No study materials yet</p>
               <p className="text-slate-600 text-sm">Be the first to share a PDF with your group!</p>
             </div>
           ) : (
             resources.map(res => (
-              <div key={res.id} className="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition-colors group relative">
+              <div key={res.id} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-5 rounded-2xl hover:border-[var(--color-outline-variant)] transition-colors group relative">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center shrink-0 border border-orange-500/20">
                     <FileText size={24} className="text-orange-500" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-bold truncate" title={res.file_name}>{res.file_name}</p>
+                    <p className="text-[var(--color-on-surface)] font-bold truncate" title={res.file_name}>{res.file_name}</p>
 
                     {/* III: Category badge */}
                     <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md mt-1 mb-1 ${getCategoryStyle(res.category)}`}>
@@ -309,7 +309,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
 
                     {/* III: Description */}
                     {res.description && (
-                      <p className="text-xs text-slate-500 mt-1 line-clamp-2">{res.description}</p>
+                      <p className="text-xs text-[var(--color-on-surface-variant)] mt-1 line-clamp-2">{res.description}</p>
                     )}
 
                     <div className="flex items-center gap-3 mt-2">
@@ -323,7 +323,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                 <div className="flex gap-2 mt-4">
                   <button
                     onClick={() => { setViewingPdfUrl(res.view_url); setViewingFileName(res.file_name); }}
-                    className="flex-[2] py-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors text-sm font-bold text-slate-300 flex items-center justify-center gap-2"
+                    className="flex-[2] py-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] rounded-xl transition-colors text-sm font-bold text-[var(--color-on-surface-variant)] flex items-center justify-center gap-2"
                     aria-label={`View ${res.file_name}`}
                   >
                     <FileText size={16} /> View
@@ -332,7 +332,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                   {/* Shareable Link Button */}
                   <button
                     onClick={() => handleCopyLink(res.view_url, res.id)}
-                    className={`flex-1 py-2 rounded-xl transition-colors text-sm font-bold flex items-center justify-center gap-2 ${copiedId === res.id ? 'bg-emerald-900/40 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                    className={`flex-1 py-2 rounded-xl transition-colors text-sm font-bold flex items-center justify-center gap-2 ${copiedId === res.id ? 'bg-emerald-900/40 text-emerald-400 border border-emerald-500/20' : 'bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]'
                       }`}
                     aria-label={`Copy link for ${res.file_name}`}
                     title="Copy Shareable Link (Valid for 1 Hour)"
@@ -342,7 +342,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
 
                   <button
                     onClick={() => handleOpenComments(res.id)}
-                    className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors text-sm font-bold text-slate-300 flex items-center justify-center"
+                    className="flex-1 py-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] rounded-xl transition-colors text-sm font-bold text-[var(--color-on-surface-variant)] flex items-center justify-center"
                     aria-label="Feedback"
                     title="Feedback"
                   >
@@ -371,7 +371,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <button
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-3 bg-slate-900 border border-white/5 rounded-2xl text-slate-400 hover:text-white hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight size={20} className="rotate-180" />
             </button>
@@ -383,8 +383,8 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                   onClick={() => setCurrentPage(i + 1)}
                   className={`w-10 h-10 rounded-xl font-black text-xs transition-all ${
                     currentPage === i + 1 
-                      ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' 
-                      : 'bg-slate-900 border border-white/5 text-slate-500 hover:text-white'
+                      ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
+                      : 'bg-[var(--color-surface-container)] border border-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
                   }`}
                 >
                   {i + 1}
@@ -395,7 +395,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <button
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-3 bg-slate-900 border border-white/5 rounded-2xl text-slate-400 hover:text-white hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight size={20} />
             </button>
@@ -405,14 +405,14 @@ export default function ResourceCenter({ group, user, onBack }: any) {
 
       {/* Feedback Modal */}
       {selectedResourceId !== null && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 w-full max-w-md shadow-2xl flex flex-col max-h-[80vh]">
+        <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm flex items-center justify-center z-50 p-6">
+          <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-8 w-full max-w-md shadow-2xl flex flex-col max-h-[80vh]">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                <MessageSquare size={20} className="text-indigo-400" /> Resource Feedback
+              <h3 className="text-xl font-bold text-[var(--color-on-surface)] flex items-center gap-2">
+                <MessageSquare size={20} className="text-[var(--color-brand-primary)]" /> Resource Feedback
               </h3>
               <button onClick={() => setSelectedResourceId(null)}>
-                <X size={20} className="text-slate-500 hover:text-white transition-colors" />
+                <X size={20} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors" />
               </button>
             </div>
             
@@ -420,15 +420,15 @@ export default function ResourceCenter({ group, user, onBack }: any) {
               {loadingComments ? (
                  <div className="flex justify-center p-4"><Loader2 className="animate-spin text-indigo-500" /></div>
               ) : comments.length === 0 ? (
-                <p className="text-slate-400 text-center text-sm font-medium py-4">No feedback yet. Be the first!</p>
+                <p className="text-[var(--color-on-surface-variant)] text-center text-sm font-medium py-4">No feedback yet. Be the first!</p>
               ) : (
                 comments.map(c => (
-                  <div key={c.id} className="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                  <div key={c.id} className="bg-[var(--color-surface-container-high)] p-3 rounded-xl border border-[var(--color-outline-variant)]">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-bold text-slate-200">{c.user_name} <span className="text-[10px] bg-slate-700 text-slate-400 px-1.5 py-0.5 rounded-md ml-1">{c.role}</span></span>
-                      <span className="text-xs text-slate-500">{new Date(c.created_at).toLocaleDateString()}</span>
+                      <span className="text-sm font-bold text-[var(--color-on-surface)]">{c.user_name} <span className="text-[10px] bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] px-1.5 py-0.5 rounded-md ml-1">{c.role}</span></span>
+                      <span className="text-xs text-[var(--color-on-surface-variant)]">{new Date(c.created_at).toLocaleDateString()}</span>
                     </div>
-                    <p className="text-sm text-slate-300">{c.content}</p>
+                    <p className="text-sm text-[var(--color-on-surface-variant)]">{c.content}</p>
                   </div>
                 ))
               )}
@@ -439,13 +439,13 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                 value={newComment}
                 onChange={e => setNewComment(e.target.value)}
                 placeholder="Leave feedback..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white text-sm focus:ring-2 focus:ring-indigo-500 resize-none mb-3"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] text-sm focus:ring-2 focus:ring-indigo-500 resize-none mb-3"
                 rows={2}
               />
               <button
                 onClick={handleAddComment}
                 disabled={!newComment.trim()}
-                className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold transition-all shadow-lg"
+                className="w-full py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-[var(--color-on-surface)] rounded-xl font-bold transition-all shadow-lg"
               >
                 Post Feedback
               </button>
@@ -456,34 +456,34 @@ export default function ResourceCenter({ group, user, onBack }: any) {
 
       {/* Upload Metadata Form Modal */}
       {showUploadForm && pendingFile && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 w-full max-w-md shadow-2xl">
+        <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm flex items-center justify-center z-50 p-6">
+          <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-8 w-full max-w-md shadow-2xl">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-white">Upload Details</h3>
+              <h3 className="text-xl font-bold text-[var(--color-on-surface)]">Upload Details</h3>
               <button onClick={() => { setShowUploadForm(false); setPendingFile(null); }}>
-                <X size={20} className="text-slate-500 hover:text-white transition-colors" />
+                <X size={20} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors" />
               </button>
             </div>
 
             <div className="mb-4">
-              <div className="bg-slate-800 rounded-xl p-3 flex items-center gap-3 mb-4">
+              <div className="bg-[var(--color-surface-container-high)] rounded-xl p-3 flex items-center gap-3 mb-4">
                 <FileText size={20} className="text-orange-400 shrink-0" />
-                <span className="text-white font-medium truncate text-sm">{pendingFile.name}</span>
-                <span className="text-slate-500 text-xs shrink-0">{(pendingFile.size / 1024 / 1024).toFixed(1)} MB</span>
+                <span className="text-[var(--color-on-surface)] font-medium truncate text-sm">{pendingFile.name}</span>
+                <span className="text-[var(--color-on-surface-variant)] text-xs shrink-0">{(pendingFile.size / 1024 / 1024).toFixed(1)} MB</span>
               </div>
 
-              <label className="block text-xs text-slate-400 font-bold uppercase mb-1.5">
+              <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1.5">
                 <Tag size={12} className="inline mr-1" /> Category
               </label>
               <select
                 value={uploadCategory}
                 onChange={e => setUploadCategory(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white mb-4 focus:ring-2 focus:ring-indigo-500"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] mb-4 focus:ring-2 focus:ring-indigo-500"
               >
                 {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
               </select>
 
-              <label className="block text-xs text-slate-400 font-bold uppercase mb-1.5">
+              <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1.5">
                 <AlignLeft size={12} className="inline mr-1" /> Description (Optional)
               </label>
               <textarea
@@ -492,20 +492,20 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                 maxLength={300}
                 rows={3}
                 placeholder="Brief description of this document..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white text-sm focus:ring-2 focus:ring-indigo-500 resize-none"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] text-sm focus:ring-2 focus:ring-indigo-500 resize-none"
               />
             </div>
 
             <div className="flex gap-3">
               <button
                 onClick={() => { setShowUploadForm(false); setPendingFile(null); }}
-                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold transition-colors"
+                className="flex-1 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-xl font-bold transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmUpload}
-                className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+                className="flex-1 py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
               >
                 Upload PDF
               </button>
@@ -517,23 +517,23 @@ export default function ResourceCenter({ group, user, onBack }: any) {
       {/* Secure PDF Viewer — open in new tab to bypass Chrome's cross-origin iframe block */}
       {viewingPdfUrl && (
         <div
-          className="fixed inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] flex flex-col p-4 md:p-8"
+          className="fixed inset-0 bg-[var(--color-surface-dim)]/95 backdrop-blur-sm z-[100] flex flex-col p-4 md:p-8"
           onContextMenu={(e) => e.preventDefault()}
         >
           <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-            <h3 className="text-white font-bold truncate max-w-xs">{viewingFileName}</h3>
+            <h3 className="text-[var(--color-on-surface)] font-bold truncate max-w-xs">{viewingFileName}</h3>
             <div className="flex items-center gap-3">
               <a
                 href={viewingPdfUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl transition-colors font-bold text-sm shadow-lg"
+                className="flex items-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-4 py-2 rounded-xl transition-colors font-bold text-sm shadow-lg"
               >
                 <FileText size={16} /> Open PDF in New Tab
               </a>
               <button
                 onClick={() => setViewingPdfUrl(null)}
-                className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-xl transition-colors font-bold shadow-lg"
+                className="flex items-center gap-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] px-4 py-2 rounded-xl transition-colors font-bold shadow-lg"
               >
                 <X size={20} /> Close
               </button>
@@ -541,7 +541,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
           </div>
           {/* Google Docs Viewer works with any public URL and is not blocked by Chrome */}
           <div
-            className="flex-1 w-full bg-slate-900 rounded-2xl overflow-hidden shadow-2xl relative select-none"
+            className="flex-1 w-full bg-[var(--color-surface-container)] rounded-2xl overflow-hidden shadow-2xl relative select-none"
             onContextMenu={(e) => e.preventDefault()}
           >
             <iframe

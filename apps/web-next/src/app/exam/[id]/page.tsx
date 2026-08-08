@@ -296,30 +296,30 @@ export default function ExamRunnerPage() {
   };
 
   if (error && phase === 'lobby') return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-8">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-8">
       <div className="max-w-md text-center">
         <div className="text-rose-400 mb-4">{error}</div>
-        <a href="/exams" className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">← Back to exams</a>
+        <a href="/exams" className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">← Back to exams</a>
       </div>
     </div>
   );
-  if (error) return <div className="min-h-screen bg-slate-950 text-rose-400 flex items-center justify-center p-8">{error}</div>;
-  if (!paper) return <div className="min-h-screen bg-slate-950 text-slate-400 flex items-center justify-center">Preparing exam…</div>;
+  if (error) return <div className="min-h-screen bg-[var(--color-surface-dim)] text-rose-400 flex items-center justify-center p-8">{error}</div>;
+  if (!paper) return <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface-variant)] flex items-center justify-center">Preparing exam…</div>;
 
   if (result) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-8">
         <div className="text-center max-w-md">
           {result.results_withheld ? (
             <>
               <div className="text-3xl font-black mb-2 text-emerald-400">Submitted ✓</div>
-              <div className="text-slate-400 text-sm">Your responses were recorded. Results will be shared by your L&amp;D team.</div>
+              <div className="text-[var(--color-on-surface-variant)] text-sm">Your responses were recorded. Results will be shared by your L&amp;D team.</div>
             </>
           ) : (
             <>
               <div className={`text-5xl font-black mb-2 ${result.passed ? 'text-emerald-400' : 'text-rose-400'}`}>{result.percent}%</div>
               <div className="text-xl font-bold mb-4">{result.passed ? 'Passed' : 'Not passed'}</div>
-              <div className="text-slate-400 text-sm">Score {result.score}/{result.total} · status {result.status} · {result.flags} integrity flag(s)</div>
+              <div className="text-[var(--color-on-surface-variant)] text-sm">Score {result.score}/{result.total} · status {result.status} · {result.flags} integrity flag(s)</div>
               {result.passed && (
                 <div className="flex items-center justify-center gap-3 mt-5">
                   <button
@@ -329,7 +329,7 @@ export default function ExamRunnerPage() {
                         window.open(r.certificate_url, '_blank');
                       } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
                     }}
-                    className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-bold"
+                    className="px-4 py-2 rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-sm font-bold"
                   >Download certificate</button>
                   <button
                     onClick={async () => {
@@ -338,13 +338,13 @@ export default function ExamRunnerPage() {
                         window.open(r.share_url, '_blank');
                       } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
                     }}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm font-bold"
+                    className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm font-bold"
                   >Share on LinkedIn</button>
                 </div>
               )}
             </>
           )}
-          <div className="mt-6"><a href="/exams" className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">← Back to exams</a></div>
+          <div className="mt-6"><a href="/exams" className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">← Back to exams</a></div>
         </div>
       </div>
     );
@@ -353,22 +353,22 @@ export default function ExamRunnerPage() {
   // ── Pre-exam lobby ─────────────────────────────────────────────────────────
   if (phase === 'lobby') {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6">
-        <div className="max-w-lg w-full rounded-2xl bg-slate-900 border border-slate-800 p-8">
+      <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-6">
+        <div className="max-w-lg w-full rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8">
           <h1 className="text-2xl font-black mb-1">{paper.title}</h1>
-          <p className="text-slate-400 text-sm mb-5">Proctored exam · Powered by StudyBuddy</p>
+          <p className="text-[var(--color-on-surface-variant)] text-sm mb-5">Proctored exam · Powered by StudyBuddy</p>
 
           <div className="grid grid-cols-2 gap-3 text-sm mb-5">
-            <div className="rounded-lg bg-slate-800/60 p-3"><div className="text-slate-500 text-[11px] uppercase tracking-widest">Questions</div><div className="font-bold">{paper.questions.length}</div></div>
-            <div className="rounded-lg bg-slate-800/60 p-3"><div className="text-slate-500 text-[11px] uppercase tracking-widest">Duration</div><div className="font-bold">{paper.duration_minutes ?? Math.round((new Date(paper.deadline).getTime() - Date.now()) / 60000)} min</div></div>
-            {paper.window_label && <div className="col-span-2 rounded-lg bg-slate-800/60 p-3"><div className="text-slate-500 text-[11px] uppercase tracking-widest">Window</div><div className="font-bold">🗓️ {paper.window_label}</div></div>}
+            <div className="rounded-lg bg-[var(--color-surface-container-high)]/60 p-3"><div className="text-[var(--color-on-surface-variant)] text-[11px] uppercase tracking-widest">Questions</div><div className="font-bold">{paper.questions.length}</div></div>
+            <div className="rounded-lg bg-[var(--color-surface-container-high)]/60 p-3"><div className="text-[var(--color-on-surface-variant)] text-[11px] uppercase tracking-widest">Duration</div><div className="font-bold">{paper.duration_minutes ?? Math.round((new Date(paper.deadline).getTime() - Date.now()) / 60000)} min</div></div>
+            {paper.window_label && <div className="col-span-2 rounded-lg bg-[var(--color-surface-container-high)]/60 p-3"><div className="text-[var(--color-on-surface-variant)] text-[11px] uppercase tracking-widest">Window</div><div className="font-bold">🗓️ {paper.window_label}</div></div>}
           </div>
 
           {settings.instructions && (
-            <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-4 mb-5 text-sm text-slate-300 whitespace-pre-wrap">{settings.instructions}</div>
+            <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-4 mb-5 text-sm text-[var(--color-on-surface-variant)] whitespace-pre-wrap">{settings.instructions}</div>
           )}
 
-          <ul className="text-xs text-slate-400 space-y-1 mb-6">
+          <ul className="text-xs text-[var(--color-on-surface-variant)] space-y-1 mb-6">
             {webcamNeeded && <li>📷 This exam is webcam-proctored{settings.record_video ? ' and your session will be recorded' : ''}. Leaving frame / a second person is flagged.</li>}
             {settings.require_fullscreen && <li>🖥️ Fullscreen is required. Exiting fullscreen is flagged.</li>}
             {settings.max_tab_switches > 0 && <li>🔁 Max {settings.max_tab_switches} tab-switch(es) — exceeding auto-submits your exam.</li>}
@@ -393,14 +393,14 @@ export default function ExamRunnerPage() {
     : { text: settings.record_video ? 'Recording' : 'Monitoring', cls: 'bg-emerald-500/90' };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)]">
       {/* Blocking overlay: force the candidate back into fullscreen (not just a flag) */}
       {fullscreenLost && phase === 'running' && !result && (
-        <div className="fixed inset-0 z-50 bg-slate-950/95 flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-50 bg-[var(--color-surface-dim)]/95 flex items-center justify-center p-6">
           <div className="max-w-sm text-center">
             <div className="text-4xl mb-3">🖥️</div>
             <h2 className="text-xl font-black mb-2">Return to fullscreen to continue</h2>
-            <p className="text-slate-400 text-sm mb-5">This exam must run in fullscreen. Leaving it has been flagged for the proctor.</p>
+            <p className="text-[var(--color-on-surface-variant)] text-sm mb-5">This exam must run in fullscreen. Leaving it has been flagged for the proctor.</p>
             <button
               onClick={async () => { try { await document.documentElement.requestFullscreen(); setFullscreenLost(false); } catch { /* user gesture required */ } }}
               className="px-5 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold"
@@ -411,14 +411,14 @@ export default function ExamRunnerPage() {
         </div>
       )}
       {camActive && (
-        <div className="fixed bottom-4 right-4 z-30 w-40 rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl bg-black">
+        <div className="fixed bottom-4 right-4 z-30 w-40 rounded-xl overflow-hidden border-2 border-[var(--color-outline-variant)] shadow-2xl bg-black">
           <video ref={videoRef} muted playsInline className="w-full h-28 object-cover scale-x-[-1]" />
-          <div className={`text-[10px] font-bold text-white text-center py-1 ${camBadge.cls}`}>{camBadge.text}</div>
+          <div className={`text-[10px] font-bold text-[var(--color-on-surface)] text-center py-1 ${camBadge.cls}`}>{camBadge.text}</div>
         </div>
       )}
       {!camActive && <video ref={videoRef} className="hidden" muted playsInline />}
 
-      <div className="sticky top-0 z-10 bg-slate-950/95 backdrop-blur border-b border-slate-800">
+      <div className="sticky top-0 z-10 bg-[var(--color-surface-dim)]/95 backdrop-blur border-b border-[var(--color-outline-variant)]">
         <div className="max-w-3xl mx-auto flex items-center justify-between px-5 py-3">
           <div className="font-bold truncate">{paper.title}</div>
           <div className="flex items-center gap-4 text-sm">
@@ -445,7 +445,7 @@ export default function ExamRunnerPage() {
         ) : (
           // Linear mode: one question at a time, no going back (allow_backtrack=false).
           <>
-            <div className="text-xs text-slate-500 mb-2">Question {qIdx + 1} of {paper.questions.length} · you cannot return to previous questions</div>
+            <div className="text-xs text-[var(--color-on-surface-variant)] mb-2">Question {qIdx + 1} of {paper.questions.length} · you cannot return to previous questions</div>
             {paper.questions[qIdx] && (
               <QuestionCard
                 key={paper.questions[qIdx].id}
@@ -456,7 +456,7 @@ export default function ExamRunnerPage() {
               />
             )}
             {qIdx < paper.questions.length - 1 ? (
-              <button onClick={() => setQIdx((i) => Math.min(i + 1, paper.questions.length - 1))} className="w-full rounded-lg bg-indigo-600 hover:bg-indigo-500 py-3 font-bold mt-2">Next question →</button>
+              <button onClick={() => setQIdx((i) => Math.min(i + 1, paper.questions.length - 1))} className="w-full rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 py-3 font-bold mt-2">Next question →</button>
             ) : (
               <button onClick={submit} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-3 font-bold mt-2">Submit exam</button>
             )}

@@ -64,50 +64,50 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 
                 {/* Scientific Insights */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5 relative overflow-hidden group">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Zap size={60} />
                     </div>
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Weighted Proficiency</p>
+                    <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Weighted Proficiency</p>
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl font-black text-white">{weightedProficiency}%</span>
-                      <span className="text-[10px] font-bold text-indigo-400 mb-1.5 uppercase tracking-widest flex items-center gap-1">
+                      <span className="text-4xl font-black text-[var(--color-on-surface)]">{weightedProficiency}%</span>
+                      <span className="text-[10px] font-bold text-[var(--color-brand-primary)] mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Blend Index <Sparkles size={10} />
                       </span>
                     </div>
-                    <div className="mt-4 h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="mt-4 h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                       <div className="h-full bg-indigo-500 transition-all" style={{ width: `${weightedProficiency}%` }} />
                     </div>
                   </div>
 
-                  <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5 relative overflow-hidden group">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Activity size={60} />
                     </div>
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Consistency Index</p>
+                    <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Consistency Index</p>
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl font-black text-white">{(consistencyIndex || 0).toFixed(0)}</span>
+                      <span className="text-4xl font-black text-[var(--color-on-surface)]">{(consistencyIndex || 0).toFixed(0)}</span>
                       <span className="text-[10px] font-bold text-emerald-400 mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Stability <ShieldCheck size={10} />
                       </span>
                     </div>
-                    <div className="mt-4 h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="mt-4 h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                       <div className="h-full bg-emerald-500 transition-all" style={{ width: `${consistencyIndex}%` }} />
                     </div>
                   </div>
 
-                  <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5 relative overflow-hidden group">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <TrendingUp size={60} />
                     </div>
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Learning Velocity</p>
+                    <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Learning Velocity</p>
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl font-black text-white">{((learningVelocity || 0) * 10).toFixed(1)}</span>
+                      <span className="text-4xl font-black text-[var(--color-on-surface)]">{((learningVelocity || 0) * 10).toFixed(1)}</span>
                       <span className="text-[10px] font-bold text-purple-400 mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Units/Day <Zap size={10} />
                       </span>
                     </div>
-                    <div className="mt-4 h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="mt-4 h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                       <div className="h-full bg-purple-500 transition-all" style={{ width: `${Math.min(100, learningVelocity * 10)}%` }} />
                     </div>
                   </div>
@@ -142,9 +142,9 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Score over time */}
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
-                    <TrendingUp size={14} className="text-indigo-400" /> Quiz Score Trajectory (last 10)
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
+                    <TrendingUp size={14} className="text-[var(--color-brand-primary)]" /> Quiz Score Trajectory (last 10)
                   </h3>
                   {scoreHistory.length > 1 ? (
                     <ResponsiveContainer width="100%" height={180}>
@@ -170,8 +170,8 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Activity Heatmap */}
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <Zap size={14} className="text-amber-400" /> Activity Heatmap
                   </h3>
                   <ActivityHeatmap userId={profile.id} />
@@ -179,8 +179,8 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                 {/* Weekly activity bars */}
                 {weeklyActivity.length > 0 && (
-                  <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                    <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                       <Clock size={14} className="text-violet-400" /> Weekly Engagement
                     </h3>
                     <ResponsiveContainer width="100%" height={140}>
@@ -201,8 +201,8 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                 {/* Score distribution */}
                 {quizAttempts.length > 0 && (
-                  <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                    <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                       <Star size={14} className="text-amber-400" /> Score Distribution
                     </h3>
                     <div className="flex items-center gap-8">
@@ -219,11 +219,11 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                       <div className="space-y-2 flex-1">
                         {scoreDistribution.map((d, i) => (
                           <div key={d.range} className="flex items-center justify-between text-xs">
-                            <span className="flex items-center gap-2 text-slate-400">
+                            <span className="flex items-center gap-2 text-[var(--color-on-surface-variant)]">
                               <span className="w-2 h-2 rounded-full inline-block" style={{ background: ['#ef4444', '#f59e0b', '#6366f1', '#10b981'][i] }} />
                               {d.range}%
                             </span>
-                            <span className="font-black text-white">{d.count}</span>
+                            <span className="font-black text-[var(--color-on-surface)]">{d.count}</span>
                           </div>
                         ))}
                       </div>
@@ -236,9 +236,9 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
               {/* Right: Radar + quick stats */}
               <div className="space-y-6">
                 {/* Radar */}
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
-                    <BrainCircuit size={14} className="text-indigo-400" /> Competency Radar
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
+                    <BrainCircuit size={14} className="text-[var(--color-brand-primary)]" /> Competency Radar
                   </h3>
                   <ResponsiveContainer width="100%" height={220}>
                     <RadarChart data={radarData}>
@@ -250,41 +250,41 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Pros / Cons AI (from registry) */}
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4 flex items-center gap-2">
                     <Zap size={14} className="text-emerald-400" /> AI Strengths
                   </h3>
                   {(registry?.pros || ['Strong quiz engagement', 'Consistent learning pattern']).map((p: string, i: number) => (
                     <div key={i} className="flex items-start gap-2 mb-2">
                       <CheckCircle2 size={14} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-xs text-slate-300">{p}</span>
+                      <span className="text-xs text-[var(--color-on-surface-variant)]">{p}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4 flex items-center gap-2">
                     <TrendingDown size={14} className="text-rose-400" /> Growth Areas
                   </h3>
                   {(registry?.cons || ['Focus on coding challenges', 'Increase daily attempts']).map((c: string, i: number) => (
                     <div key={i} className="flex items-start gap-2 mb-2">
                       <XCircle size={14} className="text-rose-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-xs text-slate-300">{c}</span>
+                      <span className="text-xs text-[var(--color-on-surface-variant)]">{c}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Percentile rank */}
                 <div className="p-6 bg-gradient-to-br from-indigo-900/30 to-slate-900/60 rounded-3xl border border-indigo-500/20">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3 flex items-center gap-2">
                     <Trophy size={14} className="text-amber-400" /> Group Rank
                   </h3>
-                  <div className="text-4xl font-black text-white mb-1">
+                  <div className="text-4xl font-black text-[var(--color-on-surface)] mb-1">
                     #{registry?.group_rank ?? '—'}
                   </div>
-                  <div className="text-xs text-slate-500">of {registry?.group_size ?? '—'} members</div>
+                  <div className="text-xs text-[var(--color-on-surface-variant)]">of {registry?.group_size ?? '—'} members</div>
                   {registry?.percentile != null && (
-                    <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="mt-3 h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all"
                         style={{ width: `${registry.percentile}%` }} />
                     </div>

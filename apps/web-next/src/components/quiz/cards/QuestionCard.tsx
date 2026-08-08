@@ -50,21 +50,21 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
   const optList = q.question_type === 'true_false' ? ['True', 'False'] : q.options || [];
 
   return (
-    <div className={`rounded-xl bg-slate-900 border border-slate-800 border-l-4 ${TYPE_ACCENT[q.question_type] || 'border-l-slate-600'} p-5 mb-5`}>
+    <div className={`rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] border-l-4 ${TYPE_ACCENT[q.question_type] || 'border-l-slate-600'} p-5 mb-5`}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-slate-500 text-xs font-bold">Q{index + 1}</span>
-        <span className="text-[10px] uppercase tracking-widest text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">
+        <span className="text-[var(--color-on-surface-variant)] text-xs font-bold">Q{index + 1}</span>
+        <span className="text-[10px] uppercase tracking-widest text-[var(--color-on-surface-variant)] bg-[var(--color-surface-container-high)] px-2 py-0.5 rounded-full">
           {TYPE_LABEL[q.question_type] || q.question_type} · {q.points ?? 1} pt
         </span>
       </div>
 
-      <div className="text-slate-100 mb-4 leading-relaxed break-words overflow-x-auto">
+      <div className="text-[var(--color-on-surface)] mb-4 leading-relaxed break-words overflow-x-auto">
         <RichContent content={q.question} format={fmt} mediaUrls={q.media_urls} />
       </div>
 
       {(q.question_type === 'short_answer') && (
         <input
-          className="w-full rounded-lg bg-slate-800 border border-slate-700 px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500"
+          className="w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500"
           placeholder="Type your brief answer…"
           value={typeof value === 'string' ? value : ''}
           onChange={(e) => onChange(e.target.value)}
@@ -73,7 +73,7 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
 
       {(q.question_type === 'essay') && (
         <textarea
-          className="w-full rounded-lg bg-slate-800 border border-slate-700 px-4 py-3 text-sm min-h-[140px] focus:outline-none focus:border-purple-500"
+          className="w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-4 py-3 text-sm min-h-[140px] focus:outline-none focus:border-purple-500"
           placeholder="Write your answer…"
           value={typeof value === 'string' ? value : ''}
           onChange={(e) => onChange(e.target.value)}
@@ -88,7 +88,7 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
               <label
                 key={opt}
                 className={`flex items-start gap-3 rounded-lg border px-4 py-2.5 cursor-pointer transition ${
-                  checked ? 'border-emerald-500 bg-emerald-500/10' : 'border-slate-700 hover:border-slate-600'
+                  checked ? 'border-emerald-500 bg-emerald-500/10' : 'border-[var(--color-outline-variant)] hover:border-slate-600'
                 }`}
               >
                 <input
@@ -98,7 +98,7 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
                   onChange={() => (isMulti ? toggleMulti(opt) : onChange(opt))}
                   className="accent-emerald-500 shrink-0 mt-0.5"
                 />
-                <span className="text-sm text-slate-200 min-w-0 break-words">
+                <span className="text-sm text-[var(--color-on-surface)] min-w-0 break-words">
                   <RichContent content={opt} format={fmt} />
                 </span>
               </label>

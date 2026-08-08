@@ -21,7 +21,7 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const DAYS = ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'];
 
 function getColor(count: number, max: number): string {
-  if (count === 0) return 'bg-slate-100/50 dark:bg-slate-800/40 border border-slate-200/10 dark:border-slate-700/20';
+  if (count === 0) return 'bg-slate-100/50 dark:bg-[var(--color-surface-container-high)]/40 border border-slate-200/10 dark:border-[var(--color-outline-variant)]/20';
   const pct = max > 0 ? count / max : 0;
   
   if (pct < 0.25) return 'bg-indigo-400/30 dark:bg-indigo-900/40 border border-indigo-400/20';
@@ -92,7 +92,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
   if (loading) {
     return (
       <div className="w-full h-24 flex items-center justify-center">
-        <div className="animate-pulse text-slate-400 text-sm">Loading activity...</div>
+        <div className="animate-pulse text-[var(--color-on-surface-variant)] text-sm">Loading activity...</div>
       </div>
     );
   }
@@ -124,8 +124,8 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
   return (
     <div className="relative select-none">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{totalActive} active days in the last year</span>
-        <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-500">
+        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">{totalActive} active days in the last year</span>
+        <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
           <span>Less</span>
           {[0, 0.1, 0.4, 0.7, 1].map((pct, i) => (
             <div
@@ -189,7 +189,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
 
       {tooltip && (
         <div
-          className="fixed z-50 px-3 py-1.5 bg-slate-800 border border-white/10 text-white text-[10px] font-black rounded-lg shadow-2xl pointer-events-none whitespace-nowrap uppercase tracking-widest"
+          className="fixed z-50 px-3 py-1.5 bg-[var(--color-surface-container-high)] border border-white/10 text-[var(--color-on-surface)] text-[10px] font-black rounded-lg shadow-2xl pointer-events-none whitespace-nowrap uppercase tracking-widest"
           style={{ left: tooltip.x, top: tooltip.y }}
         >
           {tooltip.text}

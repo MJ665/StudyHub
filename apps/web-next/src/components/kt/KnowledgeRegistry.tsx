@@ -140,11 +140,11 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
       {/* Projects Sidebar */}
       <div className="col-span-3 space-y-4">
         <div className="relative mb-6">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={16} />
           <input 
             type="text"
             placeholder="Search projects..."
-            className="w-full pl-12 pr-4 py-3 bg-slate-900 border border-slate-800 rounded-2xl text-xs font-medium focus:border-indigo-500 transition-all outline-none text-white"
+            className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-xs font-medium focus:border-indigo-500 transition-all outline-none text-[var(--color-on-surface)]"
             value={projectSearch}
             onChange={(e) => setProjectSearch(e.target.value)}
           />
@@ -157,13 +157,13 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
               onClick={() => selectProject(p as any)}
               className={`w-full p-4 rounded-2xl flex items-center justify-between group transition-all border ${
                 selectedProject?.id === p.id 
-                ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400' 
-                : 'bg-slate-900/50 border-slate-800 text-slate-500 hover:border-slate-700'
+                ? 'bg-indigo-500/10 border-indigo-500/30 text-[var(--color-brand-primary)]' 
+                : 'bg-[var(--color-surface-container)]/50 border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${
-                  selectedProject?.id === p.id ? 'bg-indigo-500/20 border-indigo-500/30' : 'bg-slate-800 border-slate-700'
+                  selectedProject?.id === p.id ? 'bg-indigo-500/20 border-indigo-500/30' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)]'
                 }`}>
                   <BookOpen size={14} />
                 </div>
@@ -179,35 +179,35 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
       </div>
 
       {/* Document List */}
-      <div className="col-span-9 bg-slate-900/30 border border-slate-800 rounded-[2.5rem] overflow-hidden flex flex-col">
-        <div className="p-8 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
+      <div className="col-span-9 bg-[var(--color-surface-container)]/30 border border-[var(--color-outline-variant)] rounded-[2.5rem] overflow-hidden flex flex-col">
+        <div className="p-8 border-b border-[var(--color-outline-variant)] flex justify-between items-center bg-[var(--color-surface-container)]/50">
           <div>
-            <h3 className="text-xl font-black text-white">{selectedProject?.name || 'Knowledge Registry'}</h3>
-            <p className="text-xs text-slate-500 font-medium">Browse verified organizational intelligence.</p>
+            <h3 className="text-xl font-black text-[var(--color-on-surface)]">{selectedProject?.name || 'Knowledge Registry'}</h3>
+            <p className="text-xs text-[var(--color-on-surface-variant)] font-medium">Browse verified organizational intelligence.</p>
           </div>
           <div className="flex items-center gap-2">
             {onCreateDocument && (
               <button 
                 onClick={onCreateDocument}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 text-xs"
+                className="bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 text-xs"
               >
                 <Plus size={16} /> Create Doc
               </button>
             )}
-            <button className="p-3 bg-slate-900 border border-slate-800 rounded-xl text-slate-500 hover:text-white transition-all">
+            <button className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
               <Filter size={18} />
             </button>
           </div>
         </div>
 
         {/* Document Search & Sprint Pills */}
-        <div className="px-8 py-4 bg-slate-900/20 border-b border-slate-800/80 flex flex-col gap-4">
+        <div className="px-8 py-4 bg-[var(--color-surface-container)]/20 border-b border-[var(--color-outline-variant)]/80 flex flex-col gap-4">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={16} />
             <input 
               type="text"
               placeholder="Search documents by title, type, or tags..."
-              className="w-full pl-12 pr-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl text-xs font-medium focus:border-indigo-500 transition-all outline-none text-white"
+              className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-dim)]/60 border border-[var(--color-outline-variant)]/80 rounded-xl text-xs font-medium focus:border-indigo-500 transition-all outline-none text-[var(--color-on-surface)]"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -215,13 +215,13 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
 
           {sprintList.length > 0 && (
             <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-              <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mr-2 whitespace-nowrap">Sprints:</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mr-2 whitespace-nowrap">Sprints:</span>
               <button
                 onClick={() => selectSprint(null)}
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border ${
                   selectedSprint === null
-                  ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.1)]'
-                  : 'bg-slate-900 border-slate-800/60 text-slate-500 hover:border-slate-700'
+                  ? 'bg-indigo-500/10 border-indigo-500/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
+                  : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)]/60 text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                 }`}
               >
                 All Sprints
@@ -232,8 +232,8 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                   onClick={() => selectSprint(sprint)}
                   className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border whitespace-nowrap ${
                     selectedSprint === sprint
-                    ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.1)]'
-                    : 'bg-slate-900 border-slate-800/60 text-slate-500 hover:border-slate-700'
+                    ? 'bg-indigo-500/10 border-indigo-500/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
+                    : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)]/60 text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                   }`}
                 >
                   {sprint}
@@ -249,13 +249,13 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
               <Loader2 className="animate-spin text-indigo-500" size={32} />
             </div>
           ) : docs.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-500 text-center">
+            <div className="h-full flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] text-center">
               <FileText size={48} className="mb-4 opacity-10" />
               <p className="text-sm font-bold uppercase tracking-widest">No documents found</p>
               <p className="text-xs mt-2">Start documenting to build your project memory.</p>
             </div>
           ) : filteredDocs.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-500 text-center">
+            <div className="h-full flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] text-center">
               <FileText size={48} className="mb-4 opacity-10" />
               <p className="text-sm font-bold uppercase tracking-widest">No matching documents</p>
               <p className="text-xs mt-2">Adjust your search or sprint filters.</p>
@@ -267,16 +267,16 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group p-6 bg-slate-900 border border-slate-800 rounded-3xl hover:border-indigo-500/50 transition-all relative overflow-hidden"
+                className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl hover:border-indigo-500/50 transition-all relative overflow-hidden"
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                    <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-indigo-500/20">
                       <FileText size={20} />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[9px] font-black rounded border border-indigo-500/20 uppercase">
+                        <span className="px-2 py-0.5 bg-indigo-500/10 text-[var(--color-brand-primary)] text-[9px] font-black rounded border border-indigo-500/20 uppercase">
                           {doc.doc_type}
                         </span>
                         {doc.sprint && (
@@ -284,13 +284,13 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                             {doc.sprint}
                           </span>
                         )}
-                        <span className="px-2 py-0.5 bg-slate-800 text-slate-500 text-[9px] font-black rounded border border-slate-700 uppercase">
+                        <span className="px-2 py-0.5 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[9px] font-black rounded border border-[var(--color-outline-variant)] uppercase">
                           v{doc.version}
                         </span>
                       </div>
                       <h4 
                         onClick={() => onViewDocument(doc.id)}
-                        className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors cursor-pointer"
+                        className="text-lg font-bold text-[var(--color-on-surface)] group-hover:text-[var(--color-brand-primary)] transition-colors cursor-pointer"
                       >
                         {doc.title}
                       </h4>
@@ -299,14 +299,14 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                   <div className="flex items-center gap-3">
                     <button 
                       onClick={() => onViewHistory(doc.id)}
-                      className="p-3 bg-slate-800 rounded-xl text-slate-400 hover:text-white transition-all border border-slate-700/50"
+                      className="p-3 bg-[var(--color-surface-container-high)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all border border-[var(--color-outline-variant)]/50"
                       title="View Version History"
                     >
                       <History size={18} />
                     </button>
                     <button 
                       onClick={() => handleEndorse(doc.id)}
-                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 text-slate-400 hover:bg-amber-500/10 hover:text-amber-500 transition-all border border-slate-700/50 font-bold text-xs"
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:bg-amber-500/10 hover:text-amber-500 transition-all border border-[var(--color-outline-variant)]/50 font-bold text-xs"
                     >
                       <Star size={16} /> 
                       {doc.endorsement_count || 0} Endorsements
@@ -314,33 +314,33 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                   <div className="flex items-center gap-2">
-                    <User size={12} className="text-indigo-400" />
+                    <User size={12} className="text-[var(--color-brand-primary)]" />
                     <span>Contributor: {doc.author_name || doc.author_id}</span>
                   </div>
                   
                   {doc.co_author_names && doc.co_author_names.length > 0 && (
-                    <div className="flex items-center gap-3 border-l border-slate-800 pl-6">
+                    <div className="flex items-center gap-3 border-l border-[var(--color-outline-variant)] pl-6">
                       <div className="flex -space-x-3 overflow-hidden">
                         {doc.co_author_names.map((name, idx) => (
                           <div 
                             key={idx} 
-                            className="inline-block h-6 w-6 rounded-full ring-2 ring-slate-900 bg-indigo-500/20 flex items-center justify-center text-[8px] font-black text-indigo-400 border border-indigo-500/30"
+                            className="inline-block h-6 w-6 rounded-full ring-2 ring-slate-900 bg-indigo-500/20 flex items-center justify-center text-[8px] font-black text-[var(--color-brand-primary)] border border-indigo-500/30"
                             title={`${name} (${doc.co_author_emails?.[idx] || ''})`}
                           >
                             {name.charAt(0)}
                           </div>
                         ))}
                       </div>
-                      <span className="text-[9px] text-slate-500 font-bold lowercase">
+                      <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold lowercase">
                         + {doc.co_author_names.length} Co-authors
                       </span>
                     </div>
                   )}
 
                   <div className="flex items-center gap-2">
-                    <Calendar size={12} className="text-indigo-400" />
+                    <Calendar size={12} className="text-[var(--color-brand-primary)]" />
                     <span>{format(new Date(doc.created_at), 'MMM dd, yyyy')}</span>
                   </div>
                   <div className="flex items-center gap-2 ml-auto">

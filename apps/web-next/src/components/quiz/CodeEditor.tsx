@@ -165,39 +165,39 @@ export default function CodeEditor({ question, onFinish }: any) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-950 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
+    <div className="flex flex-col h-full bg-[var(--color-surface-dim)] border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
       {/* HEADER */}
-      <div className="flex items-center justify-between px-8 py-5 bg-slate-900 border-b border-white/5 z-30">
+      <div className="flex items-center justify-between px-8 py-5 bg-[var(--color-surface-container)] border-b border-white/5 z-30">
         <div className="flex items-center gap-4">
            <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20">
               <Sparkles size={20} />
            </div>
            <div>
-              <h2 className="text-lg font-black text-white">{question.title}</h2>
+              <h2 className="text-lg font-black text-[var(--color-on-surface)]">{question.title}</h2>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                     AI Intellisense: {supportedLanguages.find(l => l.id === language)?.name || language}
                   </p>
                 </div>
                 {/* Language Selector Inline */}
                 <div className="relative group/lang">
-                  <button className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-brand-primary hover:text-white transition-colors">
+                  <button className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-brand-primary hover:text-[var(--color-on-surface)] transition-colors">
                     Switch Engine <ChevronDown size={10} />
                   </button>
-                  <div className="absolute top-full left-0 mt-2 w-64 max-w-[92vw] bg-slate-900 border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover/lang:opacity-100 group-hover/lang:visible transition-all z-50 overflow-y-auto max-h-[70vh] p-2 custom-scrollbar">
+                  <div className="absolute top-full left-0 mt-2 w-64 max-w-[92vw] bg-[var(--color-surface-container)] border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover/lang:opacity-100 group-hover/lang:visible transition-all z-50 overflow-y-auto max-h-[70vh] p-2 custom-scrollbar">
                     {Object.keys(languagesByCategory).length > 0 ? (
                       Object.entries(languagesByCategory).map(([category, langs]) => (
                         <div key={category} className="mb-2 last:mb-0">
-                          <div className="px-3 py-1 text-[8px] font-black uppercase tracking-[0.2em] text-slate-500 bg-white/5 rounded-lg mb-1">
+                          <div className="px-3 py-1 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] bg-white/5 rounded-lg mb-1">
                             {category}
                           </div>
                           {langs.map((l: any) => (
                             <button 
                               key={l.id} 
                               onClick={() => handleLanguageChange(l.id)}
-                              className={`w-full text-left px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-white/5 transition-colors ${language === l.id ? 'text-brand-primary bg-brand-primary/5' : 'text-slate-400'}`}
+                              className={`w-full text-left px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-white/5 transition-colors ${language === l.id ? 'text-brand-primary bg-brand-primary/5' : 'text-[var(--color-on-surface-variant)]'}`}
                             >
                               {l.name}
                             </button>
@@ -209,7 +209,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                         <button 
                           key={l.id} 
                           onClick={() => handleLanguageChange(l.id)}
-                          className={`w-full text-left px-4 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:bg-white/5 transition-colors ${language === l.id ? 'text-brand-primary bg-brand-primary/5' : 'text-slate-400'}`}
+                          className={`w-full text-left px-4 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:bg-white/5 transition-colors ${language === l.id ? 'text-brand-primary bg-brand-primary/5' : 'text-[var(--color-on-surface-variant)]'}`}
                         >
                           {l.name}
                         </button>
@@ -224,28 +224,28 @@ export default function CodeEditor({ question, onFinish }: any) {
         <div className="flex items-center gap-3">
            <button 
              onClick={copyToClipboard}
-             className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-xl transition-all border border-white/5 group"
+             className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5 group"
              title="Copy Source Code"
            >
              <Copy size={18} />
            </button>
            <button 
              onClick={resetCode}
-             className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-all border border-white/5 group"
+             className="flex items-center gap-2 px-4 py-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-xl transition-all border border-white/5 group"
            >
              <RotateCcw size={14} className="group-hover:rotate-[-45deg] transition-all" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Reset</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Reset</span>
            </button>
            <button 
              onClick={() => setShowSettings(!showSettings)}
-             className={`p-2.5 rounded-xl border transition-all ${showSettings ? 'bg-brand-primary border-brand-primary text-slate-950' : 'bg-slate-800 border-slate-700 text-slate-400'}`}
+             className={`p-2.5 rounded-xl border transition-all ${showSettings ? 'bg-brand-primary border-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}
              title="Editor Configurations"
            >
              <Settings size={18} />
            </button>
            <button
              onClick={() => setShowCriteria(!showCriteria)}
-             className={`p-2.5 rounded-xl border transition-all ${showCriteria ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-400'}`}
+             className={`p-2.5 rounded-xl border transition-all ${showCriteria ? 'bg-[var(--color-brand-primary-container)] border-indigo-500 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}
              title="Mission Requirements"
            >
              <Info size={18} />
@@ -255,7 +255,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                kind="coding_question"
                targetId={question.id}
                label=""
-               className="p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-400 hover:text-rose-400 hover:border-rose-500/40 transition-all"
+               className="p-2.5 rounded-xl border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-rose-400 hover:border-rose-500/40 transition-all"
              />
            )}
            <button 
@@ -278,16 +278,16 @@ export default function CodeEditor({ question, onFinish }: any) {
           {showSettings && (
             <motion.div 
               initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
-              className="absolute right-6 top-6 z-[60] bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl w-64 max-w-[calc(100vw-3rem)]"
+              className="absolute right-6 top-6 z-[60] bg-[var(--color-surface-container)]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl w-64 max-w-[calc(100vw-3rem)]"
             >
               <div className="flex items-center justify-between mb-6">
                 <h4 className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Configurations</h4>
-                <button onClick={() => setShowSettings(false)} className="text-slate-500 hover:text-white"><X size={14} /></button>
+                <button onClick={() => setShowSettings(false)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><X size={14} /></button>
               </div>
               
               <div className="space-y-6">
                 <div>
-                  <div className="flex items-center gap-2 mb-3 text-slate-400">
+                  <div className="flex items-center gap-2 mb-3 text-[var(--color-on-surface-variant)]">
                     <Palette size={12} />
                     <span className="text-[10px] font-black uppercase tracking-widest">Environment Theme</span>
                   </div>
@@ -296,7 +296,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                       <button 
                         key={t.id} 
                         onClick={() => setTheme(t.id)}
-                        className={`w-full text-left px-3 py-2 rounded-lg text-[10px] font-bold transition-all ${theme === t.id ? 'bg-brand-primary text-slate-950' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-[10px] font-bold transition-all ${theme === t.id ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                       >
                         {t.name}
                       </button>
@@ -305,7 +305,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-2 mb-3 text-slate-400">
+                  <div className="flex items-center gap-2 mb-3 text-[var(--color-on-surface-variant)]">
                     <Type size={12} />
                     <span className="text-[10px] font-black uppercase tracking-widest">Terminal Font Size</span>
                   </div>
@@ -314,7 +314,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                       <button 
                         key={s} 
                         onClick={() => setFontSize(s)}
-                        className={`w-8 h-8 rounded-lg text-[10px] font-black transition-all ${fontSize === s ? 'bg-brand-primary text-slate-950' : 'bg-slate-800 text-slate-400'}`}
+                        className={`w-8 h-8 rounded-lg text-[10px] font-black transition-all ${fontSize === s ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
                       >
                         {s}
                       </button>
@@ -332,27 +332,27 @@ export default function CodeEditor({ question, onFinish }: any) {
              {showCriteria && (
                <motion.div 
                  initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-                 className="absolute top-4 left-4 right-4 z-50 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl"
+                 className="absolute top-4 left-4 right-4 z-50 bg-[var(--color-surface-container)]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl"
                >
                  <h4 className="text-[10px] font-black uppercase tracking-widest text-brand-primary mb-4 flex items-center justify-between">
                    Mission Directives
-                   <button onClick={() => setShowCriteria(false)} className="text-slate-500 hover:text-white"><X size={14} /></button>
+                   <button onClick={() => setShowCriteria(false)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><X size={14} /></button>
                  </h4>
                  {question.description && (
-                   <div className="mb-4 max-h-[40vh] overflow-y-auto custom-scrollbar prose prose-invert prose-sm max-w-none text-sm text-slate-300 bg-white/5 p-4 rounded-2xl border border-white/5 break-words">
+                   <div className="mb-4 max-h-[40vh] overflow-y-auto custom-scrollbar prose prose-invert prose-sm max-w-none text-sm text-[var(--color-on-surface-variant)] bg-white/5 p-4 rounded-2xl border border-white/5 break-words">
                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{question.description}</ReactMarkdown>
                    </div>
                  )}
-                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Evaluation Criteria</p>
+                 <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Evaluation Criteria</p>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                    {question.evaluation_criteria?.map((c: string, i: number) => (
-                     <div key={i} className="flex gap-2 text-xs text-slate-400 bg-white/5 p-3 rounded-xl border border-white/5">
+                     <div key={i} className="flex gap-2 text-xs text-[var(--color-on-surface-variant)] bg-white/5 p-3 rounded-xl border border-white/5">
                        <CheckCircle2 size={14} className="text-brand-primary shrink-0" />
                        {c}
                      </div>
                    ))}
                    {(!question.evaluation_criteria || question.evaluation_criteria.length === 0) && (
-                     <p className="text-xs text-slate-500 italic">No specific criteria defined for this assessment.</p>
+                     <p className="text-xs text-[var(--color-on-surface-variant)] italic">No specific criteria defined for this assessment.</p>
                    )}
                  </div>
                </motion.div>
@@ -400,18 +400,18 @@ export default function CodeEditor({ question, onFinish }: any) {
                    initial={{ y: 100 }}
                    animate={{ y: 0 }}
                    exit={{ y: 100 }}
-                   className="absolute bottom-0 left-0 right-0 h-48 bg-slate-900/95 backdrop-blur-md border-t border-white/10 z-20 flex flex-col"
+                   className="absolute bottom-0 left-0 right-0 h-48 bg-[var(--color-surface-container)]/95 backdrop-blur-md border-t border-white/10 z-20 flex flex-col"
                  >
-                    <div className="flex items-center justify-between px-6 py-2 border-b border-white/5 bg-slate-950/50">
+                    <div className="flex items-center justify-between px-6 py-2 border-b border-white/5 bg-[var(--color-surface-dim)]/50">
                        <div className="flex items-center gap-2">
                           <Terminal size={12} className="text-brand-primary" />
-                          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">Terminal Intelligence Output</span>
+                          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)]">Terminal Intelligence Output</span>
                        </div>
-                       <button onClick={() => setOutput(null)} className="text-slate-600 hover:text-white transition-colors">
+                       <button onClick={() => setOutput(null)} className="text-slate-600 hover:text-[var(--color-on-surface)] transition-colors">
                           <X size={14} />
                        </button>
                     </div>
-                    <div className="p-4 font-mono text-xs text-slate-300 overflow-y-auto whitespace-pre-wrap selection:bg-brand-primary/30">
+                    <div className="p-4 font-mono text-xs text-[var(--color-on-surface-variant)] overflow-y-auto whitespace-pre-wrap selection:bg-brand-primary/30">
                        {output}
                     </div>
                  </motion.div>
@@ -422,10 +422,10 @@ export default function CodeEditor({ question, onFinish }: any) {
            <div className="absolute bottom-6 left-6 right-6 pointer-events-none flex justify-center gap-3">
               {hints.map((h, i) => (
                 <div key={i} className="group relative pointer-events-auto">
-                   <div className="bg-indigo-600 text-white p-3 rounded-2xl shadow-lg cursor-help border border-white/10">
+                   <div className="bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] p-3 rounded-2xl shadow-lg cursor-help border border-white/10">
                       <Lightbulb size={18} />
                    </div>
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 max-w-[92vw] bg-slate-900 border border-indigo-500/30 p-4 rounded-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-sm text-slate-300">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 max-w-[92vw] bg-[var(--color-surface-container)] border border-indigo-500/30 p-4 rounded-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-sm text-[var(--color-on-surface-variant)]">
                       <p className="font-black text-brand-primary text-[10px] mb-2 uppercase tracking-widest">Protocol Hint L-{i + 1}</p>
                       {h}
                    </div>
@@ -435,7 +435,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                 <button 
                   onClick={fetchHint} 
                   disabled={loadingHint} 
-                  className="bg-slate-900/90 hover:bg-slate-800 border border-white/10 text-white px-5 py-3 rounded-2xl pointer-events-auto flex items-center gap-3 backdrop-blur-md transition-all shadow-xl"
+                  className="bg-[var(--color-surface-container)]/90 hover:bg-[var(--color-surface-container-high)] border border-white/10 text-[var(--color-on-surface)] px-5 py-3 rounded-2xl pointer-events-auto flex items-center gap-3 backdrop-blur-md transition-all shadow-xl"
                 >
                    {loadingHint ? (
                      <div className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
@@ -456,7 +456,7 @@ export default function CodeEditor({ question, onFinish }: any) {
         </div>
 
         {/* SIDEBAR */}
-        <div className="w-full lg:w-96 bg-slate-900 border-l border-white/5 flex flex-col">
+        <div className="w-full lg:w-96 bg-[var(--color-surface-container)] border-l border-white/5 flex flex-col">
            {evalResult ? (
              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 space-y-6 overflow-y-auto w-full">
                 <div className="text-center p-8 rounded-[2.5rem] bg-white/5 border border-white/5 relative overflow-hidden">
@@ -466,13 +466,13 @@ export default function CodeEditor({ question, onFinish }: any) {
                         {evalResult.score}%
                       </span>
                    </div>
-                   <h3 className="text-lg font-black text-white uppercase tracking-tight mb-1">{evalResult.passed ? 'Mission Success' : 'Directives Failed'}</h3>
-                   <p className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">{evalResult.passed ? 'Logic Protocol Verified' : 'Refinement Mandatory'}</p>
+                   <h3 className="text-lg font-black text-[var(--color-on-surface)] uppercase tracking-tight mb-1">{evalResult.passed ? 'Mission Success' : 'Directives Failed'}</h3>
+                   <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-[0.2em]">{evalResult.passed ? 'Logic Protocol Verified' : 'Refinement Mandatory'}</p>
                 </div>
 
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Judicial Verdict</span>
-                  <div className="text-sm text-slate-300 leading-relaxed bg-slate-950 p-6 rounded-[1.5rem] border border-white/5 font-medium italic relative">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Judicial Verdict</span>
+                  <div className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed bg-[var(--color-surface-dim)] p-6 rounded-[1.5rem] border border-white/5 font-medium italic relative">
                     <span className="absolute top-4 left-4 text-indigo-500/20 text-4xl font-serif">"</span>
                     <p className="relative z-10">{evalResult.feedback}</p>
                     <span className="absolute bottom-2 right-4 text-indigo-500/20 text-4xl font-serif">"</span>
@@ -481,7 +481,7 @@ export default function CodeEditor({ question, onFinish }: any) {
 
                 {evalResult.suggestions?.length > 0 && (
                   <div className="space-y-3">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Optimization Log</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Optimization Log</span>
                     <div className="space-y-2">
                       {evalResult.suggestions.map((s: string, i: number) => (
                         <div key={i} className="flex gap-3 p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/10 text-xs text-indigo-300 group hover:bg-indigo-500/10 transition-colors">
@@ -495,11 +495,11 @@ export default function CodeEditor({ question, onFinish }: any) {
 
                 <div className="pt-4 space-y-3">
                    {evalResult.passed ? (
-                     <button onClick={() => onFinish(evalResult)} className="w-full py-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-black transition-all shadow-xl shadow-emerald-600/20 uppercase tracking-[0.2em] text-[10px]">
+                     <button onClick={() => onFinish(evalResult)} className="w-full py-5 bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)] rounded-2xl font-black transition-all shadow-xl shadow-emerald-600/20 uppercase tracking-[0.2em] text-[10px]">
                        Proceed to Next Sector
                      </button>
                    ) : (
-                     <button onClick={() => setEvalResult(null)} className="w-full py-5 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-black transition-all border border-white/5 uppercase tracking-[0.2em] text-[10px]">
+                     <button onClick={() => setEvalResult(null)} className="w-full py-5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-black transition-all border border-white/5 uppercase tracking-[0.2em] text-[10px]">
                        Reformulate Logic
                      </button>
                    )}
@@ -507,11 +507,11 @@ export default function CodeEditor({ question, onFinish }: any) {
              </motion.div>
            ) : (
              <div className="flex-1 flex flex-col items-center justify-center p-12 text-center opacity-30">
-                <div className="w-20 h-20 bg-slate-950 border border-white/5 rounded-3xl flex items-center justify-center mb-8">
+                <div className="w-20 h-20 bg-[var(--color-surface-dim)] border border-white/5 rounded-3xl flex items-center justify-center mb-8">
                   <Terminal size={40} className="text-slate-600" />
                 </div>
-                <h3 className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Evaluation Idle</h3>
-                <p className="text-[10px] text-slate-500 mt-4 leading-relaxed max-w-[200px] font-bold uppercase tracking-widest">Submit your code for high-fidelity multi-model rubric validation.</p>
+                <h3 className="text-[10px] font-black text-[var(--color-on-surface)] uppercase tracking-[0.3em]">Evaluation Idle</h3>
+                <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-4 leading-relaxed max-w-[200px] font-bold uppercase tracking-widest">Submit your code for high-fidelity multi-model rubric validation.</p>
              </div>
            )}
         </div>

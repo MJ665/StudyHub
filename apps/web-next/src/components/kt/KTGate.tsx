@@ -61,29 +61,29 @@ export default function KTGate({ projectId, projectName, onUnlock, onCancel }: K
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-slate-900/60 border border-slate-800 rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center backdrop-blur-xl max-w-lg w-full shadow-2xl relative overflow-hidden"
+        className="bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center backdrop-blur-xl max-w-lg w-full shadow-2xl relative overflow-hidden"
       >
         <div className="absolute top-0 right-0 w-[250px] h-[250px] bg-indigo-500/5 rounded-full blur-[80px] pointer-events-none" />
         
         <div className="w-20 h-20 rounded-3xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 mb-8">
-          <Shield size={40} className="text-indigo-400" />
+          <Shield size={40} className="text-[var(--color-brand-primary)]" />
         </div>
         
-        <h3 className="text-2xl font-black text-white mb-3">Secure Knowledge Gateway</h3>
-        <p className="text-slate-400 text-xs max-w-sm mb-8 leading-relaxed">
+        <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-3">Secure Knowledge Gateway</h3>
+        <p className="text-[var(--color-on-surface-variant)] text-xs max-w-sm mb-8 leading-relaxed">
           Access to {projectName ? `**${projectName}**'s` : 'the'} intelligence and database indexes is cryptographically locked. 
           Please input a valid Gateway Access Key to unlock this domain.
         </p>
         
         <form onSubmit={handleVerifyKey} className="w-full space-y-4">
           <div className="relative group">
-            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[var(--color-on-surface-variant)] group-focus-within:text-[var(--color-brand-primary)] transition-colors">
               <Key size={16} />
             </div>
             <input 
               type="password"
               placeholder="Enter Access Key (sh_kt_...)"
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-xs text-white"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-xs text-[var(--color-on-surface)]"
               value={accessKey}
               onChange={(e) => setAccessKey(e.target.value)}
               required
@@ -93,7 +93,7 @@ export default function KTGate({ projectId, projectName, onUnlock, onCancel }: K
           <button 
             type="submit"
             disabled={!accessKey.trim() || verifying}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm"
+            className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm"
           >
             {verifying ? (
               <Loader2 className="animate-spin" size={18} />
@@ -105,7 +105,7 @@ export default function KTGate({ projectId, projectName, onUnlock, onCancel }: K
           <button 
             type="button"
             onClick={onCancel}
-            className="w-full text-slate-500 hover:text-slate-300 text-[10px] font-black uppercase tracking-widest transition-colors pt-2"
+            className="w-full text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest transition-colors pt-2"
           >
             Cancel and Return
           </button>

@@ -45,12 +45,12 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 w-full max-w-lg shadow-2xl relative"
+            className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 w-full max-w-lg shadow-2xl relative"
           >
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
@@ -58,20 +58,20 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
                   <AlertCircle size={20} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">Direct Intervention</h3>
-                  <p className="text-xs text-slate-500">Dispatch targeted pedagogical guidance</p>
+                  <h3 className="text-xl font-bold text-[var(--color-on-surface)]">Direct Intervention</h3>
+                  <p className="text-xs text-[var(--color-on-surface-variant)]">Dispatch targeted pedagogical guidance</p>
                 </div>
               </div>
-              <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors">
+              <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors">
                 <X size={24} />
               </button>
             </div>
 
             <div className="mb-6">
-              <label className="block text-[10px] font-black uppercase text-slate-500 tracking-widest mb-3">Recipients</label>
+              <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] tracking-widest mb-3">Recipients</label>
               <div className="flex flex-wrap gap-2">
                 {targetUserNames.map((name, i) => (
-                  <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-300">
+                  <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-[var(--color-on-surface-variant)]">
                     {name}
                   </span>
                 ))}
@@ -79,13 +79,13 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
             </div>
 
             <div className="mb-8">
-              <label className="block text-[10px] font-black uppercase text-slate-500 tracking-widest mb-3">Intervention Message</label>
+              <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] tracking-widest mb-3">Intervention Message</label>
               <div className="relative">
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="e.g. Your Knowledge Velocity has dipped in the last 72 hours. Let's focus on the 'Database Indexing' module this afternoon..."
-                  className="w-full h-40 bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white text-sm outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all resize-none placeholder:text-slate-600"
+                  className="w-full h-40 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] text-sm outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all resize-none placeholder:text-slate-600"
                 />
                 <div className="absolute bottom-4 right-4 pointer-events-none opacity-20">
                   <MessageSquare size={40} className="text-amber-500" />
@@ -96,7 +96,7 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
             <div className="flex gap-4">
               <button
                 onClick={onClose}
-                className="flex-1 py-4 text-xs font-black uppercase tracking-widest text-slate-500 hover:text-white transition-colors"
+                className="flex-1 py-4 text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
               >
                 Cancel Protocol
               </button>
@@ -105,8 +105,8 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
                 disabled={sending || !message.trim() || sent}
                 className={`flex-[2] py-4 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-lg ${
                   sent 
-                    ? 'bg-emerald-600 text-white shadow-emerald-600/20' 
-                    : 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-600/20 disabled:opacity-50'
+                    ? 'bg-emerald-600 text-[var(--color-on-surface)] shadow-emerald-600/20' 
+                    : 'bg-amber-600 hover:bg-amber-500 text-[var(--color-on-surface)] shadow-amber-600/20 disabled:opacity-50'
                 }`}
               >
                 {sending ? (

@@ -86,18 +86,18 @@ export default function LDAdminDashboard({
   // Section 6: Empty state for unassigned Mentors
   if (user?.role === 'Mentor' && (!user?.assigned_groups || user.assigned_groups.length === 0) && user?.group_id == null) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-8">
+      <div className="min-h-screen bg-[var(--color-surface-dim)] flex flex-col items-center justify-center p-8">
         <div className="relative mb-8">
           <ShieldAlert size={64} className="text-amber-500 animate-pulse" />
           <div className="absolute -inset-4 bg-amber-500/20 blur-2xl rounded-full -z-10" />
         </div>
-        <h1 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">No Cohort Assigned</h1>
+        <h1 className="text-2xl font-black text-[var(--color-on-surface)] uppercase tracking-tighter mb-2">No Cohort Assigned</h1>
         <p className="text-on-surface-variant text-sm max-w-md text-center font-medium">
           Strategic oversight requires an active assignment. Please contact your LDAdmin to link your profile to a group.
         </p>
         <button
           onClick={() => onLogout?.()}
-          className="mt-8 px-8 py-4 bg-indigo-600 rounded-xl text-white font-black text-xs uppercase tracking-widest hover:bg-indigo-500 transition-all active:scale-95 shadow-lg shadow-indigo-500/20"
+          className="mt-8 px-8 py-4 bg-[var(--color-brand-primary-container)] rounded-xl text-[var(--color-on-surface)] font-black text-xs uppercase tracking-widest hover:bg-indigo-500 transition-all active:scale-95 shadow-lg shadow-indigo-500/20"
         >
           Logout & Reset
         </button>
@@ -379,7 +379,7 @@ export default function LDAdminDashboard({
 
   if (loading && tree.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-slate-950">
+      <div className="flex-1 flex items-center justify-center bg-[var(--color-surface-dim)]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
       </div>
     );
@@ -535,7 +535,7 @@ export default function LDAdminDashboard({
     onViewPremium };
 
   return (
-    <div className="flex-1 overflow-y-auto px-8 py-10 bg-slate-950">
+    <div className="flex-1 overflow-y-auto px-8 py-10 bg-[var(--color-surface-dim)]">
       <header className="mb-10 flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 text-brand-primary mb-2">
@@ -544,18 +544,18 @@ export default function LDAdminDashboard({
               {isOpsView ? 'Operations Protocol' : 'L&D Executive Protocol'}
             </span>
           </div>
-          <h1 className="text-4xl font-black text-white">
+          <h1 className="text-4xl font-black text-[var(--color-on-surface)]">
             {isOpsView ? 'Ops Center' : 'Administration'}
           </h1>
         </div>
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowAddModal({ type: 'Org' })}
-            className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-2xl text-xs font-black uppercase tracking-widest border border-white/5 transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-2xl text-xs font-black uppercase tracking-widest border border-white/5 transition-all flex items-center gap-2"
           >
             <Building2 size={16} /> New Organization
           </button>
-          <button onClick={() => setView('onboarding')} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'onboarding' ? 'bg-brand-primary text-slate-950 shadow-lg shadow-brand-primary/20' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
+          <button onClick={() => setView('onboarding')} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'onboarding' ? 'bg-brand-primary text-slate-950 shadow-lg shadow-brand-primary/20' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>
             <Upload size={16} /> Bulk Integration
           </button>
           <button
@@ -563,7 +563,7 @@ export default function LDAdminDashboard({
               setNodeDetails({ type: 'ORG_ADMIN', id: 0, name: 'System Admin' });
               setView('addUser');
             }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'addUser' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/20' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'addUser' ? 'bg-emerald-600 text-[var(--color-on-surface)] shadow-lg shadow-emerald-500/20' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
           >
             <Plus size={16} /> Add User
           </button>
@@ -627,7 +627,7 @@ export default function LDAdminDashboard({
               {action.icon}
             </div>
             <div onClick={action.onClick} className="cursor-pointer">
-              <p className="text-sm font-black text-white">{action.label}</p>
+              <p className="text-sm font-black text-[var(--color-on-surface)]">{action.label}</p>
               <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Resource creation suite</p>
             </div>
           </div>
@@ -638,7 +638,7 @@ export default function LDAdminDashboard({
       <div className="mb-10 p-8 bg-surface-container border border-surface-bright rounded-[3rem]">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h3 className="text-xl font-black text-white">Comparative Performance Analytics</h3>
+            <h3 className="text-xl font-black text-[var(--color-on-surface)]">Comparative Performance Analytics</h3>
             <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mt-1">Cross-Sector Accuracy Benchmarks</p>
           </div>
           <div className="p-3 bg-brand-primary/10 rounded-2xl text-brand-primary">
@@ -662,7 +662,7 @@ export default function LDAdminDashboard({
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
-                  className={`px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-brand-primary text-slate-950 shadow-lg' : 'text-on-surface-variant hover:text-white'
+                  className={`px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-brand-primary text-slate-950 shadow-lg' : 'text-on-surface-variant hover:text-[var(--color-on-surface)]'
                     }`}
                 >
                   {tab}
@@ -678,7 +678,7 @@ export default function LDAdminDashboard({
                   value={userSearch}
                   onChange={(e) => setUserSearch(e.target.value)}
                   placeholder="Search Strategic Nodes or Identities..."
-                  className="w-full bg-surface-dim border border-surface-bright rounded-xl pl-10 pr-4 py-3 text-xs text-white focus:ring-1 focus:ring-brand-primary outline-none shadow-inner"
+                  className="w-full bg-surface-dim border border-surface-bright rounded-xl pl-10 pr-4 py-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-brand-primary outline-none shadow-inner"
                 />
               </div>
             )}
@@ -737,9 +737,9 @@ export default function LDAdminDashboard({
             <SystemHealthPanel stats={stats} />
           </div>
 
-          <div id="role-override-tool" className="bg-indigo-600/10 border border-indigo-500/30 rounded-[2rem] p-8 shadow-inner relative overflow-hidden group">
+          <div id="role-override-tool" className="bg-[var(--color-brand-primary-container)]/10 border border-indigo-500/30 rounded-[2rem] p-8 shadow-inner relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500 opacity-10 blur-3xl pointer-events-none" />
-            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
+            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--color-brand-primary)] mb-6 flex items-center gap-2">
               <ShieldCheck size={16} /> Role Override
             </h4>
             <div className="flex flex-col gap-3">
@@ -748,12 +748,12 @@ export default function LDAdminDashboard({
                 placeholder="Entity ID"
                 value={promoteId}
                 onChange={e => setPromoteId(e.target.value)}
-                className="bg-slate-900 border border-indigo-500/20 rounded-xl px-4 py-3 text-xs text-white outline-none"
+                className="bg-[var(--color-surface-container)] border border-indigo-500/20 rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
               />
               <select
                 value={promoteRole}
                 onChange={e => setPromoteRole(e.target.value)}
-                className="bg-slate-900 border border-indigo-500/20 rounded-xl px-4 py-3 text-xs text-white outline-none"
+                className="bg-[var(--color-surface-container)] border border-indigo-500/20 rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
               >
                 <option>Mentor</option>
                 {user?.role === 'LDAdmin' && (
@@ -786,7 +786,7 @@ export default function LDAdminDashboard({
                     setProcessing(false);
                   }
                 }}
-                className="w-full bg-indigo-600 text-white p-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] p-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {processing ? <><Loader2 size={12} className="animate-spin" /> Processing...</> : 'Execute Promotion'}
               </button>

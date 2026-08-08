@@ -161,27 +161,27 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
   // ── No bank selected → bank picker (leaderboard is org-wide, viewable by all) ──
   if (!bank?.id) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-200 p-4 sm:p-6">
+      <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] p-4 sm:p-6">
         <div className="max-w-3xl mx-auto">
-          <button onClick={onBack} className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-6 hover:text-white">← Back</button>
-          <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">Leaderboards</h1>
-          <p className="text-sm text-slate-500 mb-6">Pick a question bank to see how everyone in your organization is doing.</p>
+          <button onClick={onBack} className="text-xs text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-6 hover:text-[var(--color-on-surface)]">← Back</button>
+          <h1 className="text-2xl sm:text-3xl font-black text-[var(--color-on-surface)] mb-1">Leaderboards</h1>
+          <p className="text-sm text-[var(--color-on-surface-variant)] mb-6">Pick a question bank to see how everyone in your organization is doing.</p>
           {pickerBanks === null ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} lines={1} />)}
             </div>
           ) : pickerBanks.length === 0 ? (
-            <div className="text-center py-16 text-slate-500 text-sm">No question banks are available yet.</div>
+            <div className="text-center py-16 text-[var(--color-on-surface-variant)] text-sm">No question banks are available yet.</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {pickerBanks.map((b) => (
                 <button
                   key={b.id}
                   onClick={() => { setLoading(true); setBank(b); }}
-                  className="text-left p-4 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/60 transition-all"
+                  className="text-left p-4 rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] hover:border-indigo-500/50 hover:bg-[var(--color-surface-container-high)]/60 transition-all"
                 >
-                  <p className="font-bold text-white truncate">{b.name}</p>
-                  <p className="text-[11px] text-slate-500 mt-1 truncate">{b.course_name || 'Bank'} · {b.difficulty || 'Mixed'}</p>
+                  <p className="font-bold text-[var(--color-on-surface)] truncate">{b.name}</p>
+                  <p className="text-[11px] text-[var(--color-on-surface-variant)] mt-1 truncate">{b.course_name || 'Bank'} · {b.difficulty || 'Mixed'}</p>
                 </button>
               ))}
             </div>
@@ -192,7 +192,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
   }
 
   if (loading && leaderboard.length === 0) return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 p-4 sm:p-6">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] p-4 sm:p-6">
       <div className="max-w-6xl mx-auto space-y-6">
         <Skeleton className="h-4 w-40" />
         <Skeleton className="h-9 w-64" />
@@ -205,27 +205,27 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
   const medals = ['🥇', '🥈', '🥉'];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 p-6 overflow-y-auto">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] p-6 overflow-y-auto">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-2 text-xs text-slate-500 uppercase tracking-widest font-bold mb-8">
-          <span className="hover:text-indigo-400 cursor-pointer transition-colors" onClick={onBack}>Dashboard</span>
+        <div className="flex items-center gap-2 text-xs text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-8">
+          <span className="hover:text-[var(--color-brand-primary)] cursor-pointer transition-colors" onClick={onBack}>Dashboard</span>
           <ChevronRight size={12} />
-          <span className="text-slate-400">{bank.name}</span>
+          <span className="text-[var(--color-on-surface-variant)]">{bank.name}</span>
           <ChevronRight size={12} />
           <span className="text-indigo-500">Leaderboard</span>
         </div>
-        <button onClick={onBack} className="flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors" aria-label="Back to dashboard">
+        <button onClick={onBack} className="flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] mb-8 transition-colors" aria-label="Back to dashboard">
           <ChevronLeft size={20} /> Back to Dashboard
         </button>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+        <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl overflow-hidden shadow-2xl">
           {/* ─── SECTION E: Restructured Header ──────────────────────── */}
-          <div className="p-8 border-b border-slate-800">
+          <div className="p-8 border-b border-[var(--color-outline-variant)]">
             {/* Row 1: Title + Export buttons */}
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-3xl font-bold text-white mb-1">{bank.name}</h2>
-                <p className="text-slate-400 text-sm">
+                <h2 className="text-3xl font-bold text-[var(--color-on-surface)] mb-1">{bank.name}</h2>
+                <p className="text-[var(--color-on-surface-variant)] text-sm">
                   {bank.chapter ? `${bank.chapter} · ` : ''}Leaderboard & Peer Review
                 </p>
               </div>
@@ -233,7 +233,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                 <button
                   onClick={() => handleExportCSV('standard')}
                   disabled={exportLoading['standard']}
-                  className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition-colors w-full disabled:opacity-50"
+                  className="flex items-center justify-center gap-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] px-4 py-2 rounded-xl text-xs font-bold transition-colors w-full disabled:opacity-50"
                 >
                   {exportLoading['standard'] ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />} Standard CSV
                 </button>
@@ -241,7 +241,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                   <button
                     onClick={() => handleExportCSV('deep')}
                     disabled={exportLoading['deep']}
-                    className="flex items-center justify-center gap-2 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 px-4 py-2 rounded-xl text-xs font-bold transition-colors w-full shadow-lg shadow-indigo-500/10 disabled:opacity-50"
+                    className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-indigo-500/30 px-4 py-2 rounded-xl text-xs font-bold transition-colors w-full shadow-lg shadow-indigo-500/10 disabled:opacity-50"
                   >
                     {exportLoading['deep'] ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />} Deep Export
                   </button>
@@ -251,28 +251,28 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
 
             {/* Row 2: 4-column stat boxes — PRD Section E */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-              <div className="bg-slate-800/60 rounded-2xl p-5 text-center border border-slate-700">
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">
+              <div className="bg-[var(--color-surface-container-high)]/60 rounded-2xl p-5 text-center border border-[var(--color-outline-variant)]">
+                <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-1">
                   Total Runs
                 </p>
-                <p className="text-3xl font-black text-white">{stats.total}</p>
+                <p className="text-3xl font-black text-[var(--color-on-surface)]">{stats.total}</p>
               </div>
-              <div className="bg-slate-800/60 rounded-2xl p-5 text-center border border-slate-700">
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">
+              <div className="bg-[var(--color-surface-container-high)]/60 rounded-2xl p-5 text-center border border-[var(--color-outline-variant)]">
+                <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-1">
                   Group Avg
                 </p>
-                <p className="text-3xl font-black text-indigo-400">{stats.avg}</p>
+                <p className="text-3xl font-black text-[var(--color-brand-primary)]">{stats.avg}</p>
               </div>
-              <div className="bg-slate-800/60 rounded-2xl p-5 text-center border border-slate-700">
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">
+              <div className="bg-[var(--color-surface-container-high)]/60 rounded-2xl p-5 text-center border border-[var(--color-outline-variant)]">
+                <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-1">
                   Top Score
                 </p>
                 <p className="text-3xl font-black text-emerald-400">
                   {leaderboard[0]?.score ?? '–'}/{leaderboard[0]?.total ?? '–'}
                 </p>
               </div>
-              <div className="bg-slate-800/60 rounded-2xl p-5 text-center border border-slate-700">
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">
+              <div className="bg-[var(--color-surface-container-high)]/60 rounded-2xl p-5 text-center border border-[var(--color-outline-variant)]">
+                <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-1">
                   Completion
                 </p>
                 <p className="text-3xl font-black text-amber-400">
@@ -283,23 +283,23 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
 
             {/* Row 3: Search bar */}
             <div className="relative">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" />
               <input
                 type="text"
                 placeholder="Search students by name..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 aria-label="Search students"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl pl-12 pr-4 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
               />
-              {loading && <Loader2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-400 animate-spin" />}
+              {loading && <Loader2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-brand-primary)] animate-spin" />}
             </div>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="bg-slate-800/50 text-slate-400 text-xs uppercase tracking-wider">
+                <tr className="bg-[var(--color-surface-container-high)]/50 text-[var(--color-on-surface-variant)] text-xs uppercase tracking-wider">
                   <th className="px-6 py-4 font-bold">Rank</th>
                   <th className="px-6 py-4 font-bold">Student</th>
                   <th className="px-6 py-4 font-bold">Score</th>
@@ -312,40 +312,40 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
               <tbody className="divide-y divide-slate-800">
                 {leaderboard.map((attempt: any, idx: number) => (
                   <React.Fragment key={attempt.id}>
-                    <tr className={`hover:bg-slate-800/30 transition-colors ${attempt.user_name === user.full_name ? 'bg-indigo-500/5' : ''} ${attempt.is_reviewed ? 'border-l-2 border-l-emerald-500/50' : ''}`}>
+                    <tr className={`hover:bg-[var(--color-surface-container-high)]/30 transition-colors ${attempt.user_name === user.full_name ? 'bg-indigo-500/5' : ''} ${attempt.is_reviewed ? 'border-l-2 border-l-emerald-500/50' : ''}`}>
                       <td className="px-6 py-5">
                         {idx < 3 ? (
                           <span className="text-2xl">{medals[idx]}</span>
                         ) : (
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-slate-800 text-slate-400">{idx + 1}</div>
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]">{idx + 1}</div>
                         )}
                       </td>
-                      <td className="px-6 py-5 font-bold text-white">
+                      <td className="px-6 py-5 font-bold text-[var(--color-on-surface)]">
                         <div 
-                          className="flex items-center gap-2 cursor-pointer hover:text-indigo-400 transition-colors"
+                          className="flex items-center gap-2 cursor-pointer hover:text-[var(--color-brand-primary)] transition-colors"
                           onClick={() => attempt.user_slug && onViewProfile(attempt.user_slug)}
                         >
                           {attempt.user_photo ? (
                             <img src={attempt.user_photo} alt="" className="w-6 h-6 rounded-full object-cover border border-white/10" />
                           ) : (
-                            <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] font-black">
+                            <div className="w-6 h-6 rounded-full bg-[var(--color-brand-primary-container)] flex items-center justify-center text-[10px] font-black">
                               {attempt.user_name[0].toUpperCase()}
                             </div>
                           )}
                           {attempt.user_name}
-                          {attempt.user_name === user.full_name && <span className="text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded-full uppercase">You</span>}
+                          {attempt.user_name === user.full_name && <span className="text-[10px] bg-indigo-500 text-[var(--color-on-surface)] px-2 py-0.5 rounded-full uppercase">You</span>}
                           {attempt.is_anonymous && <span className="text-[10px] bg-purple-500/20 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-full uppercase">Anon</span>}
                         </div>
                       </td>
                       <td className="px-6 py-5">
-                        <span className="text-lg font-bold text-white">{attempt.score}</span>
-                        <span className="text-slate-500"> / {attempt.total}</span>
+                        <span className="text-lg font-bold text-[var(--color-on-surface)]">{attempt.score}</span>
+                        <span className="text-[var(--color-on-surface-variant)]"> / {attempt.total}</span>
                         <div className="text-xs text-slate-600 mt-0.5">{attempt.total > 0 ? Math.round((attempt.score / attempt.total) * 100) : 0}%</div>
                       </td>
-                      <td className="px-6 py-5 text-slate-400 font-mono">
+                      <td className="px-6 py-5 text-[var(--color-on-surface-variant)] font-mono">
                         {Math.floor(attempt.time_taken / 60)}m {attempt.time_taken % 60}s
                       </td>
-                      <td className="px-6 py-5 text-slate-500 text-sm">
+                      <td className="px-6 py-5 text-[var(--color-on-surface-variant)] text-sm">
                         {new Date(attempt.attempted_at).toLocaleDateString()}
                       </td>
                       {/* X: Admin mark as reviewed */}
@@ -355,7 +355,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                             onClick={() => handleMarkReviewed(attempt.id, attempt.is_reviewed)}
                             disabled={reviewLoading[attempt.id]}
                             aria-label={attempt.is_reviewed ? 'Unmark as reviewed' : 'Mark as reviewed'}
-                            className={`p-2 rounded-xl transition-all ${attempt.is_reviewed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-600 border border-slate-700 hover:text-slate-400'}`}
+                            className={`p-2 rounded-xl transition-all ${attempt.is_reviewed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-container-high)] text-slate-600 border border-[var(--color-outline-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
                           >
                             {reviewLoading[attempt.id] ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
                           </button>
@@ -365,7 +365,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                         <button
                           onClick={() => setExpandedAttempt(expandedAttempt === idx ? null : idx)}
                           aria-expanded={expandedAttempt === idx}
-                          className="text-indigo-400 hover:text-indigo-300 bg-indigo-400/10 hover:bg-indigo-400/20 px-4 py-1.5 rounded-lg text-xs uppercase tracking-widest font-bold transition-colors"
+                          className="text-[var(--color-brand-primary)] hover:text-indigo-300 bg-indigo-400/10 hover:bg-indigo-400/20 px-4 py-1.5 rounded-lg text-xs uppercase tracking-widest font-bold transition-colors"
                         >
                           {expandedAttempt === idx ? 'Hide' : 'Review'}
                         </button>
@@ -380,12 +380,12 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.15 }}
-                          className="bg-slate-950/80"
+                          className="bg-[var(--color-surface-dim)]/80"
                         >
                           <td colSpan={user.role === 'Admin' ? 7 : 6} className="px-8 py-8">
                             <div className="space-y-6 max-w-5xl mx-auto">
-                              <p className="text-sm font-bold text-slate-400 border-b border-slate-800 pb-4 uppercase tracking-widest">
-                                Peer Review Center — <span className="text-white">{attempt.user_name}</span>
+                              <p className="text-sm font-bold text-[var(--color-on-surface-variant)] border-b border-[var(--color-outline-variant)] pb-4 uppercase tracking-widest">
+                                Peer Review Center — <span className="text-[var(--color-on-surface)]">{attempt.user_name}</span>
                               </p>
                               {(attempt.descriptive_answers || []).map((item: any) => {
                                 const key = `${attempt.id}-${item.question_id}`;
@@ -393,18 +393,18 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                 return (
                                   <div key={item.question_id} className={`p-6 rounded-2xl border ${item.is_correct ? 'bg-emerald-900/10 border-emerald-500/20' : 'bg-rose-900/10 border-rose-500/20'}`}>
                                     {/* SECTION F: Inline code rendering in peer review */}
-                                    <h4 className="text-base text-slate-200 mb-4 font-bold leading-relaxed">
+                                    <h4 className="text-base text-[var(--color-on-surface)] mb-4 font-bold leading-relaxed">
                                       {renderQuestionText(item.question_text)}
                                     </h4>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                                      <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-                                        <p className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-2">Their Answer</p>
+                                      <div className="bg-[var(--color-surface-container)]/50 p-4 rounded-xl border border-[var(--color-outline-variant)]">
+                                        <p className="text-xs text-[var(--color-on-surface-variant)] uppercase tracking-wider font-bold mb-2">Their Answer</p>
                                         <div className={`text-base font-bold ${item.is_correct ? 'text-emerald-400' : 'text-rose-400'}`}>
                                           {renderQuestionText(item.user_answer || 'Skipped')}
                                         </div>
                                       </div>
-                                      <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-                                        <p className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-2">Correct Answer</p>
+                                      <div className="bg-[var(--color-surface-container)]/50 p-4 rounded-xl border border-[var(--color-outline-variant)]">
+                                        <p className="text-xs text-[var(--color-on-surface-variant)] uppercase tracking-wider font-bold mb-2">Correct Answer</p>
                                         <div className="text-base font-bold text-emerald-400">
                                           {renderQuestionText(item.correct_answer)}
                                         </div>
@@ -413,18 +413,18 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
 
                                     {item.note && (
                                       <div className="bg-indigo-900/10 border border-indigo-500/20 p-4 rounded-xl mb-4">
-                                        <p className="text-xs text-indigo-400 uppercase tracking-wider font-bold mb-2 flex items-center gap-2"><BookOpen size={14} /> Peer's Notes</p>
-                                        <p className="text-sm text-slate-300 italic">"{item.note}"</p>
+                                        <p className="text-xs text-[var(--color-brand-primary)] uppercase tracking-wider font-bold mb-2 flex items-center gap-2"><BookOpen size={14} /> Peer's Notes</p>
+                                        <p className="text-sm text-[var(--color-on-surface-variant)] italic">"{item.note}"</p>
                                       </div>
                                     )}
 
                                     {/* AI Review Section */}
-                                    <div className="mt-6 pt-6 border-t border-slate-800/50">
+                                    <div className="mt-6 pt-6 border-t border-[var(--color-outline-variant)]/50">
                                       <div className="flex flex-col sm:flex-row gap-3">
                                         <input
                                           type="text"
                                           placeholder="Ask AI about this answer (e.g., 'Why is my logic wrong?')"
-                                          className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                          className="flex-1 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                                           value={aiQueries[key] || ''}
                                           onChange={e => setAiQueries(prev => ({ ...prev, [key]: e.target.value }))}
                                           onKeyDown={e => e.key === 'Enter' && handleAskAI(attempt.id, item.question_id)}
@@ -450,8 +450,8 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                               aiData.is_out_of_context
                                                 ? 'bg-amber-900/10 border-amber-500/30'
                                                 : aiData.from_cache
-                                                ? 'bg-slate-900 border-emerald-500/20'
-                                                : 'bg-slate-900 border-purple-500/30'
+                                                ? 'bg-[var(--color-surface-container)] border-emerald-500/20'
+                                                : 'bg-[var(--color-surface-container)] border-purple-500/30'
                                             }`}
                                           >
                                             <div className="flex items-center gap-2 mb-2 text-xs uppercase tracking-wider font-bold">
@@ -466,7 +466,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                             {aiData.is_out_of_context ? (
                                               <p className="text-sm text-amber-300/80">This question is outside the context of the quiz question. Please ask something related to the quiz topic.</p>
                                             ) : (
-                                              <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">{aiData.response}</p>
+                                              <p className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed whitespace-pre-wrap">{aiData.response}</p>
                                             )}
                                           </motion.div>
                                         )}
@@ -483,7 +483,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                   </React.Fragment>
                 ))}
                 {leaderboard.length === 0 && (
-                  <tr><td colSpan={7} className="px-8 py-20 text-center text-slate-500">
+                  <tr><td colSpan={7} className="px-8 py-20 text-center text-[var(--color-on-surface-variant)]">
                     {searchQuery ? `No students found matching "${searchQuery}."` : "No attempts yet. Be the first to take this quiz!"}
                   </td></tr>
                 )}

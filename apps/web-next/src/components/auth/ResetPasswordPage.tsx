@@ -41,36 +41,36 @@ export default function ResetPasswordPage({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] flex items-center justify-center p-6 relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-3xl -mr-64 -mt-64" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--color-brand-primary-container)]/5 rounded-full blur-3xl -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-3xl -ml-64 -mb-64" />
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-slate-900 border border-white/5 rounded-[2.5rem] p-10 shadow-2xl relative z-10"
+        className="w-full max-w-md bg-[var(--color-surface-container)] border border-white/5 rounded-[2.5rem] p-10 shadow-2xl relative z-10"
       >
         <button 
           onClick={onBack}
-          className="flex items-center gap-2 text-slate-500 hover:text-white transition-all text-xs font-black uppercase tracking-widest mb-10 group"
+          className="flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all text-xs font-black uppercase tracking-widest mb-10 group"
         >
           <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Recovery
         </button>
 
         <div className="mb-10">
-          <div className="w-16 h-16 bg-indigo-600/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-6">
+          <div className="w-16 h-16 bg-[var(--color-brand-primary-container)]/10 rounded-2xl flex items-center justify-center text-[var(--color-brand-primary)] mb-6">
             <Key size={32} />
           </div>
-          <h2 className="text-3xl font-black text-white mb-2">Sync Credentials</h2>
-          <p className="text-sm text-slate-500 font-bold leading-relaxed">
-            Enter the 6-digit OTP transmitted to <span className="text-white">{email}</span> and define your new security key.
+          <h2 className="text-3xl font-black text-[var(--color-on-surface)] mb-2">Sync Credentials</h2>
+          <p className="text-sm text-[var(--color-on-surface-variant)] font-bold leading-relaxed">
+            Enter the 6-digit OTP transmitted to <span className="text-[var(--color-on-surface)]">{email}</span> and define your new security key.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 ml-1">Secure OTP</label>
+            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">Secure OTP</label>
             <input 
               type="text" 
               required
@@ -78,13 +78,13 @@ export default function ResetPasswordPage({
               placeholder="000000"
               value={otp}
               onChange={e => setOtp(e.target.value)}
-              className="w-full bg-slate-950 border border-white/5 rounded-2xl p-5 text-center text-2xl font-black tracking-[0.5em] text-white outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+              className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 text-center text-2xl font-black tracking-[0.5em] text-[var(--color-on-surface)] outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
             />
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 ml-1">New Password</label>
+              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">New Password</label>
               <div className="relative">
                 <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
                 <input 
@@ -94,13 +94,13 @@ export default function ResetPasswordPage({
                   placeholder="••••••••"
                   value={newPassword}
                   onChange={e => setNewPassword(e.target.value)}
-                  className="w-full bg-slate-950 border border-white/5 rounded-2xl p-5 pl-14 text-white font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                  className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 ml-1">Confirm Identity</label>
+              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">Confirm Identity</label>
               <div className="relative">
                 <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
                 <input 
@@ -110,7 +110,7 @@ export default function ResetPasswordPage({
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
-                  className="w-full bg-slate-950 border border-white/5 rounded-2xl p-5 pl-14 text-white font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                  className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
                 />
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function ResetPasswordPage({
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+            className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
           >
             {loading ? <Loader2 className="animate-spin" /> : <>Finalize Update <Check size={18} /></>}
           </button>

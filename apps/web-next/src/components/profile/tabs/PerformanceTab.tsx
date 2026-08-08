@@ -92,9 +92,9 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
               </div>
 
               {/* Recent quiz attempts table */}
-              <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
-                  <Activity size={14} className="text-indigo-400" /> Recent Quiz Attempts
+              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
+                  <Activity size={14} className="text-[var(--color-brand-primary)]" /> Recent Quiz Attempts
                 </h3>
                 <div className="space-y-2">
                   {quizAttempts.slice(0, 15).map((a: any, i: number) => {
@@ -103,17 +103,17 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                       <div key={i} className="flex items-center gap-4 p-3 hover:bg-white/[0.02] rounded-xl transition-colors">
                         <div className="w-8 text-slate-600 font-black text-xs">{i + 1}</div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-slate-200 truncate">{a.bank_name || 'Unknown Quiz'}</p>
-                          <p className="text-[10px] text-slate-500 font-mono">{new Date(a.attempted_at).toLocaleDateString()}</p>
+                          <p className="text-sm font-bold text-[var(--color-on-surface)] truncate">{a.bank_name || 'Unknown Quiz'}</p>
+                          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-mono">{new Date(a.attempted_at).toLocaleDateString()}</p>
                         </div>
                         <div className="text-right">
-                          <div className={`font-black text-sm ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-indigo-400' : 'text-rose-400'}`}>
+                          <div className={`font-black text-sm ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-rose-400'}`}>
                             {pct}%
                           </div>
-                          <div className="text-[10px] text-slate-500">{a.score}/{a.total}</div>
+                          <div className="text-[10px] text-[var(--color-on-surface-variant)]">{a.score}/{a.total}</div>
                         </div>
                         <div className="w-20">
-                          <div className="h-1.5 bg-slate-800 rounded-full">
+                          <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full">
                             <div className={`h-full rounded-full ${pct >= 80 ? 'bg-emerald-500' : pct >= 60 ? 'bg-indigo-500' : 'bg-rose-500'}`}
                               style={{ width: `${pct}%` }} />
                           </div>
@@ -129,8 +129,8 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
 
               {/* Exam results (own profile) */}
               {isOwnProfile && examAttempts.length > 0 && (
-                <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-5 flex items-center gap-2">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <ScrollText size={14} className="text-emerald-400" /> Exam Results
                   </h3>
                   <div className="space-y-2">
@@ -140,8 +140,8 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                         <div key={a.id ?? i} className="flex items-center gap-4 p-3 hover:bg-white/[0.02] rounded-xl transition-colors">
                           <div className="w-8 text-slate-600 font-black text-xs">{i + 1}</div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-slate-200 truncate">{a.exam_title || 'Exam'}</p>
-                            <p className="text-[10px] text-slate-500 font-mono">
+                            <p className="text-sm font-bold text-[var(--color-on-surface)] truncate">{a.exam_title || 'Exam'}</p>
+                            <p className="text-[10px] text-[var(--color-on-surface-variant)] font-mono">
                               {a.submitted_at ? new Date(a.submitted_at).toLocaleDateString() : '—'}
                               {a.flags ? ` · ${a.flags} flag${a.flags === 1 ? '' : 's'}` : ''}
                             </p>
@@ -150,11 +150,11 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                             {a.passed ? 'Pass' : 'Fail'}
                           </span>
                           <div className="text-right">
-                            <div className={`font-black text-sm ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-indigo-400' : 'text-rose-400'}`}>{pct}%</div>
-                            <div className="text-[10px] text-slate-500">{a.score}/{a.total}</div>
+                            <div className={`font-black text-sm ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-rose-400'}`}>{pct}%</div>
+                            <div className="text-[10px] text-[var(--color-on-surface-variant)]">{a.score}/{a.total}</div>
                           </div>
                           <div className="w-20">
-                            <div className="h-1.5 bg-slate-800 rounded-full">
+                            <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full">
                               <div className={`h-full rounded-full ${pct >= 80 ? 'bg-emerald-500' : pct >= 60 ? 'bg-indigo-500' : 'bg-rose-500'}`} style={{ width: `${pct}%` }} />
                             </div>
                           </div>

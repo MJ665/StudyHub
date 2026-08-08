@@ -68,29 +68,29 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
   });
 
   return (
-    <div className="min-h-screen bg-slate-950 p-8 font-plus-jakarta">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] p-8 font-plus-jakarta">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div>
-            <h1 className="text-4xl font-black text-white mb-2 tracking-tight flex items-center gap-4">
+            <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
               <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400">
                 <Library size={32} />
               </div>
               Knowledge Library
             </h1>
-            <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px]">Global Repository of Academic & Technical Directives</p>
+            <p className="text-[var(--color-on-surface-variant)] font-bold uppercase tracking-[0.2em] text-[10px]">Global Repository of Academic & Technical Directives</p>
           </div>
 
           <div className="flex items-center gap-4">
              <div className="relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-400 transition-colors" size={18} />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)] group-focus-within:text-emerald-400 transition-colors" size={18} />
                 <input 
                   type="text" 
                   placeholder="Query knowledge base..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="bg-slate-900/50 border border-white/5 rounded-2xl py-3 pl-12 pr-6 text-sm text-white focus:ring-2 focus:ring-emerald-500/20 w-full md:w-64 transition-all"
+                  className="bg-[var(--color-surface-container)]/50 border border-white/5 rounded-2xl py-3 pl-12 pr-6 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-emerald-500/20 w-full md:w-64 transition-all"
                 />
              </div>
           </div>
@@ -104,8 +104,8 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${
                   selectedCategory === cat 
-                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20' 
-                    : 'bg-slate-900/50 text-slate-500 border border-white/5 hover:text-slate-300'
+                    ? 'bg-emerald-600 text-[var(--color-on-surface)] shadow-lg shadow-emerald-600/20' 
+                    : 'bg-[var(--color-surface-container)]/50 text-[var(--color-on-surface-variant)] border border-white/5 hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
                 {cat}
@@ -116,7 +116,7 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
             <Loader2 className="animate-spin text-emerald-500" size={48} />
-            <p className="text-slate-500 font-black uppercase tracking-widest text-xs">Indexing Global Knowledge...</p>
+            <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Indexing Global Knowledge...</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -126,11 +126,11 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
-                className="group bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 hover:bg-slate-900/60 transition-all hover:scale-[1.02] cursor-pointer"
+                className="group bg-[var(--color-surface-container)]/40 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 hover:bg-[var(--color-surface-container)]/60 transition-all hover:scale-[1.02] cursor-pointer"
                 onClick={() => onStartQuiz(bank, 50)}
               >
                 <div className="flex justify-between items-start mb-6">
-                   <div className="p-3 bg-slate-950 rounded-2xl text-emerald-400">
+                   <div className="p-3 bg-[var(--color-surface-dim)] rounded-2xl text-emerald-400">
                       <BrainCircuit size={24} />
                    </div>
                    <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.2em] ${
@@ -142,31 +142,31 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
                    </div>
                 </div>
 
-                <h3 className="text-xl font-black text-white mb-2 group-hover:text-emerald-400 transition-colors line-clamp-1">{bank.name}</h3>
+                <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 group-hover:text-emerald-400 transition-colors line-clamp-1">{bank.name}</h3>
                 <div className="flex items-center gap-4 mb-6">
-                   <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                      <Tag size={12} className="text-indigo-400" /> {bank.category || 'General'}
+                   <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
+                      <Tag size={12} className="text-[var(--color-brand-primary)]" /> {bank.category || 'General'}
                    </div>
-                   <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                   <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
                       <Clock size={12} className="text-amber-400" /> 20m
                    </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-8">
-                   <div className="bg-slate-950/50 p-4 rounded-2xl border border-white/5">
-                      <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1 text-center">Questions</p>
-                      <p className="text-lg font-black text-white text-center">{bank.question_count || 0}</p>
+                   <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-white/5">
+                      <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1 text-center">Questions</p>
+                      <p className="text-lg font-black text-[var(--color-on-surface)] text-center">{bank.question_count || 0}</p>
                    </div>
-                   <div className="bg-slate-950/50 p-4 rounded-2xl border border-white/5">
-                      <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1 text-center">Attempts</p>
-                      <p className="text-lg font-black text-white text-center">{bank.total_attempts || 0}</p>
+                   <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-white/5">
+                      <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1 text-center">Attempts</p>
+                      <p className="text-lg font-black text-[var(--color-on-surface)] text-center">{bank.total_attempts || 0}</p>
                    </div>
                 </div>
 
                 <div className="flex items-center justify-between">
                    <div className="flex items-center gap-2">
                       <Users size={14} className="text-slate-600" />
-                      <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{bank.visibility_scope || 'Public Domain'}</span>
+                      <span className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">{bank.visibility_scope || 'Public Domain'}</span>
                    </div>
                    <div className="flex items-center gap-1 text-emerald-400 font-black text-xs">
                       START <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -178,10 +178,10 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
         )}
         
         {!loading && filteredBanks.length === 0 && (
-           <div className="py-32 text-center bg-slate-900/20 rounded-[3rem] border border-dashed border-white/5">
+           <div className="py-32 text-center bg-[var(--color-surface-container)]/20 rounded-[3rem] border border-dashed border-white/5">
               <Library size={64} className="mx-auto text-slate-800 mb-6" />
-              <h3 className="text-2xl font-black text-white mb-2">Knowledge Void</h3>
-              <p className="text-slate-500 font-medium">No directives found matching your current filter set.</p>
+              <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Knowledge Void</h3>
+              <p className="text-[var(--color-on-surface-variant)] font-medium">No directives found matching your current filter set.</p>
            </div>
         )}
       </div>

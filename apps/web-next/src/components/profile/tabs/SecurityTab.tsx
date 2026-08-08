@@ -62,34 +62,34 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Password Management */}
-                <div className="p-8 bg-slate-900/60 rounded-[2.5rem] border border-white/5 space-y-6">
+                <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 space-y-6">
                   <div className="flex items-center gap-4 mb-2">
                     <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center text-amber-400">
                       <Zap size={24} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black text-white">Change Credentials</h3>
-                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Strategic Identity Rotation</p>
+                      <h3 className="text-xl font-black text-[var(--color-on-surface)]">Change Credentials</h3>
+                      <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mt-1">Strategic Identity Rotation</p>
                     </div>
                   </div>
 
                   <div className="space-y-4">
                     <div>
-                      <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 block">Current Access Key</label>
+                      <label className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2 block">Current Access Key</label>
                       <input 
                         type="password" 
                         id="current_password"
                         placeholder="••••••••"
-                        className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500 outline-none transition-colors"
+                        className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-amber-500 outline-none transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 block">New Access Key</label>
+                      <label className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2 block">New Access Key</label>
                       <input 
                         type="password" 
                         id="new_password"
                         placeholder="Min 8 characters"
-                        className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none transition-colors"
+                        className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-emerald-500 outline-none transition-colors"
                       />
                     </div>
                     <button 
@@ -106,7 +106,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                           toast('error', err.message);
                         }
                       }}
-                      className="w-full py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
+                      className="w-full py-4 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
                     >
                       Apply Rotation
                     </button>
@@ -114,19 +114,19 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Session Management */}
-                <div className="p-8 bg-slate-900/60 rounded-[2.5rem] border border-white/5 space-y-6">
+                <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 space-y-6">
                   <div className="flex items-center gap-4 mb-2">
                     <div className="w-12 h-12 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center text-rose-400">
                       <RefreshCcw size={24} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black text-white">Session Control</h3>
-                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Global Access Revocation</p>
+                      <h3 className="text-xl font-black text-[var(--color-on-surface)]">Session Control</h3>
+                      <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mt-1">Global Access Revocation</p>
                     </div>
                   </div>
 
                   <div className="bg-rose-500/5 border border-rose-500/10 rounded-2xl p-6">
-                    <p className="text-xs text-slate-400 leading-relaxed mb-6">
+                    <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed mb-6">
                       Suspicious activity detected? You can immediately revoke all active sessions across all devices. This will invalidate your current session as well.
                     </p>
                     <button 
@@ -140,7 +140,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                           toast('error', err.message);
                         }
                       }}
-                      className="w-full py-4 bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
+                      className="w-full py-4 bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
                     >
                       Invoke Global Logout
                     </button>
@@ -148,7 +148,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                   <div className="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-6">
                     <p className="text-xs font-black uppercase tracking-widest text-rose-400 mb-2">Delete account</p>
-                    <p className="text-xs text-slate-400 leading-relaxed mb-6">
+                    <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed mb-6">
                       Permanently deactivate your account and erase your personal identifiers (name, email, credentials). This cannot be undone.
                     </p>
                     <button
@@ -163,7 +163,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                           toast('error', err.message || 'Failed to delete account');
                         }
                       }}
-                      className="w-full py-4 bg-rose-600/10 hover:bg-rose-600 text-rose-400 hover:text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
+                      className="w-full py-4 bg-rose-600/10 hover:bg-rose-600 text-rose-400 hover:text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
                     >
                       Delete My Account
                     </button>
@@ -175,7 +175,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
 {!isOwnProfile && (
              <motion.div key="security-locked" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-20 text-center">
                 <ShieldCheck size={48} className="text-slate-800 mx-auto mb-4" />
-                <h3 className="text-slate-500 font-bold">Security protocols are restricted to the identity owner.</h3>
+                <h3 className="text-[var(--color-on-surface-variant)] font-bold">Security protocols are restricted to the identity owner.</h3>
              </motion.div>
 )}
 </>

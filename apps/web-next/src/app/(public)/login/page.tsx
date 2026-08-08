@@ -54,47 +54,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-black text-white">Welcome back</h1>
-          <p className="text-slate-400 mt-2">Sign in to your StudyBuddy account</p>
+          <h1 className="text-3xl font-black text-[var(--color-on-surface)]">Welcome back</h1>
+          <p className="text-[var(--color-on-surface-variant)] mt-2">Sign in to your StudyBuddy account</p>
         </div>
 
         <form
           onSubmit={submit}
-          className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-5"
+          className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-8 shadow-2xl space-y-5"
         >
           <label className="block">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-wider">
               Work email
             </span>
-            <div className="mt-2 flex items-center gap-3 bg-slate-800/60 border border-slate-700 rounded-xl px-4 py-3 focus-within:border-indigo-500">
-              <Mail size={18} className="text-slate-500" />
+            <div className="mt-2 flex items-center gap-3 bg-[var(--color-surface-container-high)]/60 border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 focus-within:border-indigo-500">
+              <Mail size={18} className="text-[var(--color-on-surface-variant)]" />
               <input
                 type="email"
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="bg-transparent flex-1 text-white outline-none placeholder:text-slate-600"
+                className="bg-transparent flex-1 text-[var(--color-on-surface)] outline-none placeholder:text-slate-600"
               />
             </div>
           </label>
 
           <label className="block">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-wider">
               Password
             </span>
-            <div className="mt-2 flex items-center gap-3 bg-slate-800/60 border border-slate-700 rounded-xl px-4 py-3 focus-within:border-indigo-500">
-              <KeyRound size={18} className="text-slate-500" />
+            <div className="mt-2 flex items-center gap-3 bg-[var(--color-surface-container-high)]/60 border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 focus-within:border-indigo-500">
+              <KeyRound size={18} className="text-[var(--color-on-surface-variant)]" />
               <input
                 type="password"
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="bg-transparent flex-1 text-white outline-none placeholder:text-slate-600"
+                className="bg-transparent flex-1 text-[var(--color-on-surface)] outline-none placeholder:text-slate-600"
               />
             </div>
           </label>
@@ -108,7 +108,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+            className="w-full flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 text-[var(--color-on-surface)] py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
           >
             {busy && <Loader2 size={18} className="animate-spin" />}
             Sign in
@@ -118,7 +118,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => router.push('/forgot-password')}
-              className="text-slate-400 hover:text-white"
+              className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"
             >
               Forgot password?
             </button>

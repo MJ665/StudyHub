@@ -190,10 +190,10 @@ export default function InventoryTab({ ctx }: { ctx: AdminTabCtx }) {
                 <div className="bg-surface-container border border-surface-bright rounded-[3rem] p-8">
                   <div className="flex items-center justify-between mb-8">
                     <div>
-                      <h3 className="text-2xl font-black text-white">Registry Oversight</h3>
-                      <p className="text-[10px] text-indigo-400 font-black uppercase tracking-[0.3em] mt-1">Global Question & Challenge Inventory</p>
+                      <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Registry Oversight</h3>
+                      <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">Global Question & Challenge Inventory</p>
                     </div>
-                    <div className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400">
+                    <div className="p-3 bg-indigo-500/10 rounded-2xl text-[var(--color-brand-primary)]">
                       <Database size={20} />
                     </div>
                   </div>

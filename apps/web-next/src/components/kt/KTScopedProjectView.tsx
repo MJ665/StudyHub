@@ -23,11 +23,11 @@ export default function KTScopedProjectView() {
         <ShieldCheck size={20} className="text-emerald-400" />
         <div>
           <p className="text-emerald-400 font-bold text-sm">Access Key Active</p>
-          <p className="text-slate-400 text-xs">{scopeLabel} — {scopedProjectIds.length} project(s) unlocked</p>
+          <p className="text-[var(--color-on-surface-variant)] text-xs">{scopeLabel} — {scopedProjectIds.length} project(s) unlocked</p>
         </div>
       </div>
       
-      <h2 className="text-2xl font-black text-white mb-6">Accessible Projects</h2>
+      <h2 className="text-2xl font-black text-[var(--color-on-surface)] mb-6">Accessible Projects</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map(project => (
@@ -37,15 +37,15 @@ export default function KTScopedProjectView() {
               selectProject(project);
               setView('documents' as any);
             }}
-            className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-left hover:border-indigo-500/50 transition-all group"
+            className="p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-left hover:border-indigo-500/50 transition-all group"
           >
-            <h3 className="font-bold text-white group-hover:text-indigo-400 transition-colors">{project.name}</h3>
-            <p className="text-xs text-slate-400 mt-1">{project.doc_count || 0} accessible documents</p>
+            <h3 className="font-bold text-[var(--color-on-surface)] group-hover:text-[var(--color-brand-primary)] transition-colors">{project.name}</h3>
+            <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">{project.doc_count || 0} accessible documents</p>
             <div className="flex gap-4 mt-4">
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
+              <span className="text-xs font-bold text-[var(--color-brand-primary)] uppercase tracking-wider">
                 Chat →
               </span>
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
+              <span className="text-xs font-bold text-[var(--color-brand-primary)] uppercase tracking-wider">
                 Documents →
               </span>
             </div>

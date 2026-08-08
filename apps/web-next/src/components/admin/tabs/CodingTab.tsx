@@ -191,12 +191,12 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
                 <div className="bg-surface-container border border-surface-bright rounded-[3rem] p-8">
                   <div className="flex justify-between items-center mb-8">
                     <div>
-                      <h3 className="text-2xl font-black text-white">Coding Lab Management</h3>
+                      <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Coding Lab Management</h3>
                       <p className="text-[10px] text-emerald-400 font-black uppercase tracking-[0.3em] mt-1">Algorithmic Challenge Registry</p>
                     </div>
                     <button
                       onClick={() => setShowCodingModal(true)}
-                      className="px-6 py-3 bg-emerald-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2"
+                      className="px-6 py-3 bg-emerald-600 text-[var(--color-on-surface)] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2"
                     >
                       <Plus size={14} /> New Challenge
                     </button>
@@ -204,25 +204,25 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
 
 
                   {/* Coding Registry Table */}
-                  <div className="bg-slate-900/50 border border-white/5 rounded-[3rem] overflow-x-auto">
+                  <div className="bg-[var(--color-surface-container)]/50 border border-white/5 rounded-[3rem] overflow-x-auto">
                     <table className="w-full text-left">
                       <thead>
                         <tr className="border-b border-white/5">
-                          <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Challenge Title</th>
-                          <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Course Sector</th>
-                          <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">System ID</th>
-                          <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">Actions</th>
+                          <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Challenge Title</th>
+                          <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Course Sector</th>
+                          <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">System ID</th>
+                          <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest text-right">Actions</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
                         {(Array.isArray(codingQuestions) ? codingQuestions : []).map(q => (
                           <tr key={q.id} className="group hover:bg-white/5 transition-all">
                             <td className="px-8 py-6">
-                              <p className="text-sm font-black text-white">{q.title}</p>
-                              <p className="text-[10px] text-slate-500 truncate max-w-xs">{q.description?.substring(0, 50)}...</p>
+                              <p className="text-sm font-black text-[var(--color-on-surface)]">{q.title}</p>
+                              <p className="text-[10px] text-[var(--color-on-surface-variant)] truncate max-w-xs">{q.description?.substring(0, 50)}...</p>
                             </td>
                             <td className="px-8 py-6">
-                              <span className="px-3 py-1 rounded-lg bg-white/5 text-slate-400 text-[10px] font-black uppercase border border-white/5">
+                              <span className="px-3 py-1 rounded-lg bg-white/5 text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase border border-white/5">
                                 {courses.find(c => c.id === q.course_id)?.name || 'General Registry'}
                               </span>
                             </td>
@@ -230,7 +230,7 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
                               #{q.id}
                             </td>
                             <td className="px-8 py-6 text-right">
-                              <button className="p-2 text-slate-500 hover:text-white transition-all"><Settings size={16} /></button>
+                              <button className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all"><Settings size={16} /></button>
                             </td>
                           </tr>
                         ))}

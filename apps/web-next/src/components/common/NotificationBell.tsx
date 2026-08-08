@@ -73,7 +73,7 @@ export default function NotificationBell() {
       >
         <Bell className="w-6 h-6 text-gray-600 dark:text-gray-300" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white border-2 border-white dark:border-gray-900">
+          <span className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-[var(--color-on-surface)] border-2 border-white dark:border-gray-900">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -88,10 +88,10 @@ export default function NotificationBell() {
             className="absolute right-0 mt-3 w-80 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 z-50 overflow-hidden"
           >
             <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
-              <h3 className="font-bold text-gray-900 dark:text-white">Notifications</h3>
+              <h3 className="font-bold text-gray-900 dark:text-[var(--color-on-surface)]">Notifications</h3>
               <button 
                 onClick={handleMarkAllRead}
-                className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
+                className="text-xs text-indigo-600 dark:text-[var(--color-brand-primary)] hover:underline font-medium"
               >
                 Mark all read
               </button>
@@ -117,7 +117,7 @@ export default function NotificationBell() {
                         {n.type === 'assignment' ? <Clock className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">{n.title}</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-[var(--color-on-surface)]">{n.title}</p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{n.message}</p>
                         <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-2">
                           {new Date(n.created_at).toLocaleString()}

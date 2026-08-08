@@ -31,26 +31,26 @@ function CodeBlock({ children, className, ...props }: any) {
 
   if (!match) {
     return (
-      <code className="px-1.5 py-0.5 bg-slate-800/80 text-indigo-300 rounded-md font-mono text-[0.875em] border border-slate-700/50">
+      <code className="px-1.5 py-0.5 bg-[var(--color-surface-container-high)]/80 text-indigo-300 rounded-md font-mono text-[0.875em] border border-[var(--color-outline-variant)]/50">
         {children}
       </code>
     );
   }
 
   return (
-    <div className="relative group my-6 rounded-2xl overflow-hidden border border-slate-800 shadow-xl shadow-black/20">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
+    <div className="relative group my-6 rounded-2xl overflow-hidden border border-[var(--color-outline-variant)] shadow-xl shadow-black/20">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-[var(--color-surface-container)] border-b border-[var(--color-outline-variant)]">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-rose-500/70" />
           <div className="w-3 h-3 rounded-full bg-amber-500/70" />
           <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
-          <span className="ml-3 text-[11px] font-mono font-bold text-slate-500 uppercase tracking-widest">
+          <span className="ml-3 text-[11px] font-mono font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest">
             {language}
           </span>
         </div>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 text-slate-500 hover:text-white transition-colors text-[11px] font-bold uppercase tracking-wider"
+          className="flex items-center gap-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors text-[11px] font-bold uppercase tracking-wider"
         >
           {copied ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
           {copied ? 'Copied!' : 'Copy'}
@@ -78,7 +78,7 @@ function CodeBlock({ children, className, ...props }: any) {
 
 export default function EnterpriseMarkdownPreview({ content, showToc = true, className = '' }: EnterpriseMarkdownPreviewProps) {
   return (
-    <div className={`text-slate-300 ${className}`}>
+    <div className={`text-[var(--color-on-surface-variant)] ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[

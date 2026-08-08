@@ -76,21 +76,21 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
           <input
             type="text"
             placeholder="Change summary (e.g. Fixed deployment steps)..."
-            className="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white w-72 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+            className="bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] w-72 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             value={formData.change_summary}
             onChange={e => setFormData({...formData, change_summary: e.target.value})}
           />
-          <button onClick={() => setPreviewMode(!previewMode)} className="text-slate-400 flex items-center gap-2 hover:text-white px-3">
+          <button onClick={() => setPreviewMode(!previewMode)} className="text-[var(--color-on-surface-variant)] flex items-center gap-2 hover:text-[var(--color-on-surface)] px-3">
             {previewMode ? <Edit3 size={14} /> : <Eye size={14} />}
             {previewMode ? 'Edit' : 'Preview'}
           </button>
-          <button onClick={onCancel} className="text-slate-400 px-3">Cancel</button>
-          <button onClick={handleSave} disabled={saving || submitting} className="bg-indigo-600 px-4 py-2 rounded-xl text-white flex items-center gap-2">
+          <button onClick={onCancel} className="text-[var(--color-on-surface-variant)] px-3">Cancel</button>
+          <button onClick={handleSave} disabled={saving || submitting} className="bg-[var(--color-brand-primary-container)] px-4 py-2 rounded-xl text-[var(--color-on-surface)] flex items-center gap-2">
             {saving ? <Loader2 className="animate-spin" size={14} /> : <Save size={14} />}
             Save Changes
           </button>
           {canSubmit && (
-            <button onClick={handleFinalize} disabled={saving || submitting} className="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-xl text-white flex items-center gap-2 font-bold">
+            <button onClick={handleFinalize} disabled={saving || submitting} className="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-xl text-[var(--color-on-surface)] flex items-center gap-2 font-bold">
               {submitting ? <Loader2 className="animate-spin" size={14} /> : <Send size={14} />}
               Finalize &amp; Submit for review
             </button>
@@ -103,7 +103,7 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
         type="text"
         value={formData.title}
         onChange={e => setFormData({...formData, title: e.target.value})}
-        className="text-3xl font-black bg-transparent border-b border-slate-800 pb-2 text-white focus:outline-none focus:border-indigo-500 w-full"
+        className="text-3xl font-black bg-transparent border-b border-[var(--color-outline-variant)] pb-2 text-[var(--color-on-surface)] focus:outline-none focus:border-indigo-500 w-full"
       />
       
       {/* Monaco Editor for body + live markdown preview */}
@@ -126,10 +126,10 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
           />
         </div>
         {previewMode && (
-          <div className="block col-span-1 max-h-[600px] overflow-y-auto custom-scrollbar bg-slate-950 border border-slate-800 rounded-2xl p-6">
+          <div className="block col-span-1 max-h-[600px] overflow-y-auto custom-scrollbar bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-6">
             {formData.body_markdown?.trim()
               ? <EnterpriseMarkdownPreview content={formData.body_markdown} showToc={false} />
-              : <p className="text-slate-500 text-sm italic">Nothing to preview yet — start writing in the editor.</p>}
+              : <p className="text-[var(--color-on-surface-variant)] text-sm italic">Nothing to preview yet — start writing in the editor.</p>}
           </div>
         )}
       </div>
@@ -137,21 +137,21 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
       {/* Structured fields edit */}
       <div className="grid grid-cols-2 gap-6">
         <div>
-          <label className="text-xs font-black uppercase tracking-wider text-slate-500 mb-2 block">Problem Statement</label>
+          <label className="text-xs font-black uppercase tracking-wider text-[var(--color-on-surface-variant)] mb-2 block">Problem Statement</label>
           <textarea
             value={formData.problem_statement}
             onChange={e => setFormData({...formData, problem_statement: e.target.value})}
             rows={4}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white text-sm flex-1"
+            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-4 text-[var(--color-on-surface)] text-sm flex-1"
           />
         </div>
         <div>
-          <label className="text-xs font-black uppercase tracking-wider text-slate-500 mb-2 block">Outcome & Results</label>
+          <label className="text-xs font-black uppercase tracking-wider text-[var(--color-on-surface-variant)] mb-2 block">Outcome & Results</label>
           <textarea
             value={formData.outcome}
             onChange={e => setFormData({...formData, outcome: e.target.value})}
             rows={4}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white text-sm flex-1"
+            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-4 text-[var(--color-on-surface)] text-sm flex-1"
           />
         </div>
       </div>

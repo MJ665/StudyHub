@@ -83,34 +83,34 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 p-8 font-plus-jakarta">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] p-8 font-plus-jakarta">
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-12">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-6">
-             <button onClick={onBack} className="p-3 bg-slate-900 border border-white/5 rounded-2xl text-slate-500 hover:text-white transition-all">
+             <button onClick={onBack} className="p-3 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
                 <ArrowLeft size={20} />
              </button>
              <div>
-               <h1 className="text-4xl font-black text-white mb-2 tracking-tight flex items-center gap-4">
-                 <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-indigo-400">
+               <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
+                 <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-[var(--color-brand-primary)]">
                    <ClipboardList size={32} />
                  </div>
                  Mandatory Assignments
                </h1>
-               <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px]">Strategic Learning Directives & Compliance</p>
+               <p className="text-[var(--color-on-surface-variant)] font-bold uppercase tracking-[0.2em] text-[10px]">Strategic Learning Directives & Compliance</p>
              </div>
           </div>
           
-          <div className="flex bg-slate-900/50 p-1 rounded-2xl border border-white/5">
+          <div className="flex bg-[var(--color-surface-container)]/50 p-1 rounded-2xl border border-white/5">
             {(['active', 'completed', 'all'] as const).map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
                 className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
                   filter === f 
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' 
-                    : 'text-slate-500 hover:text-slate-300'
+                    ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
+                    : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
                 {f}
@@ -122,19 +122,19 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
             <Loader2 className="animate-spin text-indigo-500" size={48} />
-            <p className="text-slate-500 font-black uppercase tracking-widest text-xs">Synchronizing Directives...</p>
+            <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Synchronizing Directives...</p>
           </div>
         ) : filteredAssignments.length === 0 ? (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-slate-900/30 border border-dashed border-white/10 rounded-[3rem] p-24 text-center"
+            className="bg-[var(--color-surface-container)]/30 border border-dashed border-white/10 rounded-[3rem] p-24 text-center"
           >
-            <div className="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-600">
+            <div className="w-20 h-20 bg-[var(--color-surface-container-high)]/50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-600">
                <CheckCircle2 size={40} />
             </div>
-            <h3 className="text-2xl font-black text-white mb-2">Registry Clear</h3>
-            <p className="text-slate-500 font-medium">No pending assignments found in your current sector.</p>
+            <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Registry Clear</h3>
+            <p className="text-[var(--color-on-surface-variant)] font-medium">No pending assignments found in your current sector.</p>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -152,40 +152,40 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ delay: idx * 0.05 }}
                     onClick={() => setSelectedAssignment(asgn)}
-                    className={`group bg-slate-900/40 backdrop-blur-xl border ${
+                    className={`group bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${
                       asgn.is_completed ? 'border-emerald-500/20' : overdue ? 'border-rose-500/20' : 'border-white/5'
-                    } rounded-[2.5rem] p-8 hover:bg-slate-900/60 transition-all relative overflow-hidden cursor-pointer shadow-2xl`}
+                    } rounded-[2.5rem] p-8 hover:bg-[var(--color-surface-container)]/60 transition-all relative overflow-hidden cursor-pointer shadow-2xl`}
                   >
                     {/* Status Badge */}
                     <div className="flex justify-between items-start mb-6">
                       <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ${
                         asgn.is_completed ? 'bg-emerald-500/10 text-emerald-400' :
-                        overdue ? 'bg-rose-500/10 text-rose-400' : 'bg-indigo-500/10 text-indigo-400'
+                        overdue ? 'bg-rose-500/10 text-rose-400' : 'bg-indigo-500/10 text-[var(--color-brand-primary)]'
                       }`}>
                         {asgn.is_completed ? <CheckCircle2 size={12} /> : overdue ? <AlertCircle size={12} /> : <Clock size={12} />}
                         {asgn.is_completed ? 'Completed' : overdue ? 'Overdue' : 'Active'}
                       </div>
                       
                       <div className="flex gap-2">
-                         <div className="p-2 bg-slate-950 rounded-xl text-slate-500">
+                         <div className="p-2 bg-[var(--color-surface-dim)] rounded-xl text-[var(--color-on-surface-variant)]">
                             {asgn.assignment_type === 'quiz' ? <BrainCircuit size={16} /> : <Code size={16} />}
                          </div>
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-black text-white mb-2 group-hover:text-indigo-400 transition-colors line-clamp-1">{asgn.bank_name}</h3>
-                    <p className="text-slate-500 text-sm mb-6 line-clamp-2 font-medium leading-relaxed">{asgn.instructions || "No specific instructions provided for this directive."}</p>
+                    <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 group-hover:text-[var(--color-brand-primary)] transition-colors line-clamp-1">{asgn.bank_name}</h3>
+                    <p className="text-[var(--color-on-surface-variant)] text-sm mb-6 line-clamp-2 font-medium leading-relaxed">{asgn.instructions || "No specific instructions provided for this directive."}</p>
 
                     <div className="grid grid-cols-2 gap-4 mb-8">
-                       <div className="bg-slate-950/50 p-4 rounded-2xl border border-white/5">
-                          <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Due Date</p>
-                          <p className={`text-xs font-bold ${overdue ? 'text-rose-400' : 'text-slate-300'}`}>
+                       <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-white/5">
+                          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1">Due Date</p>
+                          <p className={`text-xs font-bold ${overdue ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}`}>
                              {asgn.due_date ? new Date(asgn.due_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'No Deadline'}
                           </p>
                        </div>
-                       <div className="bg-slate-950/50 p-4 rounded-2xl border border-white/5">
-                          <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Attempts</p>
-                          <p className="text-xs font-bold text-slate-300">
+                       <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-white/5">
+                          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1">Attempts</p>
+                          <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">
                              {asgn.attempts_used} / {asgn.max_attempts || '∞'}
                           </p>
                        </div>
@@ -208,7 +208,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                       </div>
                     ) : (
                       <button 
-                        className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2"
                       >
                          Open Detailed View <ChevronRight size={14} />
                       </button>

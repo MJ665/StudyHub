@@ -169,10 +169,10 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
 
   if (!doc) {
     return (
-      <div className="h-[600px] flex flex-col items-center justify-center text-slate-500">
+      <div className="h-[600px] flex flex-col items-center justify-center text-[var(--color-on-surface-variant)]">
         <Info size={48} className="mb-4 opacity-20" />
         <p className="font-bold uppercase tracking-widest">Document not found</p>
-        <button onClick={onBack} className="mt-4 text-indigo-400 hover:underline">Go back</button>
+        <button onClick={onBack} className="mt-4 text-[var(--color-brand-primary)] hover:underline">Go back</button>
       </div>
     );
   }
@@ -181,24 +181,24 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
     <div className="grid grid-cols-12 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Left Column: Content */}
       <div className="col-span-8 space-y-6">
-        <div className="bg-slate-900/40 border border-slate-800 rounded-[2.5rem] p-10">
+        <div className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-10">
           <div className="flex items-center gap-4 mb-8">
             <button 
               onClick={onBack}
-              className="p-3 bg-slate-800 rounded-2xl text-slate-400 hover:text-white transition-all hover:bg-slate-700"
+              className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all hover:bg-[var(--color-surface-bright)]"
             >
               <ArrowLeft size={20} />
             </button>
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
-                <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[10px] font-black rounded border border-indigo-500/20 uppercase tracking-widest">
+                <span className="px-2 py-0.5 bg-indigo-500/10 text-[var(--color-brand-primary)] text-[10px] font-black rounded border border-indigo-500/20 uppercase tracking-widest">
                   {doc.doc_type}
                 </span>
-                <span className="px-2 py-0.5 bg-slate-800 text-slate-500 text-[10px] font-black rounded border border-slate-700 uppercase tracking-widest">
+                <span className="px-2 py-0.5 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black rounded border border-[var(--color-outline-variant)] uppercase tracking-widest">
                   v{doc.version}
                 </span>
               </div>
-              <h1 className="text-3xl font-black text-white tracking-tight">{doc.title}</h1>
+              <h1 className="text-3xl font-black text-[var(--color-on-surface)] tracking-tight">{doc.title}</h1>
             </div>
           </div>
 
@@ -209,7 +209,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               {((doc as any).can_edit) && (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="mb-6 flex items-center gap-2 px-4 py-2 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 rounded-xl font-bold text-xs transition-all"
+                  className="mb-6 flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-indigo-500/30 rounded-xl font-bold text-xs transition-all"
                 >
                   <FileText size={14} /> Edit Document
                 </button>
@@ -218,17 +218,17 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               
               {/* Structured Metadata Rendering */}
               {doc.metadata_json && (doc.metadata_json.problem_statement || doc.metadata_json.outcome) && (
-                <div className="mt-12 pt-8 border-t border-slate-800 space-y-6">
+                <div className="mt-12 pt-8 border-t border-[var(--color-outline-variant)] space-y-6">
                   {doc.metadata_json.problem_statement && (
-                    <div className="bg-slate-950/50 rounded-2xl p-6 border border-slate-800/50">
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">Problem Statement</h4>
-                      <p className="text-sm text-slate-300 leading-relaxed">{doc.metadata_json.problem_statement}</p>
+                    <div className="bg-[var(--color-surface-dim)]/50 rounded-2xl p-6 border border-[var(--color-outline-variant)]/50">
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3">Problem Statement</h4>
+                      <p className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{doc.metadata_json.problem_statement}</p>
                     </div>
                   )}
                   {doc.metadata_json.outcome && (
-                    <div className="bg-slate-950/50 rounded-2xl p-6 border border-slate-800/50">
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">Outcome</h4>
-                      <p className="text-sm text-slate-300 leading-relaxed">{doc.metadata_json.outcome}</p>
+                    <div className="bg-[var(--color-surface-dim)]/50 rounded-2xl p-6 border border-[var(--color-outline-variant)]/50">
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3">Outcome</h4>
+                      <p className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{doc.metadata_json.outcome}</p>
                     </div>
                   )}
                 </div>
@@ -241,9 +241,9 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
       {/* Right Column: Metadata & Attachments */}
       <div className="col-span-4 space-y-6">
         {/* Actions Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-8">
-          <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-6 flex items-center gap-2">
-            <Shield size={12} className="text-indigo-400" /> Administrative Actions
+        <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8">
+          <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
+            <Shield size={12} className="text-[var(--color-brand-primary)]" /> Administrative Actions
           </h3>
           <div className="space-y-3">
             <button 
@@ -258,7 +258,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
             </button>
             <button 
               onClick={onViewHistory}
-              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-800 text-slate-300 border border-slate-700/50 hover:bg-slate-700 transition-all"
+              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]/50 hover:bg-[var(--color-surface-bright)] transition-all"
             >
               <History size={18} />
               <span className="font-bold">Revision History</span>
@@ -267,7 +267,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               kind="kt_document"
               targetId={doc.id}
               label="Report an issue"
-              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-800 text-slate-300 border border-slate-700/50 hover:bg-rose-500/10 hover:text-rose-400 transition-all font-bold"
+              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]/50 hover:bg-rose-500/10 hover:text-rose-400 transition-all font-bold"
             />
             {isAdmin && (
               <button 
@@ -280,27 +280,27 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
             )}
           </div>
 
-          <div className="mt-8 pt-8 border-t border-slate-800/50 space-y-4">
+          <div className="mt-8 pt-8 border-t border-[var(--color-outline-variant)]/50 space-y-4">
             <div className="flex items-center gap-3 text-xs">
-              <User size={14} className="text-slate-500" />
-              <span className="text-slate-400">Author:</span>
-              <span className="text-white font-bold">{doc.author_name || doc.author_id}</span>
+              <User size={14} className="text-[var(--color-on-surface-variant)]" />
+              <span className="text-[var(--color-on-surface-variant)]">Author:</span>
+              <span className="text-[var(--color-on-surface)] font-bold">{doc.author_name || doc.author_id}</span>
             </div>
             <div className="flex items-center gap-3 text-xs">
-              <Calendar size={14} className="text-slate-500" />
-              <span className="text-slate-400">Created:</span>
-              <span className="text-white font-bold">{format(new Date(doc.created_at), 'MMM dd, yyyy')}</span>
+              <Calendar size={14} className="text-[var(--color-on-surface-variant)]" />
+              <span className="text-[var(--color-on-surface-variant)]">Created:</span>
+              <span className="text-[var(--color-on-surface)] font-bold">{format(new Date(doc.created_at), 'MMM dd, yyyy')}</span>
             </div>
           </div>
         </div>
 
         {/* Attachments Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-8 overflow-hidden">
+        <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8 overflow-hidden">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-2">
-              <Paperclip size={12} className="text-indigo-400" /> Attachments
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] flex items-center gap-2">
+              <Paperclip size={12} className="text-[var(--color-brand-primary)]" /> Attachments
             </h3>
-            <label className="cursor-pointer p-2 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-all">
+            <label className="cursor-pointer p-2 rounded-lg bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20 hover:bg-indigo-500/20 transition-all">
               <Plus size={16} />
               <input type="file" className="hidden" onChange={handleFileUpload} disabled={uploading} />
             </label>
@@ -308,31 +308,31 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
 
           {uploading && (
             <div className="flex items-center gap-3 p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl mb-4 animate-pulse">
-              <Loader2 className="animate-spin text-indigo-400" size={16} />
+              <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={16} />
               <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-widest">Uploading to Cloud...</span>
             </div>
           )}
 
           <div className="space-y-3">
             {attachments.length === 0 ? (
-              <div className="py-10 text-center text-slate-600 border-2 border-dashed border-slate-800 rounded-3xl">
+              <div className="py-10 text-center text-slate-600 border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
                 <Paperclip size={24} className="mx-auto mb-2 opacity-10" />
                 <p className="text-[10px] font-bold uppercase tracking-widest">No attachments</p>
               </div>
             ) : (
               attachments.map((att) => (
-                <div key={att.id} className="group p-4 bg-slate-950 border border-slate-800 rounded-2xl hover:border-slate-700 transition-all">
+                <div key={att.id} className="group p-4 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl hover:border-[var(--color-outline-variant)] transition-all">
                   <div className="flex justify-between items-start mb-2">
-                    <p className="text-xs font-bold text-slate-200 truncate pr-4" title={att.filename}>{att.filename}</p>
+                    <p className="text-xs font-bold text-[var(--color-on-surface)] truncate pr-4" title={att.filename}>{att.filename}</p>
                     <button 
                       onClick={() => handleDeleteAttachment(att.id)}
-                      className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-500 hover:text-rose-400 transition-all"
+                      className="opacity-0 group-hover:opacity-100 p-1.5 text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all"
                     >
                       <Trash2 size={14} />
                     </button>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">
+                    <span className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">
                       {(att.file_size / 1024 / 1024).toFixed(2)} MB
                     </span>
                     {att.download_url && (
@@ -349,7 +349,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
                           href={att.download_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:text-indigo-300"
+                          className="flex items-center gap-1.5 text-[9px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest hover:text-indigo-300"
                         >
                           <Download size={12} /> Download
                         </a>

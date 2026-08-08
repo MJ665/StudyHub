@@ -142,7 +142,7 @@ export default function KTGraphCanvas({ nodes, edges, className = '' }: KTGraphC
 
   if (nodes.length === 0) {
     return (
-      <div className={`flex items-center justify-center text-sm text-slate-500 ${className}`}>
+      <div className={`flex items-center justify-center text-sm text-[var(--color-on-surface-variant)] ${className}`}>
         No knowledge-graph relationships for this answer.
       </div>
     );
@@ -152,7 +152,7 @@ export default function KTGraphCanvas({ nodes, edges, className = '' }: KTGraphC
     <div className={`relative ${className}`}>
       <svg
         viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
-        className="w-full h-full bg-slate-950 rounded-2xl border border-slate-800 cursor-grab active:cursor-grabbing select-none"
+        className="w-full h-full bg-[var(--color-surface-dim)] rounded-2xl border border-[var(--color-outline-variant)] cursor-grab active:cursor-grabbing select-none"
         onWheel={onWheel}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
@@ -219,22 +219,22 @@ export default function KTGraphCanvas({ nodes, edges, className = '' }: KTGraphC
       <div className="absolute top-3 right-3 flex flex-col gap-2">
         <button
           onClick={() => setView({ x: 0, y: 0, w: WIDTH, h: HEIGHT })}
-          className="px-2.5 py-1 rounded-lg bg-slate-800/90 border border-slate-700 text-[10px] font-bold text-slate-300 hover:text-white"
+          className="px-2.5 py-1 rounded-lg bg-[var(--color-surface-container-high)]/90 border border-[var(--color-outline-variant)] text-[10px] font-bold text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"
         >
           Reset view
         </button>
       </div>
-      <div className="absolute bottom-3 left-3 flex items-center gap-4 text-[10px] text-slate-400">
+      <div className="absolute bottom-3 left-3 flex items-center gap-4 text-[10px] text-[var(--color-on-surface-variant)]">
         <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-teal-500" /> Query match</span>
         <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-indigo-500" /> Related entity</span>
         <span className="hidden sm:inline text-slate-600">scroll = zoom · drag = pan · click = focus · dbl-click = zoom in</span>
       </div>
 
       {selected && (
-        <div className="absolute bottom-3 right-3 max-w-[240px] bg-slate-900/95 border border-slate-700 rounded-xl p-3">
-          <p className="text-[9px] font-black uppercase tracking-widest text-indigo-400 mb-1">Selected entity</p>
-          <p className="text-sm text-white font-bold break-words">{selected}</p>
-          <p className="text-[10px] text-slate-400 mt-1">{connected.size} direct relationship{connected.size === 1 ? '' : 's'}</p>
+        <div className="absolute bottom-3 right-3 max-w-[240px] bg-[var(--color-surface-container)]/95 border border-[var(--color-outline-variant)] rounded-xl p-3">
+          <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-brand-primary)] mb-1">Selected entity</p>
+          <p className="text-sm text-[var(--color-on-surface)] font-bold break-words">{selected}</p>
+          <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-1">{connected.size} direct relationship{connected.size === 1 ? '' : 's'}</p>
         </div>
       )}
     </div>

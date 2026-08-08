@@ -301,20 +301,20 @@ export default function KnowledgeExplorer({
 
   if (!projectId) {
     return (
-      <div className="w-full h-[600px] flex flex-col items-center justify-center text-slate-500 bg-slate-950/50 rounded-[2.5rem] border border-slate-800">
+      <div className="w-full h-[600px] flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] bg-[var(--color-surface-dim)]/50 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
         <Network size={48} className="mb-4 opacity-20 animate-pulse" />
-        <p className="text-xs font-black uppercase tracking-widest text-slate-400">Select a project to explore the graph</p>
+        <p className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Select a project to explore the graph</p>
       </div>
     );
   }
 
   return (
-    <div ref={containerRef} className="w-full h-[600px] bg-slate-950 rounded-[2.5rem] border border-slate-800 relative overflow-hidden group">
+    <div ref={containerRef} className="w-full h-[600px] bg-[var(--color-surface-dim)] rounded-[2.5rem] border border-[var(--color-outline-variant)] relative overflow-hidden group">
       {loading && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm">
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-[var(--color-surface-dim)]/80 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="animate-spin text-indigo-500" size={36} />
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Mapping Concept Nodes...</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Mapping Concept Nodes...</p>
           </div>
         </div>
       )}
@@ -322,25 +322,25 @@ export default function KnowledgeExplorer({
       <svg ref={svgRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
       <div className="absolute top-6 left-6 flex flex-col gap-2">
-        <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-4 rounded-2xl shadow-xl">
+        <div className="bg-[var(--color-surface-container)]/80 backdrop-blur-md border border-[var(--color-outline-variant)] p-4 rounded-2xl shadow-xl">
           <div className="flex items-center gap-2 mb-3">
-            <Network size={16} className="text-indigo-400" />
-            <p className="text-xs font-black uppercase tracking-widest text-white">Knowledge Graph</p>
+            <Network size={16} className="text-[var(--color-brand-primary)]" />
+            <p className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface)]">Knowledge Graph</p>
           </div>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-[var(--color-on-surface-variant)]">
               <div className="w-2.5 h-2.5 rounded-full bg-[#6366f1]" /> Project
             </div>
-            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-[var(--color-on-surface-variant)]">
               <div className="w-2.5 h-2.5 rounded-full bg-[#8b5cf6]" /> Sprint
             </div>
-            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-[var(--color-on-surface-variant)]">
               <div className="w-2.5 h-2.5 rounded-full bg-[#06b6d4]" /> Document
             </div>
-            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-[var(--color-on-surface-variant)]">
               <div className="w-2.5 h-2.5 rounded-full bg-[#ec4899]" /> Episode
             </div>
-            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-[var(--color-on-surface-variant)]">
               <div className="w-2.5 h-2.5 rounded-full bg-[#eab308]" /> Entity
             </div>
           </div>
@@ -350,28 +350,28 @@ export default function KnowledgeExplorer({
       <div className="absolute bottom-6 left-6 flex gap-2 shadow-lg z-10">
         <button 
           onClick={handleReset}
-          className="p-3 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-all active:scale-95"
+          className="p-3 bg-[var(--color-surface-container)]/80 backdrop-blur-md border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all active:scale-95"
           title="Reset Zoom & Pan"
         >
           <Maximize2 size={18} />
         </button>
         <button 
           onClick={handleZoomIn}
-          className="p-3 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-all active:scale-95"
+          className="p-3 bg-[var(--color-surface-container)]/80 backdrop-blur-md border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all active:scale-95"
           title="Zoom In"
         >
           <ZoomIn size={18} />
         </button>
         <button 
           onClick={handleZoomOut}
-          className="p-3 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-all active:scale-95"
+          className="p-3 bg-[var(--color-surface-container)]/80 backdrop-blur-md border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all active:scale-95"
           title="Zoom Out"
         >
           <ZoomOut size={18} />
         </button>
         <button 
           onClick={buildGraph}
-          className="p-3 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-all active:scale-95"
+          className="p-3 bg-[var(--color-surface-container)]/80 backdrop-blur-md border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all active:scale-95"
           title="Refresh Data"
         >
           <RefreshCw size={18} />
@@ -384,30 +384,30 @@ export default function KnowledgeExplorer({
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 300, opacity: 0 }}
-            className="absolute top-0 right-0 w-80 h-full bg-slate-900/90 backdrop-blur-xl border-l border-slate-800 p-8 shadow-2xl z-20 flex flex-col justify-between"
+            className="absolute top-0 right-0 w-80 h-full bg-[var(--color-surface-container)]/90 backdrop-blur-xl border-l border-[var(--color-outline-variant)] p-8 shadow-2xl z-20 flex flex-col justify-between"
           >
             <div>
               <div className="flex justify-between items-start mb-8">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border bg-indigo-500/20 border-indigo-500/30 text-indigo-400">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border bg-indigo-500/20 border-indigo-500/30 text-[var(--color-brand-primary)]">
                   {selectedNode.type === 'document' ? <Layers size={24} /> : <Database size={24} />}
                 </div>
-                <button onClick={() => setSelectedNode(null)} className="text-slate-500 hover:text-white transition-all">
+                <button onClick={() => setSelectedNode(null)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
                   <AlertCircle size={20} className="rotate-45" />
                 </button>
               </div>
 
-              <h4 className="text-2xl font-black text-white mb-2 tracking-tight">{selectedNode.label}</h4>
-              <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-6 bg-slate-800/40 inline-block px-2 py-0.5 rounded border border-slate-800">
+              <h4 className="text-2xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight">{selectedNode.label}</h4>
+              <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 bg-[var(--color-surface-container-high)]/40 inline-block px-2 py-0.5 rounded border border-[var(--color-outline-variant)]">
                 {selectedNode.type}
               </p>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Identity Details</p>
-                  <p className="text-xs text-slate-300 leading-relaxed font-semibold">
-                    Node ID: <code className="text-indigo-400 font-mono text-[10px]">{selectedNode.id}</code>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Identity Details</p>
+                  <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed font-semibold">
+                    Node ID: <code className="text-[var(--color-brand-primary)] font-mono text-[10px]">{selectedNode.id}</code>
                   </p>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
                     This element represents a structured node within the active project knowledge graph.
                   </p>
                 </div>
@@ -418,13 +418,13 @@ export default function KnowledgeExplorer({
             <div className="flex gap-2">
               <button 
                 onClick={hopToNode}
-                className="flex-1 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-amber-500/20"
+                className="flex-1 py-4 bg-amber-600 hover:bg-amber-500 text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-amber-500/20"
               >
                 Hop to Node
               </button>
               <button 
                 onClick={() => setSelectedNode(null)}
-                className="flex-1 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-black text-xs uppercase tracking-widest border border-slate-700 transition-all flex items-center justify-center gap-2"
+                className="flex-1 py-4 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest border border-[var(--color-outline-variant)] transition-all flex items-center justify-center gap-2"
               >
                 Close <Info size={14} />
               </button>

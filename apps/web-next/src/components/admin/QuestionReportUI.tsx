@@ -114,36 +114,36 @@ export default function QuestionReportUI() {
   });
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-slate-950/50 rounded-[3rem] border border-white/5 overflow-hidden">
+    <div className="flex-1 flex flex-col h-full bg-[var(--color-surface-dim)]/50 rounded-[3rem] border border-white/5 overflow-hidden">
       <header className="p-8 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 text-rose-400 mb-2">
             <AlertTriangle size={18} />
             <span className="font-black uppercase tracking-[0.2em] text-[10px]">Data Integrity Audit</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Content Reports</h2>
-          <p className="text-slate-500 text-xs mt-1">MCQ questions · KT documents · coding questions</p>
+          <h2 className="text-2xl font-black text-[var(--color-on-surface)]">Content Reports</h2>
+          <p className="text-[var(--color-on-surface-variant)] text-xs mt-1">MCQ questions · KT documents · coding questions</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={16} />
             <input 
               type="text" 
               placeholder="Search reports..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="bg-slate-900 border border-white/10 rounded-2xl pl-12 pr-6 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-rose-500/50 transition-all w-64"
+              className="bg-[var(--color-surface-container)] border border-white/10 rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-1 focus:ring-rose-500/50 transition-all w-64"
             />
           </div>
 
-          <div className="flex p-1 bg-slate-900 rounded-xl border border-white/5">
+          <div className="flex p-1 bg-[var(--color-surface-container)] rounded-xl border border-white/5">
             {(['all', 'pending', 'resolved'] as const).map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
                 className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
-                  filter === f ? 'bg-white/10 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'
+                  filter === f ? 'bg-white/10 text-[var(--color-on-surface)] shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
                 {f}
@@ -157,14 +157,14 @@ export default function QuestionReportUI() {
         {loading ? (
           <div className="h-full flex flex-col items-center justify-center space-y-4">
             <Loader2 className="animate-spin text-rose-500" size={40} />
-            <p className="text-slate-500 font-black uppercase tracking-widest text-xs">Scanning Report Cluster...</p>
+            <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Scanning Report Cluster...</p>
           </div>
         ) : filteredReports.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center space-y-6 opacity-50">
-            <div className="w-20 h-20 rounded-full bg-slate-900 flex items-center justify-center text-slate-700 border border-white/5">
+            <div className="w-20 h-20 rounded-full bg-[var(--color-surface-container)] flex items-center justify-center text-slate-700 border border-white/5">
               <CheckCircle2 size={40} />
             </div>
-            <p className="text-slate-500 font-bold">No items match your current filter.</p>
+            <p className="text-[var(--color-on-surface-variant)] font-bold">No items match your current filter.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -173,22 +173,22 @@ export default function QuestionReportUI() {
                 key={report.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-slate-900/50 border border-white/5 rounded-3xl p-6 hover:border-rose-500/20 transition-all group"
+                className="bg-[var(--color-surface-container)]/50 border border-white/5 rounded-3xl p-6 hover:border-rose-500/20 transition-all group"
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500">
+                    <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-[var(--color-on-surface-variant)]">
                       <User size={20} />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-white">{report.reporter_name || 'Anonymous User'}</p>
-                      <div className="flex items-center gap-2 text-[10px] text-slate-500 font-black uppercase tracking-widest">
+                      <p className="text-sm font-bold text-[var(--color-on-surface)]">{report.reporter_name || 'Anonymous User'}</p>
+                      <div className="flex items-center gap-2 text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest">
                         <Clock size={10} /> {new Date(report.created_at).toLocaleDateString()}
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border ${TYPE_COLOR[report.content_type] || 'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}>
+                    <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border ${TYPE_COLOR[report.content_type] || 'bg-slate-500/10 text-[var(--color-on-surface-variant)] border-slate-500/20'}`}>
                       {TYPE_LABEL[report.content_type] || report.content_type}
                     </span>
                     <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest ${
@@ -199,15 +199,15 @@ export default function QuestionReportUI() {
                   </div>
                 </div>
 
-                <div className="bg-slate-950/50 rounded-2xl p-5 mb-6 border border-white/5">
+                <div className="bg-[var(--color-surface-dim)]/50 rounded-2xl p-5 mb-6 border border-white/5">
                   <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-2">Reported Content</p>
-                  <p className="text-sm text-slate-300 font-medium leading-relaxed italic mb-4 break-words">"{report.content_title || 'Untitled'}"</p>
+                  <p className="text-sm text-[var(--color-on-surface-variant)] font-medium leading-relaxed italic mb-4 break-words">"{report.content_title || 'Untitled'}"</p>
 
                   <div className="flex gap-4 p-4 bg-rose-500/5 rounded-xl border border-rose-500/10">
                     <AlertTriangle size={16} className="text-rose-500 shrink-0" />
                     <div className="min-w-0">
                       <p className="text-xs font-black text-rose-400 uppercase tracking-widest mb-1">Issue: {report.issue_type}</p>
-                      <p className="text-xs text-slate-400 break-words">{report.description || 'No additional description provided.'}</p>
+                      <p className="text-xs text-[var(--color-on-surface-variant)] break-words">{report.description || 'No additional description provided.'}</p>
                     </div>
                   </div>
                 </div>
@@ -216,7 +216,7 @@ export default function QuestionReportUI() {
                   {report.content_type === 'question' ? (
                     <button
                       onClick={() => openEdit(report)}
-                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 hover:text-indigo-300 transition-all"
+                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)] hover:text-indigo-300 transition-all"
                     >
                       <Edit3 size={14} /> Edit Question
                     </button>
@@ -226,13 +226,13 @@ export default function QuestionReportUI() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleResolve(report, 'dismissed')}
-                        className="px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5"
+                        className="px-4 py-2 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5"
                       >
                         Dismiss
                       </button>
                       <button
                         onClick={() => handleResolve(report, 'resolved')}
-                        className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-600/20 hover:scale-105 active:scale-95 transition-all"
+                        className="px-4 py-2 bg-emerald-600 text-[var(--color-on-surface)] rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-600/20 hover:scale-105 active:scale-95 transition-all"
                       >
                         Mark Resolved
                       </button>
@@ -252,26 +252,26 @@ export default function QuestionReportUI() {
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto"
+              className="w-full max-w-lg bg-[var(--color-surface-container)] border border-white/10 rounded-3xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto"
             >
-              <div className="flex items-center gap-2 text-indigo-400 mb-4">
+              <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-4">
                 <Edit3 size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Edit Reported Question</span>
               </div>
-              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Question</label>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Question</label>
               <textarea value={editText} onChange={(e) => setEditText(e.target.value)} rows={3}
-                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 text-sm text-white mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
-              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Options (one per line)</label>
+                className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Options (one per line)</label>
               <textarea value={editOptions} onChange={(e) => setEditOptions(e.target.value)} rows={4}
-                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 text-sm text-white mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
-              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Correct Answer</label>
+                className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Correct Answer</label>
               <input value={editAnswer} onChange={(e) => setEditAnswer(e.target.value)}
-                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 text-sm text-white mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+                className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
               <div className="flex flex-wrap justify-end gap-2">
-                <button disabled={savingEdit} onClick={() => setEditing(null)} className="px-4 py-2 text-slate-400 hover:text-white text-xs font-bold">Cancel</button>
-                <button disabled={savingEdit} onClick={() => saveEdit(false)} className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-xs font-bold border border-white/10">
+                <button disabled={savingEdit} onClick={() => setEditing(null)} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
+                <button disabled={savingEdit} onClick={() => saveEdit(false)} className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] text-xs font-bold border border-white/10">
                   {savingEdit ? <Loader2 size={14} className="animate-spin" /> : 'Save'}
                 </button>
-                <button disabled={savingEdit} onClick={() => saveEdit(true)} className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold">
+                <button disabled={savingEdit} onClick={() => saveEdit(true)} className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)] text-xs font-bold">
                   Save & Resolve
                 </button>
               </div>

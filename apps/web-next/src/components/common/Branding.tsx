@@ -46,7 +46,7 @@ export function CoBrand({ className = '' }: { className?: string }) {
         <img src={orgLogoUrl} alt="" className="h-7 w-auto rounded" />
       )}
       {isOrg && <span className="font-bold">{brandName}</span>}
-      {isOrg && <span className="text-slate-500">×</span>}
+      {isOrg && <span className="text-[var(--color-on-surface-variant)]">×</span>}
       <span className="font-black text-emerald-400">StudyBuddy</span>
     </div>
   );

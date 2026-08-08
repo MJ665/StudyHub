@@ -47,7 +47,7 @@ export default function KTAnalyticsView() {
       <div className="flex-1 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="animate-spin text-indigo-500" size={36} />
-          <p className="text-xs font-black uppercase tracking-widest text-slate-500">Compiling analytics matrix...</p>
+          <p className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Compiling analytics matrix...</p>
         </div>
       </div>
     );
@@ -58,8 +58,8 @@ export default function KTAnalyticsView() {
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-6 max-w-md text-center">
           <AlertTriangle className="text-rose-500 mx-auto mb-4" size={32} />
-          <h3 className="text-lg font-bold text-white mb-2">Analytics Unavailable</h3>
-          <p className="text-sm text-slate-400">{error || 'Failed to fetch analytics data'}</p>
+          <h3 className="text-lg font-bold text-[var(--color-on-surface)] mb-2">Analytics Unavailable</h3>
+          <p className="text-sm text-[var(--color-on-surface-variant)]">{error || 'Failed to fetch analytics data'}</p>
         </div>
       </div>
     );
@@ -92,42 +92,42 @@ export default function KTAnalyticsView() {
   return (
     <div className="flex-1 p-8 overflow-y-auto custom-scrollbar relative z-10 max-w-7xl mx-auto w-full space-y-8">
       <header>
-        <div className="flex items-center gap-2 mb-2 text-indigo-400">
+        <div className="flex items-center gap-2 mb-2 text-[var(--color-brand-primary)]">
           <TrendingUp size={16} />
           <span className="text-xs font-black uppercase tracking-widest">Executive Dashboard</span>
         </div>
-        <h1 className="text-4xl font-black text-white tracking-tight">Analytics & Intelligence</h1>
-        <p className="text-slate-400 text-sm mt-1 max-w-xl">
+        <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Analytics & Intelligence</h1>
+        <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
           Track knowledge base health, document ingestion velocity, and structural coverage gaps for {selectedCompany?.name || 'All Organizations'}.
         </p>
       </header>
 
       {/* Grid count cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Knowledge Coverage</p>
-          <h3 className="text-3xl font-black text-white">{coverage}%</h3>
-          <div className="w-full h-1 bg-slate-950 rounded-full overflow-hidden mt-3 border border-slate-850">
+        <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-2xl p-6">
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Knowledge Coverage</p>
+          <h3 className="text-3xl font-black text-[var(--color-on-surface)]">{coverage}%</h3>
+          <div className="w-full h-1 bg-[var(--color-surface-dim)] rounded-full overflow-hidden mt-3 border border-slate-850">
             <div className="h-full bg-gradient-to-r from-indigo-500 to-teal-500" style={{ width: `${coverage}%` }} />
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Total Documents</p>
-          <h3 className="text-3xl font-black text-white">{docCount}</h3>
+        <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-2xl p-6">
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Total Documents</p>
+          <h3 className="text-3xl font-black text-[var(--color-on-surface)]">{docCount}</h3>
           <p className="text-[10px] text-emerald-400 font-bold mt-2">Documents in the workspace</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Indexed for retrieval</p>
+        <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-2xl p-6">
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Indexed for retrieval</p>
           <h3 className="text-3xl font-black text-emerald-400">{ingestedCount}</h3>
-          <p className="text-[10px] text-slate-500 font-bold mt-2">of {docCount} approved &amp; ingested</p>
+          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold mt-2">of {docCount} approved &amp; ingested</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-850 rounded-2xl p-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Graph entities</p>
-          <h3 className="text-3xl font-black text-indigo-400">{entityCount}</h3>
-          <p className="text-[10px] text-slate-500 font-bold mt-2">Extracted knowledge nodes</p>
+        <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-2xl p-6">
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Graph entities</p>
+          <h3 className="text-3xl font-black text-[var(--color-brand-primary)]">{entityCount}</h3>
+          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold mt-2">Extracted knowledge nodes</p>
         </div>
       </div>
 
@@ -135,15 +135,15 @@ export default function KTAnalyticsView() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Coverage Over Time Area Chart */}
-        <div className="bg-slate-900 border border-slate-850 rounded-[2rem] p-8 space-y-6">
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Activity className="text-indigo-400" size={18} />
+        <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-[2rem] p-8 space-y-6">
+          <h3 className="text-lg font-bold text-[var(--color-on-surface)] flex items-center gap-2">
+            <Activity className="text-[var(--color-brand-primary)]" size={18} />
             <span>Documentation Activity (30 days)</span>
           </h3>
 
           <div className="h-80 w-full">
             {activityData.length === 0 ? (
-              <div className="h-full flex items-center justify-center text-sm text-slate-500">
+              <div className="h-full flex items-center justify-center text-sm text-[var(--color-on-surface-variant)]">
                 No documents created in the last 30 days.
               </div>
             ) : (
@@ -167,9 +167,9 @@ export default function KTAnalyticsView() {
         </div>
 
         {/* Knowledge Domains Radar Chart */}
-        <div className="bg-slate-900 border border-slate-850 rounded-[2rem] p-8 space-y-6">
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Layers className="text-indigo-400" size={18} />
+        <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-[2rem] p-8 space-y-6">
+          <h3 className="text-lg font-bold text-[var(--color-on-surface)] flex items-center gap-2">
+            <Layers className="text-[var(--color-brand-primary)]" size={18} />
             <span>Knowledge Domains Coverage</span>
           </h3>
 
@@ -189,25 +189,25 @@ export default function KTAnalyticsView() {
       </div>
 
       {/* Bottom Insights panel */}
-      <div className="bg-slate-900/40 border border-slate-850 rounded-[2rem] p-8">
-        <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-          <AlertTriangle className="text-indigo-400" size={18} />
+      <div className="bg-[var(--color-surface-container)]/40 border border-slate-850 rounded-[2rem] p-8">
+        <h3 className="text-lg font-bold text-[var(--color-on-surface)] mb-6 flex items-center gap-2">
+          <AlertTriangle className="text-[var(--color-brand-primary)]" size={18} />
           <span>Flagged Structural Gaps</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {(summary?.gaps || []).map((gap: any, i: number) => (
-            <div key={i} className="bg-slate-950 border border-slate-850 p-4 rounded-2xl flex items-center gap-4">
+            <div key={i} className="bg-[var(--color-surface-dim)] border border-slate-850 p-4 rounded-2xl flex items-center gap-4">
               <div className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse shrink-0" />
               <div>
-                <p className="text-sm font-bold text-white">{gap.title || gap}</p>
-                <p className="text-xs text-slate-500 mt-1">Impact score: High Priority gap</p>
+                <p className="text-sm font-bold text-[var(--color-on-surface)]">{gap.title || gap}</p>
+                <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Impact score: High Priority gap</p>
               </div>
             </div>
           ))}
 
           {(summary?.gaps || []).length === 0 && (
-            <div className="col-span-2 text-center py-6 text-slate-500 text-sm">
+            <div className="col-span-2 text-center py-6 text-[var(--color-on-surface-variant)] text-sm">
               No structural knowledge gaps are currently flagged. The workspace is fully documented!
             </div>
           )}

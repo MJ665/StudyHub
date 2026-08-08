@@ -60,7 +60,7 @@ export default function SystemHealthMonitor() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-[var(--color-on-surface)] flex items-center gap-2">
             <Activity className="w-6 h-6 text-emerald-400" />
             System Background Telemetry
           </h2>
@@ -110,7 +110,7 @@ export default function SystemHealthMonitor() {
                 return (
                 <tr key={i} className="hover:bg-zinc-800/30 transition-colors align-top">
                   <td className="p-4">
-                    <span className="text-white font-medium block">{task.task_name}</span>
+                    <span className="text-[var(--color-on-surface)] font-medium block">{task.task_name}</span>
                     <span className="text-xs text-zinc-500 block mt-0.5">{task.worker_id || 'system-cron'}</span>
                     {failed && task.error_message ? (
                       <span className="text-xs text-red-400/80 block mt-1 max-w-md break-words">{task.error_message}</span>

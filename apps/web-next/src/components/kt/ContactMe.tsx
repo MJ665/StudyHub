@@ -53,7 +53,7 @@ const ContactMe = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-indigo-500/30 selection:text-indigo-200 font-sans">
+    <div className="min-h-screen bg-[#020617] text-[var(--color-on-surface)] selection:bg-indigo-500/30 selection:text-indigo-200 font-sans">
       {/* Background Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-500/10 blur-[120px] animate-pulse" />
@@ -65,7 +65,7 @@ const ContactMe = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black uppercase tracking-widest mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[var(--color-brand-primary)] text-xs font-black uppercase tracking-widest mb-6"
           >
             <MessageSquare size={14} />
             Support Center
@@ -74,7 +74,7 @@ const ContactMe = () => {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight"
+            className="text-5xl md:text-7xl font-black text-[var(--color-on-surface)] mb-6 tracking-tight"
           >
             Connect with <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-emerald-400">StudyBuddy</span>
           </motion.h1>
@@ -83,7 +83,7 @@ const ContactMe = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+            className="text-[var(--color-on-surface-variant)] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
             Have questions about the Knowledge Transfer platform or need enterprise support? Our team is here to help you preserve your organizational memory.
           </motion.p>
@@ -103,15 +103,15 @@ const ContactMe = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 * i }}
                 whileHover={{ x: 10 }}
-                className="group p-6 bg-slate-900/40 border border-slate-800 rounded-3xl backdrop-blur-sm hover:border-slate-700 transition-all"
+                className="group p-6 bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-3xl backdrop-blur-sm hover:border-[var(--color-outline-variant)] transition-all"
               >
                 <div className="flex items-center gap-4">
                   <div className={`p-4 rounded-2xl bg-${item.color}-500/10 text-${item.color}-400 group-hover:scale-110 transition-transform`}>
                     <item.icon size={24} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">{item.label}</p>
-                    <p className="text-lg font-bold text-slate-200">{item.value}</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{item.label}</p>
+                    <p className="text-lg font-bold text-[var(--color-on-surface)]">{item.value}</p>
                   </div>
                 </div>
               </motion.div>
@@ -123,7 +123,7 @@ const ContactMe = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="lg:col-span-7 bg-slate-900/60 border border-slate-800 rounded-[3rem] p-8 md:p-12 backdrop-blur-xl shadow-2xl relative overflow-hidden"
+            className="lg:col-span-7 bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-[3rem] p-8 md:p-12 backdrop-blur-xl shadow-2xl relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10">
               <Send size={120} className="rotate-12" />
@@ -132,56 +132,56 @@ const ContactMe = () => {
             <form onSubmit={handleSubmit} className="relative z-10 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] ml-1">Full Name</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g. Jane Doe"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] ml-1">Email Address</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@company.com"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Subject</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] ml-1">Subject</label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Short summary"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Category</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] ml-1">Category</label>
                   <div className="relative">
                     <select
                       name="category"
                       value={formData.category}
                       onChange={handleChange}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-bold cursor-pointer"
+                      className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-bold cursor-pointer"
                     >
                       <option>General Inquiry</option>
                       <option>Technical Support</option>
                       <option>Enterprise Licensing</option>
                       <option>Feedback & Requests</option>
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-on-surface-variant)]">
                       <Layers size={18} />
                     </div>
                   </div>
@@ -189,14 +189,14 @@ const ContactMe = () => {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Your Message</label>
+                <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] ml-1">Your Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows={5}
                   placeholder="Tell us what's on your mind..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-[2rem] px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold resize-none"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-[2rem] px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold resize-none"
                 />
               </div>
 
@@ -204,7 +204,7 @@ const ContactMe = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-16 bg-gradient-to-r from-indigo-500 via-blue-600 to-emerald-500 text-white font-black text-lg rounded-2xl shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all border-none"
+                  className="w-full h-16 bg-gradient-to-r from-indigo-500 via-blue-600 to-emerald-500 text-[var(--color-on-surface)] font-black text-lg rounded-2xl shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all border-none"
                 >
                   {isSubmitting ? (
                     <Loader2 className="animate-spin" size={24} />
@@ -217,8 +217,8 @@ const ContactMe = () => {
                 </button>
               </motion.div>
               
-              <p className="text-center text-[10px] text-slate-500 font-medium">
-                By submitting, you agree to our <a href="/privacy" className="text-slate-300 underline">Privacy Policy</a> and <a href="/terms" className="text-slate-300 underline">Terms of Service</a>.
+              <p className="text-center text-[10px] text-[var(--color-on-surface-variant)] font-medium">
+                By submitting, you agree to our <a href="/privacy" className="text-[var(--color-on-surface-variant)] underline">Privacy Policy</a> and <a href="/terms" className="text-[var(--color-on-surface-variant)] underline">Terms of Service</a>.
               </p>
             </form>
           </motion.div>

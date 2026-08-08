@@ -60,30 +60,30 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                  {students.map(student => (
                    <div key={student.id} className="p-6 bg-surface-container rounded-[2rem] border border-surface-bright group hover:border-indigo-500/30 transition-all">
                       <div className="flex items-center gap-4 mb-6">
-                         <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-black text-xl">
+                         <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] font-black text-xl">
                             {student.full_name?.charAt(0)}
                          </div>
                          <div>
-                            <p className="font-black text-white">{student.full_name}</p>
-                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{student.email_prefix}</p>
+                            <p className="font-black text-[var(--color-on-surface)]">{student.full_name}</p>
+                            <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">{student.email_prefix}</p>
                          </div>
                       </div>
                       
                       <div className="grid grid-cols-3 gap-2 mb-6">
                           <div className="p-3 bg-white/5 rounded-2xl text-center border border-white/5 group-hover:border-indigo-500/20 transition-all">
-                             <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Acc.</p>
+                             <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Acc.</p>
                              <p className="text-xs font-black text-emerald-400">{student.avg_accuracy}%</p>
                           </div>
                           <div className="p-3 bg-white/5 rounded-2xl text-center border border-white/5 group-hover:border-indigo-500/20 transition-all">
-                             <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Streak</p>
+                             <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Streak</p>
                              <p className="text-xs font-black text-amber-400">{student.streak_count}d</p>
                           </div>
                           <div className="p-3 bg-white/5 rounded-2xl text-center border border-white/5 group-hover:border-indigo-500/20 transition-all">
-                             <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Risk</p>
+                             <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Risk</p>
                              <p className={`text-xs font-black ${
                                 student.risk_level?.includes('High') ? 'text-rose-400' :
                                 student.risk_level?.includes('Medium') ? 'text-amber-400' :
-                                'text-indigo-400'
+                                'text-[var(--color-brand-primary)]'
                              }`}>{student.risk_level?.split(' ')[0] || 'Stable'}</p>
                           </div>
                        </div>
@@ -94,13 +94,13 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                             setSelectedStudent(student);
                             setShowAtlasModal(true);
                           }}
-                          className="flex-1 py-3 bg-indigo-600/10 text-indigo-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all"
+                          className="flex-1 py-3 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)] hover:text-[var(--color-on-surface)] transition-all"
                         >
                           Sync AI Intel
                         </button>
                         <button 
                           onClick={() => setSelectedStudentHistory(student)}
-                          className="flex-1 py-3 bg-white/5 text-slate-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all border border-white/5"
+                          className="flex-1 py-3 bg-white/5 text-[var(--color-on-surface-variant)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-[var(--color-on-surface)] transition-all border border-white/5"
                         >
                           View Portfolio
                         </button>
@@ -110,7 +110,7 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                  {students.length === 0 && (
                    <div className="col-span-full py-20 text-center">
                      <Users size={48} className="text-slate-800 mx-auto mb-4" />
-                     <p className="text-slate-500">No students found in this group.</p>
+                     <p className="text-[var(--color-on-surface-variant)]">No students found in this group.</p>
                    </div>
                  )}
               </div>

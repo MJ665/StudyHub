@@ -33,8 +33,8 @@ interface InvitedExam {
   my_status: 'invited' | 'started' | 'submitted';
 }
 
-const input = 'w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:border-emerald-500';
-const label = 'block text-slate-400 text-[11px] uppercase tracking-widest mb-1';
+const input = 'w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-3 py-2 text-sm focus:outline-none focus:border-emerald-500';
+const label = 'block text-[var(--color-on-surface-variant)] text-[11px] uppercase tracking-widest mb-1';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -234,15 +234,15 @@ export default function ExamsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] p-6 md:p-10">
       <div className="max-w-4xl mx-auto">
         <header className="flex items-center justify-between mb-6 gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-black">Exams</h1>
-            <p className="text-slate-400 text-sm">Proctored assessments · Powered by StudyBuddy</p>
+            <p className="text-[var(--color-on-surface-variant)] text-sm">Proctored assessments · Powered by StudyBuddy</p>
           </div>
           <div className="flex gap-2">
-            <a href="/" className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">← Portal</a>
+            <a href="/" className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">← Portal</a>
             {isAuthor && <button onClick={() => { setShowCreate((s) => !s); setError(null); setNotice(null); }} className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-sm font-bold">{showCreate ? 'Cancel' : 'New exam'}</button>}
           </div>
         </header>
@@ -253,20 +253,20 @@ export default function ExamsPage() {
         {/* My Exams — the candidate feed. Everyone with invites sees this. */}
         {invited.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-3">My exams</h2>
+            <h2 className="text-sm font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3">My exams</h2>
             <div className="space-y-2">
               {invited.map((e) => {
                 const badge = e.window_state === 'open'
                   ? { t: 'Open now', c: 'bg-emerald-500/20 text-emerald-300' }
                   : e.window_state === 'upcoming'
                     ? { t: 'Upcoming', c: 'bg-amber-500/20 text-amber-300' }
-                    : { t: 'Closed', c: 'bg-slate-600/30 text-slate-400' };
+                    : { t: 'Closed', c: 'bg-slate-600/30 text-[var(--color-on-surface-variant)]' };
                 const done = e.my_status === 'submitted';
                 return (
-                  <div key={e.id} className="rounded-xl bg-slate-900 border border-slate-800 p-4 flex items-center justify-between gap-3 flex-wrap">
+                  <div key={e.id} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-4 flex items-center justify-between gap-3 flex-wrap">
                     <div className="min-w-0">
                       <div className="font-bold truncate">{e.title}</div>
-                      <div className="text-slate-500 text-xs">
+                      <div className="text-[var(--color-on-surface-variant)] text-xs">
                         {e.question_count} questions · {e.duration_minutes} min
                         {e.window_label ? ` · 🗓️ ${e.window_label}` : ''}
                       </div>
@@ -274,12 +274,12 @@ export default function ExamsPage() {
                     <div className="flex items-center gap-2">
                       <span className={`text-[10px] font-black uppercase px-2 py-1 rounded ${badge.c}`}>{badge.t}</span>
                       {done ? (
-                        <span className="text-[11px] text-slate-400">Submitted</span>
+                        <span className="text-[11px] text-[var(--color-on-surface-variant)]">Submitted</span>
                       ) : (
                         <a
                           href={e.window_state === 'open' ? `/exam/${e.id}` : undefined}
                           aria-disabled={e.window_state !== 'open'}
-                          className={`px-4 py-2 rounded-lg text-sm font-bold ${e.window_state === 'open' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-slate-800 text-slate-500 cursor-not-allowed pointer-events-none'}`}
+                          className={`px-4 py-2 rounded-lg text-sm font-bold ${e.window_state === 'open' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] cursor-not-allowed pointer-events-none'}`}
                         >
                           {e.my_status === 'started' ? 'Resume' : 'Start'}
                         </a>
@@ -293,7 +293,7 @@ export default function ExamsPage() {
         )}
 
         {showCreate && (
-          <form onSubmit={create} className="rounded-xl bg-slate-900 border border-slate-800 p-5 mb-6 grid md:grid-cols-2 gap-4">
+          <form onSubmit={create} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-5 mb-6 grid md:grid-cols-2 gap-4">
             <div className="md:col-span-2"><label className={label}>Title</label><input className={input} value={title} onChange={(e) => setTitle(e.target.value)} required minLength={2} /></div>
 
             {/* Searchable bank picker + inline create-bank wizard */}
@@ -303,23 +303,23 @@ export default function ExamsPage() {
                 <button type="button" onClick={() => setShowBankWizard(true)} className="text-[11px] font-bold text-emerald-400 hover:text-emerald-300">+ Create new bank</button>
               </div>
               {selectedBank ? (
-                <div className="flex items-center justify-between gap-3 rounded-lg bg-slate-800 border border-emerald-600/50 px-3 py-2">
+                <div className="flex items-center justify-between gap-3 rounded-lg bg-[var(--color-surface-container-high)] border border-emerald-600/50 px-3 py-2">
                   <div className="min-w-0">
                     <div className="text-sm font-semibold truncate">{selectedBank.name}</div>
-                    <div className="text-[11px] text-slate-500">{selectedBank.question_count ?? '—'} questions · draws all questions from this bank</div>
+                    <div className="text-[11px] text-[var(--color-on-surface-variant)]">{selectedBank.question_count ?? '—'} questions · draws all questions from this bank</div>
                   </div>
-                  <button type="button" onClick={() => { setBankId(''); setBankSearch(''); }} className="text-xs text-slate-400 hover:text-white shrink-0">Change</button>
+                  <button type="button" onClick={() => { setBankId(''); setBankSearch(''); }} className="text-xs text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] shrink-0">Change</button>
                 </div>
               ) : (
                 <>
                   <input className={input} value={bankSearch} onChange={(e) => setBankSearch(e.target.value)} placeholder="Search banks by name…" />
-                  <div className="mt-2 max-h-52 overflow-y-auto rounded-lg border border-slate-800 divide-y divide-slate-800/60">
+                  <div className="mt-2 max-h-52 overflow-y-auto rounded-lg border border-[var(--color-outline-variant)] divide-y divide-slate-800/60">
                     {filteredBanks.length === 0 ? (
-                      <div className="px-3 py-3 text-xs text-slate-500">No banks found. Use “Create new bank”.</div>
+                      <div className="px-3 py-3 text-xs text-[var(--color-on-surface-variant)]">No banks found. Use “Create new bank”.</div>
                     ) : filteredBanks.map((b) => (
-                      <button type="button" key={b.id} onClick={() => setBankId(b.id)} className="w-full text-left px-3 py-2 hover:bg-slate-800/60 flex items-center justify-between gap-3">
+                      <button type="button" key={b.id} onClick={() => setBankId(b.id)} className="w-full text-left px-3 py-2 hover:bg-[var(--color-surface-container-high)]/60 flex items-center justify-between gap-3">
                         <span className="text-sm truncate">{b.name}</span>
-                        <span className="text-[11px] text-slate-500 shrink-0">{b.question_count ?? '—'} q</span>
+                        <span className="text-[11px] text-[var(--color-on-surface-variant)] shrink-0">{b.question_count ?? '—'} q</span>
                       </button>
                     ))}
                   </div>
@@ -340,8 +340,8 @@ export default function ExamsPage() {
             <div><label className={label}>Max attempts</label><input type="number" className={input} value={maxAttempts} onChange={(e) => setMaxAttempts(e.target.value)} min={1} max={10} /></div>
 
             {/* Scheduling window (Mettl-style) */}
-            <div className="md:col-span-2 mt-1 pt-3 border-t border-slate-800">
-              <div className="text-[11px] uppercase tracking-widest text-slate-500 mb-2">Schedule ({localTz}) — leave blank for always open</div>
+            <div className="md:col-span-2 mt-1 pt-3 border-t border-[var(--color-outline-variant)]">
+              <div className="text-[11px] uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Schedule ({localTz}) — leave blank for always open</div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div><label className={label}>Opens at</label><input type="datetime-local" className={input} value={startsAt} onChange={(e) => setStartsAt(e.target.value)} /></div>
                 <div><label className={label}>Closes at</label><input type="datetime-local" className={input} value={endsAt} onChange={(e) => setEndsAt(e.target.value)} /></div>
@@ -349,8 +349,8 @@ export default function ExamsPage() {
             </div>
 
             {/* How the exam is conducted */}
-            <div className="md:col-span-2 mt-1 pt-3 border-t border-slate-800">
-              <div className="text-[11px] uppercase tracking-widest text-slate-500 mb-2">How it&apos;s conducted</div>
+            <div className="md:col-span-2 mt-1 pt-3 border-t border-[var(--color-outline-variant)]">
+              <div className="text-[11px] uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">How it&apos;s conducted</div>
               <div className="grid md:grid-cols-2 gap-3">
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={requireCamera} onChange={(e) => setRequireCamera(e.target.checked)} /> Require camera to start</label>
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={recordVideo} onChange={(e) => setRecordVideo(e.target.checked)} /> Record webcam video</label>
@@ -372,11 +372,11 @@ export default function ExamsPage() {
             {/* Recipient email chips */}
             <div className="md:col-span-2">
               <label className={label}>Notify recipients (internal users, by email)</label>
-              <div className="flex flex-wrap items-center gap-2 rounded-lg bg-slate-800 border border-slate-700 px-2 py-2">
+              <div className="flex flex-wrap items-center gap-2 rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-2 py-2">
                 {recipients.map((em) => (
                   <span key={em} className="inline-flex items-center gap-1 rounded-md bg-emerald-600/20 text-emerald-300 text-xs px-2 py-1">
                     {em}
-                    <button type="button" onClick={() => setRecipients((prev) => prev.filter((x) => x !== em))} className="text-emerald-400 hover:text-white">×</button>
+                    <button type="button" onClick={() => setRecipients((prev) => prev.filter((x) => x !== em))} className="text-emerald-400 hover:text-[var(--color-on-surface)]">×</button>
                   </span>
                 ))}
                 <input
@@ -388,7 +388,7 @@ export default function ExamsPage() {
                   placeholder={recipients.length ? 'Add another…' : 'name@company.com  (Enter to add)'}
                 />
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">On publish, each recipient gets an email with a direct exam link + an in-app notification. Only matched internal users are notified.</p>
+              <p className="text-[11px] text-[var(--color-on-surface-variant)] mt-1">On publish, each recipient gets an email with a direct exam link + an in-app notification. Only matched internal users are notified.</p>
             </div>
 
             <label className="flex items-center gap-2 text-sm md:col-span-2"><input type="checkbox" checked={publish} onChange={(e) => setPublish(e.target.checked)} className="accent-emerald-500" /> Publish immediately</label>
@@ -396,18 +396,18 @@ export default function ExamsPage() {
           </form>
         )}
 
-        <div className="rounded-xl bg-slate-900 border border-slate-800 overflow-hidden">
+        <div className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] overflow-hidden">
           {loading ? <div className="p-4"><SkeletonList rows={4} avatar={false} /></div> : exams.length === 0 ? (
-            <div className="p-5 text-slate-500 text-sm">No exams yet. Create one above.</div>
+            <div className="p-5 text-[var(--color-on-surface-variant)] text-sm">No exams yet. Create one above.</div>
           ) : exams.map((ex) => (
-            <div key={ex.id} className="flex items-center justify-between gap-4 p-4 border-b border-slate-800/50">
+            <div key={ex.id} className="flex items-center justify-between gap-4 p-4 border-b border-[var(--color-outline-variant)]/50">
               <div className="min-w-0">
                 <div className="font-semibold truncate">{ex.title}</div>
-                <div className="text-slate-500 text-xs">{ex.question_count} questions · {ex.duration_minutes} min · proctoring: {ex.proctoring_mode} {ex.is_published ? '' : '· draft'}</div>
+                <div className="text-[var(--color-on-surface-variant)] text-xs">{ex.question_count} questions · {ex.duration_minutes} min · proctoring: {ex.proctoring_mode} {ex.is_published ? '' : '· draft'}</div>
               </div>
               <div className="flex gap-2 shrink-0">
                 <a href={`/exam/${ex.id}`} className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold">Take</a>
-                <a href={`/exams/${ex.id}/review`} className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold">Review</a>
+                <a href={`/exams/${ex.id}/review`} className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-xs font-bold">Review</a>
               </div>
             </div>
           ))}

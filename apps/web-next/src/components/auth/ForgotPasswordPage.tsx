@@ -28,19 +28,19 @@ export default function ForgotPasswordPage({ onBack, onSuccess }: { onBack: () =
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] flex items-center justify-center p-6 relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-3xl -mr-64 -mt-64" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--color-brand-primary-container)]/5 rounded-full blur-3xl -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-3xl -ml-64 -mb-64" />
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-slate-900 border border-white/5 rounded-[2.5rem] p-10 shadow-2xl relative z-10"
+        className="w-full max-w-md bg-[var(--color-surface-container)] border border-white/5 rounded-[2.5rem] p-10 shadow-2xl relative z-10"
       >
         <button 
           onClick={onBack}
-          className="flex items-center gap-2 text-slate-500 hover:text-white transition-all text-xs font-black uppercase tracking-widest mb-10 group"
+          className="flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all text-xs font-black uppercase tracking-widest mb-10 group"
         >
           <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Terminal
         </button>
@@ -49,15 +49,15 @@ export default function ForgotPasswordPage({ onBack, onSuccess }: { onBack: () =
           <div className="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-brand-primary mb-6">
             <ShieldCheck size={32} />
           </div>
-          <h2 className="text-3xl font-black text-white mb-2">Account Recovery</h2>
-          <p className="text-sm text-slate-500 font-bold leading-relaxed">
+          <h2 className="text-3xl font-black text-[var(--color-on-surface)] mb-2">Account Recovery</h2>
+          <p className="text-sm text-[var(--color-on-surface-variant)] font-bold leading-relaxed">
             Initialize password reset protocol. We will transmit a secure OTP to your registered corporate address.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 ml-1">Email Identifier</label>
+            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">Email Identifier</label>
             <div className="relative">
               <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
               <input 
@@ -66,7 +66,7 @@ export default function ForgotPasswordPage({ onBack, onSuccess }: { onBack: () =
                 placeholder="satoshi@bitcoin.org"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full bg-slate-950 border border-white/5 rounded-2xl p-5 pl-14 text-white font-bold outline-none focus:ring-2 focus:ring-brand-primary/30 transition-all"
+                className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-brand-primary/30 transition-all"
               />
             </div>
           </div>

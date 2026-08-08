@@ -162,17 +162,17 @@ export default function MentorDashboard({
     <div className="flex-1 overflow-y-auto px-8 py-10">
       <header className="mb-10 flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-indigo-400 mb-2">
+          <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-2">
             <UserCheck size={20} />
             <span className="font-black uppercase tracking-[0.2em] text-xs">Mentor Command Center</span>
           </div>
-          <h1 className="text-4xl font-black text-white">Mentorship Hub</h1>
+          <h1 className="text-4xl font-black text-[var(--color-on-surface)]">Mentorship Hub</h1>
         </div>
         
         <div className="flex gap-4">
           <button 
             onClick={() => setShowBankModal(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 text-slate-300 rounded-2xl font-black border border-white/5 hover:bg-white/10 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-white/5 text-[var(--color-on-surface-variant)] rounded-2xl font-black border border-white/5 hover:bg-white/10 transition-all"
           >
             <BookOpen size={18} />
             <span>New Bank</span>
@@ -180,7 +180,7 @@ export default function MentorDashboard({
 
           <button 
             onClick={() => setShowCodingModal(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-indigo-500/10 text-indigo-400 rounded-2xl font-black border border-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-2xl font-black border border-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             <Code size={18} />
             <span>New Coding Lab</span>
@@ -197,7 +197,7 @@ export default function MentorDashboard({
           {onBack && (
             <button 
               onClick={onBack}
-              className="flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-2xl font-bold transition-all border border-slate-700 active:scale-95"
+              className="flex items-center gap-2 px-6 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-2xl font-bold transition-all border border-[var(--color-outline-variant)] active:scale-95"
             >
               <BookOpen size={18} />
               <span>Exit Mentor Mode</span>
@@ -209,15 +209,15 @@ export default function MentorDashboard({
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* ─── Assigned Groups Sidebar ──────────────────────── */}
         <div className="lg:col-span-1 space-y-4">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">My Assigned Groups</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">My Assigned Groups</p>
           {groups.map(group => (
             <button
               key={group.id}
               onClick={() => setSelectedGroupId(group.id)}
               className={`w-full p-4 rounded-2xl border text-left transition-all ${
                 selectedGroupId === group.id 
-                  ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20' 
-                  : 'bg-surface-container border-surface-bright text-slate-400 hover:border-indigo-500/50'
+                  ? 'bg-[var(--color-brand-primary-container)] border-indigo-500 text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
+                  : 'bg-surface-container border-surface-bright text-[var(--color-on-surface-variant)] hover:border-indigo-500/50'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -235,20 +235,20 @@ export default function MentorDashboard({
                 <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
                   <Award size={20} />
                 </div>
-                <p className="text-sm font-black text-white">Top Performers</p>
+                <p className="text-sm font-black text-[var(--color-on-surface)]">Top Performers</p>
              </div>
              <div className="space-y-4">
                 {(mentorStats?.top_performers || []).map((p: any) => (
                   <div key={p.name} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                       <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400">{p.name.charAt(0)}</div>
-                       <span className="text-xs text-slate-300 font-medium">{p.name}</span>
+                       <div className="w-6 h-6 rounded-full bg-[var(--color-surface-container-high)] flex items-center justify-center text-[10px] font-bold text-[var(--color-on-surface-variant)]">{p.name.charAt(0)}</div>
+                       <span className="text-xs text-[var(--color-on-surface-variant)] font-medium">{p.name}</span>
                     </div>
                     <span className="text-xs font-black text-emerald-400">{p.score}</span>
                   </div>
                 ))}
                 {(!mentorStats?.top_performers || mentorStats.top_performers.length === 0) && (
-                  <p className="text-[10px] text-slate-500 italic">No data yet</p>
+                  <p className="text-[10px] text-[var(--color-on-surface-variant)] italic">No data yet</p>
                 )}
              </div>
           </div>
@@ -259,11 +259,11 @@ export default function MentorDashboard({
             <div className="flex gap-1 p-1 bg-surface-container rounded-2xl border border-surface-bright w-fit mb-4">
                <button 
                  onClick={() => setActiveMainTab('DASHBOARD')}
-                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'DASHBOARD' ? 'bg-slate-900 text-indigo-400 border border-white/5 shadow-xl' : 'text-slate-500'}`}
+                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'DASHBOARD' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] border border-white/5 shadow-xl' : 'text-[var(--color-on-surface-variant)]'}`}
                >DASHBOARD</button>
                <button 
                  onClick={() => setActiveMainTab('STUDENTS')}
-                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'STUDENTS' ? 'bg-slate-900 text-indigo-400 border border-white/5 shadow-xl' : 'text-slate-500'}`}
+                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'STUDENTS' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] border border-white/5 shadow-xl' : 'text-[var(--color-on-surface-variant)]'}`}
                >STUDENTS</button>
             </div>
 
@@ -271,14 +271,14 @@ export default function MentorDashboard({
             <div className="bg-gradient-to-br from-indigo-950/60 via-slate-900/60 to-surface-dim/40 p-10 rounded-[3rem] border border-white/5 relative overflow-hidden mb-8 shadow-2xl group">
                <div className="absolute -top-10 -right-10 w-64 h-64 bg-indigo-500/10 blur-[80px] pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-1000" />
                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3 text-indigo-400">
+                  <div className="flex items-center gap-3 text-[var(--color-brand-primary)]">
                     <Brain className="animate-pulse" size={24} />
                     <span className="text-[11px] font-black uppercase tracking-[0.4em]">Pedagogical Intelligence Pulse</span>
                   </div>
                   <button 
                     disabled={loadingSummary}
                     onClick={() => selectedGroupId && fetchGroupDetails(selectedGroupId, true)}
-                    className="p-3 bg-white/5 hover:bg-white/10 text-slate-500 hover:text-white rounded-2xl border border-white/5 transition-all disabled:opacity-30 active:scale-95"
+                    className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl border border-white/5 transition-all disabled:opacity-30 active:scale-95"
                     title="Recalibrate AI Vectors"
                   >
                     <RefreshCw size={18} className={loadingSummary ? 'animate-spin' : ''} />
@@ -290,18 +290,18 @@ export default function MentorDashboard({
                     <div className="h-4 bg-white/5 rounded-full w-3/4 animate-pulse" />
                     <div className="h-4 bg-white/5 rounded-full w-full animate-pulse" />
                     <div className="h-4 bg-white/5 rounded-full w-1/2 animate-pulse" />
-                    <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mt-6 flex items-center gap-2">
+                    <p className="text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest mt-6 flex items-center gap-2">
                        <Loader2 size={12} className="animate-spin" /> Analyzing Group Performance Vectors...
                     </p>
                  </div>
                ) : (
                  <div className="relative z-10">
-                    <p className="text-xl font-medium text-slate-200 leading-relaxed max-w-4xl italic mb-6">
+                    <p className="text-xl font-medium text-[var(--color-on-surface)] leading-relaxed max-w-4xl italic mb-6">
                        "{groupAiSummary || 'Direct pedagogical intervention markers will appear here after student activity is detected.'}"
                     </p>
                     <div className="flex flex-wrap gap-4">
                        <div className="px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center gap-2">
-                          <Sparkles size={14} className="text-indigo-400" />
+                          <Sparkles size={14} className="text-[var(--color-brand-primary)]" />
                           <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">AI Synthesis Active</span>
                        </div>
                        <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-2">
@@ -401,21 +401,21 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
   return (
     <motion.div 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm"
     >
       <motion.div 
         initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
-        className="w-full max-w-3xl bg-slate-900 border border-white/5 rounded-[3rem] shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]"
+        className="w-full max-w-3xl bg-[var(--color-surface-container)] border border-white/5 rounded-[3rem] shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-brand-primary" />
         
         <header className="p-8 pb-4 flex justify-between items-center shrink-0">
            <div>
-              <h3 className="text-2xl font-black text-white">Manual Recalibration</h3>
-              <p className="text-[10px] text-indigo-400 font-black uppercase tracking-[0.3em] mt-1">{attempt.type} Review / {attempt.user_name}</p>
+              <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Manual Recalibration</h3>
+              <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">{attempt.type} Review / {attempt.user_name}</p>
            </div>
            <button onClick={onClose} className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl transition-all">
-              <X size={20} className="text-slate-500 hover:text-white" />
+              <X size={20} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]" />
            </button>
         </header>
 
@@ -424,10 +424,10 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
           <div className="space-y-6">
             {attempt.type === 'coding' ? (
               <div className="space-y-4">
-                <div className="bg-slate-950/50 rounded-3xl border border-white/5 overflow-hidden">
+                <div className="bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5 overflow-hidden">
                   <div className="px-6 py-3 bg-white/5 border-b border-white/5 flex items-center justify-between">
-                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Source Code Submission ({attempt.language})</span>
-                    <Code2 size={14} className="text-indigo-400" />
+                    <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Source Code Submission ({attempt.language})</span>
+                    <Code2 size={14} className="text-[var(--color-brand-primary)]" />
                   </div>
                   <pre className="p-6 text-xs font-mono text-indigo-300 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-96">
                     {attempt.submitted_code}
@@ -437,10 +437,10 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                 {attempt.ai_feedback && (
                   <div className="bg-indigo-500/5 rounded-3xl border border-indigo-500/10 p-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <Sparkles size={16} className="text-indigo-400" />
-                      <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">AI Pedagogical Analysis</span>
+                      <Sparkles size={16} className="text-[var(--color-brand-primary)]" />
+                      <span className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest">AI Pedagogical Analysis</span>
                     </div>
-                    <p className="text-sm text-slate-300 leading-relaxed italic">
+                    <p className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed italic">
                       {attempt.ai_feedback}
                     </p>
                   </div>
@@ -449,15 +449,15 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-2">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Assessment Detail Registry</span>
-                  <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Base Accuracy: {attempt.score}/{attempt.total}</span>
+                  <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Assessment Detail Registry</span>
+                  <span className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest">Base Accuracy: {attempt.score}/{attempt.total}</span>
                 </div>
                 
                 <div className="space-y-3">
                   {attempt.descriptive_answers?.map((ans: any, idx: number) => (
                     <div key={idx} className={`p-6 rounded-3xl border ${ans.is_correct ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-rose-500/5 border-rose-500/10'}`}>
                       <div className="flex items-start justify-between gap-4 mb-4">
-                        <p className="text-sm font-bold text-white leading-relaxed">{idx + 1}. {ans.question_text}</p>
+                        <p className="text-sm font-bold text-[var(--color-on-surface)] leading-relaxed">{idx + 1}. {ans.question_text}</p>
                         {ans.is_correct ? (
                           <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
                             <Trophy size={12} className="text-emerald-400" />
@@ -470,27 +470,27 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-4 bg-black/20 rounded-2xl">
-                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Student Answer</p>
+                          <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Student Answer</p>
                           <p className={`text-sm font-black ${ans.is_correct ? 'text-emerald-400' : 'text-rose-400'}`}>{ans.user_answer || 'No Answer'}</p>
                         </div>
                         {!ans.is_correct && (
                           <div className="p-4 bg-black/20 rounded-2xl">
-                            <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Correct Reference</p>
-                            <p className="text-sm font-black text-slate-300">{ans.correct_answer}</p>
+                            <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Correct Reference</p>
+                            <p className="text-sm font-black text-[var(--color-on-surface-variant)]">{ans.correct_answer}</p>
                           </div>
                         )}
                       </div>
                       {ans.note && (
                         <div className="mt-4 pt-4 border-t border-white/5">
-                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">User Reflection</p>
-                          <p className="text-xs text-slate-400 italic font-medium leading-relaxed">"{ans.note}"</p>
+                          <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">User Reflection</p>
+                          <p className="text-xs text-[var(--color-on-surface-variant)] italic font-medium leading-relaxed">"{ans.note}"</p>
                         </div>
                       )}
                     </div>
                   ))}
                   {(!attempt.descriptive_answers || attempt.descriptive_answers.length === 0) && (
                     <div className="py-20 text-center bg-white/5 rounded-[2rem] border border-dashed border-white/10">
-                      <p className="text-slate-500 text-xs font-black uppercase tracking-widest">No detailed answer registry found</p>
+                      <p className="text-[var(--color-on-surface-variant)] text-xs font-black uppercase tracking-widest">No detailed answer registry found</p>
                     </div>
                   )}
                 </div>
@@ -499,38 +499,38 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
           </div>
 
           <div className="space-y-6 pt-8 border-t border-white/5">
-             <div className="p-6 bg-slate-950/50 rounded-3xl border border-white/5">
+             <div className="p-6 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5">
                 <div className="flex justify-between items-center mb-4">
-                   <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Suggested Score Recalibration</p>
-                   <span className="px-3 py-1 bg-white/5 rounded-lg text-xs font-black text-white">{attempt.score} / {attempt.total}</span>
+                   <p className="text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] tracking-widest">Suggested Score Recalibration</p>
+                   <span className="px-3 py-1 bg-white/5 rounded-lg text-xs font-black text-[var(--color-on-surface)]">{attempt.score} / {attempt.total}</span>
                 </div>
                 <div className="flex items-center gap-4">
-                   <p className="text-xs font-bold text-slate-400">Override:</p>
+                   <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">Override:</p>
                    <input 
                      type="number" 
                      min="0" 
                      max={attempt.total}
                      value={overrideScore}
                      onChange={e => setOverrideScore(parseFloat(e.target.value))}
-                     className="flex-1 bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-white font-black text-center outline-none focus:ring-1 focus:ring-indigo-500"
+                     className="flex-1 bg-[var(--color-surface-dim)] border border-white/10 rounded-xl px-4 py-2 text-[var(--color-on-surface)] font-black text-center outline-none focus:ring-1 focus:ring-indigo-500"
                    />
                 </div>
              </div>
 
              <div>
-                <label className="block text-[10px] font-black uppercase text-slate-500 mb-3 tracking-widest">Mentor Pedagogical Feedback</label>
+                <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-3 tracking-widest">Mentor Pedagogical Feedback</label>
                 <textarea 
                   value={comment}
                   onChange={e => setComment(e.target.value)}
                   placeholder="Direct feedback to student regarding their performance, strategy, or conceptual alignment..."
-                  className="w-full h-32 bg-slate-950/50 border border-white/5 rounded-3xl p-6 text-white text-sm resize-none outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  className="w-full h-32 bg-[var(--color-surface-dim)]/50 border border-white/5 rounded-3xl p-6 text-[var(--color-on-surface)] text-sm resize-none outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
                 />
              </div>
 
              <button 
                disabled={processing}
                onClick={handleSubmit}
-               className="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all disabled:opacity-50"
+               className="w-full py-5 bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all disabled:opacity-50"
              >
                 {processing ? <Loader2 className="animate-spin" /> : <div className="flex items-center gap-2"><Trophy size={18} /> Archive & Verify Submission</div>}
              </button>

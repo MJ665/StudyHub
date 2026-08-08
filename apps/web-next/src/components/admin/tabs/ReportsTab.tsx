@@ -185,11 +185,11 @@ export default function ReportsTab({ ctx }: { ctx: AdminTabCtx }) {
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                className="bg-slate-900 border border-white/5 rounded-[3rem] overflow-hidden p-8"
+                className="bg-[var(--color-surface-container)] border border-white/5 rounded-[3rem] overflow-hidden p-8"
               >
                 <div className="flex justify-between items-center mb-8">
                   <div>
-                    <h3 className="text-2xl font-black text-white">Content Quality Audit</h3>
+                    <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Content Quality Audit</h3>
                     <p className="text-[10px] text-rose-400 font-black uppercase tracking-[0.3em] mt-1">Question Reporting & Remediation</p>
                   </div>
                   <div className="p-3 bg-rose-500/10 rounded-2xl text-rose-400">

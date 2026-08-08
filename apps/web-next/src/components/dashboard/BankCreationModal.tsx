@@ -171,32 +171,32 @@ JSON Format:
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-[100] p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 w-full max-w-2xl shadow-2xl relative my-auto">
+    <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm flex items-center justify-center z-[100] p-4 overflow-y-auto">
+      <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 md:p-8 w-full max-w-2xl shadow-2xl relative my-auto">
 
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-3">
-            <Database className="text-indigo-400" size={22} />
+            <Database className="text-[var(--color-brand-primary)]" size={22} />
             <div>
-              <h3 className="text-xl font-bold text-white">Create Question Bank</h3>
-              <p className="text-xs text-slate-500">Step {step} of 3 — {['Bank Details', 'Quiz Settings', 'Add Questions'][step - 1]}</p>
+              <h3 className="text-xl font-bold text-[var(--color-on-surface)]">Create Question Bank</h3>
+              <p className="text-xs text-[var(--color-on-surface-variant)]">Step {step} of 3 — {['Bank Details', 'Quiz Settings', 'Add Questions'][step - 1]}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex gap-1.5">
               {[1, 2, 3].map(s => (
-                <div key={s} className={`h-1.5 rounded-full transition-all duration-300 ${s === step ? 'w-6 bg-indigo-500' : s < step ? 'w-4 bg-emerald-500' : 'w-4 bg-slate-700'}`} />
+                <div key={s} className={`h-1.5 rounded-full transition-all duration-300 ${s === step ? 'w-6 bg-indigo-500' : s < step ? 'w-4 bg-emerald-500' : 'w-4 bg-[var(--color-surface-bright)]'}`} />
               ))}
             </div>
-            <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors"><X size={22} /></button>
+            <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"><X size={22} /></button>
           </div>
         </div>
 
         {courses.length === 0 ? (
           <div className="py-10 text-center">
             <p className="text-rose-400 font-bold mb-2">No Courses Available</p>
-            <p className="text-slate-400 text-sm">Ask your Admin to create a course first.</p>
+            <p className="text-[var(--color-on-surface-variant)] text-sm">Ask your Admin to create a course first.</p>
           </div>
         ) : (
           <>
@@ -205,32 +205,32 @@ JSON Format:
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Course *</label>
-                    <select value={bankCourseId} onChange={e => setBankCourseId(Number(e.target.value))} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500">
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Course *</label>
+                    <select value={bankCourseId} onChange={e => setBankCourseId(Number(e.target.value))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500">
                       {courses.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Bank Name *</label>
-                    <input value={bankName} onChange={e => setBankName(e.target.value)} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Kubernetes Deep Dive" />
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Bank Name *</label>
+                    <input value={bankName} onChange={e => setBankName(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Kubernetes Deep Dive" />
                   </div>
                   <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Sprint / Week Name</label>
-                    <input value={sprintName} onChange={e => setSprintName(e.target.value)} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Week 3" />
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Sprint / Week Name</label>
+                    <input value={sprintName} onChange={e => setSprintName(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Week 3" />
                   </div>
                   <div className="relative">
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Chapter / Topic</label>
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Chapter / Topic</label>
                     <input
                       value={chapterInput}
                       onChange={e => { setChapterInput(e.target.value); setShowSuggestions(true); }}
                       onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500"
                       placeholder="Type any topic (e.g. Docker, Python...)"
                     />
                     {showSuggestions && filteredSuggestions.length > 0 && (
-                      <div className="absolute z-20 left-0 right-0 top-full mt-1 bg-slate-800 border border-slate-700 rounded-xl shadow-xl max-h-40 overflow-y-auto">
+                      <div className="absolute z-20 left-0 right-0 top-full mt-1 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl shadow-xl max-h-40 overflow-y-auto">
                         {filteredSuggestions.map(s => (
-                          <button key={s} type="button" onMouseDown={() => { setChapterInput(s); setShowSuggestions(false); }} className="w-full text-left px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-700 first:rounded-t-xl last:rounded-b-xl">
+                          <button key={s} type="button" onMouseDown={() => { setChapterInput(s); setShowSuggestions(false); }} className="w-full text-left px-4 py-2.5 text-sm text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-bright)] first:rounded-t-xl last:rounded-b-xl">
                             {s}
                           </button>
                         ))}
@@ -238,28 +238,28 @@ JSON Format:
                     )}
                   </div>
                   <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Difficulty</label>
-                    <select value={bankDiff} onChange={e => setBankDiff(e.target.value)} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500">
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Difficulty</label>
+                    <select value={bankDiff} onChange={e => setBankDiff(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500">
                       {difficulties.map(d => <option key={d}>{d}</option>)}
                     </select>
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Description (Optional)</label>
-                    <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500" placeholder="Brief description..." />
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Description (Optional)</label>
+                    <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" placeholder="Brief description..." />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Quick References (Optional)</label>
-                    <textarea value={quickReferences} onChange={e => setQuickReferences(e.target.value)} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 h-24 text-sm" placeholder="Title: Content (one per line)&#10;declare -r: Read-only variable&#10;declare -i: Integer attribute" />
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Quick References (Optional)</label>
+                    <textarea value={quickReferences} onChange={e => setQuickReferences(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500 h-24 text-sm" placeholder="Title: Content (one per line)&#10;declare -r: Read-only variable&#10;declare -i: Integer attribute" />
                   </div>
                   <div className="md:col-span-2">
                     <div className="flex items-center justify-between p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl">
                       <div className="flex gap-3 items-center">
-                        <div className="p-2 bg-indigo-500/20 rounded-lg text-indigo-400">
+                        <div className="p-2 bg-indigo-500/20 rounded-lg text-[var(--color-brand-primary)]">
                            <CheckCircle2 size={16} />
                         </div>
                         <div>
-                          <p className="text-sm font-black text-white">Global Enterprise Visibility</p>
-                          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight italic">Content will be accessible to all groups & verticals</p>
+                          <p className="text-sm font-black text-[var(--color-on-surface)]">Global Enterprise Visibility</p>
+                          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-tight italic">Content will be accessible to all groups & verticals</p>
                         </div>
                       </div>
                       <input 
@@ -271,7 +271,7 @@ JSON Format:
                     </div>
                   </div>
                 </div>
-                <button onClick={() => { if (!bankName || !bankCourseId) { if (toast) toast.error('Bank Name and Course are required.'); return; } setStep(2); }} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">
+                <button onClick={() => { if (!bankName || !bankCourseId) { if (toast) toast.error('Bank Name and Course are required.'); return; } setStep(2); }} className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">
                   Next: Quiz Settings <ChevronRight size={18} />
                 </button>
               </div>
@@ -282,12 +282,12 @@ JSON Format:
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Time per Question (sec)</label>
-                    <input type="number" value={timePerQuestion} onChange={e => setTimePerQuestion(Math.max(5, parseInt(e.target.value) || 30))} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500" min={5} />
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Time per Question (sec)</label>
+                    <input type="number" value={timePerQuestion} onChange={e => setTimePerQuestion(Math.max(5, parseInt(e.target.value) || 30))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" min={5} />
                   </div>
                   <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Target Question Count</label>
-                    <input type="number" value={targetCount} onChange={e => setTargetCount(Math.max(1, parseInt(e.target.value) || 10))} className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500" min={1} />
+                    <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Target Question Count</label>
+                    <input type="number" value={targetCount} onChange={e => setTargetCount(Math.max(1, parseInt(e.target.value) || 10))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" min={1} />
                     <p className="text-xs text-slate-600 mt-1">Used in the AI prompt in Step 3</p>
                   </div>
                 </div>
@@ -298,15 +298,15 @@ JSON Format:
                     { label: 'Shuffle Answer Options', sub: 'Randomize option order each attempt', val: shuffleOptions, set: setShuffleOptions },
                     { label: 'Allow Descriptive Notes', sub: 'Students write reasoning notes during quiz', val: allowDescriptive, set: setAllowDescriptive },
                   ].map(({ label, sub, val, set }) => (
-                    <div key={label} className="flex items-center justify-between p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-                      <div><p className="font-bold text-white text-sm">{label}</p><p className="text-xs text-slate-500 mt-0.5">{sub}</p></div>
+                    <div key={label} className="flex items-center justify-between p-4 bg-[var(--color-surface-container-high)]/60 rounded-xl border border-[var(--color-outline-variant)]">
+                      <div><p className="font-bold text-[var(--color-on-surface)] text-sm">{label}</p><p className="text-xs text-[var(--color-on-surface-variant)] mt-0.5">{sub}</p></div>
                       <input type="checkbox" checked={val} onChange={e => set(e.target.checked)} className="w-5 h-5 accent-indigo-500 cursor-pointer" />
                     </div>
                   ))}
                 </div>
                 <div className="flex gap-3 pt-2">
-                  <button onClick={() => setStep(1)} className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
-                  <button onClick={() => setStep(3)} className="flex-[2] bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">Next: Add Questions <ChevronRight size={18} /></button>
+                  <button onClick={() => setStep(1)} className="flex-1 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
+                  <button onClick={() => setStep(3)} className="flex-[2] bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">Next: Add Questions <ChevronRight size={18} /></button>
                 </div>
               </div>
             )}
@@ -316,26 +316,26 @@ JSON Format:
               <div className="space-y-4">
 
                 {/* AI Prompt Copy Box */}
-                <div className="bg-slate-800 border border-slate-700 rounded-2xl p-4">
+                <div className="bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-4">
                   <div className="flex justify-between items-center mb-2">
-                    <p className="text-sm font-bold text-slate-300 flex items-center gap-2"><Upload size={14} className="text-indigo-400" /> AI Prompt Generator</p>
-                    <button type="button" onClick={handleCopyPrompt} className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-bold transition-all ${copyLabel === 'Copied!' ? 'bg-emerald-600 text-white' : 'bg-indigo-600 hover:bg-indigo-500 text-white'}`}>
+                    <p className="text-sm font-bold text-[var(--color-on-surface-variant)] flex items-center gap-2"><Upload size={14} className="text-[var(--color-brand-primary)]" /> AI Prompt Generator</p>
+                    <button type="button" onClick={handleCopyPrompt} className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-bold transition-all ${copyLabel === 'Copied!' ? 'bg-emerald-600 text-[var(--color-on-surface)]' : 'bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)]'}`}>
                       {copyLabel === 'Copied!' ? <Check size={12} /> : <Copy size={12} />}{copyLabel}
                     </button>
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    Generates prompt for <span className="text-indigo-400 font-semibold">{targetCount} {bankDiff}</span> questions{chapterInput ? <> about <span className="text-indigo-400 font-semibold">{chapterInput}</span></> : ''}. Paste the AI output below.
+                  <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
+                    Generates prompt for <span className="text-[var(--color-brand-primary)] font-semibold">{targetCount} {bankDiff}</span> questions{chapterInput ? <> about <span className="text-[var(--color-brand-primary)] font-semibold">{chapterInput}</span></> : ''}. Paste the AI output below.
                   </p>
                 </div>
 
                 {/* Live JSON builder — the single canonical authoring surface.
                     Paste AI output into the JSON pane, or build via the form. */}
                 <QuestionBuilder questions={builderQuestions} onChange={setBuilderQuestions} />
-                <p className="text-[11px] text-slate-500">{builderQuestions.filter((q: any) => (q?.question || '').trim()).length} question(s) ready.</p>
+                <p className="text-[11px] text-[var(--color-on-surface-variant)]">{builderQuestions.filter((q: any) => (q?.question || '').trim()).length} question(s) ready.</p>
 
                 <div className="flex gap-3 pt-1">
-                  <button onClick={() => setStep(2)} className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
-                  <button disabled={loading} onClick={handleSubmit} className="flex-[2] py-3 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 disabled:opacity-50">
+                  <button onClick={() => setStep(2)} className="flex-1 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
+                  <button disabled={loading} onClick={handleSubmit} className="flex-[2] py-3 px-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 disabled:opacity-50">
                     {loading ? <Loader2 className="animate-spin" size={18} /> : <Plus size={18} />}
                     {loading ? 'Creating...' : 'Create Question Bank'}
                   </button>

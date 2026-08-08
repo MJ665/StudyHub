@@ -141,16 +141,16 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[110] flex items-center justify-center p-6">
+    <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm z-[110] flex items-center justify-center p-6">
       <div className="bg-surface-container border border-surface-bright rounded-[2.5rem] w-full max-w-xl shadow-2xl p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary opacity-[0.05] blur-3xl -mr-20 -mt-20 pointer-events-none" />
         
         <div className="flex justify-between items-center mb-8 relative">
           <div>
-            <h3 className="text-2xl font-black text-white">Direct Mandate</h3>
+            <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Direct Mandate</h3>
             <p className="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Enforce Learning Compliance</p>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-slate-500 hover:text-white">
+          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
             <X size={24} />
           </button>
         </div>
@@ -164,7 +164,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
                 placeholder="e.g. Q2 Performance Review"
                 value={formData.title}
                 onChange={e => setFormData({ ...formData, title: e.target.value })}
-                className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-white focus:ring-1 focus:ring-brand-primary outline-none"
+                className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-brand-primary outline-none"
               />
             </div>
             <div>
@@ -173,14 +173,14 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
                 <button 
                   type="button"
                   onClick={() => setFormData({ ...formData, assignment_type: 'quiz' })}
-                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-[10px] font-black transition-all ${formData.assignment_type === 'quiz' ? 'bg-slate-900 text-brand-primary shadow-lg' : 'text-slate-500'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-[10px] font-black transition-all ${formData.assignment_type === 'quiz' ? 'bg-[var(--color-surface-container)] text-brand-primary shadow-lg' : 'text-[var(--color-on-surface-variant)]'}`}
                 >
                   <Brain size={14} /> QUIZ
                 </button>
                 <button 
                   type="button"
                   onClick={() => setFormData({ ...formData, assignment_type: 'coding' })}
-                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-[10px] font-black transition-all ${formData.assignment_type === 'coding' ? 'bg-slate-900 text-indigo-400 shadow-lg' : 'text-slate-500'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-[10px] font-black transition-all ${formData.assignment_type === 'coding' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] shadow-lg' : 'text-[var(--color-on-surface-variant)]'}`}
                 >
                   <Terminal size={14} /> CODING
                 </button>
@@ -200,7 +200,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
                     target_type: type
                   });
                 }}
-                className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-white focus:ring-1 focus:ring-brand-primary outline-none font-bold"
+                className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-brand-primary outline-none font-bold"
               >
                 {targetTypes.length === 0 ? (
                   <option value="group">Group (Specific)</option>
@@ -216,7 +216,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
               <select 
                 value={formData.target_id}
                 onChange={e => setFormData({ ...formData, target_id: e.target.value })}
-                className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-white focus:ring-1 focus:ring-brand-primary outline-none"
+                className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-brand-primary outline-none"
               >
                 {getTargetOptions().map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
               </select>
@@ -233,7 +233,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
                 ...formData, 
                 [formData.assignment_type === 'quiz' ? 'bank_id' : 'coding_question_id']: e.target.value 
               })}
-              className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-white focus:ring-1 focus:ring-brand-primary outline-none"
+              className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-brand-primary outline-none"
             >
               {formData.assignment_type === 'quiz' 
                 ? banks.map(b => <option key={b.id} value={b.id}>{b.name}</option>)
@@ -246,25 +246,25 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
             <div>
               <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Deadline</label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={14} />
                 <input 
                   type="datetime-local" 
                   value={formData.due_date}
                   onChange={e => setFormData({ ...formData, due_date: e.target.value })}
-                  className="w-full bg-surface-dim border border-surface-bright rounded-xl pl-10 pr-4 py-3 text-xs text-white outline-none"
+                  className="w-full bg-surface-dim border border-surface-bright rounded-xl pl-10 pr-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
                 />
               </div>
             </div>
             <div>
               <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Attempt Limit</label>
               <div className="relative">
-                <Target className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+                <Target className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={14} />
                 <input 
                   type="number" 
                   min="1"
                   value={formData.max_attempts}
                   onChange={e => setFormData({ ...formData, max_attempts: parseInt(e.target.value) || 1 })}
-                  className="w-full bg-surface-dim border border-surface-bright rounded-xl pl-10 pr-4 py-3 text-xs text-white outline-none"
+                  className="w-full bg-surface-dim border border-surface-bright rounded-xl pl-10 pr-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
                 />
               </div>
             </div>
@@ -279,7 +279,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
                 min="0"
                 value={formData.passing_score}
                 onChange={e => setFormData({ ...formData, passing_score: parseInt(e.target.value) || 0 })}
-                className="w-full bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-xs text-white outline-none"
+                className="w-full bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
               />
             </div>
             <div className="flex flex-col justify-center gap-2">
@@ -311,7 +311,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
                      min="0"
                      value={formData.grace_period_hours}
                      onChange={e => setFormData({ ...formData, grace_period_hours: parseInt(e.target.value) || 0 })}
-                     className="w-full bg-surface-dim border border-surface-bright rounded-xl px-3 py-2 text-xs text-white outline-none"
+                     className="w-full bg-surface-dim border border-surface-bright rounded-xl px-3 py-2 text-xs text-[var(--color-on-surface)] outline-none"
                    />
                  </div>
                )}

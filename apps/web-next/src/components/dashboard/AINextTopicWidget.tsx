@@ -40,9 +40,9 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
 
   if (loading) {
     return (
-      <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 animate-pulse">
-        <div className="h-4 bg-slate-800 rounded w-1/3 mb-3" />
-        <div className="h-3 bg-slate-800 rounded w-2/3" />
+      <div className="bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-3xl p-6 animate-pulse">
+        <div className="h-4 bg-[var(--color-surface-container-high)] rounded w-1/3 mb-3" />
+        <div className="h-3 bg-[var(--color-surface-container-high)] rounded w-2/3" />
       </div>
     );
   }
@@ -61,13 +61,13 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-indigo-500/20 rounded-xl flex items-center justify-center">
-            <Sparkles size={16} className="text-indigo-400" />
+            <Sparkles size={16} className="text-[var(--color-brand-primary)]" />
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-indigo-400">AI Recommendation</span>
+          <span className="text-xs font-black uppercase tracking-widest text-[var(--color-brand-primary)]">AI Recommendation</span>
         </div>
         <button
           onClick={() => fetch(true)}
-          className="p-1.5 text-slate-500 hover:text-indigo-400 transition-colors"
+          className="p-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] transition-colors"
           title="Refresh"
         >
           <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
@@ -78,18 +78,18 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
         <>
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center shrink-0 mt-0.5">
-              <Target size={18} className="text-indigo-400" />
+              <Target size={18} className="text-[var(--color-brand-primary)]" />
             </div>
             <div>
-              <p className="text-white font-bold text-lg leading-tight">{data.recommendation}</p>
-              <p className="text-slate-400 text-xs mt-1 leading-relaxed">{data.reason}</p>
+              <p className="text-[var(--color-on-surface)] font-bold text-lg leading-tight">{data.recommendation}</p>
+              <p className="text-[var(--color-on-surface-variant)] text-xs mt-1 leading-relaxed">{data.reason}</p>
             </div>
           </div>
         </>
       ) : (
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb size={20} className="text-amber-400 shrink-0" />
-          <p className="text-slate-300 text-sm">{data.reason}</p>
+          <p className="text-[var(--color-on-surface-variant)] text-sm">{data.reason}</p>
         </div>
       )}
 
@@ -103,7 +103,7 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
               </p>
               {data.weak_topics.map(t => (
                 <div key={t.topic} className="flex justify-between items-center mb-1">
-                  <span className="text-xs text-slate-400 truncate max-w-[100px]">{t.topic}</span>
+                  <span className="text-xs text-[var(--color-on-surface-variant)] truncate max-w-[100px]">{t.topic}</span>
                   <span className="text-xs font-bold text-rose-400 shrink-0 ml-1">{t.avg_accuracy}%</span>
                 </div>
               ))}
@@ -116,7 +116,7 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
               </p>
               {data.strong_topics.map(t => (
                 <div key={t.topic} className="flex justify-between items-center mb-1">
-                  <span className="text-xs text-slate-400 truncate max-w-[100px]">{t.topic}</span>
+                  <span className="text-xs text-[var(--color-on-surface-variant)] truncate max-w-[100px]">{t.topic}</span>
                   <span className="text-xs font-bold text-emerald-400 shrink-0 ml-1">{t.avg_accuracy}%</span>
                 </div>
               ))}

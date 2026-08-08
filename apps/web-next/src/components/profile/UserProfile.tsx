@@ -302,13 +302,13 @@ export default function UserProfile({
   }, [quizAttempts]);
 
   if (loading) return (
-    <div className="flex-1 flex items-center justify-center bg-slate-950">
+    <div className="flex-1 flex items-center justify-center bg-[var(--color-surface-dim)]">
       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-indigo-500" />
     </div>
   );
 
   if (!profile) return (
-    <div className="p-8 text-center text-slate-500 bg-slate-950 flex-1">Profile not found</div>
+    <div className="p-8 text-center text-[var(--color-on-surface-variant)] bg-[var(--color-surface-dim)] flex-1">Profile not found</div>
   );
 
   const emailSlug = profile.email?.split('@')[0] ?? '';
@@ -319,12 +319,12 @@ export default function UserProfile({
 
   // Helper Card Component
   const KPICard = ({ label, value, icon, color, sub }: any) => (
-    <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5 flex flex-col justify-between">
-      <div className="flex items-center gap-3 text-slate-400 mb-2">
+    <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 flex flex-col justify-between">
+      <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)] mb-2">
         <div className={`text-${color}-400`}>{icon}</div>
         <span className="text-[10px] font-black uppercase tracking-widest">{label}</span>
       </div>
-      <div className="text-2xl font-black text-white">{value}</div>
+      <div className="text-2xl font-black text-[var(--color-on-surface)]">{value}</div>
       {sub && <div className="text-[10px] text-slate-600 mt-1">{sub}</div>}
     </div>
   );
@@ -340,17 +340,17 @@ export default function UserProfile({
     scoreHistory, scoreDistribution, radarData, expertiseSkills, strengthEntries };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-950">
+    <div className="flex-1 overflow-y-auto bg-[var(--color-surface-dim)]">
       {/* ─── Hero Banner ───────────────────────────────────────────── */}
       <div className="relative">
         <div className="h-52 bg-gradient-to-r from-violet-950/60 via-indigo-900/30 to-slate-950 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(99,102,241,0.2),transparent_60%)]" />
           <button onClick={onBack}
-            className="absolute top-6 left-8 flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold"
+            className="absolute top-6 left-8 flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors text-sm font-bold"
           >
             ← Back
           </button>
-          <div className="absolute top-6 right-8 flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-slate-400 font-mono">
+          <div className="absolute top-6 right-8 flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-[var(--color-on-surface-variant)] font-mono">
             <Link2 size={12} />
             @{emailSlug}
           </div>
@@ -359,35 +359,35 @@ export default function UserProfile({
         <div className="px-10 -mt-16 flex items-end justify-between flex-wrap gap-4">
           <div className="flex items-end gap-6">
             <div className="relative flex-shrink-0 cursor-pointer group" onClick={() => isOwnProfile && document.getElementById('photo-upload')?.click()}>
-              <div className="w-32 h-32 rounded-3xl bg-slate-800 border-4 border-slate-950 overflow-hidden shadow-2xl relative">
+              <div className="w-32 h-32 rounded-3xl bg-[var(--color-surface-container-high)] border-4 border-slate-950 overflow-hidden shadow-2xl relative">
                 {profile.profile_photo_url ? (
                   <img src={profile.profile_photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-white text-4xl font-black">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-[var(--color-on-surface)] text-4xl font-black">
                     {initials}
                   </div>
                 )}
                 {isOwnProfile && (
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                    <Camera size={24} className="text-white" />
+                    <Camera size={24} className="text-[var(--color-on-surface)]" />
                   </div>
                 )}
               </div>
               <input type="file" id="photo-upload" className="hidden" accept="image/*" onChange={handlePhotoUpload} />
               {profile.role === 'LDAdmin' && (
-                <div className="absolute -top-2 -right-2 bg-indigo-500 text-white p-1.5 rounded-xl shadow-lg">
+                <div className="absolute -top-2 -right-2 bg-indigo-500 text-[var(--color-on-surface)] p-1.5 rounded-xl shadow-lg">
                   <ShieldCheck size={16} />
                 </div>
               )}
             </div>
 
             <div className="pb-3 pt-16">
-              <h1 className="text-3xl font-black text-white flex items-center gap-3 flex-wrap">
+              <h1 className="text-3xl font-black text-[var(--color-on-surface)] flex items-center gap-3 flex-wrap">
                 {profile.full_name}
                 <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${
                   profile.role === 'LDAdmin' ? 'bg-violet-500/20 border-violet-500/40 text-violet-300' :
                   profile.role === 'Mentor' ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' :
-                  'bg-white/5 border-white/10 text-slate-400'
+                  'bg-white/5 border-white/10 text-[var(--color-on-surface-variant)]'
                 }`}>
                   {profile.role}
                 </span>
@@ -397,13 +397,13 @@ export default function UserProfile({
                   </span>
                 )}
               </h1>
-              <p className="text-slate-400 text-sm flex items-center gap-3 mt-2 flex-wrap">
+              <p className="text-[var(--color-on-surface-variant)] text-sm flex items-center gap-3 mt-2 flex-wrap">
                 <span className="flex items-center gap-1"><Mail size={13} />{profile.email}</span>
                 <span className="flex items-center gap-1"><Building2 size={13} />Group {profile.group_id}</span>
               </p>
               {isOwnProfile && (
-                <div className="flex items-center gap-3 bg-slate-900/50 p-2 mt-4 rounded-xl border border-white/5 w-fit">
-                  <span className="text-slate-400 text-xs font-medium pl-2">Public Link:</span>
+                <div className="flex items-center gap-3 bg-[var(--color-surface-container)]/50 p-2 mt-4 rounded-xl border border-white/5 w-fit">
+                  <span className="text-[var(--color-on-surface-variant)] text-xs font-medium pl-2">Public Link:</span>
                   <code className="text-amber-400 bg-amber-400/10 px-2 py-1 rounded-md text-xs select-all">
                     {typeof window !== 'undefined' ? `${window.location.origin}/profile/${profile.id}` : `http://localhost:3000/profile/${profile.id}`}
                   </code>
@@ -414,7 +414,7 @@ export default function UserProfile({
                         toast('success', 'Public profile link copied to clipboard');
                       }
                     }}
-                    className="p-1.5 hover:bg-white/5 rounded-md text-slate-400 hover:text-white transition-colors"
+                    className="p-1.5 hover:bg-white/5 rounded-md text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
                     title="Copy link"
                   >
                     <Copy size={14} />
@@ -427,36 +427,36 @@ export default function UserProfile({
           <div className="flex items-center gap-3 pb-3 flex-wrap">
             {profile.linkedin_url && (
               <a href={normalizeExternalUrl(profile.linkedin_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-blue-600/20 text-slate-400 hover:text-blue-400 rounded-xl border border-white/10 transition-all" title="LinkedIn">
+                className="p-2.5 bg-white/5 hover:bg-blue-600/20 text-[var(--color-on-surface-variant)] hover:text-blue-400 rounded-xl border border-white/10 transition-all" title="LinkedIn">
                 <Linkedin size={18} />
               </a>
             )}
             {profile.github_url && (
               <a href={normalizeExternalUrl(profile.github_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl border border-white/10 transition-all" title="GitHub">
+                className="p-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-white/10 transition-all" title="GitHub">
                 <Github size={18} />
               </a>
             )}
             {profile.leetcode_url && (
               <a href={normalizeExternalUrl(profile.leetcode_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-amber-600/20 text-slate-400 hover:text-amber-400 rounded-xl border border-white/10 transition-all" title="LeetCode">
+                className="p-2.5 bg-white/5 hover:bg-amber-600/20 text-[var(--color-on-surface-variant)] hover:text-amber-400 rounded-xl border border-white/10 transition-all" title="LeetCode">
                 <Code2 size={18} />
               </a>
             )}
             {profile.codolio_url && (
               <a href={normalizeExternalUrl(profile.codolio_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl border border-white/10 transition-all" title="Codolio">
+                className="p-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-white/10 transition-all" title="Codolio">
                 <Globe size={18} />
               </a>
             )}
             <button onClick={() => handleSyncIntel()}
-              className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-black text-sm shadow-lg shadow-indigo-600/20 transition-all">
+              className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm shadow-lg shadow-indigo-600/20 transition-all">
               <RefreshCcw size={15} className={generatingAtlas ? 'animate-spin' : ''} />
               SYNC INTEL
             </button>
             {isOwnProfile && (
               <button onClick={openEdit}
-                className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-slate-300 rounded-xl font-black text-sm border border-white/10 transition-all">
+                className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] rounded-xl font-black text-sm border border-white/10 transition-all">
                 <Edit3 size={15} /> EDIT PROFILE
               </button>
             )}
@@ -467,9 +467,9 @@ export default function UserProfile({
       {/* ─── Intro Video (if set) ──────────────────────────────────── */}
       {profile.intro_video_url && (
         <div className="px-10 mt-8">
-          <div className="rounded-3xl overflow-hidden bg-slate-900 border border-white/5 max-w-2xl">
-            <div className="p-4 border-b border-white/5 flex items-center gap-2 text-slate-400 text-sm font-bold">
-              <Video size={16} className="text-indigo-400" /> Introduction Video
+          <div className="rounded-3xl overflow-hidden bg-[var(--color-surface-container)] border border-white/5 max-w-2xl">
+            <div className="p-4 border-b border-white/5 flex items-center gap-2 text-[var(--color-on-surface-variant)] text-sm font-bold">
+              <Video size={16} className="text-[var(--color-brand-primary)]" /> Introduction Video
             </div>
             <div className="aspect-video">
               {profile.intro_video_url.includes('youtube') || profile.intro_video_url.includes('youtu.be') ? (
@@ -479,7 +479,7 @@ export default function UserProfile({
                 />
               ) : (
                 <a href={profile.intro_video_url} target="_blank" rel="noopener"
-                  className="flex items-center justify-center h-full gap-3 text-indigo-400 hover:text-indigo-300 transition-colors font-bold">
+                  className="flex items-center justify-center h-full gap-3 text-[var(--color-brand-primary)] hover:text-indigo-300 transition-colors font-bold">
                   <ExternalLink size={20} /> Watch Intro Video
                 </a>
               )}
@@ -490,7 +490,7 @@ export default function UserProfile({
 
       {/* ─── Tabs ─────────────────────────────────────────────────── */}
       <div className="px-10 pt-8">
-        <div className="flex gap-1 p-1 bg-slate-900/60 rounded-2xl border border-white/5 w-fit overflow-x-auto mb-8">
+        <div className="flex gap-1 p-1 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 w-fit overflow-x-auto mb-8">
           {([
             { id: 'INSIGHTS', label: 'Insights', icon: <BrainCircuit size={14} /> },
             { id: 'PERFORMANCE', label: 'Performance', icon: <BarChart3 size={14} /> },
@@ -502,8 +502,8 @@ export default function UserProfile({
             <button key={t.id} onClick={() => setActiveTab(t.id)}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs transition-all whitespace-nowrap ${
                 activeTab === t.id
-                  ? 'bg-slate-800 text-indigo-400 shadow-xl border border-white/5'
-                  : 'text-slate-500 hover:text-slate-300'
+                  ? 'bg-[var(--color-surface-container-high)] text-[var(--color-brand-primary)] shadow-xl border border-white/5'
+                  : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
               }`}>
               {t.icon} {t.label}
             </button>
@@ -538,13 +538,13 @@ export default function UserProfile({
           <motion.div key="modal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
-              className="w-full max-w-2xl bg-slate-900 border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+              className="w-full max-w-2xl bg-[var(--color-surface-container)] border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
               <div className="flex items-center justify-between px-8 py-6 border-b border-white/5">
-                <h2 className="text-xl font-black text-white flex items-center gap-3">
-                  <Edit3 size={20} className="text-indigo-400" /> Edit Profile
+                <h2 className="text-xl font-black text-[var(--color-on-surface)] flex items-center gap-3">
+                  <Edit3 size={20} className="text-[var(--color-brand-primary)]" /> Edit Profile
                 </h2>
                 <button onClick={() => setShowEditModal(false)}
-                  className="p-2 text-slate-500 hover:text-white rounded-xl hover:bg-white/5 transition-all">
+                  className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl hover:bg-white/5 transition-all">
                   <X size={20} />
                 </button>
               </div>
@@ -554,7 +554,7 @@ export default function UserProfile({
                 <Field label="Full Name" icon={<User size={14} />}>
                   <input value={editState.full_name}
                     onChange={e => setEditState(prev => prev ? { ...prev, full_name: e.target.value } : prev)}
-                    className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                 </Field>
 
                 {/* Photo URL */}
@@ -562,7 +562,7 @@ export default function UserProfile({
                   <input value={editState.profile_photo_url}
                     onChange={e => setEditState(prev => prev ? { ...prev, profile_photo_url: e.target.value } : prev)}
                     placeholder="https://example.com/photo.jpg"
-                    className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                 </Field>
 
                 {/* Intro video */}
@@ -570,7 +570,7 @@ export default function UserProfile({
                   <input value={editState.intro_video_url}
                     onChange={e => setEditState(prev => prev ? { ...prev, intro_video_url: e.target.value } : prev)}
                     placeholder="https://youtube.com/watch?v=..."
-                    className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                 </Field>
 
                 {/* Social links */}
@@ -579,31 +579,31 @@ export default function UserProfile({
                     <input value={editState.linkedin_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, linkedin_url: e.target.value } : prev)}
                       placeholder="https://linkedin.com/in/..."
-                      className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                   <Field label="GitHub" icon={<Github size={14} />}>
                     <input value={editState.github_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, github_url: e.target.value } : prev)}
                       placeholder="https://github.com/..."
-                      className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                   <Field label="LeetCode" icon={<Code2 size={14} />}>
                     <input value={editState.leetcode_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, leetcode_url: e.target.value } : prev)}
                       placeholder="https://leetcode.com/u/..."
-                      className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                   <Field label="Codolio" icon={<Globe size={14} />}>
                     <input value={editState.codolio_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, codolio_url: e.target.value } : prev)}
                       placeholder="https://codolio.com/..."
-                      className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                 </div>
 
                 {/* Skills */}
                 <div>
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-3 block flex items-center gap-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3 block flex items-center gap-2">
                     <Layers size={14} /> Skills & Tags
                   </label>
                   <div className="flex flex-wrap gap-2 mb-3">
@@ -611,7 +611,7 @@ export default function UserProfile({
                       <span key={skill}
                         className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 rounded-xl text-sm font-bold">
                         {skill}
-                        <button onClick={() => removeSkill(skill)} className="text-indigo-500 hover:text-white transition-colors">
+                        <button onClick={() => removeSkill(skill)} className="text-indigo-500 hover:text-[var(--color-on-surface)] transition-colors">
                           <X size={12} />
                         </button>
                       </span>
@@ -622,9 +622,9 @@ export default function UserProfile({
                       onChange={e => setNewSkill(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); } }}
                       placeholder="Add skill (press Enter)"
-                      className="flex-1 bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
+                      className="flex-1 bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                     <button onClick={addSkill}
-                      className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-black text-sm transition-all">
+                      className="px-4 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all">
                       <Plus size={16} />
                     </button>
                   </div>
@@ -633,11 +633,11 @@ export default function UserProfile({
 
               <div className="px-8 py-5 border-t border-white/5 flex justify-end gap-3">
                 <button onClick={() => setShowEditModal(false)}
-                  className="px-6 py-2.5 text-slate-400 hover:text-white rounded-xl font-black text-sm border border-white/10 hover:bg-white/5 transition-all">
+                  className="px-6 py-2.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl font-black text-sm border border-white/10 hover:bg-white/5 transition-all">
                   Cancel
                 </button>
                 <button onClick={handleSave} disabled={saving}
-                  className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-black text-sm transition-all disabled:opacity-50">
+                  className="flex items-center gap-2 px-6 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all disabled:opacity-50">
                   {saving ? <RefreshCcw size={14} className="animate-spin" /> : <Save size={14} />}
                   {saving ? 'Saving...' : 'Save Profile'}
                 </button>

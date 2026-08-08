@@ -78,7 +78,7 @@ export function AuditLogTable() {
         <button onClick={handleExportCSV} className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500/20 transition-all border border-emerald-500/20">
           <Download size={14} /> Export CSV
         </button>
-        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 text-indigo-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500/20 transition-all border border-indigo-500/20">
+        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500/20 transition-all border border-indigo-500/20">
           <RefreshCw size={14} /> Refresh Log
         </button>
       </div>
@@ -98,18 +98,18 @@ export function AuditLogTable() {
               <tr key={log.id} className="hover:bg-white/5 transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-white">{new Date(log.timestamp).toLocaleDateString()}</span>
-                    <span className="text-[8px] font-bold text-slate-500 uppercase">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                    <span className="text-[10px] font-black text-[var(--color-on-surface)]">{new Date(log.timestamp).toLocaleDateString()}</span>
+                    <span className="text-[8px] font-bold text-[var(--color-on-surface-variant)] uppercase">{new Date(log.timestamp).toLocaleTimeString()}</span>
                   </div>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-[10px] font-black">
+                    <div className="w-6 h-6 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] text-[10px] font-black">
                       {log.actor_role?.[0]}
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-slate-300">{log.admin_name}</span>
-                      <span className="text-[8px] font-bold text-slate-500 uppercase">{log.actor_role}</span>
+                      <span className="text-[10px] font-bold text-[var(--color-on-surface-variant)]">{log.admin_name}</span>
+                      <span className="text-[8px] font-bold text-[var(--color-on-surface-variant)] uppercase">{log.actor_role}</span>
                     </div>
                   </div>
                 </td>
@@ -117,7 +117,7 @@ export function AuditLogTable() {
                   <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-tight ${log.action.includes('PROMOTE') ? 'bg-amber-500/20 text-amber-400' :
                     log.action.includes('CREATE') ? 'bg-emerald-500/20 text-emerald-400' :
                       log.action.includes('DELETE') ? 'bg-rose-500/20 text-rose-400' :
-                        'bg-slate-500/20 text-slate-400'
+                        'bg-slate-500/20 text-[var(--color-on-surface-variant)]'
                     }`}>
                     {log.action}
                   </span>
@@ -128,7 +128,7 @@ export function AuditLogTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <p className="text-[9px] text-slate-500 font-medium max-w-xs truncate">
+                  <p className="text-[9px] text-[var(--color-on-surface-variant)] font-medium max-w-xs truncate">
                     {JSON.stringify(log.metadata)}
                   </p>
                 </td>
@@ -174,7 +174,7 @@ export function EmailLogTable() {
   return (
     <div className="overflow-hidden">
       <div className="flex justify-end gap-3 mb-4">
-        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 text-indigo-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500/20 transition-all border border-indigo-500/20">
+        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500/20 transition-all border border-indigo-500/20">
           <RefreshCw size={14} /> Sync Communications
         </button>
       </div>
@@ -193,17 +193,17 @@ export function EmailLogTable() {
             {(Array.isArray(logs) ? logs : []).map((log: any) => (
               <tr key={log.id} className="hover:bg-white/5 transition-colors">
                 <td className="px-6 py-4">
-                  <p className="text-[10px] font-black text-white">{new Date(log.sent_at).toLocaleDateString()}</p>
-                  <p className="text-[8px] font-bold text-slate-500 uppercase">{new Date(log.sent_at).toLocaleTimeString()}</p>
+                  <p className="text-[10px] font-black text-[var(--color-on-surface)]">{new Date(log.sent_at).toLocaleDateString()}</p>
+                  <p className="text-[8px] font-bold text-[var(--color-on-surface-variant)] uppercase">{new Date(log.sent_at).toLocaleTimeString()}</p>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-slate-300">{log.user_name}</span>
-                    <span className="text-[9px] font-medium text-slate-500">{log.recipient}</span>
+                    <span className="text-[10px] font-black text-[var(--color-on-surface-variant)]">{log.user_name}</span>
+                    <span className="text-[9px] font-medium text-[var(--color-on-surface-variant)]">{log.recipient}</span>
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 text-[8px] font-black uppercase tracking-tight">
+                  <span className="px-2 py-0.5 rounded bg-indigo-500/10 text-[var(--color-brand-primary)] text-[8px] font-black uppercase tracking-tight">
                     {log.type}
                   </span>
                 </td>
@@ -216,7 +216,7 @@ export function EmailLogTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <p className="text-[9px] text-slate-400 font-medium truncate max-w-xs">{log.subject}</p>
+                  <p className="text-[9px] text-[var(--color-on-surface-variant)] font-medium truncate max-w-xs">{log.subject}</p>
                 </td>
               </tr>
             ))}
@@ -278,7 +278,7 @@ export function QuestionReportTable() {
             onClick={() => setFilter(opt.value)}
             className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${filter === opt.value
               ? 'bg-rose-500/20 border border-rose-500/50 text-rose-400'
-              : 'bg-slate-800 border border-white/5 text-slate-500 hover:text-slate-400'
+              : 'bg-[var(--color-surface-container-high)] border border-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
               }`}
           >
             {opt.label}
@@ -286,7 +286,7 @@ export function QuestionReportTable() {
         ))}
         <button
           onClick={fetchReports}
-          className="ml-auto p-2.5 bg-slate-800 border border-white/5 rounded-xl text-slate-500 hover:text-rose-400 transition-all"
+          className="ml-auto p-2.5 bg-[var(--color-surface-container-high)] border border-white/5 rounded-xl text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all"
         >
           <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
         </button>
@@ -296,12 +296,12 @@ export function QuestionReportTable() {
         <table className="w-full text-left">
           <thead className="bg-white/5">
             <tr>
-              <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Status</th>
-              <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Question</th>
-              <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Reason</th>
-              <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Reporter</th>
-              <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Date</th>
-              <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">Actions</th>
+              <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Status</th>
+              <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Question</th>
+              <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Reason</th>
+              <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Reporter</th>
+              <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Date</th>
+              <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
@@ -323,15 +323,15 @@ export function QuestionReportTable() {
                   )}
                 </td>
                 <td className="px-6 py-4">
-                  <p className="text-xs font-bold text-white line-clamp-1">{r.question_text}</p>
-                  {r.comment && <p className="text-[10px] text-slate-500 mt-1 italic line-clamp-1">"{r.comment}"</p>}
+                  <p className="text-xs font-bold text-[var(--color-on-surface)] line-clamp-1">{r.question_text}</p>
+                  {r.comment && <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-1 italic line-clamp-1">"{r.comment}"</p>}
                 </td>
                 <td className="px-6 py-4">
-                  <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px] font-black uppercase">
+                  <span className="px-2 py-0.5 rounded bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase">
                     {r.reason.replace('_', ' ')}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-xs font-bold text-slate-400">
+                <td className="px-6 py-4 text-xs font-bold text-[var(--color-on-surface-variant)]">
                   {r.reporter_name}
                 </td>
                 <td className="px-6 py-4 text-[10px] font-mono text-slate-600">
@@ -381,24 +381,24 @@ export function SecurityPulse() {
 
   return (
     <div className="grid grid-cols-3 gap-6 mb-8">
-      <div className="bg-slate-900 border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
+      <div className="bg-[var(--color-surface-container)] border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-indigo-500/10 transition-all" />
-        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">30D Governance Velocity</p>
-        <h4 className="text-4xl font-black text-white">{stats?.thirty_day_velocity || 0}</h4>
-        <p className="text-[8px] font-bold text-indigo-400 uppercase mt-2 tracking-tighter">Total administrative sessions</p>
+        <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">30D Governance Velocity</p>
+        <h4 className="text-4xl font-black text-[var(--color-on-surface)]">{stats?.thirty_day_velocity || 0}</h4>
+        <p className="text-[8px] font-bold text-[var(--color-brand-primary)] uppercase mt-2 tracking-tighter">Total administrative sessions</p>
       </div>
-      <div className="bg-slate-900 border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
+      <div className="bg-[var(--color-surface-container)] border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-amber-500/10 transition-all" />
-        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Role Mutations</p>
+        <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Role Mutations</p>
         <h4 className="text-4xl font-black text-amber-400">{stats?.role_mutations || 0}</h4>
         <p className="text-[8px] font-bold text-amber-500/60 uppercase mt-2 tracking-tighter">System-wide privilege escalations</p>
       </div>
-      <div className="bg-slate-900 border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
+      <div className="bg-[var(--color-surface-container)] border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-emerald-500/10 transition-all" />
-        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Active Governance Nodes</p>
+        <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Active Governance Nodes</p>
         <div className="flex -space-x-2 mt-2">
           {stats?.active_governance_nodes?.map((node: string, i: number) => (
-            <div key={i} className="w-8 h-8 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-[10px] font-black text-emerald-400" title={node}>
+            <div key={i} className="w-8 h-8 rounded-full bg-[var(--color-surface-container-high)] border-2 border-slate-900 flex items-center justify-center text-[10px] font-black text-emerald-400" title={node}>
               {node[0]}
             </div>
           ))}

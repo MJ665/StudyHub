@@ -160,18 +160,18 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
     completed: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
     awaiting_signoff: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
     in_progress: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-    pending: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+    pending: 'bg-slate-500/10 text-[var(--color-on-surface-variant)] border-slate-500/20',
   };
 
   return (
     <div className="flex-1 p-8 overflow-y-auto custom-scrollbar relative z-10 max-w-7xl mx-auto w-full">
       <header className="mb-12">
-        <div className="flex items-center gap-2 mb-2 text-indigo-400">
+        <div className="flex items-center gap-2 mb-2 text-[var(--color-brand-primary)]">
           <Sparkles size={16} />
           <span className="text-xs font-black uppercase tracking-widest">Team Transition Engine</span>
         </div>
-        <h1 className="text-4xl font-black text-white tracking-tight">Knowledge Sharing & Handoff</h1>
-        <p className="text-slate-400 text-sm mt-1 max-w-xl">
+        <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Knowledge Sharing & Handoff</h1>
+        <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
           Coordinate seamless conceptual knowledge transition between outgoing leaders and incoming engineers. 
           Audit structural knowledge gaps and assign peer mentorship.
         </p>
@@ -179,12 +179,12 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
       {/* Critical Conceptual Warning Banner */}
       <div className="bg-indigo-950/20 border border-indigo-500/20 rounded-[2rem] p-6 mb-10 flex gap-4 items-start">
-        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-indigo-400 shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-[var(--color-brand-primary)] shrink-0">
           <HelpCircle size={20} />
         </div>
         <div>
-          <h3 className="font-bold text-white text-sm">Conceptual Knowledge Sharing Protocol</h3>
-          <p className="text-slate-400 text-xs mt-1 leading-relaxed">
+          <h3 className="font-bold text-[var(--color-on-surface)] text-sm">Conceptual Knowledge Sharing Protocol</h3>
+          <p className="text-[var(--color-on-surface-variant)] text-xs mt-1 leading-relaxed">
             The handoff protocol transfers vital domain expertise, system architecture context, and sprint history. 
             Initiating a handoff delegates document authorship permissions and sets up checklist tracking. 
             This protocol **never** deletes employee database accounts.
@@ -197,25 +197,25 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
         {/* Left Form Column */}
         <div className="lg:col-span-2 space-y-8">
           
-          <div className="bg-slate-900 border border-slate-850 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
+          <div className="bg-[var(--color-surface-container)] border border-slate-850 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-[60px] pointer-events-none" />
-            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-              <ClipboardList className="text-indigo-400" size={20} />
+            <h2 className="text-xl font-bold text-[var(--color-on-surface)] mb-6 flex items-center gap-3">
+              <ClipboardList className="text-[var(--color-brand-primary)]" size={20} />
               <span>Initiate Handoff Package</span>
             </h2>
 
             <form onSubmit={handleInitiateHandoff} className="space-y-6">
               
               {/* Manager Toggle */}
-              <div className="flex items-center justify-between bg-slate-950 p-4 rounded-2xl border border-slate-800">
+              <div className="flex items-center justify-between bg-[var(--color-surface-dim)] p-4 rounded-2xl border border-[var(--color-outline-variant)]">
                 <div>
-                  <h4 className="text-sm font-bold text-white">I am the departing user</h4>
-                  <p className="text-xs text-slate-500 mt-1">Turn off if you are a manager initiating a handoff for someone else</p>
+                  <h4 className="text-sm font-bold text-[var(--color-on-surface)]">I am the departing user</h4>
+                  <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Turn off if you are a manager initiating a handoff for someone else</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsSelfHandoff(!isSelfHandoff)}
-                  className={`w-12 h-6 rounded-full p-1 transition-colors ${isSelfHandoff ? 'bg-indigo-500' : 'bg-slate-700'}`}
+                  className={`w-12 h-6 rounded-full p-1 transition-colors ${isSelfHandoff ? 'bg-indigo-500' : 'bg-[var(--color-surface-bright)]'}`}
                 >
                   <div className={`w-4 h-4 rounded-full bg-white transition-transform ${isSelfHandoff ? 'translate-x-6' : 'translate-x-0'}`} />
                 </button>
@@ -224,17 +224,17 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
               {/* Departing User Selector (if Manager-led) */}
               {!isSelfHandoff && (
                 <div className="space-y-2 relative">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] block">
                     Select Departing User
                   </label>
                   <input
                     type="text"
                     placeholder="Search departing user by name or email..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                     onChange={(e) => handleUserSearch(e.target.value, 'departing')}
                   />
                   {departingUsersList.length > 0 && (
-                    <div className="absolute left-0 right-0 mt-2 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto z-50">
+                    <div className="absolute left-0 right-0 mt-2 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto z-50">
                       {departingUsersList.map((u) => (
                         <button
                           key={u.id}
@@ -243,7 +243,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                             setSelectedDepartingUser(u);
                             setDepartingUsersList([]);
                           }}
-                          className="w-full text-left px-4 py-3 hover:bg-slate-800 text-xs font-bold text-slate-300 flex items-center justify-between"
+                          className="w-full text-left px-4 py-3 hover:bg-[var(--color-surface-container-high)] text-xs font-bold text-[var(--color-on-surface-variant)] flex items-center justify-between"
                         >
                           <span>{u.full_name} ({u.email})</span>
                         </button>
@@ -252,7 +252,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                   )}
                   {selectedDepartingUser && (
                     <div className="mt-2 bg-indigo-500/10 border border-indigo-500/30 rounded-xl p-3 flex items-center justify-between">
-                      <span className="text-sm font-bold text-indigo-400">{selectedDepartingUser.full_name}</span>
+                      <span className="text-sm font-bold text-[var(--color-brand-primary)]">{selectedDepartingUser.full_name}</span>
                       <button type="button" onClick={() => setSelectedDepartingUser(null)} className="text-xs text-rose-400 font-bold uppercase tracking-wider">Remove</button>
                     </div>
                   )}
@@ -261,19 +261,19 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
               {/* Recipient Co-author Search input */}
               <div className="space-y-2 relative">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] block">
                   Select Knowledge Recipient (Incoming Engineer)
                 </label>
                 <input
                   type="text"
                   placeholder="Search co-authors by name or email..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                   onChange={(e) => handleUserSearch(e.target.value, 'recipient')}
                 />
                 
                 {/* Autocomplete Dropdown */}
                 {coAuthors.length > 0 && (
-                  <div className="absolute left-0 right-0 mt-2 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto z-50">
+                  <div className="absolute left-0 right-0 mt-2 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto z-50">
                     {coAuthors.map((u) => (
                       <button
                         key={u.id}
@@ -282,20 +282,20 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                           setSelectedRecipient(u);
                           setCoAuthors([]);
                         }}
-                        className="w-full text-left px-4 py-3 rounded-lg hover:bg-slate-800 text-xs font-bold text-slate-300 flex items-center justify-between"
+                        className="w-full text-left px-4 py-3 rounded-lg hover:bg-[var(--color-surface-container-high)] text-xs font-bold text-[var(--color-on-surface-variant)] flex items-center justify-between"
                       >
                         <span>{u.full_name} ({u.email})</span>
-                        <span className="text-[9px] bg-slate-950 text-indigo-400 px-2 py-0.5 rounded uppercase tracking-wider">{u.role}</span>
+                        <span className="text-[9px] bg-[var(--color-surface-dim)] text-[var(--color-brand-primary)] px-2 py-0.5 rounded uppercase tracking-wider">{u.role}</span>
                       </button>
                     ))}
                   </div>
                 )}
 
                 {selectedRecipient && (
-                  <div className="flex items-center justify-between bg-slate-950/80 p-3 rounded-xl border border-indigo-500/20 mt-2">
+                  <div className="flex items-center justify-between bg-[var(--color-surface-dim)]/80 p-3 rounded-xl border border-indigo-500/20 mt-2">
                     <div className="flex items-center gap-2">
-                      <UserCheck size={16} className="text-indigo-400" />
-                      <span className="text-xs font-bold text-slate-200">
+                      <UserCheck size={16} className="text-[var(--color-brand-primary)]" />
+                      <span className="text-xs font-bold text-[var(--color-on-surface)]">
                         Assigned Recipient: {selectedRecipient.full_name} ({selectedRecipient.email})
                       </span>
                     </div>
@@ -312,20 +312,20 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
               {/* Mentor Search Input */}
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] block">
                   Assign Transition Mentor (Optional verification peer)
                 </label>
                 <input
                   type="text"
                   placeholder="Search mentors by name..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                   onChange={(e) => handleUserSearch(e.target.value, 'mentor')}
                 />
                 {selectedMentor && (
-                  <div className="flex items-center justify-between bg-slate-950/80 p-3 rounded-xl border border-indigo-500/20 mt-2">
+                  <div className="flex items-center justify-between bg-[var(--color-surface-dim)]/80 p-3 rounded-xl border border-indigo-500/20 mt-2">
                     <div className="flex items-center gap-2">
-                      <UserCheck size={16} className="text-indigo-400" />
-                      <span className="text-xs font-bold text-slate-200">
+                      <UserCheck size={16} className="text-[var(--color-brand-primary)]" />
+                      <span className="text-xs font-bold text-[var(--color-on-surface)]">
                         Assigned Mentor: {selectedMentor.full_name}
                       </span>
                     </div>
@@ -342,9 +342,9 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Transition Type</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] block">Transition Type</label>
                   <select
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                     value={handoffType}
                     onChange={(e) => setHandoffType(e.target.value)}
                   >
@@ -356,10 +356,10 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Handoff Completion Target Date</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] block">Handoff Completion Target Date</label>
                   <input
                     type="date"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
                   />
@@ -367,11 +367,11 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Handoff Strategy Notes</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] block">Handoff Strategy Notes</label>
                 <textarea
                   placeholder="Enter strategic handover plans, repository coordinates, or key systems documentation references..."
                   rows={4}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white text-sm resize-none"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm resize-none"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                 />
@@ -380,7 +380,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
               <button
                 type="submit"
                 disabled={initiating}
-                className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 text-sm"
+                className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 text-sm"
               >
                 {initiating ? <Loader2 className="animate-spin" size={18} /> : 'Initiate Transfer Package'}
               </button>
@@ -389,7 +389,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
           {/* Handoff List / Progress audit */}
           <div className="space-y-4">
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-500">Active Handoff Audits</h3>
+            <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Active Handoff Audits</h3>
             
             {loading ? (
               <div className="h-20 flex items-center justify-center">
@@ -398,26 +398,26 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
             ) : (
               <div className="space-y-4">
                 {handoffs.map((h) => (
-                  <div key={h.id} className="bg-slate-900/40 border border-slate-850 rounded-[2rem] p-6 space-y-4">
+                  <div key={h.id} className="bg-[var(--color-surface-container)]/40 border border-slate-850 rounded-[2rem] p-6 space-y-4">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-full">
+                          <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20 rounded-full">
                             {h.handoff_type || 'Mentorship'}
                           </span>
                           <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 border rounded-full ${STATUS_STYLES[h.status] || STATUS_STYLES.pending}`}>
                             {(h.status || 'pending').replace('_', ' ')}
                           </span>
                         </div>
-                        <h4 className="text-white font-bold text-base mt-2">
+                        <h4 className="text-[var(--color-on-surface)] font-bold text-base mt-2">
                           Knowledge transition: {h.departing_user_name || 'Outgoing'} → {h.receiving_user_name || 'Incoming'}
                         </h4>
                         {h.mentor_name && (
-                          <p className="text-[11px] text-slate-500 mt-0.5">Mentor: {h.mentor_name}</p>
+                          <p className="text-[11px] text-[var(--color-on-surface-variant)] mt-0.5">Mentor: {h.mentor_name}</p>
                         )}
                       </div>
 
-                      <div className="flex items-center gap-4 text-xs text-slate-400">
+                      <div className="flex items-center gap-4 text-xs text-[var(--color-on-surface-variant)]">
                         <span className="flex items-center gap-1.5">
                           <Calendar size={14} />
                           Target: {h.departure_date ? new Date(h.departure_date).toLocaleDateString() : 'TBD'}
@@ -427,11 +427,11 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
                     {/* Progress bar */}
                     <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
+                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                         <span>Transfer Progress</span>
                         <span>{h.progress ?? 0}%</span>
                       </div>
-                      <div className="h-1.5 bg-slate-950 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-[var(--color-surface-dim)] rounded-full overflow-hidden">
                         <div
                           className={`h-full transition-all ${h.status === 'completed' ? 'bg-emerald-500' : 'bg-indigo-500'}`}
                           style={{ width: `${h.progress ?? 0}%` }}
@@ -440,7 +440,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                     </div>
 
                     {h.notes && (
-                      <p className="text-slate-400 text-xs italic bg-slate-950 p-4 rounded-xl border border-slate-850">
+                      <p className="text-[var(--color-on-surface-variant)] text-xs italic bg-[var(--color-surface-dim)] p-4 rounded-xl border border-slate-850">
                         {h.notes}
                       </p>
                     )}
@@ -448,7 +448,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                     {/* Checklist items */}
                     {h.checklist && h.checklist.length > 0 && (
                       <div className="space-y-2 pt-2 border-t border-slate-850">
-                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Transition Checklist Tasks</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Transition Checklist Tasks</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           {h.checklist.map((item: any, idx: number) => (
                             <button
@@ -457,7 +457,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                               className={`flex items-center gap-3 p-3 rounded-xl border text-left text-xs transition-all ${
                                 item.done 
                                   ? 'bg-emerald-950/20 border-emerald-500/20 text-emerald-400' 
-                                  : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                                  : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                               }`}
                             >
                               {item.done ? <CheckSquare size={14} /> : <Square size={14} />}
@@ -471,7 +471,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                     {/* Mentor sign-off */}
                     {h.status !== 'completed' && canSignoff && (
                       <div className="pt-3 border-t border-slate-850 flex items-center justify-between gap-3">
-                        <p className="text-[11px] text-slate-500">
+                        <p className="text-[11px] text-[var(--color-on-surface-variant)]">
                           {h.status === 'awaiting_signoff'
                             ? 'All required items complete — ready for your sign-off.'
                             : 'Complete all required checklist items to enable sign-off.'}
@@ -479,7 +479,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                         <button
                           onClick={() => handleSignoff(h.id)}
                           disabled={h.status !== 'awaiting_signoff'}
-                          className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-xs font-bold transition-all"
+                          className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-[var(--color-surface-container-high)] disabled:text-[var(--color-on-surface-variant)] text-[var(--color-on-surface)] text-xs font-bold transition-all"
                         >
                           <UserCheck size={14} /> Mentor Sign-off
                         </button>
@@ -494,10 +494,10 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                 ))}
 
                 {handoffs.length === 0 && (
-                  <div className="bg-slate-900/10 border border-slate-850 rounded-2xl p-12 text-center">
+                  <div className="bg-[var(--color-surface-container)]/10 border border-slate-850 rounded-2xl p-12 text-center">
                     <ClipboardList className="mx-auto text-slate-700 mb-3" size={32} />
-                    <p className="text-slate-400 font-bold">No Transition Packages Registered</p>
-                    <p className="text-xs text-slate-500 mt-1">Handoffs track progress to secure team handovers safely without deleting accounts.</p>
+                    <p className="text-[var(--color-on-surface-variant)] font-bold">No Transition Packages Registered</p>
+                    <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Handoffs track progress to secure team handovers safely without deleting accounts.</p>
                   </div>
                 )}
               </div>
@@ -507,27 +507,27 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
         {/* Right analytics Sidebar */}
         <div className="space-y-6">
-          <div className="bg-slate-900/50 border border-slate-800 rounded-[2.5rem] p-6 space-y-6 backdrop-blur-xl">
-            <h3 className="text-sm font-black uppercase tracking-widest text-white flex items-center gap-2">
-              <AlertTriangle className="text-indigo-400" size={16} />
+          <div className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-6 space-y-6 backdrop-blur-xl">
+            <h3 className="text-sm font-black uppercase tracking-widest text-[var(--color-on-surface)] flex items-center gap-2">
+              <AlertTriangle className="text-[var(--color-brand-primary)]" size={16} />
               <span>Domain Knowledge Gap Audit</span>
             </h3>
 
-            <p className="text-slate-400 text-xs leading-relaxed">
+            <p className="text-[var(--color-on-surface-variant)] text-xs leading-relaxed">
               Real-time semantic trace comparing departures expertise against corporate coverage indices. 
               The following gap areas lack coverage:
             </p>
 
             <div className="space-y-3">
               {handoffGaps.map((gap, i) => (
-                <div key={i} className="bg-slate-950 border border-slate-850 rounded-xl p-3.5 flex items-start gap-3">
+                <div key={i} className="bg-[var(--color-surface-dim)] border border-slate-850 rounded-xl p-3.5 flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
-                  <p className="text-xs text-slate-300 font-semibold">{gap}</p>
+                  <p className="text-xs text-[var(--color-on-surface-variant)] font-semibold">{gap}</p>
                 </div>
               ))}
 
               {handoffGaps.length === 0 && (
-                <div className="text-center p-4 border border-dashed border-slate-800 rounded-xl text-slate-500 text-xs">
+                <div className="text-center p-4 border border-dashed border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] text-xs">
                   Domain coverage is fully stable. No immediate gaps flagged.
                 </div>
               )}

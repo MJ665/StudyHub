@@ -365,34 +365,34 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
     user, projectId, onClose, onComplete };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/95 backdrop-blur-3xl">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[var(--color-surface-dim)]/95 backdrop-blur-3xl">
       <motion.div 
         initial={{ opacity: 0, scale: 0.9, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-[3rem] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col h-[92vh]"
+        className="w-full max-w-5xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[3rem] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col h-[92vh]"
       >
         {/* ─── Wizard Header ─── */}
-        <div className="p-10 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
+        <div className="p-10 border-b border-[var(--color-outline-variant)] flex justify-between items-center bg-[var(--color-surface-container)]/50">
           <div className="flex items-center gap-6">
             <div className="w-16 h-16 rounded-[2rem] bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 shadow-inner">
-              <Sparkles size={32} className="text-indigo-400" />
+              <Sparkles size={32} className="text-[var(--color-brand-primary)]" />
             </div>
             <div>
-              <h2 className="text-3xl font-black text-white tracking-tight">Organization Memory Creator</h2>
+              <h2 className="text-3xl font-black text-[var(--color-on-surface)] tracking-tight">Organization Memory Creator</h2>
               <div className="flex items-center gap-3 mt-1">
-                <p className="text-indigo-400 text-xs font-black uppercase tracking-[0.2em]">Step {currentStep + 1} of {STEPS.length}</p>
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
-                <p className="text-slate-400 text-sm font-bold">{STEPS[currentStep].title}</p>
+                <p className="text-[var(--color-brand-primary)] text-xs font-black uppercase tracking-[0.2em]">Step {currentStep + 1} of {STEPS.length}</p>
+                <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-surface-bright)]" />
+                <p className="text-[var(--color-on-surface-variant)] text-sm font-bold">{STEPS[currentStep].title}</p>
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-500 hover:text-white p-4 hover:bg-white/5 rounded-full transition-all group">
+          <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] p-4 hover:bg-white/5 rounded-full transition-all group">
             <X size={28} className="group-hover:rotate-90 transition-transform duration-300" />
           </button>
         </div>
 
         {/* ─── Progress Bar ─── */}
-        <div className="flex w-full h-1.5 bg-slate-800">
+        <div className="flex w-full h-1.5 bg-[var(--color-surface-container-high)]">
           {STEPS.map((step, i) => (
             <div 
               key={step.id}
@@ -429,12 +429,12 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
         </div>
 
         {/* ─── Wizard Footer ─── */}
-        <div className="p-10 border-t border-slate-800 bg-slate-900/50 flex justify-between items-center px-16">
+        <div className="p-10 border-t border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]/50 flex justify-between items-center px-16">
           <button 
             onClick={back}
             disabled={currentStep === 0}
             className={`px-10 py-5 rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all ${
-              currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-slate-400 hover:text-white hover:bg-white/10 active:scale-95'
+              currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-white/10 active:scale-95'
             }`}
           >
             <ChevronLeft size={22} /> PREVIOUS
@@ -444,7 +444,7 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
             <button 
               onClick={handleSaveDraft}
               disabled={isSaving}
-              className="px-10 py-5 bg-slate-800/50 hover:bg-slate-800 text-white rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all border border-slate-700 active:scale-95 disabled:opacity-50"
+              className="px-10 py-5 bg-[var(--color-surface-container-high)]/50 hover:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all border border-[var(--color-outline-variant)] active:scale-95 disabled:opacity-50"
             >
               {isSaving ? <Sparkles className="animate-spin" size={20} /> : <Save size={20} />} SAVE DRAFT
             </button>
@@ -452,14 +452,14 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
               <button 
                 onClick={handleFinalize}
                 disabled={isSaving}
-                className="px-12 py-5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-emerald-500/30 active:scale-95 ring-2 ring-emerald-500/20 disabled:opacity-50"
+                className="px-12 py-5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-[var(--color-on-surface)] rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-emerald-500/30 active:scale-95 ring-2 ring-emerald-500/20 disabled:opacity-50"
               >
                 {isSaving ? 'FINALIZING...' : 'FINALIZE & SUBMIT'} <CheckCircle2 size={22} />
               </button>
             ) : (
               <button 
                 onClick={next}
-                className="px-12 py-5 bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 text-white rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-indigo-500/30 active:scale-95 ring-2 ring-indigo-500/20"
+                className="px-12 py-5 bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 text-[var(--color-on-surface)] rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-indigo-500/30 active:scale-95 ring-2 ring-indigo-500/20"
               >
                 CONTINUE <ChevronRight size={22} />
               </button>

@@ -60,40 +60,40 @@ export default function KTQuickKeyModal({ isOpen, onClose, project }: KTQuickKey
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
-          className="bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 max-w-xl w-full shadow-2xl relative overflow-hidden"
+          className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 max-w-xl w-full shadow-2xl relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-emerald-500/5 rounded-full blur-[60px] pointer-events-none" />
           
-          <h2 className="text-2xl font-black text-white mb-2 flex items-center gap-3">
+          <h2 className="text-2xl font-black text-[var(--color-on-surface)] mb-2 flex items-center gap-3">
             <Key className="text-emerald-400" size={24} />
             <span>Generate Access Key</span>
           </h2>
-          <p className="text-slate-400 text-xs mb-6">Create a secure access key for <strong>{project.name}</strong>.</p>
+          <p className="text-[var(--color-on-surface-variant)] text-xs mb-6">Create a secure access key for <strong>{project.name}</strong>.</p>
 
           {!generatedRawKey ? (
             <form onSubmit={handleGenerateKey} className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Scope Label</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Scope Label</label>
                 <input
                   type="text"
                   placeholder="e.g. Audit Team Access"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-white text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-[var(--color-on-surface)] text-sm"
                   value={keyScopeLabel}
                   onChange={(e) => setKeyScopeLabel(e.target.value)}
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Recipient Email (Optional)</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Recipient Email (Optional)</label>
                 <input
                   type="email"
                   placeholder="e.g. auditor@example.com"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-white text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-[var(--color-on-surface)] text-sm"
                   value={keyRecipientEmail}
                   onChange={(e) => setKeyRecipientEmail(e.target.value)}
                 />
@@ -101,41 +101,41 @@ export default function KTQuickKeyModal({ isOpen, onClose, project }: KTQuickKey
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Expiration (Days)</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Expiration (Days)</label>
                   <input
                     type="number"
                     min={1}
                     max={365}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-[var(--color-on-surface)] text-sm"
                     value={keyTtlDays}
                     onChange={(e) => setKeyTtlDays(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Max Uses (Optional)</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Max Uses (Optional)</label>
                   <input
                     type="number"
                     min={1}
                     placeholder="Unlimited"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-white text-sm"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-[var(--color-on-surface)] text-sm"
                     value={keyMaxUses}
                     onChange={(e) => setKeyMaxUses(e.target.value ? parseInt(e.target.value) : '')}
                   />
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-slate-800/40">
+              <div className="flex gap-3 pt-4 border-t border-[var(--color-outline-variant)]/40">
                 <button
                   type="submit"
                   disabled={generatingKey}
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2"
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-4 rounded-2xl font-bold transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2"
                 >
                   {generatingKey ? <Loader2 className="animate-spin" size={18} /> : 'Generate Key'}
                 </button>
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-4 rounded-2xl font-bold transition-all border border-slate-700"
+                  className="bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] px-6 py-4 rounded-2xl font-bold transition-all border border-[var(--color-outline-variant)]"
                 >
                   Cancel
                 </button>
@@ -148,15 +148,15 @@ export default function KTQuickKeyModal({ isOpen, onClose, project }: KTQuickKey
                   <CheckCircle2 className="text-emerald-400 mt-1 flex-shrink-0" size={24} />
                   <div>
                     <h3 className="text-emerald-400 font-bold mb-2">Key Generated Successfully</h3>
-                    <p className="text-xs text-slate-400 mb-4">Please copy this key now. For security reasons, it will never be shown again.</p>
+                    <p className="text-xs text-[var(--color-on-surface-variant)] mb-4">Please copy this key now. For security reasons, it will never be shown again.</p>
                     
                     <div className="flex items-center gap-2">
-                      <code className="flex-1 bg-slate-950 border border-slate-800 px-4 py-3 rounded-xl text-emerald-300 font-mono text-sm break-all">
+                      <code className="flex-1 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] px-4 py-3 rounded-xl text-emerald-300 font-mono text-sm break-all">
                         {generatedRawKey}
                       </code>
                       <button
                         onClick={() => copyToClipboard(generatedRawKey)}
-                        className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-all"
+                        className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-xl transition-all"
                         title="Copy to clipboard"
                       >
                         <Copy size={18} />
@@ -165,10 +165,10 @@ export default function KTQuickKeyModal({ isOpen, onClose, project }: KTQuickKey
                   </div>
                 </div>
               </div>
-              <div className="flex justify-end pt-4 border-t border-slate-800/40">
+              <div className="flex justify-end pt-4 border-t border-[var(--color-outline-variant)]/40">
                 <button
                   onClick={handleClose}
-                  className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-2xl font-bold transition-all border border-slate-700"
+                  className="bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] px-8 py-3 rounded-2xl font-bold transition-all border border-[var(--color-outline-variant)]"
                 >
                   Done
                 </button>

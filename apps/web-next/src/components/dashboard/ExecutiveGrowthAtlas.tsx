@@ -34,7 +34,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
 
   if (loading) {
     return (
-      <div className="h-64 bg-slate-900/40 rounded-[2.5rem] border border-slate-800 border-dashed flex flex-col items-center justify-center gap-4 animate-pulse">
+      <div className="h-64 bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-[var(--color-outline-variant)] border-dashed flex flex-col items-center justify-center gap-4 animate-pulse">
         <BrainCircuit size={32} className="text-slate-700" />
         <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">Synthesizing Pedagogical Vectors...</p>
       </div>
@@ -85,18 +85,18 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* ── LEFT: MAIN TRAJECTORY ───────────────────────────────── */}
-      <div className="lg:col-span-2 bg-slate-900/60 rounded-[2.5rem] border border-white/5 p-8 relative overflow-hidden group">
+      <div className="lg:col-span-2 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 p-8 relative overflow-hidden group">
         <div className="absolute top-0 right-0 p-8 opacity-5">
            <Map size={120} />
         </div>
         
         <div className="flex items-center justify-between mb-8">
            <div>
-              <div className="flex items-center gap-2 text-indigo-400 mb-1">
+              <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-1">
                  <Sparkles size={16} />
                  <span className="text-[10px] font-black uppercase tracking-[0.3em]">AI Growth Atlas</span>
               </div>
-              <h3 className="text-2xl font-black text-white">Performance Trajectory</h3>
+              <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Performance Trajectory</h3>
            </div>
            
            <div className="flex gap-3">
@@ -161,18 +161,18 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
               </AreaChart>
            </ResponsiveContainer>
            ) : (
-             <div className="w-full h-full bg-slate-900/20 rounded-2xl animate-pulse" />
+             <div className="w-full h-full bg-[var(--color-surface-container)]/20 rounded-2xl animate-pulse" />
            )}
         </div>
         
         <div className="mt-6 flex items-center justify-between">
-           <p className="text-xs text-slate-500 font-medium max-w-sm">
+           <p className="text-xs text-[var(--color-on-surface-variant)] font-medium max-w-sm">
               Your learning curve is showing a <span className="text-emerald-400 font-bold">positive slope</span>. Consistency remains the primary lever for exponential mastery.
            </p>
            <div className="flex items-center gap-4">
               <div className="flex flex-col items-end">
-                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Consistency</span>
-                 <span className="text-lg font-black text-white">{(consistency_index || 0).toFixed(0)}%</span>
+                 <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency</span>
+                 <span className="text-lg font-black text-[var(--color-on-surface)]">{(consistency_index || 0).toFixed(0)}%</span>
               </div>
               <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
                  <ShieldCheck size={24} />
@@ -182,7 +182,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
       </div>
 
       {/* ── RIGHT: COMPETENCY RADAR ─────────────────────────────── */}
-      <div className="bg-slate-900/60 rounded-[2.5rem] border border-white/5 p-8 flex flex-col group">
+      <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 p-8 flex flex-col group">
          <div className="flex items-center gap-2 text-purple-400 mb-6">
             <Layers size={16} />
             <span className="text-[10px] font-black uppercase tracking-[0.3em]">Competency Matrix</span>
@@ -205,7 +205,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
                </RadarChart>
                 </ResponsiveContainer>
              ) : (
-                <div className="w-32 h-32 rounded-full border-4 border-slate-800 border-dashed animate-spin" />
+                <div className="w-32 h-32 rounded-full border-4 border-[var(--color-outline-variant)] border-dashed animate-spin" />
              )}
           </div>
          
@@ -214,8 +214,8 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
                <Target size={20} />
             </div>
             <div>
-               <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Primary Focus</p>
-               <p className="text-sm font-bold text-white">{primaryFocus}</p>
+               <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Primary Focus</p>
+               <p className="text-sm font-bold text-[var(--color-on-surface)]">{primaryFocus}</p>
             </div>
          </div>
       </div>
@@ -225,7 +225,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
 
 function MetricMiniCard({ icon, label, value, color }: any) {
    const colors: any = {
-      indigo: 'text-indigo-400 bg-indigo-500/10 border-indigo-500/20',
+      indigo: 'text-[var(--color-brand-primary)] bg-indigo-500/10 border-indigo-500/20',
       purple: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
       emerald: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
    };

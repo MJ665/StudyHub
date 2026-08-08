@@ -202,7 +202,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         <button
                           disabled={bulkProcessing}
                           onClick={() => handleBulkAction('activate')}
-                          className="px-4 py-2 bg-emerald-500/10 text-emerald-400 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 hover:text-white transition-all flex items-center gap-2"
+                          className="px-4 py-2 bg-emerald-500/10 text-emerald-400 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
                         >
                           {bulkProcessing ? <Loader2 size={12} className="animate-spin" /> : <Check size={12} />}
                           Activate
@@ -210,7 +210,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         <button
                           disabled={bulkProcessing}
                           onClick={() => handleBulkAction('deactivate')}
-                          className="px-4 py-2 bg-amber-500/10 text-amber-400 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-amber-500 hover:text-white transition-all flex items-center gap-2"
+                          className="px-4 py-2 bg-amber-500/10 text-amber-400 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-amber-500 hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
                         >
                           {bulkProcessing ? <Loader2 size={12} className="animate-spin" /> : <X size={12} />}
                           Deactivate
@@ -218,7 +218,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                       </div>
                       <button
                         onClick={() => setSelectedUserIds(new Set())}
-                        className="ml-4 text-on-surface-variant hover:text-white"
+                        className="ml-4 text-on-surface-variant hover:text-[var(--color-on-surface)]"
                       >
                         <X size={16} />
                       </button>
@@ -230,7 +230,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                     <select
                       value={roleFilter}
                       onChange={(e) => setRoleFilter(e.target.value)}
-                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-white font-bold outline-none cursor-pointer"
+                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-[var(--color-on-surface)] font-bold outline-none cursor-pointer"
                     >
                       <option value="All">All Roles</option>
                       <option value="Member">Member</option>
@@ -246,7 +246,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         setBatchFilter('All');
                         setGroupFilter('All');
                       }}
-                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-white font-bold outline-none cursor-pointer"
+                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-[var(--color-on-surface)] font-bold outline-none cursor-pointer"
                     >
                       <option value="All">All Verticals</option>
                       {[...new Set(users.map(u => u.vertical_name).filter(Boolean))].map((v: any) => (
@@ -261,7 +261,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         setBatchFilter(e.target.value);
                         setGroupFilter('All');
                       }}
-                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-white font-bold outline-none cursor-pointer disabled:opacity-30"
+                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-[var(--color-on-surface)] font-bold outline-none cursor-pointer disabled:opacity-30"
                     >
                       <option value="All">All Batches</option>
                       {[...new Set(users.filter(u => u.vertical_name === verticalFilter).map(u => u.batch_name).filter(Boolean))].map((b: any) => (
@@ -273,7 +273,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                       value={groupFilter}
                       disabled={batchFilter === 'All'}
                       onChange={(e) => setGroupFilter(e.target.value)}
-                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-white font-bold outline-none cursor-pointer disabled:opacity-30"
+                      className="bg-surface-dim border border-surface-bright rounded-xl px-4 py-3 text-[10px] text-[var(--color-on-surface)] font-bold outline-none cursor-pointer disabled:opacity-30"
                     >
                       <option value="All">All Groups</option>
                       {[...new Set(users.filter(u => u.batch_name === batchFilter).map(u => u.group_name).filter(Boolean))].map((g: any) => (
@@ -293,7 +293,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                       document.body.appendChild(link);
                       link.click();
                     }}
-                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/5 transition-all"
+                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/5 transition-all"
                   >
                     <Download size={14} /> Export Registry
                   </button>
@@ -344,7 +344,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                           <td className="px-8 py-6">
                             <div className="flex flex-col">
                               <span className="text-[10px] font-mono font-black text-brand-primary/60">#{u.id}</span>
-                              {u.member_id && <span className="text-[8px] font-sans font-black text-indigo-400 uppercase tracking-tighter">{u.member_id}</span>}
+                              {u.member_id && <span className="text-[8px] font-sans font-black text-[var(--color-brand-primary)] uppercase tracking-tighter">{u.member_id}</span>}
                             </div>
                           </td>
                           <td className="px-8 py-6">
@@ -353,22 +353,22 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                                 {u.full_name?.[0] || 'U'}
                               </div>
                               <div>
-                                <p className="text-sm font-black text-white">{u.full_name}</p>
-                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">{u.email}</p>
+                                <p className="text-sm font-black text-[var(--color-on-surface)]">{u.full_name}</p>
+                                <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-tight">{u.email}</p>
                               </div>
                             </div>
                           </td>
                           <td className="px-8 py-6">
                             <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${u.role === 'LDAdmin' ? 'bg-rose-500/10 border-rose-500/20 text-rose-400' :
                               u.role === 'Mentor' ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
-                                'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
+                                'bg-indigo-500/10 border-indigo-500/20 text-[var(--color-brand-primary)]'
                               }`}>
                               {u.role}
                             </span>
                           </td>
                           <td className="px-8 py-6">
                             <div className="flex flex-col gap-1">
-                              <p className="text-[10px] text-white font-black uppercase tracking-widest">
+                              <p className="text-[10px] text-[var(--color-on-surface)] font-black uppercase tracking-widest">
                                 {u.group_name || 'Global'}
                               </p>
                               <p className="text-[8px] text-slate-600 font-bold uppercase tracking-tight italic">
@@ -391,14 +391,14 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                                   // Scroll to the tool if on mobile/small screen, though sidebar is usually visible
                                   document.getElementById('role-override-tool')?.scrollIntoView({ behavior: 'smooth' });
                                 }}
-                                className="px-4 py-2 rounded-lg bg-indigo-500/10 text-indigo-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-500 hover:text-white border border-indigo-500/20"
+                                className="px-4 py-2 rounded-lg bg-indigo-500/10 text-[var(--color-brand-primary)] text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-500 hover:text-[var(--color-on-surface)] border border-indigo-500/20"
                               >
                                 Promote
                               </button>
                               {user?.role === 'LDAdmin' && (
                                 <button
                                   onClick={() => handleEmergencyReset(u)}
-                                  className="px-4 py-2 rounded-lg bg-rose-500/10 text-rose-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-500 hover:text-white border border-rose-500/20"
+                                  className="px-4 py-2 rounded-lg bg-rose-500/10 text-rose-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-500 hover:text-[var(--color-on-surface)] border border-rose-500/20"
                                 >
                                   Reset Pass
                                 </button>
@@ -421,7 +421,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                                       toast('error', err.message || 'Failed to delete user');
                                     }
                                   }}
-                                  className="px-4 py-2 rounded-lg bg-rose-600/10 text-rose-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-600 hover:text-white border border-rose-600/20"
+                                  className="px-4 py-2 rounded-lg bg-rose-600/10 text-rose-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-600 hover:text-[var(--color-on-surface)] border border-rose-600/20"
                                 >
                                   Delete
                                 </button>

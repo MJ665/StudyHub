@@ -119,29 +119,29 @@ export default function QuestionManagement({ user }: { user: any }) {
   return (
     <div className="space-y-8">
       {/* Search & Filter Header */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-slate-900/50 border border-white/5 p-6 rounded-[2rem] backdrop-blur-md">
-        <div className="flex items-center gap-4 bg-slate-950 border border-white/5 px-6 py-3 rounded-2xl w-full md:w-96 focus-within:border-brand-primary/50 transition-all">
-          <Search size={18} className="text-slate-500" />
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-[var(--color-surface-container)]/50 border border-white/5 p-6 rounded-[2rem] backdrop-blur-md">
+        <div className="flex items-center gap-4 bg-[var(--color-surface-dim)] border border-white/5 px-6 py-3 rounded-2xl w-full md:w-96 focus-within:border-brand-primary/50 transition-all">
+          <Search size={18} className="text-[var(--color-on-surface-variant)]" />
           <input 
             type="text" 
             placeholder="Search Registry..." 
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="bg-transparent border-none outline-none text-sm text-white w-full font-medium"
+            className="bg-transparent border-none outline-none text-sm text-[var(--color-on-surface)] w-full font-medium"
           />
         </div>
 
         <div className="flex items-center gap-3 w-full md:w-auto">
-          <div className="flex bg-slate-950 p-1 rounded-xl border border-white/5">
+          <div className="flex bg-[var(--color-surface-dim)] p-1 rounded-xl border border-white/5">
              <button 
                onClick={() => setActiveType('Quiz')}
-               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Quiz' ? 'bg-indigo-600 text-white' : 'text-slate-500 hover:text-white'}`}
+               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Quiz' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
              >
                Quiz Banks
              </button>
              <button 
                onClick={() => setActiveType('Coding')}
-               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Coding' ? 'bg-brand-primary text-slate-950' : 'text-slate-500 hover:text-white'}`}
+               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Coding' ? 'bg-brand-primary text-slate-950' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
              >
                Coding
              </button>
@@ -150,7 +150,7 @@ export default function QuestionManagement({ user }: { user: any }) {
           <select 
             value={selectedCourse} 
             onChange={e => setSelectedCourse(e.target.value === 'All' ? 'All' : Number(e.target.value))}
-            className="bg-slate-950 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-400 outline-none"
+            className="bg-[var(--color-surface-dim)] border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] outline-none"
           >
             <option value="All">All Courses</option>
             {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -158,7 +158,7 @@ export default function QuestionManagement({ user }: { user: any }) {
 
           <button 
             onClick={fetchResources}
-            className="p-2.5 bg-slate-950 border border-white/5 rounded-xl text-slate-500 hover:text-brand-primary transition-all"
+            className="p-2.5 bg-[var(--color-surface-dim)] border border-white/5 rounded-xl text-[var(--color-on-surface-variant)] hover:text-brand-primary transition-all"
           >
             <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
           </button>
@@ -176,29 +176,29 @@ export default function QuestionManagement({ user }: { user: any }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-slate-900 border border-white/5 rounded-[2rem] p-8 group hover:border-indigo-500/30 transition-all flex items-center justify-between"
+                className="bg-[var(--color-surface-container)] border border-white/5 rounded-[2rem] p-8 group hover:border-indigo-500/30 transition-all flex items-center justify-between"
               >
                 <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-indigo-500/20 group-hover:scale-110 transition-transform">
                     <Database size={28} />
                   </div>
                   <div>
-                    <h4 className="text-lg font-black text-white mb-1">{bank.name}</h4>
+                    <h4 className="text-lg font-black text-[var(--color-on-surface)] mb-1">{bank.name}</h4>
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1.5">
-                        <BookOpen size={12} className="text-slate-500" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{courses.find(c => c.id === bank.course_id)?.name || 'General'}</span>
+                        <BookOpen size={12} className="text-[var(--color-on-surface-variant)]" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">{courses.find(c => c.id === bank.course_id)?.name || 'General'}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Layers size={12} className="text-indigo-500" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">Quiz Bank</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">Quiz Bank</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                  <button onClick={() => openEditBank(bank)} className="p-3 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl transition-all border border-white/5">
+                  <button onClick={() => openEditBank(bank)} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
                     <Edit3 size={18} />
                   </button>
                   <button
@@ -219,18 +219,18 @@ export default function QuestionManagement({ user }: { user: any }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-slate-900 border border-white/5 rounded-[2rem] p-8 group hover:border-brand-primary/30 transition-all flex items-center justify-between"
+                className="bg-[var(--color-surface-container)] border border-white/5 rounded-[2rem] p-8 group hover:border-brand-primary/30 transition-all flex items-center justify-between"
               >
                 <div className="flex items-center gap-6">
                   <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 group-hover:scale-110 transition-transform">
                     <Code size={28} />
                   </div>
                   <div>
-                    <h4 className="text-lg font-black text-white mb-1">{q.title}</h4>
+                    <h4 className="text-lg font-black text-[var(--color-on-surface)] mb-1">{q.title}</h4>
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1.5">
-                        <BookOpen size={12} className="text-slate-500" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{courses.find(c => c.id === q.course_id)?.name || 'General'}</span>
+                        <BookOpen size={12} className="text-[var(--color-on-surface-variant)]" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">{courses.find(c => c.id === q.course_id)?.name || 'General'}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Terminal size={12} className="text-brand-primary" />
@@ -241,7 +241,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                 </div>
 
                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                  <button onClick={() => openEditCoding(q)} className="p-3 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl transition-all border border-white/5">
+                  <button onClick={() => openEditCoding(q)} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
                     <Edit3 size={18} />
                   </button>
                   <button
@@ -259,18 +259,18 @@ export default function QuestionManagement({ user }: { user: any }) {
 
         {((activeType === 'Quiz' && filteredBanks.length === 0) || (activeType === 'Coding' && filteredCoding.length === 0)) && !loading && (
           <div className="lg:col-span-2 py-20 text-center">
-             <div className="w-20 h-20 bg-slate-900 border border-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-slate-600">
+             <div className="w-20 h-20 bg-[var(--color-surface-container)] border border-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-slate-600">
                 <FilterX size={40} />
              </div>
-             <h3 className="text-xl font-black text-white">No Sector Matches</h3>
-             <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mt-2">Adjust your filters or initiate new resource protocols.</p>
+             <h3 className="text-xl font-black text-[var(--color-on-surface)]">No Sector Matches</h3>
+             <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mt-2">Adjust your filters or initiate new resource protocols.</p>
           </div>
         )}
 
         {loading && (
           <div className="lg:col-span-2 py-20 text-center">
              <Loader2 size={40} className="text-brand-primary animate-spin mx-auto mb-6" />
-             <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Synchronizing Registry...</p>
+             <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest">Synchronizing Registry...</p>
           </div>
         )}
       </div>
@@ -292,15 +292,15 @@ export default function QuestionManagement({ user }: { user: any }) {
       <AnimatePresence>
         {editItem && (
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => !savingEdit && setEditItem(null)}>
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl p-6 shadow-2xl">
-              <div className="flex items-center gap-2 text-indigo-400 mb-4"><Edit3 size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Edit {editItem.type === 'Quiz' ? 'Question Bank' : 'Coding Challenge'}</span></div>
-              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">{editItem.type === 'Quiz' ? 'Bank name' : 'Title'}</label>
-              <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 text-sm text-white mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
-              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Description</label>
-              <textarea value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} rows={3} className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 text-sm text-white mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-lg bg-[var(--color-surface-container)] border border-white/10 rounded-3xl p-6 shadow-2xl">
+              <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-4"><Edit3 size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Edit {editItem.type === 'Quiz' ? 'Question Bank' : 'Coding Challenge'}</span></div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{editItem.type === 'Quiz' ? 'Bank name' : 'Title'}</label>
+              <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Description</label>
+              <textarea value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} rows={3} className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
               <div className="flex justify-end gap-2">
-                <button disabled={savingEdit} onClick={() => setEditItem(null)} className="px-4 py-2 text-slate-400 hover:text-white text-xs font-bold">Cancel</button>
-                <button disabled={savingEdit} onClick={saveEdit} className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-2">
+                <button disabled={savingEdit} onClick={() => setEditItem(null)} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
+                <button disabled={savingEdit} onClick={saveEdit} className="px-5 py-2 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] text-xs font-bold flex items-center gap-2">
                   {savingEdit ? <Loader2 size={14} className="animate-spin" /> : 'Save'}
                 </button>
               </div>

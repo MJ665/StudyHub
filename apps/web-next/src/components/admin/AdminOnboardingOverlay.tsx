@@ -189,18 +189,18 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
               >
                 <div className="flex justify-between items-center mb-10">
                   <div>
-                    <h3 className="text-3xl font-black text-white">{view === 'onboarding' ? 'Bulk Onboarding Protocol' : view === 'addUser' ? 'Ad-Hoc Member Registration' : 'Register Strategic Mentor'}</h3>
-                    <p className="text-[10px] text-indigo-400 font-black uppercase tracking-[0.3em] mt-2">Node: {nodeDetails?.name || 'Global Registry'}</p>
+                    <h3 className="text-3xl font-black text-[var(--color-on-surface)]">{view === 'onboarding' ? 'Bulk Onboarding Protocol' : view === 'addUser' ? 'Ad-Hoc Member Registration' : 'Register Strategic Mentor'}</h3>
+                    <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-2">Node: {nodeDetails?.name || 'Global Registry'}</p>
                   </div>
-                  <button onClick={() => setView('dashboard')} className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl transition-all text-slate-500 hover:text-white"><ArrowLeft size={24} /></button>
+                  <button onClick={() => setView('dashboard')} className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl transition-all text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><ArrowLeft size={24} /></button>
                 </div>
 
                 {view === 'onboarding' ? (
                   <div className="space-y-8">
                     <div>
-                      <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Target Group Link</label>
+                      <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Target Group Link</label>
                       <select
-                        className="w-full bg-slate-900 border border-white/5 rounded-2xl p-5 text-white font-bold outline-none"
+                        className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-5 text-[var(--color-on-surface)] font-bold outline-none"
                         value={nodeDetails?.id || ''}
                         onChange={(e) => {
                           const id = parseInt(e.target.value);
@@ -218,12 +218,12 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                       <p className="text-[10px] text-brand-primary leading-relaxed font-bold">Each entity receives individual credentials by email after integration.</p>
                     </div>
                     <div>
-                      <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Data Stream (Full Name, Email, MemberID*)</label>
+                      <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Data Stream (Full Name, Email, MemberID*)</label>
                       <textarea
                         value={onboardingData}
                         onChange={(e) => setOnboardingData(e.target.value)}
                         placeholder="John Wick, bobby@continental.com, EMP001&#10;Winston Scott, winston@continental.com, EMP002"
-                        className="w-full h-48 bg-slate-900 border border-white/5 rounded-3xl p-6 text-white font-mono text-sm resize-none outline-none ring-1 ring-white/10"
+                        className="w-full h-48 bg-[var(--color-surface-container)] border border-white/5 rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-sm resize-none outline-none ring-1 ring-white/10"
                       />
                       <p className="text-[9px] text-slate-600 mt-2 italic">* CSV Format: One entity per line. MemberID is optional but recommended.</p>
                     </div>
@@ -245,7 +245,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                         } catch (err: any) { toast('error', err.message); }
                         finally { setProcessing(false); }
                       }}
-                      className="w-full bg-indigo-600 text-white py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 disabled:opacity-30"
+                      className="w-full bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 disabled:opacity-30"
                     >
                       {processing ? <Loader2 className="animate-spin" /> : <BadgeCheck />}
                       Execute Integration Flow
@@ -255,9 +255,9 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                   <div className="space-y-6">
                     <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Target Group</label>
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Target Group</label>
                         <select
-                          className="w-full bg-slate-900 border border-white/5 rounded-2xl p-4 text-white font-bold text-sm outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold text-sm outline-none"
                           value={nodeDetails?.id || ''}
                           onChange={(e) => {
                             const id = parseInt(e.target.value);
@@ -272,48 +272,48 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Corporate Role</label>
-                        <input value={view === 'addMentor' ? 'Mentor' : 'Member'} disabled className="w-full bg-white/5 border border-white/5 rounded-2xl p-4 text-slate-500 font-bold text-sm" />
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Corporate Role</label>
+                        <input value={view === 'addMentor' ? 'Mentor' : 'Member'} disabled className="w-full bg-white/5 border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface-variant)] font-bold text-sm" />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Full Legal Name</label>
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Full Legal Name</label>
                         <input
                           value={individualUser.fullName}
                           onChange={e => setIndividualUser({ ...individualUser, fullName: e.target.value })}
                           placeholder="e.g. Satoshi Nakamoto"
-                          className="w-full bg-slate-900 border border-white/5 rounded-2xl p-4 text-white font-bold outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Registry Email</label>
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Registry Email</label>
                         <input
                           value={individualUser.email}
                           onChange={e => setIndividualUser({ ...individualUser, email: e.target.value })}
                           placeholder="satoshi@bitcoin.org"
-                          className="w-full bg-slate-900 border border-white/5 rounded-2xl p-4 text-white font-bold outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Strategic Entity ID (Optional)</label>
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Strategic Entity ID (Optional)</label>
                         <input
                           value={individualUser.memberId}
                           onChange={e => setIndividualUser({ ...individualUser, memberId: e.target.value })}
                           placeholder="e.g. EMP-99"
-                          className="w-full bg-slate-900 border border-white/5 rounded-2xl p-4 text-white font-bold outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-[0.2em]">Identity Password (Override)</label>
+                        <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Identity Password (Override)</label>
                         <input
                           type="password"
                           value={individualUser.password}
                           onChange={e => setIndividualUser({ ...individualUser, password: e.target.value })}
                           placeholder="••••••••"
-                          className="w-full bg-slate-900 border border-white/5 rounded-2xl p-4 text-white font-bold outline-none ring-1 ring-brand-primary/20"
+                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none ring-1 ring-brand-primary/20"
                         />
                       </div>
                     </div>
@@ -336,7 +336,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                         } catch (err: any) { toast('error', err.message); }
                         finally { setProcessing(false); }
                       }}
-                      className="w-full bg-emerald-600 text-white py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-emerald-600/30 flex items-center justify-center gap-3 disabled:opacity-30"
+                      className="w-full bg-emerald-600 text-[var(--color-on-surface)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-emerald-600/30 flex items-center justify-center gap-3 disabled:opacity-30"
                     >
                       {processing ? <Loader2 className="animate-spin" /> : <Check />}
                       Register Entity

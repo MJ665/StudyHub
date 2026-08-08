@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import ApiService from '@/services/ApiService';
 
-const input = 'w-full rounded-lg bg-slate-800 border border-slate-700 px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500';
-const label = 'block text-slate-400 text-xs uppercase tracking-widest mb-1.5';
+const input = 'w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500';
+const label = 'block text-[var(--color-on-surface-variant)] text-xs uppercase tracking-widest mb-1.5';
 
 export default function OnboardPage() {
   const [token, setToken] = useState<string | null>(null);
@@ -67,21 +67,21 @@ export default function OnboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="text-emerald-400 font-black text-2xl">StudyBuddy</div>
-          <div className="text-slate-500 text-sm">Multi-tenant AI assessment platform</div>
+          <div className="text-[var(--color-on-surface-variant)] text-sm">Multi-tenant AI assessment platform</div>
         </div>
 
         {msg ? (
           <div className="rounded-xl bg-emerald-500/10 text-emerald-300 p-6 text-center">{msg}</div>
         ) : !checked ? (
-          <div className="text-slate-500 text-center">Loading…</div>
+          <div className="text-[var(--color-on-surface-variant)] text-center">Loading…</div>
         ) : token ? (
           // Completion wizard (token present)
           org ? (
-            <form onSubmit={submitComplete} className="rounded-xl bg-slate-900 border border-slate-800 p-6 space-y-4">
+            <form onSubmit={submitComplete} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-6 space-y-4">
               <h1 className="font-bold text-lg">Finish onboarding {org.org_name}</h1>
               {err && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-3 text-sm">{err}</div>}
               <div><label className={label}>L&amp;D Admin full name</label><input className={input} value={adminName} onChange={(e) => setAdminName(e.target.value)} required /></div>
@@ -98,7 +98,7 @@ export default function OnboardPage() {
           )
         ) : (
           // Public signup (no token)
-          <form onSubmit={submitSignup} className="rounded-xl bg-slate-900 border border-slate-800 p-6 space-y-4">
+          <form onSubmit={submitSignup} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-6 space-y-4">
             <h1 className="font-bold text-lg">Register your organization</h1>
             {err && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-3 text-sm">{err}</div>}
             <div><label className={label}>Organization name</label><input className={input} value={orgName} onChange={(e) => setOrgName(e.target.value)} required minLength={2} /></div>

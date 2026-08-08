@@ -112,7 +112,7 @@ export default function PublicProfile({
   };
 
   if (loading) return (
-    <div className="flex-1 flex items-center justify-center bg-slate-950">
+    <div className="flex-1 flex items-center justify-center bg-[var(--color-surface-dim)]">
       <div className="relative">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-indigo-500 border-r-2 border-r-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -123,13 +123,13 @@ export default function PublicProfile({
   );
 
   if (!profile) return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-slate-950 p-8 text-center">
-      <div className="w-20 h-20 bg-slate-900 rounded-full flex items-center justify-center mb-6 text-slate-700 border border-white/5">
+    <div className="flex-1 flex flex-col items-center justify-center bg-[var(--color-surface-dim)] p-8 text-center">
+      <div className="w-20 h-20 bg-[var(--color-surface-container)] rounded-full flex items-center justify-center mb-6 text-slate-700 border border-white/5">
         <User size={40} />
       </div>
-      <h2 className="text-2xl font-black text-white mb-2">Registry Entry Missing</h2>
-      <p className="text-slate-500 mb-8 max-w-sm">The profile you are looking for does not exist or has been decommissioned.</p>
-      <button onClick={onBack} className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold border border-white/10 transition-all">
+      <h2 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Registry Entry Missing</h2>
+      <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm">The profile you are looking for does not exist or has been decommissioned.</p>
+      <button onClick={onBack} className="px-6 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-xl font-bold border border-white/10 transition-all">
         Back to Dashboard
       </button>
     </div>
@@ -145,18 +145,18 @@ export default function PublicProfile({
 
   // Helper for KPI Cards
   const KPICard = ({ label, value, sub, icon, color }: any) => (
-    <div className="p-6 bg-slate-900/40 rounded-3xl border border-white/5 hover:border-white/10 transition-all group">
+    <div className="p-6 bg-[var(--color-surface-container)]/40 rounded-3xl border border-white/5 hover:border-white/10 transition-all group">
       <div className={`w-10 h-10 rounded-xl bg-${color}-500/10 flex items-center justify-center text-${color}-400 mb-4 border border-${color}-500/20 group-hover:scale-110 transition-transform`}>
         {icon}
       </div>
-      <div className="text-2xl font-black text-white mb-1">{value}</div>
-      <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{label}</div>
+      <div className="text-2xl font-black text-[var(--color-on-surface)] mb-1">{value}</div>
+      <div className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">{label}</div>
       {sub && <div className="text-[10px] text-slate-600 mt-1 font-bold">{sub}</div>}
     </div>
   );
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-950 text-slate-200 scroll-smooth">
+    <div className="flex-1 overflow-y-auto bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] scroll-smooth">
       {/* ─── Hero Section ────────────────────────────────────────── */}
       <div className="relative">
         <div className="h-72 bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-950 border-b border-white/5 relative overflow-hidden">
@@ -164,7 +164,7 @@ export default function PublicProfile({
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
           
           <div className="absolute top-6 left-8 flex gap-4">
-            <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all rounded-xl text-xs font-black border border-white/10">
+            <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all rounded-xl text-xs font-black border border-white/10">
               ← BACK
             </button>
           </div>
@@ -173,7 +173,7 @@ export default function PublicProfile({
              <button onClick={() => {
                navigator.clipboard.writeText(window.location.href);
                toast('success', 'Tactical profile link copied to clipboard');
-             }} className="p-2.5 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all rounded-xl border border-white/10">
+             }} className="p-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all rounded-xl border border-white/10">
                 <Share2 size={18} />
              </button>
           </div>
@@ -182,28 +182,28 @@ export default function PublicProfile({
         <div className="px-10 -mt-24 max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row items-end gap-8 mb-12">
             <div className="relative group">
-              <div className="w-48 h-48 rounded-[3rem] bg-slate-800 border-[6px] border-slate-950 overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02]">
+              <div className="w-48 h-48 rounded-[3rem] bg-[var(--color-surface-container-high)] border-[6px] border-slate-950 overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02]">
                 {profile.profile_photo_url ? (
                   <img src={profile.profile_photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-white text-6xl font-black">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-[var(--color-on-surface)] text-6xl font-black">
                     {initials}
                   </div>
                 )}
               </div>
-              <div className="absolute -bottom-2 -right-2 bg-indigo-500 text-white p-3 rounded-2xl shadow-xl border-[4px] border-slate-950">
+              <div className="absolute -bottom-2 -right-2 bg-indigo-500 text-[var(--color-on-surface)] p-3 rounded-2xl shadow-xl border-[4px] border-slate-950">
                 <ShieldCheck size={24} />
               </div>
             </div>
 
             <div className="flex-1 pb-4">
               <div className="flex items-center gap-4 mb-4 flex-wrap">
-                <h1 className="text-5xl font-black text-white tracking-tight">{profile.full_name}</h1>
+                <h1 className="text-5xl font-black text-[var(--color-on-surface)] tracking-tight">{profile.full_name}</h1>
                 <div className="flex items-center gap-2">
-                    <span className="px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-indigo-400">
+                    <span className="px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">
                     {profile.role}
                     </span>
-                    <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                     {profile.hierarchy?.organization || 'Registry Organization'}
                     </span>
                     {profile.streak_count > 0 && (
@@ -213,21 +213,21 @@ export default function PublicProfile({
                     )}
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-6 text-slate-400 text-sm font-bold">
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Mail size={16} className="text-indigo-400" /> {profile.email}</span>
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Building2 size={16} className="text-indigo-400" /> {profile.hierarchy?.department || 'Operations'}</span>
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Globe size={16} className="text-indigo-400" /> studybuddy.mj665.in/profile/{profile.custom_slug || emailPrefix}</span>
+              <div className="flex flex-wrap items-center gap-6 text-[var(--color-on-surface-variant)] text-sm font-bold">
+                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Mail size={16} className="text-[var(--color-brand-primary)]" /> {profile.email}</span>
+                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Building2 size={16} className="text-[var(--color-brand-primary)]" /> {profile.hierarchy?.department || 'Operations'}</span>
+                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Globe size={16} className="text-[var(--color-brand-primary)]" /> studybuddy.mj665.in/profile/{profile.custom_slug || emailPrefix}</span>
               </div>
             </div>
 
             <div className="flex gap-3 pb-4">
               {profile.linkedin_url && (
-                <a href={normalizeExternalUrl(profile.linkedin_url)} target="_blank" rel="noopener" className="p-4 bg-white/5 hover:bg-blue-600/20 text-slate-400 hover:text-blue-400 rounded-2xl border border-white/10 transition-all shadow-lg hover:shadow-blue-600/10">
+                <a href={normalizeExternalUrl(profile.linkedin_url)} target="_blank" rel="noopener" className="p-4 bg-white/5 hover:bg-blue-600/20 text-[var(--color-on-surface-variant)] hover:text-blue-400 rounded-2xl border border-white/10 transition-all shadow-lg hover:shadow-blue-600/10">
                   <Linkedin size={24} />
                 </a>
               )}
               {profile.github_url && (
-                <a href={normalizeExternalUrl(profile.github_url)} target="_blank" rel="noopener" className="p-4 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-2xl border border-white/10 transition-all shadow-lg">
+                <a href={normalizeExternalUrl(profile.github_url)} target="_blank" rel="noopener" className="p-4 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl border border-white/10 transition-all shadow-lg">
                   <Github size={24} />
                 </a>
               )}
@@ -240,10 +240,10 @@ export default function PublicProfile({
             if (!embed) return null;
             return (
               <div className="mb-10">
-                <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-slate-400 mb-4">
-                  <Sparkles size={16} className="text-indigo-400" /> Introduction
+                <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4">
+                  <Sparkles size={16} className="text-[var(--color-brand-primary)]" /> Introduction
                 </h3>
-                <div className="relative w-full max-w-3xl aspect-video rounded-3xl overflow-hidden border border-white/10 bg-slate-900 shadow-2xl">
+                <div className="relative w-full max-w-3xl aspect-video rounded-3xl overflow-hidden border border-white/10 bg-[var(--color-surface-container)] shadow-2xl">
                   {embed.kind === 'iframe' ? (
                     <iframe
                       src={embed.src}
@@ -261,7 +261,7 @@ export default function PublicProfile({
           })()}
 
           {/* ─── Navigation Tabs ────────────────────────────────────── */}
-          <div className="flex gap-1 p-1.5 bg-slate-900/60 rounded-2xl border border-white/5 w-fit mb-10 overflow-x-auto">
+          <div className="flex gap-1 p-1.5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 w-fit mb-10 overflow-x-auto">
             {([
               { id: 'STRATEGIC', label: 'STRATEGIC OVERVIEW', icon: <Target size={14} /> },
               { id: 'ANALYTICS', label: 'DEEP ANALYTICS', icon: <BarChart3 size={14} /> },
@@ -274,8 +274,8 @@ export default function PublicProfile({
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                   activeTab === tab.id 
-                  ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20 border border-indigo-500/50' 
-                  : 'text-slate-500 hover:text-slate-300'
+                  ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-xl shadow-indigo-600/20 border border-indigo-500/50' 
+                  : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
                 {tab.icon} {tab.label}
@@ -298,20 +298,20 @@ export default function PublicProfile({
                   <div className="lg:col-span-2 space-y-8">
                     {/* Bio Section */}
                     {profile.bio && (
-                      <div className="p-10 bg-slate-900/60 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+                      <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
                         <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
-                        <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-6 flex items-center gap-2">
-                          <User size={14} className="text-indigo-400" /> OPERATOR BIOGRAPHY
+                        <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
+                          <User size={14} className="text-[var(--color-brand-primary)]" /> OPERATOR BIOGRAPHY
                         </h3>
-                        <p className="text-2xl text-slate-200 leading-relaxed font-medium italic">"{profile.bio}"</p>
+                        <p className="text-2xl text-[var(--color-on-surface)] leading-relaxed font-medium italic">"{profile.bio}"</p>
                       </div>
                     )}
 
                     {/* Performance Vectors (Radar) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="p-8 bg-slate-900/60 rounded-[2.5rem] border border-white/5 flex flex-col items-center">
-                         <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8 self-start flex items-center gap-2">
-                           <BrainCircuit size={14} className="text-indigo-400" /> PROFICIENCY VECTORS
+                      <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 flex flex-col items-center">
+                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 self-start flex items-center gap-2">
+                           <BrainCircuit size={14} className="text-[var(--color-brand-primary)]" /> PROFICIENCY VECTORS
                          </h3>
                          <div className="w-full aspect-square max-w-[300px]">
                             <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -330,20 +330,20 @@ export default function PublicProfile({
                             </ResponsiveContainer>
                          </div>
                          <div className="mt-6 text-center">
-                            <div className="text-3xl font-black text-white">{charts.weighted_proficiency}%</div>
-                            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Global Blend Index</div>
+                            <div className="text-3xl font-black text-[var(--color-on-surface)]">{charts.weighted_proficiency}%</div>
+                            <div className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Global Blend Index</div>
                          </div>
                       </div>
 
-                      <div className="p-8 bg-slate-900/60 rounded-[2.5rem] border border-white/5">
-                        <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8 flex items-center gap-2">
-                          <Layers size={14} className="text-indigo-400" /> SKILL CLUSTER
+                      <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                        <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
+                          <Layers size={14} className="text-[var(--color-brand-primary)]" /> SKILL CLUSTER
                         </h3>
                         <div className="flex flex-wrap gap-3">
                           {(profile.expertise_json?.skills || []).map((s: string, i: number) => (
                             <div key={i} className="group relative">
                                 <div className="absolute inset-0 bg-indigo-500/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <span className="relative px-4 py-2.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl text-xs font-black uppercase tracking-wider block">
+                                <span className="relative px-4 py-2.5 bg-indigo-500/10 border border-indigo-500/20 text-[var(--color-brand-primary)] rounded-xl text-xs font-black uppercase tracking-wider block">
                                     {s}
                                 </span>
                             </div>
@@ -352,10 +352,10 @@ export default function PublicProfile({
                         
                         <div className="mt-12 pt-12 border-t border-white/5">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Consistency Rating</span>
+                                <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency Rating</span>
                                 <span className="text-xs font-black text-emerald-400 uppercase">{metrics.m18b_consistency_label?.value || 'Stable'}</span>
                             </div>
-                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                                 <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${metrics.m18_consistency?.raw || 70}%` }}
@@ -391,47 +391,47 @@ export default function PublicProfile({
                      />
                      
                      <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-white/5">
-                        <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-6 flex items-center gap-2">
-                           <Layers size={14} className="text-indigo-400" /> TACTICAL HIERARCHY
+                        <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
+                           <Layers size={14} className="text-[var(--color-brand-primary)]" /> TACTICAL HIERARCHY
                         </h3>
                         <div className="space-y-4">
                            <div className="flex flex-col">
                               <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Organization</span>
-                              <span className="text-xs font-bold text-slate-200">{profile.hierarchy?.organization}</span>
+                              <span className="text-xs font-bold text-[var(--color-on-surface)]">{profile.hierarchy?.organization}</span>
                            </div>
                            <div className="flex flex-col">
                               <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Department</span>
-                              <span className="text-xs font-bold text-slate-200">{profile.hierarchy?.department}</span>
+                              <span className="text-xs font-bold text-[var(--color-on-surface)]">{profile.hierarchy?.department}</span>
                            </div>
                            <div className="flex flex-col">
                               <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Batch Registry</span>
-                              <span className="text-xs font-bold text-slate-200">{profile.hierarchy?.batch}</span>
+                              <span className="text-xs font-bold text-[var(--color-on-surface)]">{profile.hierarchy?.batch}</span>
                            </div>
                            <div className="flex flex-col">
                               <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Tactical Group</span>
-                              <span className="text-xs font-bold text-indigo-400">{profile.hierarchy?.group}</span>
+                              <span className="text-xs font-bold text-[var(--color-brand-primary)]">{profile.hierarchy?.group}</span>
                            </div>
                         </div>
                      </div>
 
                      <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-white/5">
-                        <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-6 flex items-center gap-2">
+                        <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
                            <Activity size={14} className="text-emerald-400" /> STATUS SUMMARY
                         </h3>
                         <div className="space-y-5">
                            <div className="flex items-center justify-between">
-                              <span className="text-xs text-slate-500 font-bold">Registry Status</span>
+                              <span className="text-xs text-[var(--color-on-surface-variant)] font-bold">Registry Status</span>
                               <span className="flex items-center gap-1.5 text-xs font-black text-emerald-400">
                                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> ACTIVE
                               </span>
                            </div>
                            <div className="flex items-center justify-between">
-                              <span className="text-xs text-slate-500 font-bold">Risk Level</span>
-                              <span className="text-xs font-black text-slate-200">{metrics.m29_risk?.value || 'On Track'}</span>
+                              <span className="text-xs text-[var(--color-on-surface-variant)] font-bold">Risk Level</span>
+                              <span className="text-xs font-black text-[var(--color-on-surface)]">{metrics.m29_risk?.value || 'On Track'}</span>
                            </div>
                            <div className="flex items-center justify-between">
-                              <span className="text-xs text-slate-500 font-bold">Trajectory</span>
-                              <span className="text-xs font-black text-indigo-400">{metrics.m17b_velocity_label?.value || 'Improving'}</span>
+                              <span className="text-xs text-[var(--color-on-surface-variant)] font-bold">Trajectory</span>
+                              <span className="text-xs font-black text-[var(--color-brand-primary)]">{metrics.m17b_velocity_label?.value || 'Improving'}</span>
                            </div>
                         </div>
                      </div>
@@ -442,17 +442,17 @@ export default function PublicProfile({
               {/* ─── ANALYTICS TAB ──────────────────────────────────── */}
               {activeTab === 'ANALYTICS' && (
                 <div className="space-y-8">
-                   <div className="p-10 bg-slate-900/60 rounded-[2.5rem] border border-white/5">
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8 flex items-center gap-2">
+                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
                         <Activity size={14} className="text-fuchsia-400" /> ANNUAL ENGAGEMENT REGISTRY
                       </h3>
                       <ActivityHeatmap userId={profile.id} initialData={profile.heatmap} />
                    </div>
 
                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                   <div className="p-10 bg-slate-900/60 rounded-[2.5rem] border border-white/5">
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8 flex items-center gap-2">
-                        <TrendingUp size={14} className="text-indigo-400" /> SCORE TRAJECTORY (LAST 7 DAYS)
+                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
+                        <TrendingUp size={14} className="text-[var(--color-brand-primary)]" /> SCORE TRAJECTORY (LAST 7 DAYS)
                       </h3>
                       <div className="h-[300px] w-full">
                          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -472,27 +472,27 @@ export default function PublicProfile({
                       </div>
                    </div>
 
-                   <div className="p-10 bg-slate-900/60 rounded-[2.5rem] border border-white/5">
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8 flex items-center gap-2">
+                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
                         <Zap size={14} className="text-amber-400" /> TOPIC BREADTH & MASTERY
                       </h3>
                       <div className="space-y-6">
                         {(charts.topic_mastery || []).slice(0, 5).map((t: any, i: number) => (
                            <div key={i}>
                               <div className="flex items-center justify-between mb-2">
-                                 <span className="text-xs font-black text-white uppercase tracking-wider">{t.topic}</span>
+                                 <span className="text-xs font-black text-[var(--color-on-surface)] uppercase tracking-wider">{t.topic}</span>
                                  <div className="flex items-center gap-3">
                                     <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
                                        t.mastery === 'Expert' ? 'bg-emerald-500/10 text-emerald-400' :
-                                       t.mastery === 'Proficient' ? 'bg-indigo-500/10 text-indigo-400' :
-                                       'bg-slate-500/10 text-slate-400'
+                                       t.mastery === 'Proficient' ? 'bg-indigo-500/10 text-[var(--color-brand-primary)]' :
+                                       'bg-slate-500/10 text-[var(--color-on-surface-variant)]'
                                     }`}>
                                        {t.mastery}
                                     </span>
-                                    <span className="text-xs font-bold text-slate-400">{t.avg_accuracy}%</span>
+                                    <span className="text-xs font-bold text-[var(--color-on-surface-variant)]">{t.avg_accuracy}%</span>
                                  </div>
                               </div>
-                              <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                              <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                                  <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${t.avg_accuracy}%` }}
@@ -513,11 +513,11 @@ export default function PublicProfile({
               {/* ─── ATLAS TAB ──────────────────────────────────── */}
               {activeTab === 'ATLAS' && (
                 <div className="max-w-4xl mx-auto space-y-8">
-                   <div className="p-12 bg-slate-900/60 rounded-[3rem] border border-white/5 relative overflow-hidden">
+                   <div className="p-12 bg-[var(--color-surface-container)]/60 rounded-[3rem] border border-white/5 relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-12 opacity-5">
                          <Map size={180} className="text-indigo-500" />
                       </div>
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-10 flex items-center gap-2">
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-10 flex items-center gap-2">
                          <Sparkles size={14} className="text-violet-400" /> AI GROWTH NARRATIVE
                       </h3>
                       <div className="space-y-12 relative z-10">
@@ -529,18 +529,18 @@ export default function PublicProfile({
                               transition={{ delay: i * 0.1 }}
                               className="flex gap-8 group"
                            >
-                              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-black shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[var(--color-brand-primary)] font-black shrink-0 group-hover:bg-[var(--color-brand-primary-container)] group-hover:text-[var(--color-on-surface)] transition-all">
                                  {i + 1}
                               </div>
                               <div className="pt-2">
-                                 <p className="text-xl text-slate-200 leading-relaxed font-medium">{point}</p>
+                                 <p className="text-xl text-[var(--color-on-surface)] leading-relaxed font-medium">{point}</p>
                               </div>
                            </motion.div>
                         ))}
                         {atlas.length === 0 && (
                            <div className="text-center py-20">
                               <BrainCircuit size={48} className="text-slate-800 mx-auto mb-6" />
-                              <p className="text-slate-500 italic">The AI growth model is currently processing this operator's vectors.</p>
+                              <p className="text-[var(--color-on-surface-variant)] italic">The AI growth model is currently processing this operator's vectors.</p>
                            </div>
                         )}
                       </div>
@@ -552,47 +552,47 @@ export default function PublicProfile({
               {activeTab === 'REGISTRY' && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                    <div className="space-y-6">
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-2">
-                        <ScrollText size={14} className="text-indigo-400" /> QUIZ ATTEMPTS
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] flex items-center gap-2">
+                        <ScrollText size={14} className="text-[var(--color-brand-primary)]" /> QUIZ ATTEMPTS
                       </h3>
                       <div className="space-y-4">
                          {(registry.quiz_attempts || []).slice(0, 10).map((a: any) => (
-                            <div key={a.id} className="p-5 bg-slate-900/40 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-slate-900/60 transition-colors">
+                            <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
                                <div className="flex items-center gap-4">
-                                  <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-indigo-400">
+                                  <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-[var(--color-brand-primary)]">
                                      <Code2 size={20} />
                                   </div>
                                   <div>
-                                     <div className="text-sm font-bold text-white">{a.bank_name}</div>
-                                     <div className="text-[10px] text-slate-500 font-black uppercase tracking-tighter">{new Date(a.attempted_at).toLocaleDateString()}</div>
+                                     <div className="text-sm font-bold text-[var(--color-on-surface)]">{a.bank_name}</div>
+                                     <div className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-tighter">{new Date(a.attempted_at).toLocaleDateString()}</div>
                                   </div>
                                </div>
                                <div className="text-right">
-                                  <div className="text-lg font-black text-indigo-400">{Math.round(a.score/a.total * 100)}%</div>
+                                  <div className="text-lg font-black text-[var(--color-brand-primary)]">{Math.round(a.score/a.total * 100)}%</div>
                                   <div className="text-[10px] text-slate-600 font-bold uppercase">{a.score}/{a.total}</div>
                                </div>
                             </div>
                          ))}
                          {(!registry.quiz_attempts || registry.quiz_attempts.length === 0) && (
-                            <div className="text-center py-10 bg-slate-900/20 rounded-2xl border border-dashed border-white/5 text-slate-600 italic">No quiz history recorded.</div>
+                            <div className="text-center py-10 bg-[var(--color-surface-container)]/20 rounded-2xl border border-dashed border-white/5 text-slate-600 italic">No quiz history recorded.</div>
                          )}
                       </div>
                    </div>
 
                    <div className="space-y-6">
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-2">
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] flex items-center gap-2">
                         <Cpu size={14} className="text-violet-400" /> CODING LAB SESSIONS
                       </h3>
                       <div className="space-y-4">
                          {(registry.coding_attempts || []).slice(0, 10).map((a: any) => (
-                            <div key={a.id} className="p-5 bg-slate-900/40 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-slate-900/60 transition-colors">
+                            <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
                                <div className="flex items-center gap-4">
-                                  <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-violet-400">
+                                  <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-violet-400">
                                      <Zap size={20} />
                                   </div>
                                   <div>
-                                     <div className="text-sm font-bold text-white">{a.question_title}</div>
-                                     <div className="text-[10px] text-slate-500 font-black uppercase tracking-tighter">{new Date(a.attempted_at).toLocaleDateString()}</div>
+                                     <div className="text-sm font-bold text-[var(--color-on-surface)]">{a.question_title}</div>
+                                     <div className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-tighter">{new Date(a.attempted_at).toLocaleDateString()}</div>
                                   </div>
                                </div>
                                <div className="text-right">
@@ -602,7 +602,7 @@ export default function PublicProfile({
                             </div>
                          ))}
                          {(!registry.coding_attempts || registry.coding_attempts.length === 0) && (
-                            <div className="text-center py-10 bg-slate-900/20 rounded-2xl border border-dashed border-white/5 text-slate-600 italic">No coding sessions recorded.</div>
+                            <div className="text-center py-10 bg-[var(--color-surface-container)]/20 rounded-2xl border border-dashed border-white/5 text-slate-600 italic">No coding sessions recorded.</div>
                          )}
                       </div>
                    </div>
@@ -614,15 +614,15 @@ export default function PublicProfile({
                 <div className="max-w-4xl mx-auto space-y-12">
                    <div className="space-y-6">
                       <div className="flex items-center justify-between">
-                         <h3 className="text-2xl font-black text-white flex items-center gap-4">
-                           <MessageSquare size={28} className="text-indigo-400" /> Professional Endorsements
+                         <h3 className="text-2xl font-black text-[var(--color-on-surface)] flex items-center gap-4">
+                           <MessageSquare size={28} className="text-[var(--color-brand-primary)]" /> Professional Endorsements
                          </h3>
-                         <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-black text-slate-400">
+                         <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-black text-[var(--color-on-surface-variant)]">
                             {profile.comments?.length || 0} CONTRIBUTIONS
                          </span>
                       </div>
 
-                      <div className="bg-slate-900/60 rounded-[2.5rem] border border-white/5 p-10">
+                      <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 p-10">
                         {isLoggedIn ? (
                           <div className="space-y-6">
                             <div className="relative group">
@@ -630,16 +630,16 @@ export default function PublicProfile({
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
                                 placeholder="Provide a professional assessment or drop a word of encouragement..."
-                                className="w-full bg-slate-800/40 border border-white/5 rounded-3xl p-8 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-indigo-500/50 transition-all resize-none h-40 text-lg"
+                                className="w-full bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-3xl p-8 text-[var(--color-on-surface)] placeholder:text-slate-600 focus:outline-none focus:border-indigo-500/50 transition-all resize-none h-40 text-lg"
                               />
                               <div className="absolute inset-0 bg-indigo-500/5 rounded-3xl opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
                             </div>
                             <div className="flex items-center justify-between">
-                               <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">Signed interaction via secure registry</p>
+                               <p className="text-xs text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">Signed interaction via secure registry</p>
                                <button 
                                 onClick={handlePostComment}
                                 disabled={submitting || !comment.trim()}
-                                className="flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-black shadow-2xl shadow-indigo-600/30 transition-all disabled:opacity-50 hover:scale-[1.02] active:scale-95"
+                                className="flex items-center gap-3 px-8 py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-2xl font-black shadow-2xl shadow-indigo-600/30 transition-all disabled:opacity-50 hover:scale-[1.02] active:scale-95"
                                >
                                 {submitting ? <RefreshCw size={20} className="animate-spin" /> : <Send size={20} />}
                                 POST ENDORSEMENT
@@ -647,10 +647,10 @@ export default function PublicProfile({
                             </div>
                           </div>
                         ) : (
-                          <div className="text-center py-10 bg-slate-800/20 rounded-3xl border border-dashed border-white/10">
+                          <div className="text-center py-10 bg-[var(--color-surface-container-high)]/20 rounded-3xl border border-dashed border-white/10">
                              <AlertCircle size={40} className="text-slate-700 mx-auto mb-4" />
-                             <h4 className="text-lg font-black text-white mb-2">AUTHENTICATION GATED</h4>
-                             <p className="text-slate-500 mb-8 max-w-sm mx-auto">Only verified members of the StudyBuddy registry can drop professional endorsements.</p>
+                             <h4 className="text-lg font-black text-[var(--color-on-surface)] mb-2">AUTHENTICATION GATED</h4>
+                             <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm mx-auto">Only verified members of the StudyBuddy registry can drop professional endorsements.</p>
                              <button onClick={onLoginClick} className="px-10 py-4 bg-white text-slate-950 rounded-2xl font-black text-sm hover:bg-indigo-400 transition-all">
                                 LOGIN TO SYSTEM
                              </button>
@@ -664,13 +664,13 @@ export default function PublicProfile({
                              key={c.id}
                              initial={{ opacity: 0, y: 15 }}
                              animate={{ opacity: 1, y: 0 }}
-                             className="p-8 bg-slate-900/40 rounded-[2rem] border border-white/5 hover:border-white/10 transition-all flex gap-6 group"
+                             className="p-8 bg-[var(--color-surface-container)]/40 rounded-[2rem] border border-white/5 hover:border-white/10 transition-all flex gap-6 group"
                            >
-                             <div className="w-16 h-16 rounded-2xl bg-slate-800 flex-shrink-0 overflow-hidden border border-white/10 relative">
+                             <div className="w-16 h-16 rounded-2xl bg-[var(--color-surface-container-high)] flex-shrink-0 overflow-hidden border border-white/10 relative">
                                {c.author.profile_photo_url ? (
                                  <img src={c.author.profile_photo_url} className="w-full h-full object-cover" />
                                ) : (
-                                 <div className="w-full h-full flex items-center justify-center bg-indigo-900/30 text-indigo-400 text-xl font-black uppercase">
+                                 <div className="w-full h-full flex items-center justify-center bg-indigo-900/30 text-[var(--color-brand-primary)] text-xl font-black uppercase">
                                    {c.author.full_name[0]}
                                  </div>
                                )}
@@ -679,12 +679,12 @@ export default function PublicProfile({
                              <div className="flex-1 min-w-0">
                                <div className="flex items-center justify-between mb-3">
                                   <div>
-                                     <h4 className="font-black text-white group-hover:text-indigo-400 transition-colors">@{c.author.email_prefix}</h4>
+                                     <h4 className="font-black text-[var(--color-on-surface)] group-hover:text-[var(--color-brand-primary)] transition-colors">@{c.author.email_prefix}</h4>
                                      <p className="text-[10px] text-slate-600 font-black uppercase tracking-tighter">Verified Collaborator</p>
                                   </div>
-                                  <span className="text-[10px] text-slate-500 font-black bg-white/5 px-2 py-1 rounded-md">{new Date(c.created_at).toLocaleDateString()}</span>
+                                  <span className="text-[10px] text-[var(--color-on-surface-variant)] font-black bg-white/5 px-2 py-1 rounded-md">{new Date(c.created_at).toLocaleDateString()}</span>
                                </div>
-                               <p className="text-slate-300 text-lg leading-relaxed">{c.content}</p>
+                               <p className="text-[var(--color-on-surface-variant)] text-lg leading-relaxed">{c.content}</p>
                              </div>
                            </motion.div>
                          ))}

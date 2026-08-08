@@ -78,7 +78,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
             <img src="/images/logo.png" alt="StudyBuddy Logo" className="w-full h-full object-cover rounded-xl" />
           </div>
           <div>
-            <p className="text-lg font-black text-white leading-tight">StudyBuddy</p>
+            <p className="text-lg font-black text-[var(--color-on-surface)] leading-tight">StudyBuddy</p>
             <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold">AI Assessment</p>
           </div>
         </div>
@@ -105,7 +105,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
 
       {/* ─── Active Tracks ─────────────────────────────────────── */}
       <div className="px-6 mt-8">
-        <p className="text-[10px] uppercase tracking-widest font-bold text-slate-500 mb-3">Active Tracks</p>
+        <p className="text-[10px] uppercase tracking-widest font-bold text-[var(--color-on-surface-variant)] mb-3">Active Tracks</p>
         <div className="space-y-2.5">
           {activeTracks.map((course, i) => (
             <div key={course.id || i} className="flex items-center gap-2.5">
@@ -114,7 +114,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
                 i % 3 === 1 ? 'bg-indigo-400 shadow-[0_0_6px_rgba(129,140,248,0.5)]' :
                 'bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.5)]'
               }`} />
-              <span className="text-xs text-slate-400 font-medium truncate max-w-[140px]">{course.name}</span>
+              <span className="text-xs text-[var(--color-on-surface-variant)] font-medium truncate max-w-[140px]">{course.name}</span>
             </div>
           ))}
           {activeTracks.length === 0 && (
@@ -125,20 +125,20 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
       {/* ─── AI Tools Quick Access ─────────────────────────────── */}
       {currentView === 'DASHBOARD' && (
         <div className="px-4 mt-6">
-          <p className="text-[10px] uppercase tracking-widest font-bold text-slate-500 mb-2 px-2">AI Tools</p>
+          <p className="text-[10px] uppercase tracking-widest font-bold text-[var(--color-on-surface-variant)] mb-2 px-2">AI Tools</p>
           <div className="space-y-1">
             <button
               onClick={onOpenAIPath}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-purple-400 hover:bg-purple-500/10 transition-all font-semibold"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-on-surface-variant)] hover:text-purple-400 hover:bg-purple-500/10 transition-all font-semibold"
             >
               <Map size={16} className="text-purple-400" />
               Learning Path
             </button>
             <button
               onClick={onOpenAIQuiz}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all font-semibold"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-indigo-500/10 transition-all font-semibold"
             >
-              <Sparkles size={16} className="text-indigo-400" />
+              <Sparkles size={16} className="text-[var(--color-brand-primary)]" />
               AI Quiz Builder
             </button>
           </div>
@@ -152,12 +152,12 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
         {/* Accuracy Mini Widget — PRD Section A */}
         {accuracy !== null && (
           <div className="mx-2 mb-4 p-3 bg-surface-container rounded-xl border border-[var(--color-surface-bright)]">
-            <p className="text-[10px] uppercase tracking-widest font-bold text-slate-500 mb-1">Average Accuracy</p>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-[var(--color-on-surface-variant)] mb-1">Average Accuracy</p>
             <p className={`text-2xl font-black ${accuracy >= 70 ? 'text-emerald-400' : accuracy >= 40 ? 'text-amber-400' : 'text-rose-400'}`}>
               {accuracy}%
             </p>
             {/* Progress bar */}
-            <div className="w-full h-1.5 bg-slate-800 rounded-full mt-2 overflow-hidden">
+            <div className="w-full h-1.5 bg-[var(--color-surface-container-high)] rounded-full mt-2 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${accuracy}%` }}
@@ -177,7 +177,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
             {user?.full_name?.charAt(0) || user?.email?.charAt(0) || 'U'}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-[var(--color-on-surface)] truncate group-hover:text-indigo-400 transition-colors">{user?.full_name}</p>
+            <p className="text-sm font-bold text-[var(--color-on-surface)] truncate group-hover:text-[var(--color-brand-primary)] transition-colors">{user?.full_name}</p>
             <p className="text-[10px] uppercase text-[var(--color-brand-primary-container)] font-black truncate">{user?.role}</p>
           </div>
         </button>
@@ -204,7 +204,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
               }
             }
           }}
-          className="w-full flex items-center justify-center gap-2 p-3 mt-1 text-slate-500 hover:text-rose-400 hover:bg-rose-950/20 rounded-xl transition-colors text-xs font-semibold"
+          className="w-full flex items-center justify-center gap-2 p-3 mt-1 text-[var(--color-on-surface-variant)] hover:text-rose-400 hover:bg-rose-950/20 rounded-xl transition-colors text-xs font-semibold"
         >
           <LogOut size={14} /> Sign out of all devices
         </button>
@@ -219,8 +219,8 @@ const SidebarItem: React.FC<{ icon: string; label: string; active: boolean; onCl
       onClick={onClick}
       className={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all w-full text-left font-semibold outline-none
         ${active 
-          ? 'text-indigo-400 font-bold border-r-4 border-indigo-400 bg-indigo-500/10' 
-          : 'text-slate-400 hover:text-white hover:bg-white/5 border-r-4 border-transparent'
+          ? 'text-[var(--color-brand-primary)] font-bold border-r-4 border-indigo-400 bg-indigo-500/10' 
+          : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-white/5 border-r-4 border-transparent'
         }
       `}
     >

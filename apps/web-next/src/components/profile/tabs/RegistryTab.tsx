@@ -58,21 +58,21 @@ export default function RegistryTab({ ctx }: { ctx: ProfileTabCtx }) {
 <>
             <motion.div key="registry" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="space-y-6 pb-16">
-              <div className="p-6 bg-slate-900/60 rounded-3xl border border-white/5">
-                <h3 className="font-black text-white mb-6 flex items-center gap-2">
-                  <ScrollText size={18} className="text-indigo-400" /> Complete Activity Audit Trail
+              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <h3 className="font-black text-[var(--color-on-surface)] mb-6 flex items-center gap-2">
+                  <ScrollText size={18} className="text-[var(--color-brand-primary)]" /> Complete Activity Audit Trail
                 </h3>
                 <div className="space-y-2">
                   {(allAttempts)
                     .sort((a: any, b: any) => new Date(b.attempted_at).getTime() - new Date(a.attempted_at).getTime())
                     .map((evt: any, i: number) => (
                       <div key={i} className="flex gap-4 p-4 hover:bg-white/[0.02] rounded-xl transition-colors group">
-                        <div className="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-indigo-500 mt-2 transition-colors flex-shrink-0" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-surface-bright)] group-hover:bg-indigo-500 mt-2 transition-colors flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-slate-300">
+                          <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">
                             {evt.bank_name ? `Quiz: ${evt.bank_name}` : evt.question_title ? `Code: ${evt.question_title}` : 'Activity'} —  score {evt.score ?? '—'} {evt.total ? `/ ${evt.total} (${Math.round((evt.score / evt.total) * 100)}%)` : ''}
                           </p>
-                          <p className="text-[10px] text-slate-500 font-bold uppercase mt-0.5">{new Date(evt.attempted_at).toLocaleString()}</p>
+                          <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase mt-0.5">{new Date(evt.attempted_at).toLocaleString()}</p>
                         </div>
                       </div>
                     ))}

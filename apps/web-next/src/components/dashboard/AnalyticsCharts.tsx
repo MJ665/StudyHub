@@ -24,13 +24,13 @@ export function ComparisonChart({ data, type, dataKey, nameKey, color = "#6366f1
 
   if (!isMounted) {
     return (
-      <div className="h-64 w-full bg-slate-900 border border-white/5 rounded-3xl animate-pulse" />
+      <div className="h-64 w-full bg-[var(--color-surface-container)] border border-white/5 rounded-3xl animate-pulse" />
     );
   }
 
   if (!data || data.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center bg-slate-900/50 rounded-3xl border border-white/5 italic text-slate-500 text-xs">
+      <div className="h-64 flex items-center justify-center bg-[var(--color-surface-container)]/50 rounded-3xl border border-white/5 italic text-[var(--color-on-surface-variant)] text-xs">
         Insufficient data for visualization
       </div>
     );
@@ -39,9 +39,9 @@ export function ComparisonChart({ data, type, dataKey, nameKey, color = "#6366f1
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-900 border border-white/10 p-3 rounded-xl shadow-2xl">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">{label}</p>
-          <p className="text-sm font-black text-white">{payload[0].value}% Accuracy</p>
+        <div className="bg-[var(--color-surface-container)] border border-white/10 p-3 rounded-xl shadow-2xl">
+          <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{label}</p>
+          <p className="text-sm font-black text-[var(--color-on-surface)]">{payload[0].value}% Accuracy</p>
         </div>
       );
     }
@@ -109,18 +109,18 @@ export function HealthOverviewChart({ groupData, cohortData }: { groupData: any[
     return (
         <div className="space-y-4">
             {cohortData && (
-                <div className="flex bg-slate-800 p-1 rounded-xl w-max mb-4">
-                    <button onClick={() => setView('Group')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Group' ? 'bg-indigo-500 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}>Group Health</button>
-                    <button onClick={() => setView('Cohort')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Cohort' ? 'bg-indigo-500 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}>Cohort Health</button>
+                <div className="flex bg-[var(--color-surface-container-high)] p-1 rounded-xl w-max mb-4">
+                    <button onClick={() => setView('Group')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Group' ? 'bg-indigo-500 text-[var(--color-on-surface)] shadow-md' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>Group Health</button>
+                    <button onClick={() => setView('Cohort')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Cohort' ? 'bg-indigo-500 text-[var(--color-on-surface)] shadow-md' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>Cohort Health</button>
                 </div>
             )}
             {data.map((item, idx) => (
                 <div key={idx} className="space-y-1.5">
                     <div className="flex justify-between items-end">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.chapter}</span>
-                        <span className="text-xs font-black text-white">{item.accuracy}%</span>
+                        <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">{item.chapter}</span>
+                        <span className="text-xs font-black text-[var(--color-on-surface)]">{item.accuracy}%</span>
                     </div>
-                    <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                         <motion.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${item.accuracy}%` }}
@@ -144,27 +144,27 @@ export function EngagementDecayWidget({ batchId }: { batchId?: number }) {
     ApiService.getEngagementDecay(batchId).then(setData).catch(() => {}).finally(() => setLoading(false));
   }, [batchId]);
 
-  if (loading) return <div className="h-24 animate-pulse bg-slate-800 rounded-2xl" />;
+  if (loading) return <div className="h-24 animate-pulse bg-[var(--color-surface-container-high)] rounded-2xl" />;
   if (!data) return null;
 
   const isPositive = data.decay_index_pct >= 0;
 
   return (
     <div className={`p-5 rounded-2xl border ${isPositive ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-rose-500/5 border-rose-500/20'}`}>
-      <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Engagement Decay Index</p>
+      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Engagement Decay Index</p>
       <div className="flex items-center justify-between">
         <div>
           <p className={`text-2xl font-black ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
             {isPositive ? '+' : ''}{data.decay_index_pct}%
           </p>
-          <p className="text-[10px] text-slate-400 mt-1">{data.risk_level}</p>
+          <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-1">{data.risk_level}</p>
         </div>
-        <div className="text-right text-xs text-slate-400">
+        <div className="text-right text-xs text-[var(--color-on-surface-variant)]">
           <p>{data.recent_7d_active} active (7d)</p>
           <p>vs {data.historical_weekly_avg} avg</p>
         </div>
       </div>
-      <p className="text-[10px] text-slate-500 mt-3">{data.interpretation}</p>
+      <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-3">{data.interpretation}</p>
     </div>
   );
 }
@@ -178,7 +178,7 @@ export function CompositeHealthGauge({ batchId }: { batchId?: number }) {
     ApiService.getCompositeHealthIndex(batchId).then(setData).catch(() => {}).finally(() => setLoading(false));
   }, [batchId]);
 
-  if (loading) return <div className="h-32 animate-pulse bg-slate-800 rounded-2xl" />;
+  if (loading) return <div className="h-32 animate-pulse bg-[var(--color-surface-container-high)] rounded-2xl" />;
   if (!data) return null;
 
   const gradeColor = data.grade === 'A' ? '#10b981' : data.grade === 'B' ? '#6366f1' : data.grade === 'C' ? '#f59e0b' : '#f43f5e';
@@ -189,7 +189,7 @@ export function CompositeHealthGauge({ batchId }: { batchId?: number }) {
 
   return (
     <div className="p-5 rounded-2xl border border-surface-bright bg-surface-dim">
-      <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4">Composite Health Index (CHI)</p>
+      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4">Composite Health Index (CHI)</p>
       <div className="flex items-center gap-6">
         <div className="relative w-24 h-24">
           <ResponsiveContainer width={96} height={96}>
@@ -202,8 +202,8 @@ export function CompositeHealthGauge({ batchId }: { batchId?: number }) {
           </div>
         </div>
         <div>
-          <p className="text-3xl font-black text-white">{data.chi}<span className="text-sm text-slate-500">/100</span></p>
-          <div className="mt-2 space-y-1 text-[10px] text-slate-400">
+          <p className="text-3xl font-black text-[var(--color-on-surface)]">{data.chi}<span className="text-sm text-[var(--color-on-surface-variant)]">/100</span></p>
+          <div className="mt-2 space-y-1 text-[10px] text-[var(--color-on-surface-variant)]">
             <p>Accuracy: {data.components?.avg_accuracy_pct}%</p>
             <p>Participation: {data.components?.participation_rate_pct}%</p>
             <p>Volume Score: {data.components?.attempt_volume_score}</p>
@@ -224,9 +224,9 @@ export function LearningVelocityChart({ userId }: { userId: number }) {
     ApiService.getLearningVelocity(userId).then(setData).catch(() => {}).finally(() => setLoading(false));
   }, [userId]);
 
-  if (loading) return <div className="h-40 animate-pulse bg-slate-800 rounded-2xl" />;
+  if (loading) return <div className="h-40 animate-pulse bg-[var(--color-surface-container-high)] rounded-2xl" />;
   if (!data || !data.trend?.length) return (
-    <div className="h-40 flex items-center justify-center text-slate-500 text-xs">Insufficient attempt history</div>
+    <div className="h-40 flex items-center justify-center text-[var(--color-on-surface-variant)] text-xs">Insufficient attempt history</div>
   );
 
   const isPositive = data.slope > 0;
@@ -234,7 +234,7 @@ export function LearningVelocityChart({ userId }: { userId: number }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Learning Velocity (slope)</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Learning Velocity (slope)</p>
         <span className={`text-xs font-black ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
           {isPositive ? '↑' : '↓'} {Math.abs(data.slope)}/attempt — {data.interpretation}
         </span>
@@ -264,9 +264,9 @@ export function PerformanceDistributionChart({ batchId, groupId }: { batchId?: n
       .then(setData).catch(() => {}).finally(() => setLoading(false));
   }, [batchId, groupId]);
 
-  if (loading) return <div className="h-64 animate-pulse bg-slate-800 rounded-2xl" />;
+  if (loading) return <div className="h-64 animate-pulse bg-[var(--color-surface-container-high)] rounded-2xl" />;
   if (!data?.distribution?.length) return (
-    <div className="h-64 flex items-center justify-center text-slate-500 text-xs bg-slate-900/40 rounded-2xl border border-slate-800">
+    <div className="h-64 flex items-center justify-center text-[var(--color-on-surface-variant)] text-xs bg-[var(--color-surface-container)]/40 rounded-2xl border border-[var(--color-outline-variant)]">
       No distribution data
     </div>
   );
@@ -278,14 +278,14 @@ export function PerformanceDistributionChart({ batchId, groupId }: { batchId?: n
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Performance Distribution (Z-Score)</p>
-        <p className="text-[10px] text-slate-400">μ={data.mean}% σ={data.std_dev} · N={data.cohort_size}</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Performance Distribution (Z-Score)</p>
+        <p className="text-[10px] text-[var(--color-on-surface-variant)]">μ={data.mean}% σ={data.std_dev} · N={data.cohort_size}</p>
       </div>
       <div className="flex gap-3 flex-wrap">
         {Object.entries(quadrantColor).map(([q, c]) => (
           <div key={q} className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full" style={{ background: c }} />
-            <span className="text-[9px] text-slate-400 font-bold">{q}</span>
+            <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold">{q}</span>
           </div>
         ))}
       </div>
@@ -300,9 +300,9 @@ export function PerformanceDistributionChart({ batchId, groupId }: { batchId?: n
               if (!payload?.length) return null;
               const d = payload[0].payload;
               return (
-                <div className="bg-slate-900 border border-white/10 p-2 rounded-xl text-xs">
-                  <p className="font-black text-white">{d.full_name}</p>
-                  <p className="text-slate-400">{d.quadrant} · {d.avg_score}% · z={d.z_score}</p>
+                <div className="bg-[var(--color-surface-container)] border border-white/10 p-2 rounded-xl text-xs">
+                  <p className="font-black text-[var(--color-on-surface)]">{d.full_name}</p>
+                  <p className="text-[var(--color-on-surface-variant)]">{d.quadrant} · {d.avg_score}% · z={d.z_score}</p>
                 </div>
               );
             }} />
@@ -329,9 +329,9 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
       .finally(() => setLoading(false));
   }, [groupId]);
 
-  if (loading) return <div className="h-64 animate-pulse bg-slate-800 rounded-3xl" />;
+  if (loading) return <div className="h-64 animate-pulse bg-[var(--color-surface-container-high)] rounded-3xl" />;
   if (!data?.length) return (
-    <div className="h-64 flex items-center justify-center text-slate-500 text-xs bg-slate-900/40 rounded-3xl border border-white/5 italic">
+    <div className="h-64 flex items-center justify-center text-[var(--color-on-surface-variant)] text-xs bg-[var(--color-surface-container)]/40 rounded-3xl border border-white/5 italic">
       No performance vectors detected in this sector
     </div>
   );
@@ -360,7 +360,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
             key={c.key}
             onClick={() => setSortBy(c.key)}
             className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${
-              sortBy === c.key ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-500 hover:text-white'
+              sortBy === c.key ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
             }`}
           >
             {c.label}
@@ -373,17 +373,17 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-white/5">
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500">#</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500">Learner</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">Quiz</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">Code</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">AI Score</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">Tasks</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">🔥</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">Days</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">Trend</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-center">Risk</th>
-              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-slate-500 text-right">Score</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">#</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Learner</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Quiz</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Code</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">AI Score</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Tasks</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">🔥</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Days</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Trend</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Risk</th>
+              <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-right">Score</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
@@ -397,40 +397,40 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                   onClick={() => onIntel?.(user.custom_slug || (user.email ? user.email.split('@')[0] : user.user_id))}
                 >
                   <td className="py-3 pr-2">
-                    <span className={`text-sm ${isTop3 ? '' : 'text-slate-500 text-xs font-bold'}`}>
+                    <span className={`text-sm ${isTop3 ? '' : 'text-[var(--color-on-surface-variant)] text-xs font-bold'}`}>
                       {medal || `#${idx + 1}`}
                     </span>
                   </td>
                   <td className="py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[9px] font-black text-indigo-400 shrink-0">
+                      <div className="w-6 h-6 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[9px] font-black text-[var(--color-brand-primary)] shrink-0">
                         {user.profile_photo_url ? (
                           <img src={user.profile_photo_url} className="w-full h-full rounded-lg object-cover" alt="" />
                         ) : user.full_name?.charAt(0)}
                       </div>
                       <div>
-                        <p className="text-xs font-black text-white max-w-[100px] truncate">{user.full_name}</p>
+                        <p className="text-xs font-black text-[var(--color-on-surface)] max-w-[100px] truncate">{user.full_name}</p>
                         <p className="text-[9px] text-slate-600">{user.total_quiz_attempts}q {user.total_coding_attempts}c</p>
                       </div>
                     </div>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.quiz_accuracy > 80 ? 'text-emerald-400' : user.quiz_accuracy > 60 ? 'text-indigo-400' : 'text-rose-400'}`}>
+                    <span className={`text-[10px] font-bold ${user.quiz_accuracy > 80 ? 'text-emerald-400' : user.quiz_accuracy > 60 ? 'text-[var(--color-brand-primary)]' : 'text-rose-400'}`}>
                       {user.quiz_accuracy}%
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.coding_accuracy > 70 ? 'text-emerald-400' : user.coding_accuracy > 50 ? 'text-indigo-400' : 'text-slate-500'}`}>
+                    <span className={`text-[10px] font-bold ${user.coding_accuracy > 70 ? 'text-emerald-400' : user.coding_accuracy > 50 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.coding_accuracy}%
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.ai_avg_score > 75 ? 'text-purple-400' : user.ai_avg_score > 50 ? 'text-indigo-400' : 'text-slate-500'}`}>
+                    <span className={`text-[10px] font-bold ${user.ai_avg_score > 75 ? 'text-purple-400' : user.ai_avg_score > 50 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.ai_avg_score > 0 ? `${user.ai_avg_score}%` : '—'}
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.assignment_completion >= 80 ? 'text-emerald-400' : user.assignment_completion >= 50 ? 'text-amber-400' : 'text-slate-500'}`}>
+                    <span className={`text-[10px] font-bold ${user.assignment_completion >= 80 ? 'text-emerald-400' : user.assignment_completion >= 50 ? 'text-amber-400' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.assignment_completion}%
                     </span>
                   </td>
@@ -440,10 +440,10 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className="text-[10px] text-slate-400">{user.days_active}</span>
+                    <span className="text-[10px] text-[var(--color-on-surface-variant)]">{user.days_active}</span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.velocity > 5 ? 'text-emerald-400' : user.velocity < -5 ? 'text-rose-400' : 'text-slate-500'}`}>
+                    <span className={`text-[10px] font-bold ${user.velocity > 5 ? 'text-emerald-400' : user.velocity < -5 ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.velocity > 5 ? '↑' : user.velocity < -5 ? '↓' : '→'}
                     </span>
                   </td>
@@ -454,7 +454,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                   </td>
                   <td className="py-3 text-right">
                     <div className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 border border-white/10">
-                      <span className={`text-xs font-black ${user.overall_score >= 80 ? 'text-emerald-400' : user.overall_score >= 60 ? 'text-indigo-400' : 'text-white'}`}>
+                      <span className={`text-xs font-black ${user.overall_score >= 80 ? 'text-emerald-400' : user.overall_score >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface)]'}`}>
                         {user.overall_score}%
                       </span>
                     </div>

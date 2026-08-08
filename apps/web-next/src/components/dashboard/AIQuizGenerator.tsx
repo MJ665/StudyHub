@@ -96,25 +96,25 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"
+        className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-800 shrink-0">
+        <div className="flex items-center justify-between p-6 border-b border-[var(--color-outline-variant)] shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-indigo-500/20 rounded-2xl flex items-center justify-center">
-              <Sparkles size={20} className="text-indigo-400" />
+              <Sparkles size={20} className="text-[var(--color-brand-primary)]" />
             </div>
             <div>
-              <h2 className="text-white font-bold text-lg">AI Quiz Generator</h2>
-              <p className="text-slate-500 text-xs">Generate questions on any topic with Gemini AI</p>
+              <h2 className="text-[var(--color-on-surface)] font-bold text-lg">AI Quiz Generator</h2>
+              <p className="text-[var(--color-on-surface-variant)] text-xs">Generate questions on any topic with Gemini AI</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors p-1">
+          <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors p-1">
             <X size={22} />
           </button>
         </div>
@@ -124,7 +124,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
 
           {/* Topic Input */}
           <div>
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">
+            <label className="block text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">
               Topic *
             </label>
             <input
@@ -133,14 +133,14 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
               onChange={e => setTopic(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleGenerate()}
               placeholder="e.g. Python List Comprehensions, REST API Design..."
-              className="w-full bg-slate-800/80 border border-slate-700 rounded-2xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition-colors text-sm"
+              className="w-full bg-[var(--color-surface-container-high)]/80 border border-[var(--color-outline-variant)] rounded-2xl px-4 py-3 text-[var(--color-on-surface)] placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition-colors text-sm"
             />
           </div>
 
           {/* Config Row */}
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Difficulty</label>
+              <label className="block text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Difficulty</label>
               <div className="flex gap-1">
                 {['Easy', 'Medium', 'Hard'].map(d => (
                   <button
@@ -149,7 +149,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                     className={`flex-1 py-2 rounded-xl text-[11px] font-bold border transition-all ${
                       difficulty === d
                         ? difficultyConfig[d as keyof typeof difficultyConfig]
-                        : 'bg-slate-800 border-slate-700 text-slate-500 hover:border-slate-600'
+                        : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-slate-600'
                     }`}
                   >
                     {d}
@@ -158,22 +158,22 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
               </div>
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Questions</label>
+              <label className="block text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Questions</label>
               <input
                 type="number"
                 value={numQuestions}
                 onChange={e => setNumQuestions(Math.max(1, Math.min(15, parseInt(e.target.value) || 5)))}
                 min={1}
                 max={15}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500 text-center font-bold"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-[var(--color-on-surface)] text-sm focus:outline-none focus:border-indigo-500 text-center font-bold"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Language</label>
+              <label className="block text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Language</label>
               <select
                 value={language}
                 onChange={e => setLanguage(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-[var(--color-on-surface)] text-sm focus:outline-none focus:border-indigo-500"
               >
                 {['English', 'Hindi', 'Spanish', 'French', 'German'].map(l => (
                   <option key={l} value={l}>{l}</option>
@@ -181,11 +181,11 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
               </select>
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Type</label>
+              <label className="block text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Type</label>
               <select
                 value={questionType}
                 onChange={e => setQuestionType(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-[var(--color-on-surface)] text-sm focus:outline-none focus:border-indigo-500"
               >
                 <option value="mcq_single">Multiple choice</option>
                 <option value="true_false">True / False</option>
@@ -199,7 +199,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
           <button
             onClick={handleGenerate}
             disabled={loading || !topic.trim()}
-            className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/20"
+            className="w-full py-3.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-[var(--color-on-surface)] rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/20"
           >
             {loading ? (
               <>
@@ -223,18 +223,18 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                 className="space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-bold text-white">{questions.length} questions generated</p>
+                  <p className="text-sm font-bold text-[var(--color-on-surface)]">{questions.length} questions generated</p>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setSelectedQuestions(new Set(questions.map((_, i) => i)))}
-                      className="text-xs text-indigo-400 hover:text-indigo-300 font-bold"
+                      className="text-xs text-[var(--color-brand-primary)] hover:text-indigo-300 font-bold"
                     >
                       Select All
                     </button>
                     <span className="text-slate-600">·</span>
                     <button
                       onClick={() => setSelectedQuestions(new Set())}
-                      className="text-xs text-slate-500 hover:text-slate-400 font-bold"
+                      className="text-xs text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)] font-bold"
                     >
                       Deselect All
                     </button>
@@ -250,10 +250,10 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                     onClick={() => toggleQuestion(i)}
                     className={`p-4 rounded-2xl border transition-all ${
                       editIndex === i 
-                        ? 'bg-slate-800 border-indigo-500 ring-2 ring-indigo-500/20' 
+                        ? 'bg-[var(--color-surface-container-high)] border-indigo-500 ring-2 ring-indigo-500/20' 
                         : selectedQuestions.has(i)
                         ? 'bg-indigo-950/40 border-indigo-500/30 hover:border-indigo-500/50'
-                        : 'bg-slate-800/30 border-slate-700/50 opacity-60 hover:opacity-100'
+                        : 'bg-[var(--color-surface-container-high)]/30 border-[var(--color-outline-variant)]/50 opacity-60 hover:opacity-100'
                     }`}
                   >
                     {editIndex === i ? (
@@ -261,7 +261,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                         <textarea
                           value={editData?.question}
                           onChange={e => setEditData({ ...editData!, question: e.target.value })}
-                          className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none h-20"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2 text-[var(--color-on-surface)] text-sm focus:border-indigo-500 focus:outline-none h-20"
                         />
                         <div className="grid grid-cols-2 gap-2">
                           {editData?.options.map((opt, oi) => (
@@ -274,7 +274,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                                   next[oi] = e.target.value;
                                   setEditData({ ...editData!, options: next });
                                 }}
-                                className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-white focus:border-indigo-500 focus:outline-none"
+                                className="flex-1 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg px-2 py-1.5 text-xs text-[var(--color-on-surface)] focus:border-indigo-500 focus:outline-none"
                               />
                               <input
                                 type="radio"
@@ -286,8 +286,8 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                           ))}
                         </div>
                         <div className="flex gap-2 justify-end pt-2">
-                          <button onClick={() => setEditIndex(null)} className="text-xs font-bold text-slate-500 hover:text-white px-3 py-1.5">Cancel</button>
-                          <button onClick={saveEdit} className="bg-indigo-600 text-white text-xs font-bold px-4 py-1.5 rounded-lg hover:bg-indigo-500">Save Changes</button>
+                          <button onClick={() => setEditIndex(null)} className="text-xs font-bold text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] px-3 py-1.5">Cancel</button>
+                          <button onClick={saveEdit} className="bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] text-xs font-bold px-4 py-1.5 rounded-lg hover:bg-indigo-500">Save Changes</button>
                         </div>
                       </div>
                     ) : (
@@ -297,16 +297,16 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                             ? 'bg-indigo-500 border-indigo-500'
                             : 'border-slate-600'
                         }`}>
-                          {selectedQuestions.has(i) && <CheckCircle2 size={12} className="text-white" />}
+                          {selectedQuestions.has(i) && <CheckCircle2 size={12} className="text-[var(--color-on-surface)]" />}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2 mb-1">
-                            <p className="text-sm text-white font-medium leading-snug">
-                              <span className="text-slate-500 mr-1">{i + 1}.</span> {q.question}
+                            <p className="text-sm text-[var(--color-on-surface)] font-medium leading-snug">
+                              <span className="text-[var(--color-on-surface-variant)] mr-1">{i + 1}.</span> {q.question}
                             </p>
                             <button 
                               onClick={(e) => startEdit(e, i)}
-                              className="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 uppercase tracking-tighter shrink-0 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20"
+                              className="text-[10px] font-bold text-[var(--color-brand-primary)] hover:text-indigo-300 uppercase tracking-tighter shrink-0 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20"
                             >
                               Edit
                             </button>
@@ -318,7 +318,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                                 className={`text-xs px-2 py-1 rounded-lg ${
                                   opt === q.correct_answer
                                     ? 'text-emerald-400 font-medium'
-                                    : 'text-slate-500'
+                                    : 'text-[var(--color-on-surface-variant)]'
                                 }`}
                               >
                                 {String.fromCharCode(65 + oi)}. {opt}
@@ -340,17 +340,17 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
 
         {/* Footer */}
         {questions && questions.length > 0 && (
-          <div className="p-4 border-t border-slate-800 shrink-0 flex gap-3">
+          <div className="p-4 border-t border-[var(--color-outline-variant)] shrink-0 flex gap-3">
             <button
               onClick={onClose}
-              className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-bold transition-all border border-slate-700"
+              className="flex-1 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-bold transition-all border border-[var(--color-outline-variant)]"
             >
               Cancel
             </button>
             <button
               onClick={handleImport}
               disabled={selectedQuestions.size === 0}
-              className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/20"
+              className="flex-1 py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 text-[var(--color-on-surface)] rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/20"
             >
               <Plus size={18} />
               Import {selectedQuestions.size} Question{selectedQuestions.size !== 1 ? 's' : ''}
