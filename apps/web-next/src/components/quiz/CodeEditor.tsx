@@ -18,6 +18,9 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import ApiService, { AIResponseEnvelope } from '../../services/ApiService';
 import { useToast } from '../ui/Toast';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import ReportButton from '../common/ReportButton';
 
 // Configure Monaco to load extra languages from CDN
 loader.config({
@@ -42,7 +45,9 @@ export default function CodeEditor({ question, onFinish }: any) {
   const [hintLevel, setHintLevel] = useState(0);
   const [hints, setHints] = useState<string[]>([]);
   const [loadingHint, setLoadingHint] = useState(false);
-  const [showCriteria, setShowCriteria] = useState(false);
+  // Open the problem briefing by default so the candidate always sees the full
+  // description + criteria (fixes "only title visible").
+  const [showCriteria, setShowCriteria] = useState(true);
   
   // Custom Settings
   const [language, setLanguage] = useState(question.language?.toLowerCase() || 'python');
@@ -238,13 +243,21 @@ export default function CodeEditor({ question, onFinish }: any) {
            >
              <Settings size={18} />
            </button>
-           <button 
+           <button
              onClick={() => setShowCriteria(!showCriteria)}
              className={`p-2.5 rounded-xl border transition-all ${showCriteria ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-400'}`}
              title="Mission Requirements"
            >
              <Info size={18} />
            </button>
+           {question.id && (
+             <ReportButton
+               kind="coding_question"
+               targetId={question.id}
+               label=""
+               className="p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-400 hover:text-rose-400 hover:border-rose-500/40 transition-all"
+             />
+           )}
            <button 
              onClick={handleEvaluate}
              disabled={isEvaluating}
@@ -325,6 +338,12 @@ export default function CodeEditor({ question, onFinish }: any) {
                    Mission Directives
                    <button onClick={() => setShowCriteria(false)} className="text-slate-500 hover:text-white"><X size={14} /></button>
                  </h4>
+                 {question.description && (
+                   <div className="mb-4 max-h-[40vh] overflow-y-auto custom-scrollbar prose prose-invert prose-sm max-w-none text-sm text-slate-300 bg-white/5 p-4 rounded-2xl border border-white/5 break-words">
+                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{question.description}</ReactMarkdown>
+                   </div>
+                 )}
+                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Evaluation Criteria</p>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                    {question.evaluation_criteria?.map((c: string, i: number) => (
                      <div key={i} className="flex gap-2 text-xs text-slate-400 bg-white/5 p-3 rounded-xl border border-white/5">

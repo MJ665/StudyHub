@@ -47,6 +47,8 @@ NEW_TABLES = [
     "kt_document_chunks",
     "kt_graph_nodes",
     "kt_graph_edges",
+    # QA Sprint 2 Phase A: unified moderation reports for KT docs + coding.
+    "content_reports",
 ]
 
 

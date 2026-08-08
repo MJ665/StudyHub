@@ -411,6 +411,111 @@ def resolve_question_report(
 
     return {"success": True}
 
+
+@router.get("/reports/all")
+def get_all_content_reports(
+    resolved: Optional[bool] = None,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """Unified moderation feed: MCQ question reports + KT-document + coding
+    reports, normalized to one shape so the L&D moderation view lists all
+    three content types with full detail (issue type + description + reporter)."""
+    out = []
+
+    # 1) MCQ question reports (existing dedicated table).
+    q = db.query(models.QuestionReport)
+    if resolved is not None:
+        q = q.filter(models.QuestionReport.is_resolved == resolved)
+    mcq = q.order_by(models.QuestionReport.created_at.desc()).limit(500).all()
+
+    reporter_ids = {r.user_id for r in mcq if r.user_id is not None}
+    q_ids = {r.question_id for r in mcq if r.question_id is not None}
+    reporters = {
+        u.id: u for u in db.query(models.User).filter(models.User.id.in_(reporter_ids)).all()
+    } if reporter_ids else {}
+    questions = {
+        x.id: x for x in db.query(models.Question).filter(models.Question.id.in_(q_ids)).all()
+    } if q_ids else {}
+    for r in mcq:
+        qq = questions.get(r.question_id)
+        out.append({
+            "id": r.id,
+            "report_source": "question",  # resolves via /reports/{id}/resolve
+            "content_type": "question",
+            "content_id": str(r.question_id),
+            "content_title": (qq.question if qq else "DELETED_QUESTION"),
+            "issue_type": r.issue_type,
+            "description": r.description,
+            "reporter_id": r.user_id,
+            "reporter_name": (reporters.get(r.user_id).full_name if reporters.get(r.user_id) else "UNKNOWN_USER"),
+            "is_resolved": r.is_resolved,
+            "status": "resolved" if r.is_resolved else "pending",
+            "created_at": r.created_at,
+            # Full question payload so L&D can EDIT the reported MCQ inline.
+            "question_options": (qq.options if qq else None),
+            "question_answer": (qq.answer if qq else None),
+            "question_type": (qq.question_type if qq else None),
+        })
+
+    # 2) KT-document + coding reports (unified table).
+    c = db.query(models.ContentReport)
+    if resolved is not None:
+        c = c.filter(models.ContentReport.is_resolved == resolved)
+    content = c.order_by(models.ContentReport.created_at.desc()).limit(500).all()
+    c_reporter_ids = {r.user_id for r in content if r.user_id is not None}
+    c_reporters = {
+        u.id: u for u in db.query(models.User).filter(models.User.id.in_(c_reporter_ids)).all()
+    } if c_reporter_ids else {}
+    for r in content:
+        out.append({
+            "id": r.id,
+            "report_source": "content",  # resolves via /content-reports/{id}/resolve
+            "content_type": r.content_type,
+            "content_id": r.content_id,
+            "content_title": r.content_title or "",
+            "issue_type": r.issue_type,
+            "description": r.description,
+            "reporter_id": r.user_id,
+            "reporter_name": (c_reporters.get(r.user_id).full_name if c_reporters.get(r.user_id) else "UNKNOWN_USER"),
+            "is_resolved": r.is_resolved,
+            "status": "resolved" if r.is_resolved else "pending",
+            "created_at": r.created_at,
+        })
+
+    out.sort(key=lambda x: (x["created_at"] is not None, x["created_at"]), reverse=True)
+    return out
+
+
+@router.patch("/content-reports/{report_id}/resolve")
+def resolve_content_report(
+    report_id: int,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """Resolve a KT-document / coding-question moderation report."""
+    report = (
+        db.query(models.ContentReport)
+        .filter(models.ContentReport.id == report_id)
+        .first()
+    )
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+    report.is_resolved = True
+    report.resolved_by = int(current_user["sub"])
+    report.resolved_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+    log_admin_action(
+        db,
+        actor_id=int(current_user["sub"]),
+        actor_role=current_user["role"],
+        action="RESOLVE_REPORT",
+        resource_type="CONTENT_REPORT",
+        resource_id=report_id,
+        details={"content_type": report.content_type, "content_id": report.content_id},
+    )
+    return {"success": True}
+
 @router.post("/users/{user_id}/reset-password")
 def admin_reset_password(
     user_id: int,

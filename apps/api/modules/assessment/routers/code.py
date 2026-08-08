@@ -119,6 +119,34 @@ def get_coding_question(
     return assert_same_super_org(question, current_user, db, "Question")
 
 
+@router.post("/questions/{question_id}/report")
+def report_coding_question(
+    question_id: int,
+    issue_type: str = "other",
+    description: Optional[str] = None,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    """File a moderation report against a coding question. Surfaces in the
+    unified L&D moderation view (governance /reports/all)."""
+    from models.report import ContentReport
+
+    question = db.query(CodingQuestion).filter(CodingQuestion.id == question_id).first()
+    assert_same_super_org(question, current_user, db, "Question")
+    report = ContentReport(
+        content_type="coding_question",
+        content_id=str(question_id),
+        user_id=int(current_user["sub"]),
+        issue_type=(issue_type or "other")[:50],
+        description=description,
+        content_title=(question.title or "")[:500],
+    )
+    db.add(report)
+    db.commit()
+    db.refresh(report)
+    return {"message": "Report submitted successfully", "report_id": report.id}
+
+
 @router.post("/evaluate", response_model=AIResponseEnvelope)
 async def evaluate_code(
     request: CodingAttemptCreate,

@@ -136,6 +136,34 @@ async def endorse_document(
         raise
     return {"message": "Endorsed"}
 
+@router.post("/documents/{doc_id}/report")
+async def report_document(
+    doc_id: str,
+    issue_type: str = "other",
+    description: Optional[str] = None,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user_with_db_role),
+):
+    """File a moderation report against a KT document (any authorized reader).
+    Surfaces in the unified L&D moderation view (governance /reports/all)."""
+    from models.report import ContentReport
+
+    org_id = int(current_user["organization_id"])
+    uid = int(current_user["sub"])
+    doc = await _get_doc_or_404(doc_id, org_id, db)
+    report = ContentReport(
+        content_type="kt_document",
+        content_id=str(doc_id),
+        user_id=uid,
+        issue_type=(issue_type or "other")[:50],
+        description=description,
+        content_title=(doc.title or "")[:500],
+    )
+    db.add(report)
+    await db.commit()
+    await db.refresh(report)
+    return {"message": "Report submitted successfully", "report_id": report.id}
+
 @router.post("/documents/{doc_id}/ai-suggest")
 async def ai_suggest_improvements(
     doc_id: str,

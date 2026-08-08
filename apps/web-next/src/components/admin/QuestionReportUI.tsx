@@ -31,8 +31,8 @@ export default function QuestionReportUI() {
   const fetchReports = async () => {
     setLoading(true);
     try {
-      const res = await ApiService.getQuestionReports();
-      setReports(res);
+      const res = await ApiService.getAllReports();
+      setReports(Array.isArray(res) ? res : []);
     } catch (err: any) {
       toast('error', `Failed to load reports: ${err.message}`);
     } finally {
@@ -40,14 +40,29 @@ export default function QuestionReportUI() {
     }
   };
 
-  const handleResolve = async (reportId: number, status: string) => {
+  const handleResolve = async (report: any, status: string) => {
     try {
-      await ApiService.resolveQuestionReport(reportId);
+      if (report.report_source === 'content') {
+        await ApiService.resolveContentReport(report.id);
+      } else {
+        await ApiService.resolveQuestionReport(report.id);
+      }
       toast('success', `Report marked as ${status}`);
       fetchReports();
     } catch (err: any) {
       toast('error', `Action failed: ${err.message}`);
     }
+  };
+
+  const TYPE_LABEL: Record<string, string> = {
+    question: 'MCQ Question',
+    kt_document: 'KT Document',
+    coding_question: 'Coding Question',
+  };
+  const TYPE_COLOR: Record<string, string> = {
+    question: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    kt_document: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    coding_question: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   };
 
   // ── Inline edit of the reported question ──
@@ -59,17 +74,18 @@ export default function QuestionReportUI() {
 
   const openEdit = (report: any) => {
     setEditing(report);
-    setEditText(report.question_text || '');
+    setEditText(report.content_title || '');
     setEditOptions(Array.isArray(report.question_options) ? report.question_options.join('\n') : '');
     setEditAnswer(report.question_answer || '');
   };
 
   const saveEdit = async (resolveAfter: boolean) => {
-    if (!editing?.question_id) return;
+    const questionId = editing?.content_id ? parseInt(editing.content_id, 10) : NaN;
+    if (!questionId || Number.isNaN(questionId)) return;
     setSavingEdit(true);
     try {
       const options = editOptions.split('\n').map(o => o.trim()).filter(Boolean);
-      await ApiService.updateQuestion(editing.question_id, {
+      await ApiService.updateQuestion(questionId, {
         question: editText,
         ...(options.length ? { options } : {}),
         ...(editAnswer ? { answer: editAnswer } : {}),
@@ -89,8 +105,11 @@ export default function QuestionReportUI() {
 
   const filteredReports = reports.filter(r => {
     const matchesFilter = filter === 'all' || r.status === filter;
-    const matchesSearch = r.question_text?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                         r.reason?.toLowerCase().includes(searchQuery.toLowerCase());
+    const q = searchQuery.toLowerCase();
+    const matchesSearch =
+      r.content_title?.toLowerCase().includes(q) ||
+      r.issue_type?.toLowerCase().includes(q) ||
+      r.description?.toLowerCase().includes(q);
     return matchesFilter && matchesSearch;
   });
 
@@ -102,7 +121,8 @@ export default function QuestionReportUI() {
             <AlertTriangle size={18} />
             <span className="font-black uppercase tracking-[0.2em] text-[10px]">Data Integrity Audit</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Question Reports</h2>
+          <h2 className="text-2xl font-black text-white">Content Reports</h2>
+          <p className="text-slate-500 text-xs mt-1">MCQ questions · KT documents · coding questions</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
@@ -167,44 +187,51 @@ export default function QuestionReportUI() {
                       </div>
                     </div>
                   </div>
-                  <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest ${
-                    report.status === 'pending' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                  }`}>
-                    {report.status}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border ${TYPE_COLOR[report.content_type] || 'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}>
+                      {TYPE_LABEL[report.content_type] || report.content_type}
+                    </span>
+                    <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest ${
+                      report.status === 'pending' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                    }`}>
+                      {report.status}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="bg-slate-950/50 rounded-2xl p-5 mb-6 border border-white/5">
                   <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-2">Reported Content</p>
-                  <p className="text-sm text-slate-300 font-medium leading-relaxed italic mb-4">"{report.question_text}"</p>
-                  
+                  <p className="text-sm text-slate-300 font-medium leading-relaxed italic mb-4 break-words">"{report.content_title || 'Untitled'}"</p>
+
                   <div className="flex gap-4 p-4 bg-rose-500/5 rounded-xl border border-rose-500/10">
                     <AlertTriangle size={16} className="text-rose-500 shrink-0" />
-                    <div>
-                      <p className="text-xs font-black text-rose-400 uppercase tracking-widest mb-1">Issue Logic</p>
-                      <p className="text-xs text-slate-400">{report.reason}</p>
+                    <div className="min-w-0">
+                      <p className="text-xs font-black text-rose-400 uppercase tracking-widest mb-1">Issue: {report.issue_type}</p>
+                      <p className="text-xs text-slate-400 break-words">{report.description || 'No additional description provided.'}</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <button
-                    onClick={() => openEdit(report)}
-                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 hover:text-indigo-300 transition-all"
-                  >
-                    <Edit3 size={14} /> Edit Question
-                  </button>
+                  {report.content_type === 'question' ? (
+                    <button
+                      onClick={() => openEdit(report)}
+                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 hover:text-indigo-300 transition-all"
+                    >
+                      <Edit3 size={14} /> Edit Question
+                    </button>
+                  ) : <span />}
 
                   {report.status === 'pending' && (
                     <div className="flex gap-2">
                       <button
-                        onClick={() => handleResolve(report.id, 'dismissed')}
+                        onClick={() => handleResolve(report, 'dismissed')}
                         className="px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5"
                       >
                         Dismiss
                       </button>
                       <button
-                        onClick={() => handleResolve(report.id, 'resolved')}
+                        onClick={() => handleResolve(report, 'resolved')}
                         className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-600/20 hover:scale-105 active:scale-95 transition-all"
                       >
                         Mark Resolved

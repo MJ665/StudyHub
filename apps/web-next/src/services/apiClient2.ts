@@ -388,6 +388,28 @@ export class ApiClient2 extends ApiClient1 {
     });
   }
 
+  // ─── Unified moderation (MCQ + KT doc + coding) ───────────────────────────
+  static async getAllReports(resolved?: boolean) {
+    const url = resolved !== undefined ? `/admin/reports/all?resolved=${resolved}` : '/admin/reports/all';
+    return this.request(url);
+  }
+
+  static async resolveContentReport(reportId: number) {
+    return this.request(`/admin/content-reports/${reportId}/resolve`, {
+      method: 'PATCH'
+    });
+  }
+
+  static async reportKTDocument(docId: string, issueType: string, description: string) {
+    const q = new URLSearchParams({ issue_type: issueType, description });
+    return this.request(`/kt/documents/${docId}/report?${q}`, { method: 'POST' });
+  }
+
+  static async reportCodingQuestion(questionId: number, issueType: string, description: string) {
+    const q = new URLSearchParams({ issue_type: issueType, description });
+    return this.request(`/code/questions/${questionId}/report?${q}`, { method: 'POST' });
+  }
+
   static async export_global_activity() {
     const token = localStorage.getItem('study_token');
     const response = await fetch(`${API_BASE}/admin/export-activity`, {

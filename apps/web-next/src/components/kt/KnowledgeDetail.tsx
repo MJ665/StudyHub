@@ -15,6 +15,7 @@ import { toast } from 'react-hot-toast';
 import KTDocumentEditor from './KTDocumentEditor';
 import EnterpriseMarkdownPreview from './EnterpriseMarkdownPreview';
 import KTPdfPreviewModal from './KTPdfPreviewModal';
+import ReportButton from '../common/ReportButton';
 
 interface Attachment {
   id: string;
@@ -262,6 +263,12 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               <History size={18} />
               <span className="font-bold">Revision History</span>
             </button>
+            <ReportButton
+              kind="kt_document"
+              targetId={doc.id}
+              label="Report an issue"
+              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-800 text-slate-300 border border-slate-700/50 hover:bg-rose-500/10 hover:text-rose-400 transition-all font-bold"
+            />
             {isAdmin && (
               <button 
                 onClick={handleDeprecate}
