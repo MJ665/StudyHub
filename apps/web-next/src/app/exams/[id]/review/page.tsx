@@ -36,7 +36,16 @@ function ProctorDetail({ attemptId }: { attemptId: number }) {
   const [vIdx, setVIdx] = useState(0);
   useEffect(() => {
     ApiService.getProctorEvents(attemptId)
-      .then((r) => setData({ snapshots: r.snapshots || [], flags: r.flags || [], videos: r.video_chunks || [] }))
+      .then((r) => {
+        // Only surface webcam events that actually have media — a timestamp
+        // with no real media_url must not render a broken player/thumbnail.
+        const hasMedia = (x: { media_url?: string }) => !!(x.media_url && x.media_url.trim());
+        setData({
+          snapshots: (r.snapshots || []).filter(hasMedia),
+          flags: r.flags || [],
+          videos: (r.video_chunks || []).filter(hasMedia),
+        });
+      })
       .catch(() => setData({ snapshots: [], flags: [], videos: [] }))
       .finally(() => setLoading(false));
   }, [attemptId]);

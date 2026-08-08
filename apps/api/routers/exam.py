@@ -233,6 +233,23 @@ def _notify_exam_recipients(
     if not emails:
         return 0
 
+    # Targeted-exam integrity: create an invite row for EVERY intended email —
+    # even ones that don't match a registered user (user_id=NULL) — so the exam
+    # is permanently recorded as TARGETED and start_exam never falls back to
+    # OPEN. Matched users get their user_id filled in by the notification loop.
+    _existing_emails = {
+        row.email
+        for row in db.query(models.ExamInvite.email)
+        .filter(models.ExamInvite.exam_id == exam.id)
+        .all()
+    }
+    for _em in emails:
+        _key = (_em or "").strip().lower()
+        if _key and _key not in _existing_emails:
+            db.add(models.ExamInvite(exam_id=exam.id, email=_key, user_id=None, status="invited"))
+            _existing_emails.add(_key)
+    db.flush()
+
     # Resolve emails to active users, then keep only those the caller can reach.
     # Learner/user data is ORG-scoped (unlike the exam itself, which is shared
     # super-org content), so recipients are filtered to the caller's org — a
@@ -495,9 +512,16 @@ def start_exam(
     from auth_utils import is_platform_admin
 
     is_owner = exam.created_by is not None and exam.created_by == uid
-    if has_invite_list:
-        # Targeted exam: invited candidates only (owner/platform-admin may preview).
-        if invite is None and not is_owner and not is_platform_admin(current_user):
+    # An exam is TARGETED if it has invite rows OR the creator supplied recipient
+    # emails — even when none of those emails matched a registered user (in which
+    # case no invite rows were created). Without this, a targeted exam whose
+    # invitees weren't registered silently became OPEN to the whole super-org.
+    recipient_set = {e.strip().lower() for e in (exam.recipient_emails or []) if e}
+    is_targeted = has_invite_list or bool(recipient_set)
+    if is_targeted:
+        caller_email = (current_user.get("email") or "").strip().lower()
+        on_recipient_list = bool(caller_email) and caller_email in recipient_set
+        if invite is None and not on_recipient_list and not is_owner and not is_platform_admin(current_user):
             raise HTTPException(403, "You are not on the candidate list for this exam.")
     else:
         # Open exam: anyone in the exam's super-org.
