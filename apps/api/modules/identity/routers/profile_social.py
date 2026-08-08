@@ -166,9 +166,9 @@ async def post_profile_comment(
     if not data.content.strip():
         raise HTTPException(status_code=400, detail="Comment content cannot be empty.")
 
-    # 2. Create comment
+    # 2. Create comment (column is `comment`, not `content`)
     new_comment = models.ProfileComment(
-        target_user_id=user.id, author_id=int(current_user["sub"]), content=data.content
+        target_user_id=user.id, author_id=int(current_user["sub"]), comment=data.content
     )
     db.add(new_comment)
     await db.commit()

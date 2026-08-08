@@ -487,9 +487,14 @@ async def get_profile_by_slug(
     atlas = await user_service.get_user_atlas(user.id, db)
     heatmap = await user_service.get_user_heatmap(user.id, db)
 
-    # Comments/Endorsements
+    # Comments/Endorsements. Eager-load `author` inside the sync query — it is
+    # accessed below in the async context and a lazy load there raises
+    # MissingGreenlet (only surfaces once a profile actually has comments).
+    from sqlalchemy.orm import joinedload
+
     raw_comments = (
         await db.run_sync(lambda s: s.query(models.ProfileComment)
+        .options(joinedload(models.ProfileComment.author))
         .filter(models.ProfileComment.target_user_id == user.id)
         .order_by(models.ProfileComment.created_at.desc())
         .all())
@@ -500,7 +505,9 @@ async def get_profile_by_slug(
         comments.append(
             {
                 "id": c.id,
-                "content": c.content,
+                # DB column is `comment`; keep the output key `content` for the
+                # frontend contract.
+                "content": c.comment,
                 "created_at": c.created_at.isoformat(),
                 "author": {
                     "id": c.author.id,
@@ -614,7 +621,7 @@ def post_profile_comment(
     safe_content = req.content.replace("<", "&lt;").replace(">", "&gt;")
 
     new_comment = models.ProfileComment(
-        target_user_id=user.id, author_id=author_id, content=safe_content
+        target_user_id=user.id, author_id=author_id, comment=safe_content
     )
     db.add(new_comment)
 
