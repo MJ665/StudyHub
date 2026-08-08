@@ -51,7 +51,8 @@ class QuestionBank(Base):
     time_per_question: Mapped[int] = mapped_column(Integer, default=30, nullable=False)
     max_questions: Mapped[int | None] = mapped_column(Integer, nullable=True)
     show_timer: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-    shuffle: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    shuffle: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)  # question order
+    shuffle_options: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)  # answer-option order
     allow_descriptive: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
     # Attempt policy (NEW)

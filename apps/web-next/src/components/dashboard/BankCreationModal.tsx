@@ -45,6 +45,7 @@ export default function BankCreationModal({ user, courses: coursesProp, onClose,
   const [timePerQuestion, setTimePerQuestion] = useState(30);
   const [showTimer, setShowTimer] = useState(true);
   const [shuffleQuestions, setShuffleQuestions] = useState(true);
+  const [shuffleOptions, setShuffleOptions] = useState(false);
   const [allowDescriptive, setAllowDescriptive] = useState(true);
   const [targetCount, setTargetCount] = useState(10);
   const [isOrgPublic, setIsOrgPublic] = useState(true);
@@ -152,6 +153,7 @@ JSON Format:
         time_per_question: timePerQuestion,
         show_timer: showTimer,
         shuffle: shuffleQuestions,
+        shuffle_options: shuffleOptions,
         allow_descriptive: allowDescriptive,
         is_org_public: isOrgPublic,
         max_questions: parsedQuestions.length,
@@ -293,6 +295,7 @@ JSON Format:
                   {[
                     { label: 'Show Timer', sub: 'Display countdown for each question', val: showTimer, set: setShowTimer },
                     { label: 'Shuffle Questions', sub: 'Randomize order each attempt', val: shuffleQuestions, set: setShuffleQuestions },
+                    { label: 'Shuffle Answer Options', sub: 'Randomize option order each attempt', val: shuffleOptions, set: setShuffleOptions },
                     { label: 'Allow Descriptive Notes', sub: 'Students write reasoning notes during quiz', val: allowDescriptive, set: setAllowDescriptive },
                   ].map(({ label, sub, val, set }) => (
                     <div key={label} className="flex items-center justify-between p-4 bg-slate-800/60 rounded-xl border border-slate-700">

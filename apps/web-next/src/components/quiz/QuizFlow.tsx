@@ -40,7 +40,23 @@ function playBeep() {
 
 import { ConfirmationModal } from '../ui/ConfirmationModal';
 
-export default function QuizFlow({ bank, questions, onFinish, onCancel, user }: any) {
+export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCancel, user }: any) {
+  // Bank-level "shuffle answer options": randomize each question's option order
+  // once per attempt (stable across renders via useMemo). Answers are compared
+  // by text, so grading is unaffected. Question order is untouched here.
+  const questions = React.useMemo(() => {
+    if (!bank?.shuffle_options) return rawQuestions;
+    return (rawQuestions || []).map((q: any) => {
+      if (!Array.isArray(q.options) || q.options.length < 2) return q;
+      const opts = [...q.options];
+      for (let i = opts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [opts[i], opts[j]] = [opts[j], opts[i]];
+      }
+      return { ...q, options: opts };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawQuestions, bank?.shuffle_options]);
   const DRAFT_KEY = `quiz_draft_${bank.id}_${user?.id || 'anon'}`;
   
   const loadDraft = () => {

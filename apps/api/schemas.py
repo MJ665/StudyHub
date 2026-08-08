@@ -145,6 +145,7 @@ class QuestionBankCreate(BaseModel):
     max_questions: Optional[int] = None
     show_timer: bool = True
     shuffle: bool = True
+    shuffle_options: bool = False
     allow_descriptive: bool = True
     quick_references: Optional[List[dict]] = None
     bank_type: Optional[str] = "Standard"

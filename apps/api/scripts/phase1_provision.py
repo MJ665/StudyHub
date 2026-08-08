@@ -151,6 +151,11 @@ def provision_schema() -> None:
             "UPDATE exam_attempts SET result_status='released' "
             "WHERE status='submitted' AND result_status='pending'"
         ))
+        # Rich-question engine: bank-level answer-option shuffling.
+        conn.execute(text(
+            "ALTER TABLE question_banks ADD COLUMN IF NOT EXISTS "
+            "shuffle_options BOOLEAN NOT NULL DEFAULT FALSE"
+        ))
         # Exam scheduling window + granular Mettl-style config (settings JSONB).
         conn.execute(text(
             "ALTER TABLE exams ADD COLUMN IF NOT EXISTS starts_at TIMESTAMPTZ"
