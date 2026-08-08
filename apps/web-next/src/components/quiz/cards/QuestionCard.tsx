@@ -1,6 +1,6 @@
 'use client';
 
-import MathText from './MathText';
+import RichContent from '../../common/RichContent';
 
 export interface QCard {
   id: number;
@@ -59,13 +59,8 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
       </div>
 
       <div className="text-slate-100 mb-4 leading-relaxed break-words overflow-x-auto">
-        <MathText content={q.question} format={fmt} />
+        <RichContent content={q.question} format={fmt} mediaUrls={q.media_urls} />
       </div>
-
-      {q.media_urls?.map((u) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img key={u} src={u} alt="" className="max-w-full rounded-lg mb-4 border border-slate-800" />
-      ))}
 
       {(q.question_type === 'short_answer') && (
         <input
@@ -104,7 +99,7 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
                   className="accent-emerald-500 shrink-0 mt-0.5"
                 />
                 <span className="text-sm text-slate-200 min-w-0 break-words">
-                  <MathText content={opt} format={fmt} />
+                  <RichContent content={opt} format={fmt} />
                 </span>
               </label>
             );
