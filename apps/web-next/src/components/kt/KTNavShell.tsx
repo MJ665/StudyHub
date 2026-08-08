@@ -151,7 +151,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
         <button
           onClick={() => setMobileNavOpen(true)}
           aria-label="Open KT navigation"
-          className="p-2 -ml-2 rounded-lg text-[var(--color-on-surface-variant)] hover:bg-white/5 active:scale-95 transition"
+          className="p-2 -ml-2 rounded-lg text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)] active:scale-95 transition"
         >
           <Menu size={22} />
         </button>
@@ -180,7 +180,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
         <button
           onClick={() => setMobileNavOpen(false)}
           aria-label="Close KT navigation"
-          className="md:hidden absolute top-4 right-3 z-10 p-1.5 rounded-lg text-[var(--color-on-surface-variant)] hover:bg-white/5"
+          className="md:hidden absolute top-4 right-3 z-10 p-1.5 rounded-lg text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]"
         >
           <X size={20} />
         </button>

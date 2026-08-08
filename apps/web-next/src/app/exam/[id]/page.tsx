@@ -462,7 +462,7 @@ export default function ExamRunnerPage() {
             )}
           </>
         )}
-        <p className="text-center text-slate-600 text-xs mt-4">Powered by StudyBuddy</p>
+        <p className="text-center text-[var(--color-on-surface-variant)] text-xs mt-4">Powered by StudyBuddy</p>
       </div>
     </div>
   );

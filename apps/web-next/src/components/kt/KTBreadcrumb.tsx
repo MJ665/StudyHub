@@ -53,7 +53,7 @@ export default function KTBreadcrumb() {
       {/* Company Level */}
       {selectedCompany && (
         <>
-          <ChevronRight size={12} className="text-slate-700" />
+          <ChevronRight size={12} className="text-[var(--color-on-surface-variant)]" />
           <button
             onClick={handleCompanyClick}
             className={`flex items-center gap-1.5 transition-colors ${
@@ -69,7 +69,7 @@ export default function KTBreadcrumb() {
       {/* Project Level */}
       {selectedProject && (
         <>
-          <ChevronRight size={12} className="text-slate-700" />
+          <ChevronRight size={12} className="text-[var(--color-on-surface-variant)]" />
           <button
             onClick={handleProjectClick}
             className={`flex items-center gap-1.5 transition-colors ${
@@ -87,7 +87,7 @@ export default function KTBreadcrumb() {
       {/* Sprint Level */}
       {selectedSprint && (
         <>
-          <ChevronRight size={12} className="text-slate-700" />
+          <ChevronRight size={12} className="text-[var(--color-on-surface-variant)]" />
           <button
             onClick={handleSprintClick}
             className="flex items-center gap-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] transition-colors"
@@ -101,7 +101,7 @@ export default function KTBreadcrumb() {
       {/* Document Level */}
       {selectedDocId && (
         <>
-          <ChevronRight size={12} className="text-slate-700" />
+          <ChevronRight size={12} className="text-[var(--color-on-surface-variant)]" />
           <div className="flex items-center gap-1.5 text-[var(--color-brand-primary)] font-bold">
             <FileText size={14} />
             <span>Document Details</span>
@@ -112,7 +112,7 @@ export default function KTBreadcrumb() {
       {/* Action views (analytics, handoff, chat, keys) */}
       {!selectedDocId && !selectedSprint && (currentView === 'chat' || currentView === 'handoff' || currentView === 'keys' || currentView === 'analytics' || currentView === 'mentor-inbox' || currentView === 'discovery' || currentView === 'graph') && (
         <>
-          <ChevronRight size={12} className="text-slate-700" />
+          <ChevronRight size={12} className="text-[var(--color-on-surface-variant)]" />
           <div className="flex items-center gap-1.5 text-[var(--color-brand-primary)] font-bold uppercase tracking-widest text-[10px]">
             <span>{currentView}</span>
           </div>

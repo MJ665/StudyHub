@@ -144,7 +144,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
               id="btn-export-csv"
               onClick={handleCsvDownload}
               disabled={exportingCsv}
-              className="flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-3 rounded-2xl font-bold border border-slate-200 hover:bg-slate-200 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 bg-slate-100 text-[var(--color-on-surface-variant)] px-5 py-3 rounded-2xl font-bold border border-slate-200 hover:bg-slate-200 active:scale-95 transition-all disabled:opacity-50"
             >
               <Download size={16} /> {exportingCsv ? 'Exporting…' : 'CSV (.csv)'}
             </button>
@@ -257,7 +257,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
               {data.group_performance?.map((g: any, i: number) => (
                 <div key={i} className="space-y-2">
                    <div className="flex justify-between items-end text-xs font-bold">
-                      <span className="text-slate-700 uppercase tracking-wider">{g.group_name}</span>
+                      <span className="text-[var(--color-on-surface-variant)] uppercase tracking-wider">{g.group_name}</span>
                       <span className="text-[var(--color-on-surface-variant)]">{g.avg_score}% Proficiency</span>
                    </div>
                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
@@ -287,7 +287,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {aiInsights.length > 0 ? aiInsights.map((insight: any, i: number) => (
-                <div key={i} className="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                <div key={i} className="p-6 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl">
                    <div className="flex justify-between items-start mb-3">
                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-brand-primary)]">{insight.category}</span>
                       <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded ${
@@ -300,7 +300,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
                    </div>
                    <h4 className="text-sm font-black mb-2 text-[var(--color-on-surface)]">{insight.dimension}</h4>
                    <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed mb-4">{insight.observation}</p>
-                   <div className="pt-4 border-t border-white/5">
+                   <div className="pt-4 border-t border-[var(--color-outline-variant)]">
                       <p className="text-[9px] font-black text-indigo-300 uppercase mb-1">Recommended Intervention</p>
                       <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)] italic">{insight.actionable_step}</p>
                    </div>

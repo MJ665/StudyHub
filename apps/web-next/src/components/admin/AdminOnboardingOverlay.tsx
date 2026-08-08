@@ -192,7 +192,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                     <h3 className="text-3xl font-black text-[var(--color-on-surface)]">{view === 'onboarding' ? 'Bulk Onboarding Protocol' : view === 'addUser' ? 'Ad-Hoc Member Registration' : 'Register Strategic Mentor'}</h3>
                     <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-2">Node: {nodeDetails?.name || 'Global Registry'}</p>
                   </div>
-                  <button onClick={() => setView('dashboard')} className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl transition-all text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><ArrowLeft size={24} /></button>
+                  <button onClick={() => setView('dashboard')} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] rounded-2xl transition-all text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><ArrowLeft size={24} /></button>
                 </div>
 
                 {view === 'onboarding' ? (
@@ -200,7 +200,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                     <div>
                       <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Target Group Link</label>
                       <select
-                        className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-5 text-[var(--color-on-surface)] font-bold outline-none"
+                        className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-5 text-[var(--color-on-surface)] font-bold outline-none"
                         value={nodeDetails?.id || ''}
                         onChange={(e) => {
                           const id = parseInt(e.target.value);
@@ -223,9 +223,9 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                         value={onboardingData}
                         onChange={(e) => setOnboardingData(e.target.value)}
                         placeholder="John Wick, bobby@continental.com, EMP001&#10;Winston Scott, winston@continental.com, EMP002"
-                        className="w-full h-48 bg-[var(--color-surface-container)] border border-white/5 rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-sm resize-none outline-none ring-1 ring-white/10"
+                        className="w-full h-48 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-sm resize-none outline-none ring-1 ring-white/10"
                       />
-                      <p className="text-[9px] text-slate-600 mt-2 italic">* CSV Format: One entity per line. MemberID is optional but recommended.</p>
+                      <p className="text-[9px] text-[var(--color-on-surface-variant)] mt-2 italic">* CSV Format: One entity per line. MemberID is optional but recommended.</p>
                     </div>
                     <button
                       disabled={!nodeDetails?.id || !onboardingData.trim() || processing}
@@ -257,7 +257,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                       <div>
                         <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Target Group</label>
                         <select
-                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold text-sm outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold text-sm outline-none"
                           value={nodeDetails?.id || ''}
                           onChange={(e) => {
                             const id = parseInt(e.target.value);
@@ -273,7 +273,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                       </div>
                       <div>
                         <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-[0.2em]">Corporate Role</label>
-                        <input value={view === 'addMentor' ? 'Mentor' : 'Member'} disabled className="w-full bg-white/5 border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface-variant)] font-bold text-sm" />
+                        <input value={view === 'addMentor' ? 'Mentor' : 'Member'} disabled className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface-variant)] font-bold text-sm" />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-6">
@@ -283,7 +283,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                           value={individualUser.fullName}
                           onChange={e => setIndividualUser({ ...individualUser, fullName: e.target.value })}
                           placeholder="e.g. Satoshi Nakamoto"
-                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
                         />
                       </div>
                       <div>
@@ -292,7 +292,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                           value={individualUser.email}
                           onChange={e => setIndividualUser({ ...individualUser, email: e.target.value })}
                           placeholder="satoshi@bitcoin.org"
-                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
                         />
                       </div>
                     </div>
@@ -303,7 +303,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                           value={individualUser.memberId}
                           onChange={e => setIndividualUser({ ...individualUser, memberId: e.target.value })}
                           placeholder="e.g. EMP-99"
-                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none"
                         />
                       </div>
                       <div>
@@ -313,7 +313,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                           value={individualUser.password}
                           onChange={e => setIndividualUser({ ...individualUser, password: e.target.value })}
                           placeholder="••••••••"
-                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none ring-1 ring-brand-primary/20"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none ring-1 ring-brand-primary/20"
                         />
                       </div>
                     </div>

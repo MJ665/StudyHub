@@ -315,7 +315,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
 
           <div className="space-y-3">
             {attachments.length === 0 ? (
-              <div className="py-10 text-center text-slate-600 border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
+              <div className="py-10 text-center text-[var(--color-on-surface-variant)] border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
                 <Paperclip size={24} className="mx-auto mb-2 opacity-10" />
                 <p className="text-[10px] font-bold uppercase tracking-widest">No attachments</p>
               </div>

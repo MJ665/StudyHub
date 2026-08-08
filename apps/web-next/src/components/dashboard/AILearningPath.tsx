@@ -152,7 +152,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                   >
                     <div className="flex items-center justify-between">
                       <p className="text-[var(--color-on-surface)] font-bold text-sm group-hover:text-purple-400 transition-colors">{p.topic}</p>
-                      <ChevronRight size={14} className="text-slate-600" />
+                      <ChevronRight size={14} className="text-[var(--color-on-surface-variant)]" />
                     </div>
                     <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-tighter">
                       Created {new Date(p.created_at).toLocaleDateString()}
@@ -205,7 +205,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                     max={40}
                     className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-[var(--color-on-surface)] text-2xl font-black text-center focus:outline-none focus:border-purple-500 transition-colors"
                   />
-                  <p className="text-xs text-slate-600 text-center mt-1">hours per week</p>
+                  <p className="text-xs text-[var(--color-on-surface-variant)] text-center mt-1">hours per week</p>
                 </div>
               </div>
 

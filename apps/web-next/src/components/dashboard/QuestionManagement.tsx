@@ -119,8 +119,8 @@ export default function QuestionManagement({ user }: { user: any }) {
   return (
     <div className="space-y-8">
       {/* Search & Filter Header */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-[var(--color-surface-container)]/50 border border-white/5 p-6 rounded-[2rem] backdrop-blur-md">
-        <div className="flex items-center gap-4 bg-[var(--color-surface-dim)] border border-white/5 px-6 py-3 rounded-2xl w-full md:w-96 focus-within:border-brand-primary/50 transition-all">
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] p-6 rounded-[2rem] backdrop-blur-md">
+        <div className="flex items-center gap-4 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] px-6 py-3 rounded-2xl w-full md:w-96 focus-within:border-brand-primary/50 transition-all">
           <Search size={18} className="text-[var(--color-on-surface-variant)]" />
           <input 
             type="text" 
@@ -132,7 +132,7 @@ export default function QuestionManagement({ user }: { user: any }) {
         </div>
 
         <div className="flex items-center gap-3 w-full md:w-auto">
-          <div className="flex bg-[var(--color-surface-dim)] p-1 rounded-xl border border-white/5">
+          <div className="flex bg-[var(--color-surface-dim)] p-1 rounded-xl border border-[var(--color-outline-variant)]">
              <button 
                onClick={() => setActiveType('Quiz')}
                className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Quiz' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
@@ -150,7 +150,7 @@ export default function QuestionManagement({ user }: { user: any }) {
           <select 
             value={selectedCourse} 
             onChange={e => setSelectedCourse(e.target.value === 'All' ? 'All' : Number(e.target.value))}
-            className="bg-[var(--color-surface-dim)] border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] outline-none"
+            className="bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] outline-none"
           >
             <option value="All">All Courses</option>
             {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -158,7 +158,7 @@ export default function QuestionManagement({ user }: { user: any }) {
 
           <button 
             onClick={fetchResources}
-            className="p-2.5 bg-[var(--color-surface-dim)] border border-white/5 rounded-xl text-[var(--color-on-surface-variant)] hover:text-brand-primary transition-all"
+            className="p-2.5 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-brand-primary transition-all"
           >
             <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
           </button>
@@ -176,7 +176,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-[var(--color-surface-container)] border border-white/5 rounded-[2rem] p-8 group hover:border-indigo-500/30 transition-all flex items-center justify-between"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8 group hover:border-indigo-500/30 transition-all flex items-center justify-between"
               >
                 <div className="flex items-center gap-6">
                   <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-indigo-500/20 group-hover:scale-110 transition-transform">
@@ -198,7 +198,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                 </div>
 
                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                  <button onClick={() => openEditBank(bank)} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
+                  <button onClick={() => openEditBank(bank)} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)]">
                     <Edit3 size={18} />
                   </button>
                   <button
@@ -219,7 +219,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-[var(--color-surface-container)] border border-white/5 rounded-[2rem] p-8 group hover:border-brand-primary/30 transition-all flex items-center justify-between"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8 group hover:border-brand-primary/30 transition-all flex items-center justify-between"
               >
                 <div className="flex items-center gap-6">
                   <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 group-hover:scale-110 transition-transform">
@@ -241,7 +241,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                 </div>
 
                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                  <button onClick={() => openEditCoding(q)} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
+                  <button onClick={() => openEditCoding(q)} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)]">
                     <Edit3 size={18} />
                   </button>
                   <button
@@ -259,7 +259,7 @@ export default function QuestionManagement({ user }: { user: any }) {
 
         {((activeType === 'Quiz' && filteredBanks.length === 0) || (activeType === 'Coding' && filteredCoding.length === 0)) && !loading && (
           <div className="lg:col-span-2 py-20 text-center">
-             <div className="w-20 h-20 bg-[var(--color-surface-container)] border border-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-slate-600">
+             <div className="w-20 h-20 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-[var(--color-on-surface-variant)]">
                 <FilterX size={40} />
              </div>
              <h3 className="text-xl font-black text-[var(--color-on-surface)]">No Sector Matches</h3>
@@ -292,12 +292,12 @@ export default function QuestionManagement({ user }: { user: any }) {
       <AnimatePresence>
         {editItem && (
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => !savingEdit && setEditItem(null)}>
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-lg bg-[var(--color-surface-container)] border border-white/10 rounded-3xl p-6 shadow-2xl">
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-lg bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 shadow-2xl">
               <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-4"><Edit3 size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Edit {editItem.type === 'Quiz' ? 'Question Bank' : 'Coding Challenge'}</span></div>
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{editItem.type === 'Quiz' ? 'Bank name' : 'Title'}</label>
-              <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Description</label>
-              <textarea value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} rows={3} className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <textarea value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} rows={3} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
               <div className="flex justify-end gap-2">
                 <button disabled={savingEdit} onClick={() => setEditItem(null)} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
                 <button disabled={savingEdit} onClick={saveEdit} className="px-5 py-2 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] text-xs font-bold flex items-center gap-2">

@@ -246,7 +246,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
       <div className="max-w-7xl mx-auto w-full px-4 md:px-6 py-6 md:py-10 flex-1 flex gap-8">
         {/* LEFT SIDEBAR: Question Navigation */}
         <aside className="hidden lg:flex flex-col w-72 shrink-0 gap-6">
-          <div className="bg-[var(--color-surface-container)] border border-white/5 rounded-[2.5rem] p-8 flex flex-col shadow-2xl">
+          <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 flex flex-col shadow-2xl">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
@@ -266,7 +266,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                       ? 'bg-brand-primary border-brand-primary text-slate-950 shadow-xl shadow-brand-primary/20 scale-110 z-10' 
                       : answers[i] 
                         ? 'bg-brand-primary/5 border-brand-primary/20 text-brand-primary' 
-                        : 'bg-[var(--color-surface-dim)] border-white/5 text-slate-600 hover:text-[var(--color-on-surface)] hover:bg-white/5'}
+                        : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)]'}
                   `}
                 >
                   {i + 1}
@@ -277,7 +277,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
               ))}
             </div>
 
-            <div className="mt-auto pt-8 border-t border-white/5 space-y-4">
+            <div className="mt-auto pt-8 border-t border-[var(--color-outline-variant)] space-y-4">
               <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                 <span>Completion Status</span>
                 <span>{Math.round((answeredCount / questions.length) * 100)}%</span>
@@ -288,7 +288,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
             </div>
           </div>
 
-          <div className="bg-[var(--color-surface-container)]/40 border border-white/5 p-6 rounded-[2rem] flex flex-col gap-4">
+          <div className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-6 rounded-[2rem] flex flex-col gap-4">
              <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)]">
                 <Info size={16} />
                 <span className="text-[10px] font-black uppercase tracking-[0.2em]">Operational Guide</span>
@@ -296,7 +296,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
              <p className="text-[11px] leading-relaxed text-[var(--color-on-surface-variant)] font-bold">
                 Telemetry is synchronized in real-time. You can terminate the session and resume from any station.
              </p>
-             <button onClick={() => setConfirmLeave(true)} className="mt-4 flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-rose-500/10 text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
+             <button onClick={() => setConfirmLeave(true)} className="mt-4 flex items-center justify-center gap-2 py-3 bg-[var(--color-surface-container-high)] hover:bg-rose-500/10 text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
                <LogOut size={14} /> Terminate Protocol
              </button>
           </div>
@@ -316,7 +316,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
             <div className="flex items-center gap-2 md:gap-4">
               {bank.show_timer && (
                 <div className={`flex items-center gap-4 px-6 py-3 rounded-2xl border transition-all ${
-                  timeLeft <= 10 ? 'bg-rose-500/10 border-rose-500/50 text-rose-400 animate-pulse' : 'bg-[var(--color-surface-container)] border-white/5 text-brand-primary'
+                  timeLeft <= 10 ? 'bg-rose-500/10 border-rose-500/50 text-rose-400 animate-pulse' : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)] text-brand-primary'
                 }`}>
                   <Timer size={20} />
                   <span className="text-xl font-black font-mono">
@@ -325,7 +325,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                 </div>
               )}
               
-              <div className="flex items-center gap-2 p-1 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl">
+              <div className="flex items-center gap-2 p-1 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl">
                  <button onClick={toggleBookmark} className={`p-3 rounded-xl transition-all ${isBookmarked ? 'bg-amber-500/10 text-amber-500' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>
                    <Bookmark size={20} fill={isBookmarked ? "currentColor" : "none"} />
                  </button>
@@ -346,7 +346,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: direction * -50, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="bg-[var(--color-surface-container)] border border-white/5 rounded-3xl md:rounded-[3rem] p-5 md:p-12 shadow-2xl flex-1 flex flex-col"
+              className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl md:rounded-[3rem] p-5 md:p-12 shadow-2xl flex-1 flex flex-col"
             >
               <div className="text-lg md:text-xl font-bold text-[var(--color-on-surface)] leading-relaxed mb-6 md:mb-12 break-words overflow-x-auto">
                 <RichText text={currentQ.question} />
@@ -378,7 +378,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                       className={`p-4 md:p-6 rounded-3xl border-2 text-left transition-all flex items-center gap-4 md:gap-6 group ${
                         answers[currentIdx] === opt
                           ? 'bg-brand-primary/10 border-brand-primary text-[var(--color-on-surface)]'
-                          : 'bg-[var(--color-surface-dim)] border-white/5 text-[var(--color-on-surface-variant)] hover:border-white/10 hover:bg-white/5'
+                          : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)] hover:bg-[var(--color-surface-container-high)]'
                       }`}
                     >
                       <div className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center font-black text-sm transition-all ${
@@ -396,13 +396,13 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                 <div className="mt-12">
                   <div className="flex items-center justify-between mb-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Reasoning Artifact</label>
-                    <span className="text-[10px] font-black text-slate-600">{notes[currentIdx]?.length || 0}/1000</span>
+                    <span className="text-[10px] font-black text-[var(--color-on-surface-variant)]">{notes[currentIdx]?.length || 0}/1000</span>
                   </div>
                   <textarea 
                     value={notes[currentIdx] || ''}
                     onChange={(e) => setNotes({...notes, [currentIdx]: e.target.value})}
                     placeholder="Describe your logical deduction for peer validation..."
-                    className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-6 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all resize-none h-32"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-6 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all resize-none h-32"
                   />
                 </div>
               )}
@@ -413,7 +413,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
             <button
               onClick={handlePrev}
               disabled={currentIdx === 0}
-              className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest text-[10px] disabled:opacity-0 transition-all"
+              className="flex items-center gap-3 px-8 py-4 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest text-[10px] disabled:opacity-0 transition-all"
             >
               <ChevronLeft size={16} /> Back Sector
             </button>
@@ -441,17 +441,17 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
         {showReportModal && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowReportModal(false)} className="absolute inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm" />
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative bg-[var(--color-surface-container)] border border-white/10 p-10 rounded-[3rem] max-w-lg w-full shadow-2xl">
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-10 rounded-[3rem] max-w-lg w-full shadow-2xl">
               <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-6">Report Telemetry Anomaly</h3>
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-3">
                   {['wrong_answer', 'typo', 'unclear', 'duplicate', 'other'].map(r => (
-                    <button key={r} onClick={() => setReportReason(r)} className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${reportReason === r ? 'bg-rose-500/20 border-rose-500 text-rose-400' : 'bg-[var(--color-surface-dim)] border-white/5 text-[var(--color-on-surface-variant)]'}`}>
+                    <button key={r} onClick={() => setReportReason(r)} className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${reportReason === r ? 'bg-rose-500/20 border-rose-500 text-rose-400' : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}>
                       {r.replace('_', ' ')}
                     </button>
                   ))}
                 </div>
-                <textarea value={reportComment} onChange={e => setReportComment(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-6 text-[var(--color-on-surface)] text-sm outline-none h-32 resize-none" placeholder="Describe the anomaly..." />
+                <textarea value={reportComment} onChange={e => setReportComment(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-6 text-[var(--color-on-surface)] text-sm outline-none h-32 resize-none" placeholder="Describe the anomaly..." />
                 <button onClick={submitReport} disabled={reportSubmitting} className="w-full py-5 bg-rose-600 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-rose-600/20">
                   {reportSubmitting ? 'Syncing...' : 'Submit Report'}
                 </button>

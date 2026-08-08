@@ -92,7 +92,7 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
               </div>
 
               {/* Recent quiz attempts table */}
-              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                 <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                   <Activity size={14} className="text-[var(--color-brand-primary)]" /> Recent Quiz Attempts
                 </h3>
@@ -101,7 +101,7 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                     const pct = a.total > 0 ? Math.round((a.score / a.total) * 100) : 0;
                     return (
                       <div key={i} className="flex items-center gap-4 p-3 hover:bg-white/[0.02] rounded-xl transition-colors">
-                        <div className="w-8 text-slate-600 font-black text-xs">{i + 1}</div>
+                        <div className="w-8 text-[var(--color-on-surface-variant)] font-black text-xs">{i + 1}</div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-[var(--color-on-surface)] truncate">{a.bank_name || 'Unknown Quiz'}</p>
                           <p className="text-[10px] text-[var(--color-on-surface-variant)] font-mono">{new Date(a.attempted_at).toLocaleDateString()}</p>
@@ -122,14 +122,14 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                     );
                   })}
                   {quizAttempts.length === 0 && (
-                    <p className="text-slate-600 text-sm text-center py-8">No quiz attempts yet</p>
+                    <p className="text-[var(--color-on-surface-variant)] text-sm text-center py-8">No quiz attempts yet</p>
                   )}
                 </div>
               </div>
 
               {/* Exam results (own profile) */}
               {isOwnProfile && examAttempts.length > 0 && (
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <ScrollText size={14} className="text-emerald-400" /> Exam Results
                   </h3>
@@ -138,7 +138,7 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                       const pct = typeof a.percent === 'number' ? a.percent : 0;
                       return (
                         <div key={a.id ?? i} className="flex items-center gap-4 p-3 hover:bg-white/[0.02] rounded-xl transition-colors">
-                          <div className="w-8 text-slate-600 font-black text-xs">{i + 1}</div>
+                          <div className="w-8 text-[var(--color-on-surface-variant)] font-black text-xs">{i + 1}</div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-bold text-[var(--color-on-surface)] truncate">{a.exam_title || 'Exam'}</p>
                             <p className="text-[10px] text-[var(--color-on-surface-variant)] font-mono">

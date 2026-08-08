@@ -16,7 +16,7 @@ export function DocShell({
 }) {
   return (
     <div className="min-h-screen bg-[#0c1324] text-[var(--color-on-surface-variant)]">
-      <header className="border-b border-white/5">
+      <header className="border-b border-[var(--color-outline-variant)]">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 md:px-8">
           <a href="/" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -38,8 +38,8 @@ export function DocShell({
         </div>
       </main>
 
-      <footer className="border-t border-white/5">
-        <p className="mx-auto max-w-3xl px-5 py-8 text-center text-xs text-slate-600 md:px-8">
+      <footer className="border-t border-[var(--color-outline-variant)]">
+        <p className="mx-auto max-w-3xl px-5 py-8 text-center text-xs text-[var(--color-on-surface-variant)] md:px-8">
           © {new Date().getFullYear()} StudyBuddy · <a href="/privacy" className="hover:text-[var(--color-on-surface-variant)]">Privacy</a> · <a href="/terms" className="hover:text-[var(--color-on-surface-variant)]">Terms</a> · <a href="/contact-me" className="hover:text-[var(--color-on-surface-variant)]">Contact</a>
         </p>
       </footer>

@@ -288,7 +288,7 @@ JSON Format:
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Target Question Count</label>
                     <input type="number" value={targetCount} onChange={e => setTargetCount(Math.max(1, parseInt(e.target.value) || 10))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" min={1} />
-                    <p className="text-xs text-slate-600 mt-1">Used in the AI prompt in Step 3</p>
+                    <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Used in the AI prompt in Step 3</p>
                   </div>
                 </div>
                 <div className="space-y-3">

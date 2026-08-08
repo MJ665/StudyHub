@@ -319,13 +319,13 @@ export default function UserProfile({
 
   // Helper Card Component
   const KPICard = ({ label, value, icon, color, sub }: any) => (
-    <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 flex flex-col justify-between">
+    <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)] flex flex-col justify-between">
       <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)] mb-2">
         <div className={`text-${color}-400`}>{icon}</div>
         <span className="text-[10px] font-black uppercase tracking-widest">{label}</span>
       </div>
       <div className="text-2xl font-black text-[var(--color-on-surface)]">{value}</div>
-      {sub && <div className="text-[10px] text-slate-600 mt-1">{sub}</div>}
+      {sub && <div className="text-[10px] text-[var(--color-on-surface-variant)] mt-1">{sub}</div>}
     </div>
   );
 
@@ -350,7 +350,7 @@ export default function UserProfile({
           >
             ← Back
           </button>
-          <div className="absolute top-6 right-8 flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-[var(--color-on-surface-variant)] font-mono">
+          <div className="absolute top-6 right-8 flex items-center gap-2 px-4 py-2 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-full text-xs text-[var(--color-on-surface-variant)] font-mono">
             <Link2 size={12} />
             @{emailSlug}
           </div>
@@ -387,7 +387,7 @@ export default function UserProfile({
                 <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${
                   profile.role === 'LDAdmin' ? 'bg-violet-500/20 border-violet-500/40 text-violet-300' :
                   profile.role === 'Mentor' ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' :
-                  'bg-white/5 border-white/10 text-[var(--color-on-surface-variant)]'
+                  'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'
                 }`}>
                   {profile.role}
                 </span>
@@ -402,7 +402,7 @@ export default function UserProfile({
                 <span className="flex items-center gap-1"><Building2 size={13} />Group {profile.group_id}</span>
               </p>
               {isOwnProfile && (
-                <div className="flex items-center gap-3 bg-[var(--color-surface-container)]/50 p-2 mt-4 rounded-xl border border-white/5 w-fit">
+                <div className="flex items-center gap-3 bg-[var(--color-surface-container)]/50 p-2 mt-4 rounded-xl border border-[var(--color-outline-variant)] w-fit">
                   <span className="text-[var(--color-on-surface-variant)] text-xs font-medium pl-2">Public Link:</span>
                   <code className="text-amber-400 bg-amber-400/10 px-2 py-1 rounded-md text-xs select-all">
                     {typeof window !== 'undefined' ? `${window.location.origin}/profile/${profile.id}` : `http://localhost:3000/profile/${profile.id}`}
@@ -414,7 +414,7 @@ export default function UserProfile({
                         toast('success', 'Public profile link copied to clipboard');
                       }
                     }}
-                    className="p-1.5 hover:bg-white/5 rounded-md text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
+                    className="p-1.5 hover:bg-[var(--color-surface-container-high)] rounded-md text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
                     title="Copy link"
                   >
                     <Copy size={14} />
@@ -427,25 +427,25 @@ export default function UserProfile({
           <div className="flex items-center gap-3 pb-3 flex-wrap">
             {profile.linkedin_url && (
               <a href={normalizeExternalUrl(profile.linkedin_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-blue-600/20 text-[var(--color-on-surface-variant)] hover:text-blue-400 rounded-xl border border-white/10 transition-all" title="LinkedIn">
+                className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-blue-600/20 text-[var(--color-on-surface-variant)] hover:text-blue-400 rounded-xl border border-[var(--color-outline-variant)] transition-all" title="LinkedIn">
                 <Linkedin size={18} />
               </a>
             )}
             {profile.github_url && (
               <a href={normalizeExternalUrl(profile.github_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-white/10 transition-all" title="GitHub">
+                className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-[var(--color-outline-variant)] transition-all" title="GitHub">
                 <Github size={18} />
               </a>
             )}
             {profile.leetcode_url && (
               <a href={normalizeExternalUrl(profile.leetcode_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-amber-600/20 text-[var(--color-on-surface-variant)] hover:text-amber-400 rounded-xl border border-white/10 transition-all" title="LeetCode">
+                className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-amber-600/20 text-[var(--color-on-surface-variant)] hover:text-amber-400 rounded-xl border border-[var(--color-outline-variant)] transition-all" title="LeetCode">
                 <Code2 size={18} />
               </a>
             )}
             {profile.codolio_url && (
               <a href={normalizeExternalUrl(profile.codolio_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-white/10 transition-all" title="Codolio">
+                className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-[var(--color-outline-variant)] transition-all" title="Codolio">
                 <Globe size={18} />
               </a>
             )}
@@ -456,7 +456,7 @@ export default function UserProfile({
             </button>
             {isOwnProfile && (
               <button onClick={openEdit}
-                className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] rounded-xl font-black text-sm border border-white/10 transition-all">
+                className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-xl font-black text-sm border border-[var(--color-outline-variant)] transition-all">
                 <Edit3 size={15} /> EDIT PROFILE
               </button>
             )}
@@ -467,8 +467,8 @@ export default function UserProfile({
       {/* ─── Intro Video (if set) ──────────────────────────────────── */}
       {profile.intro_video_url && (
         <div className="px-10 mt-8">
-          <div className="rounded-3xl overflow-hidden bg-[var(--color-surface-container)] border border-white/5 max-w-2xl">
-            <div className="p-4 border-b border-white/5 flex items-center gap-2 text-[var(--color-on-surface-variant)] text-sm font-bold">
+          <div className="rounded-3xl overflow-hidden bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] max-w-2xl">
+            <div className="p-4 border-b border-[var(--color-outline-variant)] flex items-center gap-2 text-[var(--color-on-surface-variant)] text-sm font-bold">
               <Video size={16} className="text-[var(--color-brand-primary)]" /> Introduction Video
             </div>
             <div className="aspect-video">
@@ -490,7 +490,7 @@ export default function UserProfile({
 
       {/* ─── Tabs ─────────────────────────────────────────────────── */}
       <div className="px-10 pt-8">
-        <div className="flex gap-1 p-1 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 w-fit overflow-x-auto mb-8">
+        <div className="flex gap-1 p-1 bg-[var(--color-surface-container)]/60 rounded-2xl border border-[var(--color-outline-variant)] w-fit overflow-x-auto mb-8">
           {([
             { id: 'INSIGHTS', label: 'Insights', icon: <BrainCircuit size={14} /> },
             { id: 'PERFORMANCE', label: 'Performance', icon: <BarChart3 size={14} /> },
@@ -502,7 +502,7 @@ export default function UserProfile({
             <button key={t.id} onClick={() => setActiveTab(t.id)}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs transition-all whitespace-nowrap ${
                 activeTab === t.id
-                  ? 'bg-[var(--color-surface-container-high)] text-[var(--color-brand-primary)] shadow-xl border border-white/5'
+                  ? 'bg-[var(--color-surface-container-high)] text-[var(--color-brand-primary)] shadow-xl border border-[var(--color-outline-variant)]'
                   : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
               }`}>
               {t.icon} {t.label}
@@ -538,13 +538,13 @@ export default function UserProfile({
           <motion.div key="modal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
-              className="w-full max-w-2xl bg-[var(--color-surface-container)] border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
-              <div className="flex items-center justify-between px-8 py-6 border-b border-white/5">
+              className="w-full max-w-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl shadow-2xl overflow-hidden">
+              <div className="flex items-center justify-between px-8 py-6 border-b border-[var(--color-outline-variant)]">
                 <h2 className="text-xl font-black text-[var(--color-on-surface)] flex items-center gap-3">
                   <Edit3 size={20} className="text-[var(--color-brand-primary)]" /> Edit Profile
                 </h2>
                 <button onClick={() => setShowEditModal(false)}
-                  className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl hover:bg-white/5 transition-all">
+                  className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl hover:bg-[var(--color-surface-container-high)] transition-all">
                   <X size={20} />
                 </button>
               </div>
@@ -554,7 +554,7 @@ export default function UserProfile({
                 <Field label="Full Name" icon={<User size={14} />}>
                   <input value={editState.full_name}
                     onChange={e => setEditState(prev => prev ? { ...prev, full_name: e.target.value } : prev)}
-                    className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                 </Field>
 
                 {/* Photo URL */}
@@ -562,7 +562,7 @@ export default function UserProfile({
                   <input value={editState.profile_photo_url}
                     onChange={e => setEditState(prev => prev ? { ...prev, profile_photo_url: e.target.value } : prev)}
                     placeholder="https://example.com/photo.jpg"
-                    className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                 </Field>
 
                 {/* Intro video */}
@@ -570,7 +570,7 @@ export default function UserProfile({
                   <input value={editState.intro_video_url}
                     onChange={e => setEditState(prev => prev ? { ...prev, intro_video_url: e.target.value } : prev)}
                     placeholder="https://youtube.com/watch?v=..."
-                    className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                 </Field>
 
                 {/* Social links */}
@@ -579,25 +579,25 @@ export default function UserProfile({
                     <input value={editState.linkedin_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, linkedin_url: e.target.value } : prev)}
                       placeholder="https://linkedin.com/in/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                   <Field label="GitHub" icon={<Github size={14} />}>
                     <input value={editState.github_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, github_url: e.target.value } : prev)}
                       placeholder="https://github.com/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                   <Field label="LeetCode" icon={<Code2 size={14} />}>
                     <input value={editState.leetcode_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, leetcode_url: e.target.value } : prev)}
                       placeholder="https://leetcode.com/u/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                   <Field label="Codolio" icon={<Globe size={14} />}>
                     <input value={editState.codolio_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, codolio_url: e.target.value } : prev)}
                       placeholder="https://codolio.com/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                   </Field>
                 </div>
 
@@ -622,7 +622,7 @@ export default function UserProfile({
                       onChange={e => setNewSkill(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); } }}
                       placeholder="Add skill (press Enter)"
-                      className="flex-1 bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="flex-1 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
                     <button onClick={addSkill}
                       className="px-4 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all">
                       <Plus size={16} />
@@ -631,9 +631,9 @@ export default function UserProfile({
                 </div>
               </div>
 
-              <div className="px-8 py-5 border-t border-white/5 flex justify-end gap-3">
+              <div className="px-8 py-5 border-t border-[var(--color-outline-variant)] flex justify-end gap-3">
                 <button onClick={() => setShowEditModal(false)}
-                  className="px-6 py-2.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl font-black text-sm border border-white/10 hover:bg-white/5 transition-all">
+                  className="px-6 py-2.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl font-black text-sm border border-[var(--color-outline-variant)] hover:bg-[var(--color-surface-container-high)] transition-all">
                   Cancel
                 </button>
                 <button onClick={handleSave} disabled={saving}

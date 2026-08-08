@@ -58,7 +58,7 @@ export default function RegistryTab({ ctx }: { ctx: ProfileTabCtx }) {
 <>
             <motion.div key="registry" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="space-y-6 pb-16">
-              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                 <h3 className="font-black text-[var(--color-on-surface)] mb-6 flex items-center gap-2">
                   <ScrollText size={18} className="text-[var(--color-brand-primary)]" /> Complete Activity Audit Trail
                 </h3>
@@ -77,7 +77,7 @@ export default function RegistryTab({ ctx }: { ctx: ProfileTabCtx }) {
                       </div>
                     ))}
                   {allAttempts.length === 0 && (
-                    <p className="text-slate-600 text-sm text-center py-12">No activity recorded yet</p>
+                    <p className="text-[var(--color-on-surface-variant)] text-sm text-center py-12">No activity recorded yet</p>
                   )}
                 </div>
               </div>

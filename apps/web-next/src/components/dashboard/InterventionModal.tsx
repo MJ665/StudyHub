@@ -71,7 +71,7 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
               <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] tracking-widest mb-3">Recipients</label>
               <div className="flex flex-wrap gap-2">
                 {targetUserNames.map((name, i) => (
-                  <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-[var(--color-on-surface-variant)]">
+                  <span key={i} className="px-3 py-1 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-lg text-xs font-bold text-[var(--color-on-surface-variant)]">
                     {name}
                   </span>
                 ))}
@@ -85,7 +85,7 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="e.g. Your Knowledge Velocity has dipped in the last 72 hours. Let's focus on the 'Database Indexing' module this afternoon..."
-                  className="w-full h-40 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] text-sm outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all resize-none placeholder:text-slate-600"
+                  className="w-full h-40 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] text-sm outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all resize-none placeholder:text-[var(--color-on-surface-variant)]"
                 />
                 <div className="absolute bottom-4 right-4 pointer-events-none opacity-20">
                   <MessageSquare size={40} className="text-amber-500" />

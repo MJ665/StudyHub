@@ -64,7 +64,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 
                 {/* Scientific Insights */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 relative overflow-hidden group">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)] relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Zap size={60} />
                     </div>
@@ -80,7 +80,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     </div>
                   </div>
 
-                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 relative overflow-hidden group">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)] relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Activity size={60} />
                     </div>
@@ -96,7 +96,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     </div>
                   </div>
 
-                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5 relative overflow-hidden group">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)] relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <TrendingUp size={60} />
                     </div>
@@ -142,7 +142,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Score over time */}
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <TrendingUp size={14} className="text-[var(--color-brand-primary)]" /> Quiz Score Trajectory (last 10)
                   </h3>
@@ -165,12 +165,12 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                       </AreaChart>
                     </ResponsiveContainer>
                   ) : (
-                    <p className="text-slate-600 text-sm text-center py-10">Complete more quizzes to unlock trajectory analysis</p>
+                    <p className="text-[var(--color-on-surface-variant)] text-sm text-center py-10">Complete more quizzes to unlock trajectory analysis</p>
                   )}
                 </div>
 
                 {/* Activity Heatmap */}
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <Zap size={14} className="text-amber-400" /> Activity Heatmap
                   </h3>
@@ -179,7 +179,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                 {/* Weekly activity bars */}
                 {weeklyActivity.length > 0 && (
-                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                     <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                       <Clock size={14} className="text-violet-400" /> Weekly Engagement
                     </h3>
@@ -201,7 +201,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                 {/* Score distribution */}
                 {quizAttempts.length > 0 && (
-                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                  <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                     <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                       <Star size={14} className="text-amber-400" /> Score Distribution
                     </h3>
@@ -236,7 +236,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
               {/* Right: Radar + quick stats */}
               <div className="space-y-6">
                 {/* Radar */}
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <BrainCircuit size={14} className="text-[var(--color-brand-primary)]" /> Competency Radar
                   </h3>
@@ -250,7 +250,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Pros / Cons AI (from registry) */}
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4 flex items-center gap-2">
                     <Zap size={14} className="text-emerald-400" /> AI Strengths
                   </h3>
@@ -262,7 +262,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                   ))}
                 </div>
 
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4 flex items-center gap-2">
                     <TrendingDown size={14} className="text-rose-400" /> Growth Areas
                   </h3>

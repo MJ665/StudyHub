@@ -33,19 +33,19 @@ export function ResourceModal({ type, initialName = '', onClose, onSubmit, mode 
   const [name, setName] = useState(initialName);
   return (
     <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-md z-[130] flex items-center justify-center p-6">
-      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-white/10 p-10 rounded-[3rem] w-full max-w-sm shadow-2xl relative overflow-hidden">
+      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-10 rounded-[3rem] w-full max-w-sm shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary to-indigo-600" />
         <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">{mode === 'CREATE' ? 'Initialize' : 'Modify'} {type}</h3>
         <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-10">Strategic Structural Governance</p>
 
         <div className="space-y-1 mb-8">
-          <label className="text-[9px] font-black uppercase tracking-widest text-slate-600 ml-2">Identifier</label>
+          <label className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] ml-2">Identifier</label>
           <input
             autoFocus
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={`Enter name...`}
-            className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold focus:ring-2 focus:ring-brand-primary/50 outline-none transition-all"
+            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold focus:ring-2 focus:ring-brand-primary/50 outline-none transition-all"
           />
         </div>
 
@@ -117,7 +117,7 @@ export function BulkAddModal({ onClose, onSubmit, tree, currentUser }: any) {
   });
   return (
     <div className="fixed inset-0 bg-[var(--color-surface-dim)]/90 backdrop-blur-xl z-[130] flex items-center justify-center p-6">
-      <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-white/10 p-10 rounded-[3.5rem] w-full max-w-2xl shadow-2xl relative overflow-hidden">
+      <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-10 rounded-[3.5rem] w-full max-w-2xl shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-500 shadow-[0_0_20px_rgba(99,102,241,0.5)]" />
         <h3 className="text-3xl font-black text-[var(--color-on-surface)] mb-2">Bulk Onboarding Protocol</h3>
         <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mb-10">Cross-Organization Network Bridging</p>
@@ -129,7 +129,7 @@ export function BulkAddModal({ onClose, onSubmit, tree, currentUser }: any) {
                 <Shield size={14} /> {groups.find(g => String(g.id) === String(groupId))?.name || 'Authorized Scoped Context'}
               </div>
             ) : (
-              <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all">
+              <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all">
                 <option value="">Select Target Sync Point...</option>
                 {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
               </select>
@@ -140,7 +140,7 @@ export function BulkAddModal({ onClose, onSubmit, tree, currentUser }: any) {
           </div>
           <div>
             <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2">Directory Registry (Format: Full Name, email@host.com)</label>
-            <textarea value={csvText} onChange={(e) => setCsvText(e.target.value)} className="w-full h-48 bg-[var(--color-surface-dim)] border border-white/5 rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-xs resize-none outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all" placeholder="John Wick, baba.yaga@continental.com" />
+            <textarea value={csvText} onChange={(e) => setCsvText(e.target.value)} className="w-full h-48 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-xs resize-none outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all" placeholder="John Wick, baba.yaga@continental.com" />
           </div>
           <div className="flex gap-4">
             <button onClick={onClose} className="flex-1 py-5 font-black uppercase tracking-widest text-xs text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors">Cancel Protocol</button>
@@ -209,11 +209,11 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
               <h3 className="text-4xl font-black text-[var(--color-on-surface)] mb-2">{user.full_name}</h3>
               <div className="flex gap-2">
                 <span className="px-3 py-1 rounded-lg bg-indigo-500/10 text-[var(--color-brand-primary)] text-[10px] font-black uppercase tracking-widest border border-indigo-500/20">Access: {user.role}</span>
-                <span className="px-3 py-1 rounded-lg bg-white/5 text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest border border-white/5">GID: #{user.group_id}</span>
+                <span className="px-3 py-1 rounded-lg bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest border border-[var(--color-outline-variant)]">GID: #{user.group_id}</span>
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all"><X size={28} /></button>
+          <button onClick={onClose} className="p-2 hover:bg-[var(--color-surface-container-high)] rounded-full text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all"><X size={28} /></button>
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-8">
@@ -256,7 +256,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                   { label: 'Lab Success', val: `${insights.metrics.algorithmic_lab.success_rate}%`, color: 'emerald-400' },
                   { label: 'Sprint Streak', val: `${insights.metrics.advanced.streak} Days`, color: 'rose-400' }
                 ].map((s, i) => (
-                  <div key={i} className={`p-4 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 text-center transition-all hover:bg-white/5`}>
+                  <div key={i} className={`p-4 bg-[var(--color-surface-container)]/60 rounded-2xl border border-[var(--color-outline-variant)] text-center transition-all hover:bg-[var(--color-surface-container-high)]`}>
                     <p className="text-[7px] font-black text-[var(--color-on-surface-variant)] uppercase mb-1 tracking-widest">{s.label}</p>
                     <p className={`text-sm font-black text-[var(--color-on-surface)]`}>{s.val}</p>
                   </div>
@@ -264,13 +264,13 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
               </div>
 
               {/* Topic Mastery Matrix */}
-              <div className="bg-[var(--color-surface-dim)]/50 border border-white/5 rounded-[2.5rem] p-8">
+              <div className="bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8">
                 <p className="text-[10px] font-black text-brand-tertiary uppercase tracking-[0.2em] mb-6">Pedagogical Mastery Analysis</p>
                 <div className="space-y-4">
                   {Array.isArray(insights.metrics?.synchronization?.topic_mastery) && insights.metrics.synchronization.topic_mastery.length > 0 ? insights.metrics.synchronization.topic_mastery.map((m: any, i: number) => (
                     <div key={i}>
                       <div className="flex justify-between text-[10px] font-bold text-[var(--color-on-surface-variant)] mb-2">
-                        <span>{m.topic} <span className="text-[8px] text-slate-600 ml-2">({m.volume} attempts)</span></span>
+                        <span>{m.topic} <span className="text-[8px] text-[var(--color-on-surface-variant)] ml-2">({m.volume} attempts)</span></span>
                         <span className={m.status === 'Elite' ? 'text-brand-primary' : 'text-[var(--color-brand-primary)]'}>{m.status} • {m.accuracy}%</span>
                       </div>
                       <div className="h-1.5 bg-[var(--color-surface-container)] rounded-full overflow-hidden">
@@ -288,7 +288,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
               </div>
 
               {/* Activity Timeline Trace */}
-              <div className="bg-[var(--color-surface-dim)]/50 border border-white/5 rounded-[2.5rem] p-8">
+              <div className="bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8">
                 <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-6">Activity Symmetry Trace (Last 30 Cycles)</p>
                 <div className="flex items-end justify-between h-20 gap-1 px-2">
                   {(insights.metrics.timeline || []).map((d: any, i: number) => (
@@ -296,9 +296,9 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                       <motion.div
                         initial={{ height: 0 }}
                         animate={{ height: `${Math.min((d.activity || 0) * 20, 100)}%` }}
-                        className={`w-full rounded-t-sm ${(d.activity || 0) > 0 ? 'bg-emerald-500/40 hover:bg-emerald-400 border-x border-emerald-500/20' : 'bg-white/5'}`}
+                        className={`w-full rounded-t-sm ${(d.activity || 0) > 0 ? 'bg-emerald-500/40 hover:bg-emerald-400 border-x border-emerald-500/20' : 'bg-[var(--color-surface-container-high)]'}`}
                       />
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[var(--color-surface-container)] border border-white/10 p-2 rounded-lg text-[8px] text-[var(--color-on-surface)] whitespace-nowrap z-10 shadow-2xl">
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-2 rounded-lg text-[8px] text-[var(--color-on-surface)] whitespace-nowrap z-10 shadow-2xl">
                         {d.date}: {d.activity || 0} Intels
                       </div>
                     </div>
@@ -334,7 +334,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                 </p>
 
                 {insights.metrics.study_path && insights.metrics.study_path.length > 0 && (
-                  <div className="mt-6 border-t border-white/10 pt-4 relative z-10">
+                  <div className="mt-6 border-t border-[var(--color-outline-variant)] pt-4 relative z-10">
                     <p className="text-[10px] font-black text-brand-tertiary uppercase tracking-[0.2em] mb-3">AI Recommended Study Path</p>
                     <div className="flex gap-2 max-w-full overflow-x-auto pb-2">
                       {(Array.isArray(insights.metrics?.study_path) ? insights.metrics.study_path : []).map((path: any, i: number) => (
@@ -349,7 +349,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
               </div>
 
               {/* Detailed Log Fragment */}
-              <div className="bg-[var(--color-surface-dim)]/50 border border-white/5 rounded-[2.5rem] p-8">
+              <div className="bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8">
                 <div className="flex items-center justify-between mb-6">
                   <p className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Neural Execution Logs (Last 25 Fragments)</p>
                   <div className="flex gap-2">
@@ -364,7 +364,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
 
                 <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                   {Array.isArray(insights.raw_logs) && insights.raw_logs.map((log: any, i: number) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-white/10 transition-all group">
+                    <div key={i} className="flex items-center justify-between p-4 bg-[var(--color-surface-container-high)] rounded-2xl border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] transition-all group">
                       <div className="flex items-center gap-4">
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[8px] ${log.type === 'QUIZ' ? 'bg-indigo-500/20 text-[var(--color-brand-primary)]' : 'bg-emerald-500/20 text-emerald-400'
                           }`}>
@@ -374,7 +374,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                           <p className="text-xs font-bold text-[var(--color-on-surface)] group-hover:text-brand-primary transition-colors">{log.title}</p>
                           <div className="flex gap-2 mt-1">
                             <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold">{new Date(log.timestamp).toLocaleDateString()}</span>
-                            <span className="text-[9px] text-slate-700 font-bold">|</span>
+                            <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold">|</span>
                             <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">{log.type}</span>
                           </div>
                         </div>
@@ -395,7 +395,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
           )}
         </div>
 
-        <button onClick={onClose} className="w-full py-5 bg-white/5 border border-white/5 rounded-3xl font-black uppercase tracking-widest text-xs text-[var(--color-on-surface)] hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+        <button onClick={onClose} className="w-full py-5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-3xl font-black uppercase tracking-widest text-xs text-[var(--color-on-surface)] hover:bg-[var(--color-surface-bright)] transition-all flex items-center justify-center gap-2">
           <BadgeCheck size={16} /> Acknowledge Intell Sync
         </button>
       </motion.div>
@@ -414,19 +414,19 @@ export function CreationModal({ type, onClose, onSubmit }: { type: string, onClo
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative bg-[var(--color-surface-container)] border border-white/10 rounded-[2.5rem] p-10 w-full max-w-md shadow-2xl"
+        className="relative bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-10 w-full max-w-md shadow-2xl"
       >
         <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-6">Create New {type}</h3>
         <input
           autoFocus
-          className="w-full bg-[var(--color-surface-container-high)] border border-white/5 rounded-2xl p-5 text-[var(--color-on-surface)] mb-6"
+          className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-5 text-[var(--color-on-surface)] mb-6"
           placeholder={`${type} Name`}
           value={name}
           onChange={e => setName(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && name.trim() && onSubmit(name)}
         />
         <div className="flex gap-4">
-          <button onClick={onClose} className="flex-1 py-4 bg-white/5 text-[var(--color-on-surface-variant)] rounded-2xl font-black">Cancel</button>
+          <button onClick={onClose} className="flex-1 py-4 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] rounded-2xl font-black">Cancel</button>
           <button
             disabled={!name.trim()}
             onClick={() => onSubmit(name)}

@@ -495,7 +495,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
 
                 {handoffs.length === 0 && (
                   <div className="bg-[var(--color-surface-container)]/10 border border-slate-850 rounded-2xl p-12 text-center">
-                    <ClipboardList className="mx-auto text-slate-700 mb-3" size={32} />
+                    <ClipboardList className="mx-auto text-[var(--color-on-surface-variant)] mb-3" size={32} />
                     <p className="text-[var(--color-on-surface-variant)] font-bold">No Transition Packages Registered</p>
                     <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Handoffs track progress to secure team handovers safely without deleting accounts.</p>
                   </div>

@@ -114,7 +114,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                 <p className="text-xs text-indigo-300 font-bold uppercase tracking-widest">Create Coding Assessment</p>
              </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
+          <button onClick={onClose} className="p-2 hover:bg-[var(--color-surface-container-high)] rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
             <X size={24} />
           </button>
         </div>
@@ -245,7 +245,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                    </div>
                    <div className="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                       {formData.test_cases?.map((tc: any, i: number) => (
-                        <div key={i} className="p-4 bg-[var(--color-surface-dim)]/50 border border-white/5 rounded-2xl relative group hover:border-emerald-500/30 transition-all">
+                        <div key={i} className="p-4 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-2xl relative group hover:border-emerald-500/30 transition-all">
                            <button 
                              type="button" 
                              onClick={() => setFormData({
@@ -267,7 +267,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].input_data = e.target.value;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none"
+                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none"
                                  />
                               </div>
                               <div>
@@ -280,7 +280,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].expected_output = e.target.value;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none"
+                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none"
                                  />
                               </div>
                            </div>
@@ -297,7 +297,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].weight = parseInt(e.target.value) || 1;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none font-black"
+                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none font-black"
                                  />
                               </div>
                               <div className="flex items-center gap-2 pt-4">

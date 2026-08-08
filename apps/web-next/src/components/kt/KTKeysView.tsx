@@ -439,7 +439,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
 
             {keys.length === 0 && (
               <div className="bg-[var(--color-surface-container)]/10 border border-slate-850 rounded-2xl p-12 text-center">
-                <ShieldAlert className="mx-auto text-slate-700 mb-3" size={32} />
+                <ShieldAlert className="mx-auto text-[var(--color-on-surface-variant)] mb-3" size={32} />
                 <p className="text-[var(--color-on-surface-variant)] font-bold">No Active Tokens Provisioned</p>
                 <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Generate a secure cryptographic API key to enable Jenkins, CLI or AI assistant tasks.</p>
               </div>

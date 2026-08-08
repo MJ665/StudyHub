@@ -209,7 +209,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
 
           {companies.length === 0 && (
             <div className="col-span-full bg-[var(--color-surface-container)]/25 border border-slate-850 rounded-[2rem] p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
-              <Building2 size={40} className="text-slate-700 mb-4" />
+              <Building2 size={40} className="text-[var(--color-on-surface-variant)] mb-4" />
               <h3 className="text-lg font-bold text-[var(--color-on-surface-variant)]">No Domains Registered</h3>
               <p className="text-xs text-[var(--color-on-surface-variant)] mt-2 max-w-sm">
                 Get started by creating your first corporate domain workspace to manage knowledge assets.

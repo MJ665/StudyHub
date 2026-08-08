@@ -107,7 +107,7 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
           <div className="flex items-center gap-3">
              <button 
                onClick={markAllRead}
-               className="px-4 py-2 bg-[var(--color-surface-container)] border border-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
+               className="px-4 py-2 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
              >
                 <MailOpen size={14} /> Mark All Read
              </button>
@@ -120,7 +120,7 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
             <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Accessing Communication Channel...</p>
           </div>
         ) : notifications.length === 0 ? (
-          <div className="py-32 text-center bg-[var(--color-surface-container)]/20 rounded-[3rem] border border-dashed border-white/5">
+          <div className="py-32 text-center bg-[var(--color-surface-container)]/20 rounded-[3rem] border border-dashed border-[var(--color-outline-variant)]">
             <Bell size={64} className="mx-auto text-slate-800 mb-6" />
             <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Silence Detected</h3>
             <p className="text-[var(--color-on-surface-variant)] font-medium">No intelligence alerts are currently queued for your profile.</p>
@@ -136,7 +136,7 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ delay: idx * 0.03 }}
-                  className={`group relative bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${notif.is_read ? 'border-white/5' : 'border-indigo-500/20'} rounded-[2rem] p-6 flex gap-6 items-start hover:bg-[var(--color-surface-container)]/60 transition-all cursor-pointer`}
+                  className={`group relative bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${notif.is_read ? 'border-[var(--color-outline-variant)]' : 'border-indigo-500/20'} rounded-[2rem] p-6 flex gap-6 items-start hover:bg-[var(--color-surface-container)]/60 transition-all cursor-pointer`}
                   onClick={() => {
                     if (!notif.is_read) markRead(notif.id);
                     if (notif.link_type && notif.link_id) onNavigate(notif.link_type, notif.link_id);
@@ -149,13 +149,13 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
                        <h4 className={`text-sm font-black tracking-tight ${notif.is_read ? 'text-[var(--color-on-surface-variant)]' : 'text-[var(--color-on-surface)]'}`}>{notif.title}</h4>
-                       <span className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">{new Date(notif.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                       <span className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">{new Date(notif.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                     <p className="text-xs text-[var(--color-on-surface-variant)] font-medium leading-relaxed line-clamp-2 mb-3">{notif.body}</p>
                     
                     <div className="flex items-center gap-4">
                        {!notif.is_read && <span className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]" />}
-                       <span className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.15em]">{new Date(notif.created_at).toLocaleDateString()}</span>
+                       <span className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-[0.15em]">{new Date(notif.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
 

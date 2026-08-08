@@ -116,7 +116,7 @@ export default function QuestionBuilder({ questions, onChange }: { questions: an
                     ) : (
                       <input type="radio" name={`ans-${i}`} title="Correct" checked={q.answer === opt} onChange={() => patchQ(i, { answer: opt })} />
                     )}
-                    <button onClick={() => removeOpt(i, oi)} className="text-slate-600 hover:text-rose-400"><Trash2 size={12} /></button>
+                    <button onClick={() => removeOpt(i, oi)} className="text-[var(--color-on-surface-variant)] hover:text-rose-400"><Trash2 size={12} /></button>
                   </div>
                 ))}
                 <button onClick={() => addOpt(i)} className="text-[11px] font-bold text-[var(--color-brand-primary)] hover:text-indigo-300 flex items-center gap-1"><Plus size={12} /> Add option</button>

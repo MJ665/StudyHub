@@ -24,13 +24,13 @@ export function ComparisonChart({ data, type, dataKey, nameKey, color = "#6366f1
 
   if (!isMounted) {
     return (
-      <div className="h-64 w-full bg-[var(--color-surface-container)] border border-white/5 rounded-3xl animate-pulse" />
+      <div className="h-64 w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl animate-pulse" />
     );
   }
 
   if (!data || data.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center bg-[var(--color-surface-container)]/50 rounded-3xl border border-white/5 italic text-[var(--color-on-surface-variant)] text-xs">
+      <div className="h-64 flex items-center justify-center bg-[var(--color-surface-container)]/50 rounded-3xl border border-[var(--color-outline-variant)] italic text-[var(--color-on-surface-variant)] text-xs">
         Insufficient data for visualization
       </div>
     );
@@ -39,7 +39,7 @@ export function ComparisonChart({ data, type, dataKey, nameKey, color = "#6366f1
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-[var(--color-surface-container)] border border-white/10 p-3 rounded-xl shadow-2xl">
+        <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-3 rounded-xl shadow-2xl">
           <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{label}</p>
           <p className="text-sm font-black text-[var(--color-on-surface)]">{payload[0].value}% Accuracy</p>
         </div>
@@ -300,7 +300,7 @@ export function PerformanceDistributionChart({ batchId, groupId }: { batchId?: n
               if (!payload?.length) return null;
               const d = payload[0].payload;
               return (
-                <div className="bg-[var(--color-surface-container)] border border-white/10 p-2 rounded-xl text-xs">
+                <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-2 rounded-xl text-xs">
                   <p className="font-black text-[var(--color-on-surface)]">{d.full_name}</p>
                   <p className="text-[var(--color-on-surface-variant)]">{d.quadrant} · {d.avg_score}% · z={d.z_score}</p>
                 </div>
@@ -331,7 +331,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
 
   if (loading) return <div className="h-64 animate-pulse bg-[var(--color-surface-container-high)] rounded-3xl" />;
   if (!data?.length) return (
-    <div className="h-64 flex items-center justify-center text-[var(--color-on-surface-variant)] text-xs bg-[var(--color-surface-container)]/40 rounded-3xl border border-white/5 italic">
+    <div className="h-64 flex items-center justify-center text-[var(--color-on-surface-variant)] text-xs bg-[var(--color-surface-container)]/40 rounded-3xl border border-[var(--color-outline-variant)] italic">
       No performance vectors detected in this sector
     </div>
   );
@@ -372,7 +372,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
-            <tr className="border-b border-white/5">
+            <tr className="border-b border-[var(--color-outline-variant)]">
               <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">#</th>
               <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Learner</th>
               <th className="pb-3 text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] text-center">Quiz</th>
@@ -410,7 +410,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                       </div>
                       <div>
                         <p className="text-xs font-black text-[var(--color-on-surface)] max-w-[100px] truncate">{user.full_name}</p>
-                        <p className="text-[9px] text-slate-600">{user.total_quiz_attempts}q {user.total_coding_attempts}c</p>
+                        <p className="text-[9px] text-[var(--color-on-surface-variant)]">{user.total_quiz_attempts}q {user.total_coding_attempts}c</p>
                       </div>
                     </div>
                   </td>
@@ -453,7 +453,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                     </span>
                   </td>
                   <td className="py-3 text-right">
-                    <div className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 border border-white/10">
+                    <div className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)]">
                       <span className={`text-xs font-black ${user.overall_score >= 80 ? 'text-emerald-400' : user.overall_score >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface)]'}`}>
                         {user.overall_score}%
                       </span>

@@ -54,7 +54,7 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        className="relative w-full max-w-2xl bg-[var(--color-surface-container)] border border-white/5 rounded-[3rem] shadow-2xl overflow-hidden"
+        className="relative w-full max-w-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[3rem] shadow-2xl overflow-hidden"
       >
         {/* Header Decoration */}
         <div className={`h-2 w-full ${
@@ -87,14 +87,14 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
             </div>
             <button 
               onClick={onClose}
-              className="p-2 hover:bg-white/5 rounded-full text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all"
+              className="p-2 hover:bg-[var(--color-surface-container-high)] rounded-full text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all"
             >
               <X size={24} />
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div className="p-5 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5">
+            <div className="p-5 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-[var(--color-outline-variant)]">
               <div className="flex items-center gap-2 text-[var(--color-on-surface-variant)] mb-2">
                 <Calendar size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest">Deadline</span>
@@ -104,7 +104,7 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
               </p>
             </div>
             
-            <div className="p-5 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5">
+            <div className="p-5 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-[var(--color-outline-variant)]">
               <div className="flex items-center gap-2 text-[var(--color-on-surface-variant)] mb-2">
                 <ShieldCheck size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest">Passing Threshold</span>
@@ -114,7 +114,7 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
               </p>
             </div>
 
-            <div className="p-5 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5">
+            <div className="p-5 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-[var(--color-outline-variant)]">
               <div className="flex items-center gap-2 text-[var(--color-on-surface-variant)] mb-2">
                 <Target size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest">Attempts Rem.</span>
@@ -130,7 +130,7 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
               <h4 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3 flex items-center gap-2">
                 <AlertCircle size={12} /> Tactical Instructions
               </h4>
-              <div className="bg-[var(--color-surface-dim)]/30 p-6 rounded-[2rem] border border-white/5 text-[var(--color-on-surface-variant)] text-sm leading-relaxed font-medium">
+              <div className="bg-[var(--color-surface-dim)]/30 p-6 rounded-[2rem] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] text-sm leading-relaxed font-medium">
                 {assignment.instructions || "No specific instructions provided. Execute standard operational procedures to complete this learning mandate."}
               </div>
             </div>

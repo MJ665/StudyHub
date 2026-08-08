@@ -95,7 +95,7 @@ export function AuditLogTable() {
           </thead>
           <tbody className="divide-y divide-surface-bright/20">
             {(Array.isArray(logs) ? logs : []).map((log: any) => (
-              <tr key={log.id} className="hover:bg-white/5 transition-colors">
+              <tr key={log.id} className="hover:bg-[var(--color-surface-container-high)] transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex flex-col">
                     <span className="text-[10px] font-black text-[var(--color-on-surface)]">{new Date(log.timestamp).toLocaleDateString()}</span>
@@ -136,7 +136,7 @@ export function AuditLogTable() {
             ))}
             {(Array.isArray(logs) ? logs : []).length === 0 && (
               <tr>
-                <td colSpan={5} className="px-6 py-20 text-center text-[10px] font-black uppercase tracking-widest text-slate-600 italic">
+                <td colSpan={5} className="px-6 py-20 text-center text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] italic">
                   No administrative sessions recorded in current epoch.
                 </td>
               </tr>
@@ -191,7 +191,7 @@ export function EmailLogTable() {
           </thead>
           <tbody className="divide-y divide-surface-bright/20">
             {(Array.isArray(logs) ? logs : []).map((log: any) => (
-              <tr key={log.id} className="hover:bg-white/5 transition-colors">
+              <tr key={log.id} className="hover:bg-[var(--color-surface-container-high)] transition-colors">
                 <td className="px-6 py-4">
                   <p className="text-[10px] font-black text-[var(--color-on-surface)]">{new Date(log.sent_at).toLocaleDateString()}</p>
                   <p className="text-[8px] font-bold text-[var(--color-on-surface-variant)] uppercase">{new Date(log.sent_at).toLocaleTimeString()}</p>
@@ -222,7 +222,7 @@ export function EmailLogTable() {
             ))}
             {(Array.isArray(logs) ? logs : []).length === 0 && (
               <tr>
-                <td colSpan={5} className="px-6 py-20 text-center text-[10px] font-black uppercase tracking-widest text-slate-600 italic">
+                <td colSpan={5} className="px-6 py-20 text-center text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] italic">
                   No communication packets detected in current epoch.
                 </td>
               </tr>
@@ -278,7 +278,7 @@ export function QuestionReportTable() {
             onClick={() => setFilter(opt.value)}
             className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${filter === opt.value
               ? 'bg-rose-500/20 border border-rose-500/50 text-rose-400'
-              : 'bg-[var(--color-surface-container-high)] border border-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
+              : 'bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
               }`}
           >
             {opt.label}
@@ -286,15 +286,15 @@ export function QuestionReportTable() {
         ))}
         <button
           onClick={fetchReports}
-          className="ml-auto p-2.5 bg-[var(--color-surface-container-high)] border border-white/5 rounded-xl text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all"
+          className="ml-auto p-2.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all"
         >
           <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
         </button>
       </div>
 
-      <div className="overflow-x-auto border border-white/5 rounded-3xl">
+      <div className="overflow-x-auto border border-[var(--color-outline-variant)] rounded-3xl">
         <table className="w-full text-left">
-          <thead className="bg-white/5">
+          <thead className="bg-[var(--color-surface-container-high)]">
             <tr>
               <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Status</th>
               <th className="px-6 py-4 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Question</th>
@@ -306,11 +306,11 @@ export function QuestionReportTable() {
           </thead>
           <tbody className="divide-y divide-white/5">
             {loading ? (
-              <tr><td colSpan={6} className="px-6 py-20 text-center animate-pulse text-slate-600">Syncing quality logs...</td></tr>
+              <tr><td colSpan={6} className="px-6 py-20 text-center animate-pulse text-[var(--color-on-surface-variant)]">Syncing quality logs...</td></tr>
             ) : reports.length === 0 ? (
-              <tr><td colSpan={6} className="px-6 py-20 text-center text-slate-600 italic">No reports found matching criteria.</td></tr>
+              <tr><td colSpan={6} className="px-6 py-20 text-center text-[var(--color-on-surface-variant)] italic">No reports found matching criteria.</td></tr>
             ) : (Array.isArray(reports) ? reports : []).map(r => (
-              <tr key={r.id} className="hover:bg-white/5 transition-all group">
+              <tr key={r.id} className="hover:bg-[var(--color-surface-container-high)] transition-all group">
                 <td className="px-6 py-4">
                   {r.is_resolved ? (
                     <span className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-black uppercase">
@@ -334,7 +334,7 @@ export function QuestionReportTable() {
                 <td className="px-6 py-4 text-xs font-bold text-[var(--color-on-surface-variant)]">
                   {r.reporter_name}
                 </td>
-                <td className="px-6 py-4 text-[10px] font-mono text-slate-600">
+                <td className="px-6 py-4 text-[10px] font-mono text-[var(--color-on-surface-variant)]">
                   {new Date(r.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 text-right">
@@ -381,19 +381,19 @@ export function SecurityPulse() {
 
   return (
     <div className="grid grid-cols-3 gap-6 mb-8">
-      <div className="bg-[var(--color-surface-container)] border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
+      <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-indigo-500/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">30D Governance Velocity</p>
         <h4 className="text-4xl font-black text-[var(--color-on-surface)]">{stats?.thirty_day_velocity || 0}</h4>
         <p className="text-[8px] font-bold text-[var(--color-brand-primary)] uppercase mt-2 tracking-tighter">Total administrative sessions</p>
       </div>
-      <div className="bg-[var(--color-surface-container)] border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
+      <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-amber-500/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Role Mutations</p>
         <h4 className="text-4xl font-black text-amber-400">{stats?.role_mutations || 0}</h4>
         <p className="text-[8px] font-bold text-amber-500/60 uppercase mt-2 tracking-tighter">System-wide privilege escalations</p>
       </div>
-      <div className="bg-[var(--color-surface-container)] border border-white/5 p-8 rounded-[2rem] relative overflow-hidden group">
+      <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-emerald-500/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Active Governance Nodes</p>
         <div className="flex -space-x-2 mt-2">
@@ -402,7 +402,7 @@ export function SecurityPulse() {
               {node[0]}
             </div>
           ))}
-          {!stats?.active_governance_nodes?.length && <span className="text-[10px] font-black text-slate-600 italic uppercase">System Only</span>}
+          {!stats?.active_governance_nodes?.length && <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] italic uppercase">System Only</span>}
         </div>
         <p className="text-[8px] font-bold text-emerald-500/60 uppercase mt-2 tracking-tighter">Verified L&D Administrators</p>
       </div>

@@ -62,7 +62,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Password Management */}
-                <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 space-y-6">
+                <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] space-y-6">
                   <div className="flex items-center gap-4 mb-2">
                     <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center text-amber-400">
                       <Zap size={24} />
@@ -80,7 +80,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                         type="password" 
                         id="current_password"
                         placeholder="••••••••"
-                        className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-amber-500 outline-none transition-colors"
+                        className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-amber-500 outline-none transition-colors"
                       />
                     </div>
                     <div>
@@ -89,7 +89,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                         type="password" 
                         id="new_password"
                         placeholder="Min 8 characters"
-                        className="w-full bg-[var(--color-surface-container-high)] border border-white/10 rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-emerald-500 outline-none transition-colors"
+                        className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-emerald-500 outline-none transition-colors"
                       />
                     </div>
                     <button 
@@ -106,7 +106,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                           toast('error', err.message);
                         }
                       }}
-                      className="w-full py-4 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
+                      className="w-full py-4 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] border border-[var(--color-outline-variant)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98]"
                     >
                       Apply Rotation
                     </button>
@@ -114,7 +114,7 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {/* Session Management */}
-                <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 space-y-6">
+                <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] space-y-6">
                   <div className="flex items-center gap-4 mb-2">
                     <div className="w-12 h-12 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center text-rose-400">
                       <RefreshCcw size={24} />

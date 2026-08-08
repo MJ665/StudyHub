@@ -130,7 +130,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
           {[0, 0.1, 0.4, 0.7, 1].map((pct, i) => (
             <div
               key={i}
-              className={`h-3 w-3 rounded-sm ${pct === 0 ? 'bg-white/5' : pct < 0.2 ? 'bg-indigo-900/60' : pct < 0.4 ? 'bg-indigo-700' : pct < 0.7 ? 'bg-indigo-500' : 'bg-indigo-400'}`}
+              className={`h-3 w-3 rounded-sm ${pct === 0 ? 'bg-[var(--color-surface-container-high)]' : pct < 0.2 ? 'bg-indigo-900/60' : pct < 0.4 ? 'bg-indigo-700' : pct < 0.7 ? 'bg-indigo-500' : 'bg-indigo-400'}`}
             />
           ))}
           <span>More</span>
@@ -143,7 +143,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
           return (
             <div key={wi} className="flex-1 min-w-0">
               {label ? (
-                <span className="text-[9px] font-black text-slate-600 uppercase whitespace-nowrap">{label.label}</span>
+                <span className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase whitespace-nowrap">{label.label}</span>
               ) : null}
             </div>
           );
@@ -153,7 +153,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
       <div className="flex gap-0.5">
         <div className="flex flex-col gap-0.5 mr-1">
           {DAYS.map((d, i) => (
-            <div key={i} className="h-3 text-[9px] font-black text-slate-600 leading-3 w-6 text-right pr-1">
+            <div key={i} className="h-3 text-[9px] font-black text-[var(--color-on-surface-variant)] leading-3 w-6 text-right pr-1">
               {d}
             </div>
           ))}
@@ -189,7 +189,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
 
       {tooltip && (
         <div
-          className="fixed z-50 px-3 py-1.5 bg-[var(--color-surface-container-high)] border border-white/10 text-[var(--color-on-surface)] text-[10px] font-black rounded-lg shadow-2xl pointer-events-none whitespace-nowrap uppercase tracking-widest"
+          className="fixed z-50 px-3 py-1.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface)] text-[10px] font-black rounded-lg shadow-2xl pointer-events-none whitespace-nowrap uppercase tracking-widest"
           style={{ left: tooltip.x, top: tooltip.y }}
         >
           {tooltip.text}

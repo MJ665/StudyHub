@@ -141,10 +141,10 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
         animate={{ x: 0 }}
         exit={{ x: '100%' }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-        className="relative w-full max-w-2xl h-full bg-[var(--color-surface-container)] border-l border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto overflow-hidden"
+        className="relative w-full max-w-2xl h-full bg-[var(--color-surface-container)] border-l border-[var(--color-outline-variant)] shadow-[0_0_100px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto overflow-hidden"
       >
         {/* Top Header */}
-        <div className="p-8 border-b border-white/5 bg-[var(--color-surface-container)]/50 backdrop-blur-xl shrink-0">
+        <div className="p-8 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]/50 backdrop-blur-xl shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-5">
               <div className="relative group">
@@ -161,7 +161,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
               <div>
                 <div className="flex items-center gap-3">
                   <h2 className="text-2xl font-black text-[var(--color-on-surface)] tracking-tight">{user.full_name}</h2>
-                  <span className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">
+                  <span className="px-2.5 py-1 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-lg text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">
                     {user.role}
                   </span>
                 </div>
@@ -180,10 +180,10 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
             </div>
 
             <div className="flex items-center gap-2">
-              <button onClick={() => fetchIntel(true)} disabled={loading} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
+              <button onClick={() => fetchIntel(true)} disabled={loading} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)]">
                 <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
               </button>
-              <button onClick={onClose} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
+              <button onClick={onClose} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)]">
                 <X size={18} />
               </button>
             </div>
@@ -200,7 +200,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border ${
                     isActive 
                       ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] border-indigo-500 shadow-lg shadow-indigo-500/20' 
-                      : 'bg-white/5 text-[var(--color-on-surface-variant)] border-transparent hover:text-[var(--color-on-surface-variant)] hover:bg-white/10'
+                      : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border-transparent hover:text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-bright)]'
                   }`}
                 >
                   <Icon size={12} />
@@ -212,7 +212,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
         </div>
 
         {/* Action Bar */}
-        <div className="px-8 py-4 bg-[var(--color-brand-primary-container)]/5 border-b border-white/5 flex items-center justify-between shrink-0">
+        <div className="px-8 py-4 bg-[var(--color-brand-primary-container)]/5 border-b border-[var(--color-outline-variant)] flex items-center justify-between shrink-0">
           <p className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-[0.2em]">Administrative Controls</p>
           <div className="flex items-center gap-3">
             <button onClick={() => setShowIntervention(true)} className="flex items-center gap-2 px-4 py-1.5 bg-rose-600/10 hover:bg-rose-600 text-rose-400 hover:text-[var(--color-on-surface)] border border-rose-600/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">
@@ -233,7 +233,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
               <motion.div key="overview" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-8">
                 {/* Core Vectors */}
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                  <div className="col-span-2 bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-3xl p-6 flex flex-col items-center">
+                  <div className="col-span-2 bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-6 flex flex-col items-center">
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-6 w-full text-center">Intelligence Radar</p>
                     <div className="h-48 w-full">
                       <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -253,7 +253,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                       { label: 'Learning Trajectory', value: metrics.m17b_velocity_label?.value, icon: TrendingUp, color: 'text-purple-400', bg: 'bg-purple-500/10' },
                       { label: 'Group Percentile', value: metrics.m26_percentile?.value, icon: Trophy, color: 'text-amber-400', bg: 'bg-amber-500/10' },
                     ].map((s, i) => (
-                      <div key={i} className={`${s.bg} border border-white/5 rounded-2xl p-4 flex flex-col justify-between`}>
+                      <div key={i} className={`${s.bg} border border-[var(--color-outline-variant)] rounded-2xl p-4 flex flex-col justify-between`}>
                         <div className="flex items-center gap-2">
                           <s.icon size={12} className={s.color} />
                           <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest truncate">{s.label}</p>
@@ -266,7 +266,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
 
                 {/* Scientific Consistency Matrix */}
                 {consistency && (
-                  <div className="bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-3xl p-6 space-y-4 backdrop-blur-md">
+                  <div className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-6 space-y-4 backdrop-blur-md">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Activity size={16} className="text-[var(--color-brand-primary)]" />
@@ -278,32 +278,32 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                     </div>
 
                     <div className="grid grid-cols-4 gap-4">
-                      <div className="bg-white/5 rounded-2xl p-4 flex flex-col justify-between">
+                      <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency Index</p>
                         <p className="text-xl font-black text-[var(--color-brand-primary)] mt-1">{(consistency.consistency_index || 0).toFixed(2)}%</p>
                         <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-wider">Coefficient of Var.</p>
                       </div>
 
-                      <div className="bg-white/5 rounded-2xl p-4 flex flex-col justify-between">
+                      <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Status / Profile</p>
                         <p className="text-sm font-black text-emerald-400 mt-1 uppercase tracking-wider truncate">{consistency.consistency_status || 'N/A'}</p>
                         <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-wider">Stability Grade</p>
                       </div>
 
-                      <div className="bg-white/5 rounded-2xl p-4 flex flex-col justify-between">
+                      <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Mean Accuracy</p>
                         <p className="text-xl font-black text-[var(--color-on-surface)] mt-1">{(consistency.mean_accuracy || 0).toFixed(2)}%</p>
                         <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-wider">Average Performance</p>
                       </div>
 
-                      <div className="bg-white/5 rounded-2xl p-4 flex flex-col justify-between">
+                      <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Standard Deviation</p>
                         <p className="text-xl font-black text-purple-400 mt-1">{(consistency.standard_deviation || 0).toFixed(2)}</p>
                         <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-wider">Performance Spread</p>
                       </div>
                     </div>
 
-                    <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex gap-3 items-center">
+                    <div className="bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-4 flex gap-3 items-center">
                       <Brain size={24} className="text-[var(--color-brand-primary)] flex-shrink-0" />
                       <p className="text-xs text-[var(--color-on-surface-variant)] font-medium leading-relaxed">
                         {consistency.interpretation || 'No consistency profile synthesized yet.'}
@@ -316,14 +316,14 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xs font-black text-[var(--color-on-surface)] uppercase tracking-[0.2em]">30-Metric Analytical Grid</h3>
-                    <div className="h-px bg-white/5 flex-1 mx-4" />
+                    <div className="h-px bg-[var(--color-surface-container-high)] flex-1 mx-4" />
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     {Object.values(metrics).map((m: any, i: number) => {
                       const typeColor = m.type === 'quantitative' ? 'text-[var(--color-brand-primary)]' : m.type === 'qualitative' ? 'text-purple-400' : 'text-amber-400';
                       const bgColor = m.type === 'quantitative' ? 'bg-indigo-500/5' : m.type === 'qualitative' ? 'bg-purple-500/5' : 'bg-amber-500/5';
                       return (
-                        <div key={i} className={`${bgColor} border border-white/5 rounded-2xl p-4 hover:border-white/20 transition-all group`}>
+                        <div key={i} className={`${bgColor} border border-[var(--color-outline-variant)] rounded-2xl p-4 hover:border-[var(--color-outline-variant)] transition-all group`}>
                           <div className="flex items-center gap-2 mb-1.5">
                             <span className="text-xs group-hover:scale-110 transition-transform">{m.icon}</span>
                             <p className={`text-[9px] font-black uppercase tracking-widest ${typeColor} truncate`}>{m.label}</p>
@@ -357,7 +357,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   )}
                 </div>
 
-                <div className="bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-3xl p-8">
+                <div className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-8">
                   <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-8">Topic Mastery Architecture</p>
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -380,7 +380,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
             {/* TREND SECTION */}
             {activeSection === 'trend' && (
               <motion.div key="trend" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-8">
-                <div className="bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-3xl p-8">
+                <div className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-8">
                   <div className="flex items-center justify-between mb-8">
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Cognitive Engagement Velocity</p>
                     <div className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black text-[var(--color-brand-primary)]">
@@ -427,14 +427,14 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                     </div>
                     <div className="space-y-6">
                       {aiSummary.split('\n').filter(Boolean).map((line, i) => (
-                        <div key={i} className="flex gap-4 p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all">
+                        <div key={i} className="flex gap-4 p-5 bg-[var(--color-surface-container-high)] rounded-2xl border border-[var(--color-outline-variant)] hover:border-indigo-500/30 transition-all">
                           <ChevronRight size={16} className="text-indigo-500 shrink-0 mt-1" />
                           <p className="text-[var(--color-on-surface-variant)] leading-relaxed text-sm font-medium" 
                              dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<span class="text-[var(--color-on-surface)] font-black">$1</span>') }} />
                         </div>
                       ))}
                     </div>
-                    <button onClick={() => generateAISummary(true)} className="mt-8 w-full py-4 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-white/5 flex items-center justify-center gap-2">
+                    <button onClick={() => generateAISummary(true)} className="mt-8 w-full py-4 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-[var(--color-outline-variant)] flex items-center justify-center gap-2">
                       <RefreshCw size={14} /> Regenerate Insights
                     </button>
                   </div>
@@ -475,7 +475,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {atlas.map((point, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-2xl p-5 hover:border-emerald-500/30 transition-all group">
+                        <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-2xl p-5 hover:border-emerald-500/30 transition-all group">
                           <div className="flex items-start gap-4">
                             <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
                               <span className="text-xs font-black">{i + 1}</span>

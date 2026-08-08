@@ -77,7 +77,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="bg-transparent flex-1 text-[var(--color-on-surface)] outline-none placeholder:text-slate-600"
+                className="bg-transparent flex-1 text-[var(--color-on-surface)] outline-none placeholder:text-[var(--color-on-surface-variant)]"
               />
             </div>
           </label>
@@ -94,7 +94,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="bg-transparent flex-1 text-[var(--color-on-surface)] outline-none placeholder:text-slate-600"
+                className="bg-transparent flex-1 text-[var(--color-on-surface)] outline-none placeholder:text-[var(--color-on-surface-variant)]"
               />
             </div>
           </label>

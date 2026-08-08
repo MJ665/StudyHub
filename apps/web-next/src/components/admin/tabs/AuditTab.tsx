@@ -194,7 +194,7 @@ export default function AuditTab({ ctx }: { ctx: AdminTabCtx }) {
                         <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Governance & Auditing</h3>
                         <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">Immutable Immutable Audit Trail (AUD-205)</p>
                       </div>
-                      <div className="flex bg-[var(--color-surface-container)] p-1 rounded-xl border border-white/5">
+                      <div className="flex bg-[var(--color-surface-container)] p-1 rounded-xl border border-[var(--color-outline-variant)]">
                         <button
                           onClick={() => setAuditSubTab('Audit')}
                           className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Audit' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}

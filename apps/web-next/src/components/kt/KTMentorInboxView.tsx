@@ -349,7 +349,7 @@ export default function KTMentorInboxView() {
 
           {inbox.length === 0 && (
             <div className="bg-[var(--color-surface-container)]/10 border border-slate-850 rounded-[2rem] p-12 text-center">
-              <Mail className="mx-auto text-slate-700 mb-3" size={36} />
+              <Mail className="mx-auto text-[var(--color-on-surface-variant)] mb-3" size={36} />
               <p className="text-[var(--color-on-surface-variant)] font-bold">Review Inbox Clear</p>
               <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">All incoming engineering docs are validated, embedded, and indexed into the knowledge graph for grounded retrieval.</p>
             </div>

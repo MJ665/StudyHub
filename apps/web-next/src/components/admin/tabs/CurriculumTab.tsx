@@ -206,14 +206,14 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="p-6 bg-white/5 border border-white/10 rounded-3xl mb-8 flex gap-4 items-end"
+                      className="p-6 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-3xl mb-8 flex gap-4 items-end"
                     >
                       <div className="flex-1">
                         <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2 tracking-widest">Course Designation</label>
                         <input
                           value={newCourseName}
                           onChange={e => setNewCourseName(e.target.value)}
-                          className="w-full bg-[var(--color-surface-container)] border border-white/5 rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none ring-1 ring-white/10 focus:ring-brand-primary/30"
+                          className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none ring-1 ring-white/10 focus:ring-brand-primary/30"
                           placeholder="e.g. Advanced Distributed Systems"
                         />
                       </div>
@@ -228,9 +228,9 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {courses.map(c => (
-                      <div key={c.id} className="p-6 bg-[var(--color-surface-container)]/50 border border-white/5 rounded-[2.5rem] flex items-center justify-between group hover:border-brand-primary/30 transition-all">
+                      <div key={c.id} className="p-6 bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-[2.5rem] flex items-center justify-between group hover:border-brand-primary/30 transition-all">
                         <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-brand-primary font-black text-xs">
+                          <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-brand-primary font-black text-xs">
                             {c.name?.[0]}
                           </div>
                           <span className="text-sm font-black text-[var(--color-on-surface)]">{c.name}</span>

@@ -100,7 +100,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
           <div className="lg:col-span-2 overflow-y-auto pr-4 custom-scrollbar space-y-4">
             {filteredAttempts.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center py-20 bg-[var(--color-surface-container)]/40 rounded-[3rem] border border-dashed border-[var(--color-outline-variant)]">
-                <div className="w-20 h-20 bg-[var(--color-surface-container-high)] rounded-3xl flex items-center justify-center text-slate-600 mb-6">
+                <div className="w-20 h-20 bg-[var(--color-surface-container-high)] rounded-3xl flex items-center justify-center text-[var(--color-on-surface-variant)] mb-6">
                   <ClipboardList size={40} />
                 </div>
                 <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2">No Records Found</h3>
@@ -131,7 +131,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
 
                   <div className="text-right">
                     <div className="flex items-center justify-end gap-2 mb-1">
-                      <p className="text-2xl font-black text-[var(--color-on-surface)]">{attempt.score}<span className="text-slate-600 text-sm">/{attempt.total}</span></p>
+                      <p className="text-2xl font-black text-[var(--color-on-surface)]">{attempt.score}<span className="text-[var(--color-on-surface-variant)] text-sm">/{attempt.total}</span></p>
                       {attempt.score >= 70 ? <CheckCircle2 className="text-emerald-500" size={20} /> : <AlertCircle className="text-amber-500" size={20} />}
                     </div>
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-[0.2em]">Accuracy Profile</p>
@@ -144,7 +144,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
           {/* Aggregate Insights Sidebar */}
           <div className="space-y-6">
             <div className="bg-[var(--color-brand-primary-container)] p-8 rounded-[3rem] text-[var(--color-on-surface)] shadow-xl shadow-indigo-600/20 relative overflow-hidden group">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 blur-3xl rounded-full" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[var(--color-surface-bright)] blur-3xl rounded-full" />
               <TrendingUp className="mb-4 text-indigo-200" size={32} />
               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-200 mb-2">Long-term Trajectory</p>
               <h3 className="text-3xl font-black mb-4">{intel?.metrics?.m17b_velocity_label?.value || 'Steady Growth'}</h3>

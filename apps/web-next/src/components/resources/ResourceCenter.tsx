@@ -288,9 +288,9 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             </div>
           ) : resources.length === 0 ? (
             <div className="col-span-2 py-20 text-center border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
-              <UploadCloud size={48} className="mx-auto text-slate-700 mb-4" />
+              <UploadCloud size={48} className="mx-auto text-[var(--color-on-surface-variant)] mb-4" />
               <p className="text-[var(--color-on-surface-variant)] font-bold mb-2">No study materials yet</p>
-              <p className="text-slate-600 text-sm">Be the first to share a PDF with your group!</p>
+              <p className="text-[var(--color-on-surface-variant)] text-sm">Be the first to share a PDF with your group!</p>
             </div>
           ) : (
             resources.map(res => (
@@ -313,9 +313,9 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                     )}
 
                     <div className="flex items-center gap-3 mt-2">
-                      <p className="text-xs text-slate-600 uppercase tracking-wider">{res.uploaded_by}</p>
-                      <span className="text-slate-700">·</span>
-                      <p className="text-xs text-slate-600">{new Date(res.created_at).toLocaleDateString()}</p>
+                      <p className="text-xs text-[var(--color-on-surface-variant)] uppercase tracking-wider">{res.uploaded_by}</p>
+                      <span className="text-[var(--color-on-surface-variant)]">·</span>
+                      <p className="text-xs text-[var(--color-on-surface-variant)]">{new Date(res.created_at).toLocaleDateString()}</p>
                     </div>
                   </div>
                 </div>
@@ -371,7 +371,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <button
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-3 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight size={20} className="rotate-180" />
             </button>
@@ -384,7 +384,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                   className={`w-10 h-10 rounded-xl font-black text-xs transition-all ${
                     currentPage === i + 1 
                       ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
-                      : 'bg-[var(--color-surface-container)] border border-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
+                      : 'bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
                   }`}
                 >
                   {i + 1}
@@ -395,7 +395,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <button
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-3 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight size={20} />
             </button>
@@ -551,7 +551,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
               allow="fullscreen"
             />
           </div>
-          <p className="text-center text-xs text-slate-600 mt-3">View-only via Google Docs Viewer. Use "Open PDF in New Tab" for best experience.</p>
+          <p className="text-center text-xs text-[var(--color-on-surface-variant)] mt-3">View-only via Google Docs Viewer. Use "Open PDF in New Tab" for best experience.</p>
         </div>
       )}
 

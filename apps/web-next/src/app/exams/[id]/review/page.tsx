@@ -83,7 +83,7 @@ function ProctorDetail({ attemptId }: { attemptId: number }) {
       <div>
         <div className="text-xs uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Webcam snapshots ({data.snapshots.length})</div>
         {data.snapshots.length === 0 ? (
-          <div className="text-slate-600 text-xs">No snapshots captured.</div>
+          <div className="text-[var(--color-on-surface-variant)] text-xs">No snapshots captured.</div>
         ) : (
           <div className="flex gap-2 overflow-x-auto pb-1">
             {data.snapshots.map((s) => (
@@ -296,11 +296,11 @@ export default function ProctorReviewPage() {
                   <span className={verdict === 'pass' ? 'text-emerald-400' : verdict === 'fail' ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}>
                     {verdict == null ? '—' : verdict === 'pass' ? 'Pass' : 'Fail'}
                   </span>
-                  <span className={`text-[10px] ${rs === 'released' ? 'text-emerald-500/70' : rs === 'withheld' ? 'text-amber-500/70' : 'text-slate-600'}`}>{rs}</span>
+                  <span className={`text-[10px] ${rs === 'released' ? 'text-emerald-500/70' : rs === 'withheld' ? 'text-amber-500/70' : 'text-[var(--color-on-surface-variant)]'}`}>{rs}</span>
                 </span>
                 <button onClick={() => setExpanded(expanded === a.id ? null : a.id)}
                   className={`text-left ${a.flags > 0 ? 'text-amber-400 font-bold' : 'text-[var(--color-on-surface-variant)]'}`}>
-                  {a.flags > 0 ? `⚠ ${a.flags}` : '0'} <span className="text-slate-600">{expanded === a.id ? '▲' : '▼'}</span>
+                  {a.flags > 0 ? `⚠ ${a.flags}` : '0'} <span className="text-[var(--color-on-surface-variant)]">{expanded === a.id ? '▲' : '▼'}</span>
                 </button>
               </div>
               {expanded === a.id && <ProctorDetail attemptId={a.id} />}
@@ -309,7 +309,7 @@ export default function ProctorReviewPage() {
           })}
           </div>
         </div>
-        <p className="text-center text-slate-600 text-xs mt-6">Powered by StudyBuddy</p>
+        <p className="text-center text-[var(--color-on-surface-variant)] text-xs mt-6">Powered by StudyBuddy</p>
       </div>
     </div>
   );

@@ -35,8 +35,8 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
   if (loading) {
     return (
       <div className="h-64 bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-[var(--color-outline-variant)] border-dashed flex flex-col items-center justify-center gap-4 animate-pulse">
-        <BrainCircuit size={32} className="text-slate-700" />
-        <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">Synthesizing Pedagogical Vectors...</p>
+        <BrainCircuit size={32} className="text-[var(--color-on-surface-variant)]" />
+        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Synthesizing Pedagogical Vectors...</p>
       </div>
     );
   }
@@ -85,7 +85,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* ── LEFT: MAIN TRAJECTORY ───────────────────────────────── */}
-      <div className="lg:col-span-2 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 p-8 relative overflow-hidden group">
+      <div className="lg:col-span-2 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] p-8 relative overflow-hidden group">
         <div className="absolute top-0 right-0 p-8 opacity-5">
            <Map size={120} />
         </div>
@@ -182,7 +182,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
       </div>
 
       {/* ── RIGHT: COMPETENCY RADAR ─────────────────────────────── */}
-      <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 p-8 flex flex-col group">
+      <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] p-8 flex flex-col group">
          <div className="flex items-center gap-2 text-purple-400 mb-6">
             <Layers size={16} />
             <span className="text-[10px] font-black uppercase tracking-[0.3em]">Competency Matrix</span>
@@ -209,7 +209,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
              )}
           </div>
          
-         <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
+         <div className="mt-8 pt-6 border-t border-[var(--color-outline-variant)] flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
                <Target size={20} />
             </div>

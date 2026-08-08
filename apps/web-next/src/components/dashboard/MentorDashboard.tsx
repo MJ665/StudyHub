@@ -172,7 +172,7 @@ export default function MentorDashboard({
         <div className="flex gap-4">
           <button 
             onClick={() => setShowBankModal(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 text-[var(--color-on-surface-variant)] rounded-2xl font-black border border-white/5 hover:bg-white/10 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] rounded-2xl font-black border border-[var(--color-outline-variant)] hover:bg-[var(--color-surface-bright)] transition-all"
           >
             <BookOpen size={18} />
             <span>New Bank</span>
@@ -224,7 +224,7 @@ export default function MentorDashboard({
                 <span className="font-bold">{group.name}</span>
                 <ChevronRight size={16} className={selectedGroupId === group.id ? 'opacity-100' : 'opacity-0'} />
               </div>
-              <p className={`text-[10px] uppercase font-black tracking-widest mt-1 ${selectedGroupId === group.id ? 'text-indigo-200' : 'text-slate-600'}`}>
+              <p className={`text-[10px] uppercase font-black tracking-widest mt-1 ${selectedGroupId === group.id ? 'text-indigo-200' : 'text-[var(--color-on-surface-variant)]'}`}>
                 {group.batch_name || 'Active Batch'}
               </p>
             </button>
@@ -259,16 +259,16 @@ export default function MentorDashboard({
             <div className="flex gap-1 p-1 bg-surface-container rounded-2xl border border-surface-bright w-fit mb-4">
                <button 
                  onClick={() => setActiveMainTab('DASHBOARD')}
-                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'DASHBOARD' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] border border-white/5 shadow-xl' : 'text-[var(--color-on-surface-variant)]'}`}
+                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'DASHBOARD' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] border border-[var(--color-outline-variant)] shadow-xl' : 'text-[var(--color-on-surface-variant)]'}`}
                >DASHBOARD</button>
                <button 
                  onClick={() => setActiveMainTab('STUDENTS')}
-                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'STUDENTS' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] border border-white/5 shadow-xl' : 'text-[var(--color-on-surface-variant)]'}`}
+                 className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all ${activeMainTab === 'STUDENTS' ? 'bg-[var(--color-surface-container)] text-[var(--color-brand-primary)] border border-[var(--color-outline-variant)] shadow-xl' : 'text-[var(--color-on-surface-variant)]'}`}
                >STUDENTS</button>
             </div>
 
             {/* AI Group Insight Banner */}
-            <div className="bg-gradient-to-br from-indigo-950/60 via-slate-900/60 to-surface-dim/40 p-10 rounded-[3rem] border border-white/5 relative overflow-hidden mb-8 shadow-2xl group">
+            <div className="bg-gradient-to-br from-indigo-950/60 via-slate-900/60 to-surface-dim/40 p-10 rounded-[3rem] border border-[var(--color-outline-variant)] relative overflow-hidden mb-8 shadow-2xl group">
                <div className="absolute -top-10 -right-10 w-64 h-64 bg-indigo-500/10 blur-[80px] pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-1000" />
                <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3 text-[var(--color-brand-primary)]">
@@ -278,7 +278,7 @@ export default function MentorDashboard({
                   <button 
                     disabled={loadingSummary}
                     onClick={() => selectedGroupId && fetchGroupDetails(selectedGroupId, true)}
-                    className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl border border-white/5 transition-all disabled:opacity-30 active:scale-95"
+                    className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl border border-[var(--color-outline-variant)] transition-all disabled:opacity-30 active:scale-95"
                     title="Recalibrate AI Vectors"
                   >
                     <RefreshCw size={18} className={loadingSummary ? 'animate-spin' : ''} />
@@ -287,9 +287,9 @@ export default function MentorDashboard({
                
                {loadingSummary ? (
                  <div className="space-y-4">
-                    <div className="h-4 bg-white/5 rounded-full w-3/4 animate-pulse" />
-                    <div className="h-4 bg-white/5 rounded-full w-full animate-pulse" />
-                    <div className="h-4 bg-white/5 rounded-full w-1/2 animate-pulse" />
+                    <div className="h-4 bg-[var(--color-surface-container-high)] rounded-full w-3/4 animate-pulse" />
+                    <div className="h-4 bg-[var(--color-surface-container-high)] rounded-full w-full animate-pulse" />
+                    <div className="h-4 bg-[var(--color-surface-container-high)] rounded-full w-1/2 animate-pulse" />
                     <p className="text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest mt-6 flex items-center gap-2">
                        <Loader2 size={12} className="animate-spin" /> Analyzing Group Performance Vectors...
                     </p>
@@ -405,7 +405,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
     >
       <motion.div 
         initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
-        className="w-full max-w-3xl bg-[var(--color-surface-container)] border border-white/5 rounded-[3rem] shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]"
+        className="w-full max-w-3xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[3rem] shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-brand-primary" />
         
@@ -414,7 +414,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
               <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Manual Recalibration</h3>
               <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">{attempt.type} Review / {attempt.user_name}</p>
            </div>
-           <button onClick={onClose} className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl transition-all">
+           <button onClick={onClose} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] rounded-2xl transition-all">
               <X size={20} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]" />
            </button>
         </header>
@@ -424,8 +424,8 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
           <div className="space-y-6">
             {attempt.type === 'coding' ? (
               <div className="space-y-4">
-                <div className="bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5 overflow-hidden">
-                  <div className="px-6 py-3 bg-white/5 border-b border-white/5 flex items-center justify-between">
+                <div className="bg-[var(--color-surface-dim)]/50 rounded-3xl border border-[var(--color-outline-variant)] overflow-hidden">
+                  <div className="px-6 py-3 bg-[var(--color-surface-container-high)] border-b border-[var(--color-outline-variant)] flex items-center justify-between">
                     <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Source Code Submission ({attempt.language})</span>
                     <Code2 size={14} className="text-[var(--color-brand-primary)]" />
                   </div>
@@ -481,7 +481,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                         )}
                       </div>
                       {ans.note && (
-                        <div className="mt-4 pt-4 border-t border-white/5">
+                        <div className="mt-4 pt-4 border-t border-[var(--color-outline-variant)]">
                           <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">User Reflection</p>
                           <p className="text-xs text-[var(--color-on-surface-variant)] italic font-medium leading-relaxed">"{ans.note}"</p>
                         </div>
@@ -489,7 +489,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                     </div>
                   ))}
                   {(!attempt.descriptive_answers || attempt.descriptive_answers.length === 0) && (
-                    <div className="py-20 text-center bg-white/5 rounded-[2rem] border border-dashed border-white/10">
+                    <div className="py-20 text-center bg-[var(--color-surface-container-high)] rounded-[2rem] border border-dashed border-[var(--color-outline-variant)]">
                       <p className="text-[var(--color-on-surface-variant)] text-xs font-black uppercase tracking-widest">No detailed answer registry found</p>
                     </div>
                   )}
@@ -498,11 +498,11 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
             )}
           </div>
 
-          <div className="space-y-6 pt-8 border-t border-white/5">
-             <div className="p-6 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-white/5">
+          <div className="space-y-6 pt-8 border-t border-[var(--color-outline-variant)]">
+             <div className="p-6 bg-[var(--color-surface-dim)]/50 rounded-3xl border border-[var(--color-outline-variant)]">
                 <div className="flex justify-between items-center mb-4">
                    <p className="text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] tracking-widest">Suggested Score Recalibration</p>
-                   <span className="px-3 py-1 bg-white/5 rounded-lg text-xs font-black text-[var(--color-on-surface)]">{attempt.score} / {attempt.total}</span>
+                   <span className="px-3 py-1 bg-[var(--color-surface-container-high)] rounded-lg text-xs font-black text-[var(--color-on-surface)]">{attempt.score} / {attempt.total}</span>
                 </div>
                 <div className="flex items-center gap-4">
                    <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">Override:</p>
@@ -512,7 +512,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                      max={attempt.total}
                      value={overrideScore}
                      onChange={e => setOverrideScore(parseFloat(e.target.value))}
-                     className="flex-1 bg-[var(--color-surface-dim)] border border-white/10 rounded-xl px-4 py-2 text-[var(--color-on-surface)] font-black text-center outline-none focus:ring-1 focus:ring-indigo-500"
+                     className="flex-1 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-[var(--color-on-surface)] font-black text-center outline-none focus:ring-1 focus:ring-indigo-500"
                    />
                 </div>
              </div>
@@ -523,7 +523,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                   value={comment}
                   onChange={e => setComment(e.target.value)}
                   placeholder="Direct feedback to student regarding their performance, strategy, or conceptual alignment..."
-                  className="w-full h-32 bg-[var(--color-surface-dim)]/50 border border-white/5 rounded-3xl p-6 text-[var(--color-on-surface)] text-sm resize-none outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  className="w-full h-32 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] text-sm resize-none outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
                 />
              </div>
 

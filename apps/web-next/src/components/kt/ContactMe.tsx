@@ -139,7 +139,7 @@ const ContactMe = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g. Jane Doe"
-                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
                   />
                 </div>
                 <div className="space-y-3">
@@ -150,7 +150,7 @@ const ContactMe = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@company.com"
-                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
                   />
                 </div>
               </div>
@@ -164,7 +164,7 @@ const ContactMe = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Short summary"
-                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
                   />
                 </div>
                 <div className="space-y-3">
@@ -196,7 +196,7 @@ const ContactMe = () => {
                   onChange={handleChange}
                   rows={5}
                   placeholder="Tell us what's on your mind..."
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-[2rem] px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-slate-700 font-bold resize-none"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-[2rem] px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold resize-none"
                 />
               </div>
 

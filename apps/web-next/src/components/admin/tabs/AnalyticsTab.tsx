@@ -216,7 +216,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       <select
                         value={selectedAnalyticsBatch || ''}
                         onChange={(e) => setSelectedAnalyticsBatch(e.target.value ? parseInt(e.target.value) : null)}
-                        className="bg-[var(--color-surface-container)] border border-white/10 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface)] outline-none min-w-[200px]"
+                        className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface)] outline-none min-w-[200px]"
                       >
                         <option value="">Select Cohort...</option>
                         {allPossibleBatches.map(b => (
@@ -234,7 +234,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       <button
                         disabled={!selectedAnalyticsBatch || fetchingInsights}
                         onClick={() => handleFetchBatchInsights(true)}
-                        className="p-3 bg-white/5 border border-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all disabled:opacity-30"
+                        className="p-3 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all disabled:opacity-30"
                         title="Force Neural Refresh (Bypass Cache)"
                       >
                         <RefreshCw size={16} className={fetchingInsights ? "animate-spin" : ""} />
@@ -246,14 +246,14 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mb-8 p-6 bg-white/5 border border-white/5 rounded-2xl italic text-xs text-[var(--color-on-surface-variant)] leading-relaxed border-l-4 border-l-brand-primary"
+                      className="mb-8 p-6 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl italic text-xs text-[var(--color-on-surface-variant)] leading-relaxed border-l-4 border-l-brand-primary"
                     >
                       "{executiveSummary}"
                     </motion.div>
                   )}
                   {batchIntel?.fullMetrics?.metrics && (
                     <div className="mb-10 space-y-8">
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[var(--color-surface-container)]/40 border border-white/5 p-8 rounded-[2.5rem] relative overflow-hidden group">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-8 rounded-[2.5rem] relative overflow-hidden group">
                         <div className="absolute inset-0 bg-brand-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                         <div className="lg:col-span-5">
                           <p className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em] mb-6">Cohort Neural Fingerprint</p>
@@ -266,7 +266,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                               { m: batchIntel.fullMetrics.metrics.m26_talent_density, icon: <Trophy size={14} /> },
                               { m: batchIntel.fullMetrics.metrics.m29_risk_profile, icon: <Shield size={14} /> }
                             ].filter(x => x.m).map((item, idx) => (
-                              <div key={idx} className="bg-[var(--color-surface-dim)]/60 p-4 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all">
+                              <div key={idx} className="bg-[var(--color-surface-dim)]/60 p-4 rounded-2xl border border-[var(--color-outline-variant)] hover:border-brand-primary/30 transition-all">
                                 <div className="flex items-center gap-2 mb-2">
                                   <span className="text-brand-primary/60">{item.icon}</span>
                                   <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest truncate">{item.m.label}</p>
@@ -298,7 +298,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       </div>
 
 
-                      <div className="bg-white/5 border border-white/5 p-8 rounded-3xl">
+                      <div className="bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] p-8 rounded-3xl">
                         <h4 className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em] mb-6">High-Fidelity Metric Matrix (30 Vectors)</h4>
                         <PerformanceMetricGrid metrics={batchIntel.fullMetrics.metrics} />
                       </div>
@@ -308,7 +308,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                   {(batchIntel?.insights || []).length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {(Array.isArray(batchIntel?.insights) ? batchIntel.insights : []).map((insight: any, idx: number) => (
-                        <div key={idx} className="p-6 bg-[var(--color-surface-container)]/50 border border-white/5 rounded-[2rem] hover:border-brand-primary/30 transition-all relative overflow-hidden group">
+                        <div key={idx} className="p-6 bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] hover:border-brand-primary/30 transition-all relative overflow-hidden group">
                           <div className="flex items-center justify-between mb-4">
                             <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter ${insight.impact === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
                               insight.impact === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
@@ -316,11 +316,11 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                               }`}>
                               {insight.impact} Impact
                             </span>
-                            <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">{insight.category}</span>
+                            <span className="text-[10px] font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest">{insight.category}</span>
                           </div>
                           <h4 className="text-sm font-black text-[var(--color-on-surface)] mb-2 group-hover:text-brand-primary transition-colors">{insight.dimension}</h4>
                           <p className="text-[11px] text-[var(--color-on-surface-variant)] leading-relaxed mb-4">{insight.observation}</p>
-                          <div className="pt-4 border-t border-white/5">
+                          <div className="pt-4 border-t border-[var(--color-outline-variant)]">
                             <p className="text-[9px] font-black text-brand-primary uppercase tracking-widest mb-2">Executive Action</p>
                             <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)] italic">{insight.actionable_step}</p>
                           </div>
@@ -353,7 +353,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       <button
                         disabled={fetchingGlobal}
                         onClick={() => handleFetchGlobalInsights(true)}
-                        className="p-3 bg-white/5 border border-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all disabled:opacity-30"
+                        className="p-3 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all disabled:opacity-30"
                         title="Force Global Neural Refresh (Bypass Cache)"
                       >
                         <RefreshCw size={16} className={fetchingGlobal ? "animate-spin" : ""} />
@@ -373,7 +373,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
 
                   {globalMetrics?.metrics && (
                     <div className="mb-10 space-y-8">
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[var(--color-surface-container)]/40 border border-white/5 p-8 rounded-[2.5rem] relative overflow-hidden group">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-8 rounded-[2.5rem] relative overflow-hidden group">
                         <div className="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                         <div className="lg:col-span-5">
                           <p className="text-[10px] font-black text-purple-400 uppercase tracking-[0.2em] mb-6">Global Performance Fingerprint</p>
@@ -386,7 +386,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                               { m: globalMetrics.metrics.m26_talent_density, icon: <Trophy size={14} /> },
                               { m: globalMetrics.metrics.m29_risk_profile, icon: <Shield size={14} /> }
                             ].filter(x => x.m).map((item, idx) => (
-                              <div key={idx} className="bg-[var(--color-surface-dim)]/60 p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-all text-left">
+                              <div key={idx} className="bg-[var(--color-surface-dim)]/60 p-4 rounded-2xl border border-[var(--color-outline-variant)] hover:border-purple-500/30 transition-all text-left">
                                 <div className="flex items-center gap-2 mb-2">
                                   <span className="text-purple-400/60">{item.icon}</span>
                                   <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest truncate">{item.m.label}</p>
@@ -418,7 +418,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       </div>
 
 
-                      <div className="bg-white/5 border border-white/5 p-8 rounded-3xl">
+                      <div className="bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] p-8 rounded-3xl">
                         <h4 className="text-[10px] font-black text-purple-400 uppercase tracking-[0.2em] mb-6">Cross-Organization Metric Matrix (30 Vectors)</h4>
                         <PerformanceMetricGrid metrics={globalMetrics.metrics} />
                       </div>
@@ -433,7 +433,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.05 }}
-                          className="p-6 bg-[var(--color-surface-container)]/40 border border-white/5 rounded-[2.5rem] hover:border-purple-500/30 transition-all relative overflow-hidden group shadow-xl hover:shadow-purple-500/5"
+                          className="p-6 bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-[2.5rem] hover:border-purple-500/30 transition-all relative overflow-hidden group shadow-xl hover:shadow-purple-500/5"
                         >
                           <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-purple-500/10 transition-all" />
                           <div className="flex items-center justify-between mb-4 relative z-10">
@@ -443,15 +443,15 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                               }`}>
                               {insight.impact} Impact
                             </span>
-                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">{insight.category}</span>
+                            <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">{insight.category}</span>
                           </div>
                           <h4 className="text-sm font-black text-[var(--color-on-surface)] mb-2 group-hover:text-purple-400 transition-colors relative z-10">{insight.dimension}</h4>
                           <p className="text-[11px] text-[var(--color-on-surface-variant)] leading-relaxed mb-4 relative z-10">{insight.observation}</p>
-                          <div className="pt-4 border-t border-white/5 relative z-10">
+                          <div className="pt-4 border-t border-[var(--color-outline-variant)] relative z-10">
                             <p className="text-[9px] font-black text-purple-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                               <Sparkles size={10} /> System Mandate
                             </p>
-                            <p className="text-[10px] font-bold text-[var(--color-on-surface)] italic bg-white/5 p-3 rounded-xl border border-white/5">{insight.actionable_step}</p>
+                            <p className="text-[10px] font-bold text-[var(--color-on-surface)] italic bg-[var(--color-surface-container-high)] p-3 rounded-xl border border-[var(--color-outline-variant)]">{insight.actionable_step}</p>
                           </div>
                         </motion.div>
 

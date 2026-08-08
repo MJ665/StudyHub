@@ -88,7 +88,7 @@ export default function CourseEnrollmentModal({ onClose, onEnrolled }: any) {
             <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Course Enrollment</h3>
             <p className="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Global Curriculum Deployment</p>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
+          <button onClick={onClose} className="p-2 hover:bg-[var(--color-surface-container-high)] rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
             <X size={24} />
           </button>
         </div>
@@ -98,14 +98,14 @@ export default function CourseEnrollmentModal({ onClose, onEnrolled }: any) {
             <button 
               type="button"
               onClick={() => { setTargetType('Group'); setTargetId(''); }}
-              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Group' ? 'bg-brand-primary text-slate-950' : 'bg-white/5 text-[var(--color-on-surface-variant)]'}`}
+              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Group' ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
             >
               Target Group
             </button>
             <button 
               type="button"
               onClick={() => { setTargetType('Vertical'); setTargetId(''); }}
-              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Vertical' ? 'bg-indigo-500 text-[var(--color-on-surface)]' : 'bg-white/5 text-[var(--color-on-surface-variant)]'}`}
+              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Vertical' ? 'bg-indigo-500 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
             >
               Target Vertical
             </button>

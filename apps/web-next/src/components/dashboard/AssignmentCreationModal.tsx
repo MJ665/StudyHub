@@ -150,7 +150,7 @@ export default function AssignmentCreationModal({ user, onClose, onCreated }: an
             <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Direct Mandate</h3>
             <p className="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Enforce Learning Compliance</p>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
+          <button onClick={onClose} className="p-2 hover:bg-[var(--color-surface-container-high)] rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
             <X size={24} />
           </button>
         </div>

@@ -55,6 +55,6 @@ export function CoBrand({ className = '' }: { className?: string }) {
 /** Universal footer. */
 export function PoweredByStudyBuddy({ className = '' }: { className?: string }) {
   return (
-    <p className={`text-center text-slate-600 text-xs ${className}`}>Powered by StudyBuddy</p>
+    <p className={`text-center text-[var(--color-on-surface-variant)] text-xs ${className}`}>Powered by StudyBuddy</p>
   );
 }

@@ -78,11 +78,11 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
 
       <div className={`p-5 rounded-2xl border transition-all duration-300 ${d.is_pinned
           ? 'bg-indigo-500/10 border-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.1)]'
-          : 'bg-[var(--color-surface-container)]/50 border-white/5 hover:border-white/10'
+          : 'bg-[var(--color-surface-container)]/50 border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)]'
         }`}>
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-[var(--color-surface-container-high)] border border-white/5 flex items-center justify-center text-xs font-black text-[var(--color-on-surface-variant)]">
+            <div className="w-8 h-8 rounded-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] flex items-center justify-center text-xs font-black text-[var(--color-on-surface-variant)]">
               {d.user_name.charAt(0)}
             </div>
             <div>
@@ -100,7 +100,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
             </div>
           </div>
           <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-            <button className="p-1.5 hover:bg-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-lg transition-all">
+            <button className="p-1.5 hover:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-lg transition-all">
               <ThumbsUp size={14} />
             </button>
             <button
@@ -108,11 +108,11 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
                 setReplyTo(d.id);
                 document.getElementById('discussion-input')?.focus();
               }}
-              className="p-1.5 hover:bg-white/5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-lg transition-all"
+              className="p-1.5 hover:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-lg transition-all"
             >
               <CornerDownRight size={14} />
             </button>
-            <button className="p-1.5 hover:bg-white/5 text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-lg transition-all">
+            <button className="p-1.5 hover:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-lg transition-all">
               <Flag size={14} />
             </button>
           </div>
@@ -143,10 +143,10 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        className="relative w-full max-w-2xl h-[80vh] bg-[var(--color-surface-container)] border border-white/10 rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+        className="relative w-full max-w-2xl h-[80vh] bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
       >
         {/* Header */}
-        <div className="p-8 border-b border-white/5 flex items-center justify-between shrink-0">
+        <div className="p-8 border-b border-[var(--color-outline-variant)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center">
               <MessageSquare className="text-[var(--color-brand-primary)]" size={24} />
@@ -156,7 +156,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
               <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mt-1">Collaborative Reasoning & Synthesis</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-white/5">
+          <button onClick={onClose} className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)]">
             <X size={20} />
           </button>
         </div>
@@ -171,7 +171,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
           ) : discussions.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center gap-6">
               <div className="w-20 h-20 bg-[var(--color-surface-container-high)]/50 rounded-[2rem] flex items-center justify-center">
-                <Sparkles size={40} className="text-slate-600" />
+                <Sparkles size={40} className="text-[var(--color-on-surface-variant)]" />
               </div>
               <div>
                 <h3 className="text-lg font-black text-[var(--color-on-surface)] mb-2 uppercase tracking-tight">The Floor is Yours</h3>
@@ -188,7 +188,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
         </div>
 
         {/* Input Area */}
-        <div className="p-8 bg-[var(--color-surface-container)]/50 border-t border-white/5 shrink-0">
+        <div className="p-8 bg-[var(--color-surface-container)]/50 border-t border-[var(--color-outline-variant)] shrink-0">
           {replyTo && (
             <div className="flex items-center justify-between bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-xl mb-4">
               <div className="flex items-center gap-2">
@@ -206,7 +206,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Explain your reasoning or ask a question..."
-              className="w-full bg-[var(--color-surface-container-high)] border border-white/5 rounded-2xl p-5 pr-20 text-sm text-[var(--color-on-surface)] placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none min-h-[100px]"
+              className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pr-20 text-sm text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none min-h-[100px]"
             />
             <button
               type="submit"
@@ -216,7 +216,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
               {submitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
             </button>
           </form>
-          <p className="mt-4 text-[9px] font-bold text-slate-600 uppercase tracking-widest text-center">
+          <p className="mt-4 text-[9px] font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest text-center">
             Helpful, high-fidelity logic explanations improve your Consistency Index.
           </p>
         </div>

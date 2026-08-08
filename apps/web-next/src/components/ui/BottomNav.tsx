@@ -78,7 +78,7 @@ export function BottomNav({ currentView, onChangeView, user, onLogout }: BottomN
                 <button
                   key={item.label}
                   onClick={() => go(item)}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl border ${currentView === item.view ? 'border-brand-primary/40 bg-brand-primary/10 text-brand-primary' : 'border-white/5 bg-white/5 text-[var(--color-on-surface-variant)]'}`}
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl border ${currentView === item.view ? 'border-brand-primary/40 bg-brand-primary/10 text-brand-primary' : 'border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>{item.icon}</span>
                   <span className="text-[11px] font-semibold text-center leading-tight">{item.label}</span>

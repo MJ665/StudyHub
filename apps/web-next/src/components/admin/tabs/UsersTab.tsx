@@ -293,7 +293,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                       document.body.appendChild(link);
                       link.click();
                     }}
-                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/5 transition-all"
+                    className="flex items-center gap-2 px-5 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-xl text-[10px] font-black uppercase tracking-widest border border-[var(--color-outline-variant)] transition-all"
                   >
                     <Download size={14} /> Export Registry
                   </button>
@@ -306,7 +306,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         <th className="px-8 py-5">
                           <input
                             type="checkbox"
-                            className="w-4 h-4 rounded-md border-white/10 bg-white/5 text-brand-primary focus:ring-brand-primary cursor-pointer"
+                            className="w-4 h-4 rounded-md border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)] text-brand-primary focus:ring-brand-primary cursor-pointer"
                             checked={filteredUsers.length > 0 && selectedUserIds.size === filteredUsers.length}
                             onChange={(e) => {
                               if (e.target.checked) {
@@ -327,11 +327,11 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                     </thead>
                     <tbody className="divide-y divide-surface-bright/30">
                       {filteredUsers.map(u => (
-                        <tr key={u.id} className={`hover:bg-white/5 transition-colors group ${selectedUserIds.has(u.id) ? 'bg-brand-primary/5' : ''}`}>
+                        <tr key={u.id} className={`hover:bg-[var(--color-surface-container-high)] transition-colors group ${selectedUserIds.has(u.id) ? 'bg-brand-primary/5' : ''}`}>
                           <td className="px-8 py-6">
                             <input
                               type="checkbox"
-                              className="w-4 h-4 rounded-md border-white/10 bg-white/5 text-brand-primary focus:ring-brand-primary cursor-pointer"
+                              className="w-4 h-4 rounded-md border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)] text-brand-primary focus:ring-brand-primary cursor-pointer"
                               checked={selectedUserIds.has(u.id)}
                               onChange={(e) => {
                                 const next = new Set(selectedUserIds);
@@ -371,7 +371,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                               <p className="text-[10px] text-[var(--color-on-surface)] font-black uppercase tracking-widest">
                                 {u.group_name || 'Global'}
                               </p>
-                              <p className="text-[8px] text-slate-600 font-bold uppercase tracking-tight italic">
+                              <p className="text-[8px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-tight italic">
                                 {u.batch_name ? `${u.batch_name} Sector` : 'Autonomous Operator'}
                               </p>
                             </div>

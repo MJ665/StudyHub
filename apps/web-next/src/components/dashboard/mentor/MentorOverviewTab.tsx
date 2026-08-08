@@ -70,7 +70,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                    <a
                      key={d.id}
                      href="/kt"
-                     className="flex items-center justify-between p-3 rounded-xl bg-[var(--color-surface-container)]/60 border border-white/5 hover:border-amber-500/30 transition-all"
+                     className="flex items-center justify-between p-3 rounded-xl bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] hover:border-amber-500/30 transition-all"
                    >
                      <div>
                        <p className="text-sm font-bold text-[var(--color-on-surface)]">{d.title}</p>

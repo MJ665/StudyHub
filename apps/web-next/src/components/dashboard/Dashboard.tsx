@@ -191,7 +191,7 @@ export default function Dashboard({
               {myExams.map((e: any) => {
                 const open = e.window_state === 'open';
                 return (
-                  <div key={e.id} className="flex items-center justify-between gap-3 flex-wrap rounded-2xl bg-[var(--color-surface-container)]/60 border border-white/5 p-4">
+                  <div key={e.id} className="flex items-center justify-between gap-3 flex-wrap rounded-2xl bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] p-4">
                     <div className="min-w-0">
                       <div className="font-bold text-[var(--color-on-surface)] truncate">{e.title}</div>
                       <div className="text-xs text-[var(--color-on-surface-variant)]">
@@ -376,7 +376,7 @@ export default function Dashboard({
                               toast('error', 'Failed to remove bookmark');
                             }
                           }}
-                          className="p-2 hover:bg-rose-500/10 text-slate-600 hover:text-rose-400 rounded-xl transition-all"
+                          className="p-2 hover:bg-rose-500/10 text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-xl transition-all"
                         >
                           <Trash2 size={18} />
                         </button>
@@ -388,14 +388,14 @@ export default function Dashboard({
                       
                       <div className="flex flex-wrap gap-2 mb-6">
                          {q.options.map((opt: string, idx: number) => (
-                           <div key={idx} className={`px-4 py-2 rounded-xl text-xs font-bold border ${q.answer === opt ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--color-surface-dim)] border-white/5 text-[var(--color-on-surface-variant)]'}`}>
+                           <div key={idx} className={`px-4 py-2 rounded-xl text-xs font-bold border ${q.answer === opt ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}>
                              {opt}
                            </div>
                          ))}
                       </div>
 
                       {q.explanation && (
-                        <div className="p-4 bg-[var(--color-surface-dim)] rounded-2xl border border-white/5 text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
+                        <div className="p-4 bg-[var(--color-surface-dim)] rounded-2xl border border-[var(--color-outline-variant)] text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
                           <span className="font-black text-brand-primary uppercase tracking-widest mr-2">Explanation:</span>
                           {q.explanation}
                         </div>
@@ -579,7 +579,7 @@ export default function Dashboard({
                           if(confirm(`Delete ${bank.name}?`)) {
                              ApiService.deleteBank(bank.id).then(() => setBanks(banks.filter(b => b.id !== bank.id)));
                           }
-                       }} className="text-slate-600 hover:text-rose-500 transition-colors p-1" title="Delete Bank"><Trash2 size={16}/></button>
+                       }} className="text-[var(--color-on-surface-variant)] hover:text-rose-500 transition-colors p-1" title="Delete Bank"><Trash2 size={16}/></button>
                     )}
                   </div>
                 </div>
@@ -777,7 +777,7 @@ export default function Dashboard({
               <button 
                 key={nav.label}
                 onClick={nav.onClick}
-                className="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-white/5 transition-all group text-left"
+                className="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-[var(--color-surface-container-high)] transition-all group text-left"
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-8 h-8 rounded-xl bg-[var(--color-surface-dim)] flex items-center justify-center ${nav.color}`}>
@@ -785,7 +785,7 @@ export default function Dashboard({
                   </div>
                   <span className="text-xs font-bold text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-on-surface)] transition-colors">{nav.label}</span>
                 </div>
-                <ChevronRight size={14} className="text-slate-600 group-hover:text-[var(--color-on-surface)] group-hover:translate-x-1 transition-all" />
+                <ChevronRight size={14} className="text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-on-surface)] group-hover:translate-x-1 transition-all" />
               </button>
             ))}
           </div>
@@ -815,7 +815,7 @@ export default function Dashboard({
             </div>
             <button 
               onClick={onViewHistory}
-              className="w-full mt-6 py-3 bg-white/5 hover:bg-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] transition-all border border-white/5"
+              className="w-full mt-6 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] rounded-2xl text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] transition-all border border-[var(--color-outline-variant)]"
             >
               View Detailed History
             </button>

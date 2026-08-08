@@ -70,15 +70,15 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                       </div>
                       
                       <div className="grid grid-cols-3 gap-2 mb-6">
-                          <div className="p-3 bg-white/5 rounded-2xl text-center border border-white/5 group-hover:border-indigo-500/20 transition-all">
+                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-indigo-500/20 transition-all">
                              <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Acc.</p>
                              <p className="text-xs font-black text-emerald-400">{student.avg_accuracy}%</p>
                           </div>
-                          <div className="p-3 bg-white/5 rounded-2xl text-center border border-white/5 group-hover:border-indigo-500/20 transition-all">
+                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-indigo-500/20 transition-all">
                              <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Streak</p>
                              <p className="text-xs font-black text-amber-400">{student.streak_count}d</p>
                           </div>
-                          <div className="p-3 bg-white/5 rounded-2xl text-center border border-white/5 group-hover:border-indigo-500/20 transition-all">
+                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-indigo-500/20 transition-all">
                              <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Risk</p>
                              <p className={`text-xs font-black ${
                                 student.risk_level?.includes('High') ? 'text-rose-400' :
@@ -100,7 +100,7 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                         </button>
                         <button 
                           onClick={() => setSelectedStudentHistory(student)}
-                          className="flex-1 py-3 bg-white/5 text-[var(--color-on-surface-variant)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-[var(--color-on-surface)] transition-all border border-white/5"
+                          className="flex-1 py-3 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-surface-bright)] hover:text-[var(--color-on-surface)] transition-all border border-[var(--color-outline-variant)]"
                         >
                           View Portfolio
                         </button>

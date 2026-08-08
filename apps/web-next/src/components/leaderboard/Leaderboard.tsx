@@ -326,7 +326,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                           onClick={() => attempt.user_slug && onViewProfile(attempt.user_slug)}
                         >
                           {attempt.user_photo ? (
-                            <img src={attempt.user_photo} alt="" className="w-6 h-6 rounded-full object-cover border border-white/10" />
+                            <img src={attempt.user_photo} alt="" className="w-6 h-6 rounded-full object-cover border border-[var(--color-outline-variant)]" />
                           ) : (
                             <div className="w-6 h-6 rounded-full bg-[var(--color-brand-primary-container)] flex items-center justify-center text-[10px] font-black">
                               {attempt.user_name[0].toUpperCase()}
@@ -340,7 +340,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                       <td className="px-6 py-5">
                         <span className="text-lg font-bold text-[var(--color-on-surface)]">{attempt.score}</span>
                         <span className="text-[var(--color-on-surface-variant)]"> / {attempt.total}</span>
-                        <div className="text-xs text-slate-600 mt-0.5">{attempt.total > 0 ? Math.round((attempt.score / attempt.total) * 100) : 0}%</div>
+                        <div className="text-xs text-[var(--color-on-surface-variant)] mt-0.5">{attempt.total > 0 ? Math.round((attempt.score / attempt.total) * 100) : 0}%</div>
                       </td>
                       <td className="px-6 py-5 text-[var(--color-on-surface-variant)] font-mono">
                         {Math.floor(attempt.time_taken / 60)}m {attempt.time_taken % 60}s
@@ -355,7 +355,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                             onClick={() => handleMarkReviewed(attempt.id, attempt.is_reviewed)}
                             disabled={reviewLoading[attempt.id]}
                             aria-label={attempt.is_reviewed ? 'Unmark as reviewed' : 'Mark as reviewed'}
-                            className={`p-2 rounded-xl transition-all ${attempt.is_reviewed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-container-high)] text-slate-600 border border-[var(--color-outline-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
+                            className={`p-2 rounded-xl transition-all ${attempt.is_reviewed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
                           >
                             {reviewLoading[attempt.id] ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
                           </button>

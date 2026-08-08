@@ -88,7 +88,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
       <div className="max-w-6xl mx-auto mb-12">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-6">
-             <button onClick={onBack} className="p-3 bg-[var(--color-surface-container)] border border-white/5 rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
+             <button onClick={onBack} className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
                 <ArrowLeft size={20} />
              </button>
              <div>
@@ -102,7 +102,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
              </div>
           </div>
           
-          <div className="flex bg-[var(--color-surface-container)]/50 p-1 rounded-2xl border border-white/5">
+          <div className="flex bg-[var(--color-surface-container)]/50 p-1 rounded-2xl border border-[var(--color-outline-variant)]">
             {(['active', 'completed', 'all'] as const).map((f) => (
               <button
                 key={f}
@@ -128,9 +128,9 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[var(--color-surface-container)]/30 border border-dashed border-white/10 rounded-[3rem] p-24 text-center"
+            className="bg-[var(--color-surface-container)]/30 border border-dashed border-[var(--color-outline-variant)] rounded-[3rem] p-24 text-center"
           >
-            <div className="w-20 h-20 bg-[var(--color-surface-container-high)]/50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-600">
+            <div className="w-20 h-20 bg-[var(--color-surface-container-high)]/50 rounded-full flex items-center justify-center mx-auto mb-6 text-[var(--color-on-surface-variant)]">
                <CheckCircle2 size={40} />
             </div>
             <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Registry Clear</h3>
@@ -153,7 +153,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                     transition={{ delay: idx * 0.05 }}
                     onClick={() => setSelectedAssignment(asgn)}
                     className={`group bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${
-                      asgn.is_completed ? 'border-emerald-500/20' : overdue ? 'border-rose-500/20' : 'border-white/5'
+                      asgn.is_completed ? 'border-emerald-500/20' : overdue ? 'border-rose-500/20' : 'border-[var(--color-outline-variant)]'
                     } rounded-[2.5rem] p-8 hover:bg-[var(--color-surface-container)]/60 transition-all relative overflow-hidden cursor-pointer shadow-2xl`}
                   >
                     {/* Status Badge */}
@@ -177,13 +177,13 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                     <p className="text-[var(--color-on-surface-variant)] text-sm mb-6 line-clamp-2 font-medium leading-relaxed">{asgn.instructions || "No specific instructions provided for this directive."}</p>
 
                     <div className="grid grid-cols-2 gap-4 mb-8">
-                       <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-white/5">
+                       <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
                           <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1">Due Date</p>
                           <p className={`text-xs font-bold ${overdue ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}`}>
                              {asgn.due_date ? new Date(asgn.due_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'No Deadline'}
                           </p>
                        </div>
-                       <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-white/5">
+                       <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
                           <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1">Attempts</p>
                           <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">
                              {asgn.attempts_used} / {asgn.max_attempts || '∞'}

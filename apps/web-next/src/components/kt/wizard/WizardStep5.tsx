@@ -81,7 +81,7 @@ export default function WizardStep5({ ctx }: { ctx: WizardCtx }) {
                       >
                         {isAILoading ? (
                           <>
-                            <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <div className="w-3 h-3 border-2 border-[var(--color-outline-variant)] border-t-white rounded-full animate-spin" />
                             ANALYZING...
                           </>
                         ) : (

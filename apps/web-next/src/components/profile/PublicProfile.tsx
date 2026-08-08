@@ -124,12 +124,12 @@ export default function PublicProfile({
 
   if (!profile) return (
     <div className="flex-1 flex flex-col items-center justify-center bg-[var(--color-surface-dim)] p-8 text-center">
-      <div className="w-20 h-20 bg-[var(--color-surface-container)] rounded-full flex items-center justify-center mb-6 text-slate-700 border border-white/5">
+      <div className="w-20 h-20 bg-[var(--color-surface-container)] rounded-full flex items-center justify-center mb-6 text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]">
         <User size={40} />
       </div>
       <h2 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Registry Entry Missing</h2>
       <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm">The profile you are looking for does not exist or has been decommissioned.</p>
-      <button onClick={onBack} className="px-6 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-xl font-bold border border-white/10 transition-all">
+      <button onClick={onBack} className="px-6 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-xl font-bold border border-[var(--color-outline-variant)] transition-all">
         Back to Dashboard
       </button>
     </div>
@@ -145,13 +145,13 @@ export default function PublicProfile({
 
   // Helper for KPI Cards
   const KPICard = ({ label, value, sub, icon, color }: any) => (
-    <div className="p-6 bg-[var(--color-surface-container)]/40 rounded-3xl border border-white/5 hover:border-white/10 transition-all group">
+    <div className="p-6 bg-[var(--color-surface-container)]/40 rounded-3xl border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] transition-all group">
       <div className={`w-10 h-10 rounded-xl bg-${color}-500/10 flex items-center justify-center text-${color}-400 mb-4 border border-${color}-500/20 group-hover:scale-110 transition-transform`}>
         {icon}
       </div>
       <div className="text-2xl font-black text-[var(--color-on-surface)] mb-1">{value}</div>
       <div className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">{label}</div>
-      {sub && <div className="text-[10px] text-slate-600 mt-1 font-bold">{sub}</div>}
+      {sub && <div className="text-[10px] text-[var(--color-on-surface-variant)] mt-1 font-bold">{sub}</div>}
     </div>
   );
 
@@ -159,12 +159,12 @@ export default function PublicProfile({
     <div className="flex-1 overflow-y-auto bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] scroll-smooth">
       {/* ─── Hero Section ────────────────────────────────────────── */}
       <div className="relative">
-        <div className="h-72 bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-950 border-b border-white/5 relative overflow-hidden">
+        <div className="h-72 bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-950 border-b border-[var(--color-outline-variant)] relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(99,102,241,0.15),transparent_70%)]" />
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
           
           <div className="absolute top-6 left-8 flex gap-4">
-            <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all rounded-xl text-xs font-black border border-white/10">
+            <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all rounded-xl text-xs font-black border border-[var(--color-outline-variant)]">
               ← BACK
             </button>
           </div>
@@ -173,7 +173,7 @@ export default function PublicProfile({
              <button onClick={() => {
                navigator.clipboard.writeText(window.location.href);
                toast('success', 'Tactical profile link copied to clipboard');
-             }} className="p-2.5 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all rounded-xl border border-white/10">
+             }} className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all rounded-xl border border-[var(--color-outline-variant)]">
                 <Share2 size={18} />
              </button>
           </div>
@@ -203,7 +203,7 @@ export default function PublicProfile({
                     <span className="px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">
                     {profile.role}
                     </span>
-                    <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+                    <span className="px-4 py-1.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                     {profile.hierarchy?.organization || 'Registry Organization'}
                     </span>
                     {profile.streak_count > 0 && (
@@ -214,20 +214,20 @@ export default function PublicProfile({
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-6 text-[var(--color-on-surface-variant)] text-sm font-bold">
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Mail size={16} className="text-[var(--color-brand-primary)]" /> {profile.email}</span>
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Building2 size={16} className="text-[var(--color-brand-primary)]" /> {profile.hierarchy?.department || 'Operations'}</span>
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><Globe size={16} className="text-[var(--color-brand-primary)]" /> studybuddy.mj665.in/profile/{profile.custom_slug || emailPrefix}</span>
+                <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Mail size={16} className="text-[var(--color-brand-primary)]" /> {profile.email}</span>
+                <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Building2 size={16} className="text-[var(--color-brand-primary)]" /> {profile.hierarchy?.department || 'Operations'}</span>
+                <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Globe size={16} className="text-[var(--color-brand-primary)]" /> studybuddy.mj665.in/profile/{profile.custom_slug || emailPrefix}</span>
               </div>
             </div>
 
             <div className="flex gap-3 pb-4">
               {profile.linkedin_url && (
-                <a href={normalizeExternalUrl(profile.linkedin_url)} target="_blank" rel="noopener" className="p-4 bg-white/5 hover:bg-blue-600/20 text-[var(--color-on-surface-variant)] hover:text-blue-400 rounded-2xl border border-white/10 transition-all shadow-lg hover:shadow-blue-600/10">
+                <a href={normalizeExternalUrl(profile.linkedin_url)} target="_blank" rel="noopener" className="p-4 bg-[var(--color-surface-container-high)] hover:bg-blue-600/20 text-[var(--color-on-surface-variant)] hover:text-blue-400 rounded-2xl border border-[var(--color-outline-variant)] transition-all shadow-lg hover:shadow-blue-600/10">
                   <Linkedin size={24} />
                 </a>
               )}
               {profile.github_url && (
-                <a href={normalizeExternalUrl(profile.github_url)} target="_blank" rel="noopener" className="p-4 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl border border-white/10 transition-all shadow-lg">
+                <a href={normalizeExternalUrl(profile.github_url)} target="_blank" rel="noopener" className="p-4 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-2xl border border-[var(--color-outline-variant)] transition-all shadow-lg">
                   <Github size={24} />
                 </a>
               )}
@@ -243,7 +243,7 @@ export default function PublicProfile({
                 <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4">
                   <Sparkles size={16} className="text-[var(--color-brand-primary)]" /> Introduction
                 </h3>
-                <div className="relative w-full max-w-3xl aspect-video rounded-3xl overflow-hidden border border-white/10 bg-[var(--color-surface-container)] shadow-2xl">
+                <div className="relative w-full max-w-3xl aspect-video rounded-3xl overflow-hidden border border-[var(--color-outline-variant)] bg-[var(--color-surface-container)] shadow-2xl">
                   {embed.kind === 'iframe' ? (
                     <iframe
                       src={embed.src}
@@ -261,7 +261,7 @@ export default function PublicProfile({
           })()}
 
           {/* ─── Navigation Tabs ────────────────────────────────────── */}
-          <div className="flex gap-1 p-1.5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 w-fit mb-10 overflow-x-auto">
+          <div className="flex gap-1 p-1.5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-[var(--color-outline-variant)] w-fit mb-10 overflow-x-auto">
             {([
               { id: 'STRATEGIC', label: 'STRATEGIC OVERVIEW', icon: <Target size={14} /> },
               { id: 'ANALYTICS', label: 'DEEP ANALYTICS', icon: <BarChart3 size={14} /> },
@@ -298,7 +298,7 @@ export default function PublicProfile({
                   <div className="lg:col-span-2 space-y-8">
                     {/* Bio Section */}
                     {profile.bio && (
-                      <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+                      <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] relative overflow-hidden group">
                         <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
                           <User size={14} className="text-[var(--color-brand-primary)]" /> OPERATOR BIOGRAPHY
@@ -309,7 +309,7 @@ export default function PublicProfile({
 
                     {/* Performance Vectors (Radar) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 flex flex-col items-center">
+                      <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] flex flex-col items-center">
                          <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 self-start flex items-center gap-2">
                            <BrainCircuit size={14} className="text-[var(--color-brand-primary)]" /> PROFICIENCY VECTORS
                          </h3>
@@ -335,7 +335,7 @@ export default function PublicProfile({
                          </div>
                       </div>
 
-                      <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                      <div className="p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
                           <Layers size={14} className="text-[var(--color-brand-primary)]" /> SKILL CLUSTER
                         </h3>
@@ -350,7 +350,7 @@ export default function PublicProfile({
                           ))}
                         </div>
                         
-                        <div className="mt-12 pt-12 border-t border-white/5">
+                        <div className="mt-12 pt-12 border-t border-[var(--color-outline-variant)]">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency Rating</span>
                                 <span className="text-xs font-black text-emerald-400 uppercase">{metrics.m18b_consistency_label?.value || 'Stable'}</span>
@@ -390,31 +390,31 @@ export default function PublicProfile({
                         sub={`Ranked amongst peers`}
                      />
                      
-                     <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-white/5">
+                     <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
                            <Layers size={14} className="text-[var(--color-brand-primary)]" /> TACTICAL HIERARCHY
                         </h3>
                         <div className="space-y-4">
                            <div className="flex flex-col">
-                              <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Organization</span>
+                              <span className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-tighter">Organization</span>
                               <span className="text-xs font-bold text-[var(--color-on-surface)]">{profile.hierarchy?.organization}</span>
                            </div>
                            <div className="flex flex-col">
-                              <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Department</span>
+                              <span className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-tighter">Department</span>
                               <span className="text-xs font-bold text-[var(--color-on-surface)]">{profile.hierarchy?.department}</span>
                            </div>
                            <div className="flex flex-col">
-                              <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Batch Registry</span>
+                              <span className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-tighter">Batch Registry</span>
                               <span className="text-xs font-bold text-[var(--color-on-surface)]">{profile.hierarchy?.batch}</span>
                            </div>
                            <div className="flex flex-col">
-                              <span className="text-[9px] font-black text-slate-600 uppercase tracking-tighter">Tactical Group</span>
+                              <span className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-tighter">Tactical Group</span>
                               <span className="text-xs font-bold text-[var(--color-brand-primary)]">{profile.hierarchy?.group}</span>
                            </div>
                         </div>
                      </div>
 
-                     <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-white/5">
+                     <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
                            <Activity size={14} className="text-emerald-400" /> STATUS SUMMARY
                         </h3>
@@ -442,7 +442,7 @@ export default function PublicProfile({
               {/* ─── ANALYTICS TAB ──────────────────────────────────── */}
               {activeTab === 'ANALYTICS' && (
                 <div className="space-y-8">
-                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
                         <Activity size={14} className="text-fuchsia-400" /> ANNUAL ENGAGEMENT REGISTRY
                       </h3>
@@ -450,7 +450,7 @@ export default function PublicProfile({
                    </div>
 
                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
                         <TrendingUp size={14} className="text-[var(--color-brand-primary)]" /> SCORE TRAJECTORY (LAST 7 DAYS)
                       </h3>
@@ -472,7 +472,7 @@ export default function PublicProfile({
                       </div>
                    </div>
 
-                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5">
+                   <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
                         <Zap size={14} className="text-amber-400" /> TOPIC BREADTH & MASTERY
                       </h3>
@@ -502,7 +502,7 @@ export default function PublicProfile({
                            </div>
                         ))}
                         {(!charts.topic_mastery || charts.topic_mastery.length === 0) && (
-                           <div className="text-center py-20 text-slate-600 italic">No topic data available yet.</div>
+                           <div className="text-center py-20 text-[var(--color-on-surface-variant)] italic">No topic data available yet.</div>
                         )}
                       </div>
                    </div>
@@ -513,7 +513,7 @@ export default function PublicProfile({
               {/* ─── ATLAS TAB ──────────────────────────────────── */}
               {activeTab === 'ATLAS' && (
                 <div className="max-w-4xl mx-auto space-y-8">
-                   <div className="p-12 bg-[var(--color-surface-container)]/60 rounded-[3rem] border border-white/5 relative overflow-hidden">
+                   <div className="p-12 bg-[var(--color-surface-container)]/60 rounded-[3rem] border border-[var(--color-outline-variant)] relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-12 opacity-5">
                          <Map size={180} className="text-indigo-500" />
                       </div>
@@ -557,7 +557,7 @@ export default function PublicProfile({
                       </h3>
                       <div className="space-y-4">
                          {(registry.quiz_attempts || []).slice(0, 10).map((a: any) => (
-                            <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
+                            <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-[var(--color-outline-variant)] flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
                                <div className="flex items-center gap-4">
                                   <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-[var(--color-brand-primary)]">
                                      <Code2 size={20} />
@@ -569,12 +569,12 @@ export default function PublicProfile({
                                </div>
                                <div className="text-right">
                                   <div className="text-lg font-black text-[var(--color-brand-primary)]">{Math.round(a.score/a.total * 100)}%</div>
-                                  <div className="text-[10px] text-slate-600 font-bold uppercase">{a.score}/{a.total}</div>
+                                  <div className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase">{a.score}/{a.total}</div>
                                </div>
                             </div>
                          ))}
                          {(!registry.quiz_attempts || registry.quiz_attempts.length === 0) && (
-                            <div className="text-center py-10 bg-[var(--color-surface-container)]/20 rounded-2xl border border-dashed border-white/5 text-slate-600 italic">No quiz history recorded.</div>
+                            <div className="text-center py-10 bg-[var(--color-surface-container)]/20 rounded-2xl border border-dashed border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] italic">No quiz history recorded.</div>
                          )}
                       </div>
                    </div>
@@ -585,7 +585,7 @@ export default function PublicProfile({
                       </h3>
                       <div className="space-y-4">
                          {(registry.coding_attempts || []).slice(0, 10).map((a: any) => (
-                            <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
+                            <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-[var(--color-outline-variant)] flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
                                <div className="flex items-center gap-4">
                                   <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-violet-400">
                                      <Zap size={20} />
@@ -597,12 +597,12 @@ export default function PublicProfile({
                                </div>
                                <div className="text-right">
                                   <div className="text-lg font-black text-violet-400">{a.score}%</div>
-                                  <div className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">AI Audit Score</div>
+                                  <div className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">AI Audit Score</div>
                                </div>
                             </div>
                          ))}
                          {(!registry.coding_attempts || registry.coding_attempts.length === 0) && (
-                            <div className="text-center py-10 bg-[var(--color-surface-container)]/20 rounded-2xl border border-dashed border-white/5 text-slate-600 italic">No coding sessions recorded.</div>
+                            <div className="text-center py-10 bg-[var(--color-surface-container)]/20 rounded-2xl border border-dashed border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] italic">No coding sessions recorded.</div>
                          )}
                       </div>
                    </div>
@@ -617,12 +617,12 @@ export default function PublicProfile({
                          <h3 className="text-2xl font-black text-[var(--color-on-surface)] flex items-center gap-4">
                            <MessageSquare size={28} className="text-[var(--color-brand-primary)]" /> Professional Endorsements
                          </h3>
-                         <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-black text-[var(--color-on-surface-variant)]">
+                         <span className="px-4 py-1.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-full text-xs font-black text-[var(--color-on-surface-variant)]">
                             {profile.comments?.length || 0} CONTRIBUTIONS
                          </span>
                       </div>
 
-                      <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-white/5 p-10">
+                      <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] p-10">
                         {isLoggedIn ? (
                           <div className="space-y-6">
                             <div className="relative group">
@@ -630,7 +630,7 @@ export default function PublicProfile({
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
                                 placeholder="Provide a professional assessment or drop a word of encouragement..."
-                                className="w-full bg-[var(--color-surface-container-high)]/40 border border-white/5 rounded-3xl p-8 text-[var(--color-on-surface)] placeholder:text-slate-600 focus:outline-none focus:border-indigo-500/50 transition-all resize-none h-40 text-lg"
+                                className="w-full bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-8 text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] focus:outline-none focus:border-indigo-500/50 transition-all resize-none h-40 text-lg"
                               />
                               <div className="absolute inset-0 bg-indigo-500/5 rounded-3xl opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
                             </div>
@@ -647,8 +647,8 @@ export default function PublicProfile({
                             </div>
                           </div>
                         ) : (
-                          <div className="text-center py-10 bg-[var(--color-surface-container-high)]/20 rounded-3xl border border-dashed border-white/10">
-                             <AlertCircle size={40} className="text-slate-700 mx-auto mb-4" />
+                          <div className="text-center py-10 bg-[var(--color-surface-container-high)]/20 rounded-3xl border border-dashed border-[var(--color-outline-variant)]">
+                             <AlertCircle size={40} className="text-[var(--color-on-surface-variant)] mx-auto mb-4" />
                              <h4 className="text-lg font-black text-[var(--color-on-surface)] mb-2">AUTHENTICATION GATED</h4>
                              <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm mx-auto">Only verified members of the StudyBuddy registry can drop professional endorsements.</p>
                              <button onClick={onLoginClick} className="px-10 py-4 bg-white text-slate-950 rounded-2xl font-black text-sm hover:bg-indigo-400 transition-all">
@@ -664,9 +664,9 @@ export default function PublicProfile({
                              key={c.id}
                              initial={{ opacity: 0, y: 15 }}
                              animate={{ opacity: 1, y: 0 }}
-                             className="p-8 bg-[var(--color-surface-container)]/40 rounded-[2rem] border border-white/5 hover:border-white/10 transition-all flex gap-6 group"
+                             className="p-8 bg-[var(--color-surface-container)]/40 rounded-[2rem] border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] transition-all flex gap-6 group"
                            >
-                             <div className="w-16 h-16 rounded-2xl bg-[var(--color-surface-container-high)] flex-shrink-0 overflow-hidden border border-white/10 relative">
+                             <div className="w-16 h-16 rounded-2xl bg-[var(--color-surface-container-high)] flex-shrink-0 overflow-hidden border border-[var(--color-outline-variant)] relative">
                                {c.author.profile_photo_url ? (
                                  <img src={c.author.profile_photo_url} className="w-full h-full object-cover" />
                                ) : (
@@ -674,24 +674,24 @@ export default function PublicProfile({
                                    {c.author.full_name[0]}
                                  </div>
                                )}
-                               <div className="absolute inset-0 border border-white/10 rounded-2xl pointer-events-none" />
+                               <div className="absolute inset-0 border border-[var(--color-outline-variant)] rounded-2xl pointer-events-none" />
                              </div>
                              <div className="flex-1 min-w-0">
                                <div className="flex items-center justify-between mb-3">
                                   <div>
                                      <h4 className="font-black text-[var(--color-on-surface)] group-hover:text-[var(--color-brand-primary)] transition-colors">@{c.author.email_prefix}</h4>
-                                     <p className="text-[10px] text-slate-600 font-black uppercase tracking-tighter">Verified Collaborator</p>
+                                     <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-tighter">Verified Collaborator</p>
                                   </div>
-                                  <span className="text-[10px] text-[var(--color-on-surface-variant)] font-black bg-white/5 px-2 py-1 rounded-md">{new Date(c.created_at).toLocaleDateString()}</span>
+                                  <span className="text-[10px] text-[var(--color-on-surface-variant)] font-black bg-[var(--color-surface-container-high)] px-2 py-1 rounded-md">{new Date(c.created_at).toLocaleDateString()}</span>
                                </div>
                                <p className="text-[var(--color-on-surface-variant)] text-lg leading-relaxed">{c.content}</p>
                              </div>
                            </motion.div>
                          ))}
                          {(!profile.comments || profile.comments.length === 0) && (
-                            <div className="text-center py-24 border-4 border-dashed border-white/5 rounded-[3rem]">
+                            <div className="text-center py-24 border-4 border-dashed border-[var(--color-outline-variant)] rounded-[3rem]">
                                <MessageSquare size={48} className="text-slate-800 mx-auto mb-6" />
-                               <p className="text-slate-600 font-bold italic">This profile hasn't received any professional endorsements yet.</p>
+                               <p className="text-[var(--color-on-surface-variant)] font-bold italic">This profile hasn't received any professional endorsements yet.</p>
                             </div>
                          )}
                       </div>

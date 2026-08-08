@@ -53,7 +53,7 @@ export function KPICard({ label, value, icon, color = 'indigo', sub }: {
   };
   const cls = colorMap[color] || colorMap.indigo;
   return (
-    <div className="p-5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
+    <div className="p-5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] transition-all">
       {icon && (
         <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-3 ${cls}`}>
           {icon}
@@ -61,7 +61,7 @@ export function KPICard({ label, value, icon, color = 'indigo', sub }: {
       )}
       <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{label}</p>
       <p className={`text-2xl font-black ${cls.split(' ')[0]}`}>{value}</p>
-      {sub && <p className="text-[10px] text-slate-600 font-bold mt-1">{sub}</p>}
+      {sub && <p className="text-[10px] text-[var(--color-on-surface-variant)] font-bold mt-1">{sub}</p>}
     </div>
   );
 }

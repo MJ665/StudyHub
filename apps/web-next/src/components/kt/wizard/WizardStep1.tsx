@@ -159,7 +159,7 @@ export default function WizardStep1({ ctx }: { ctx: WizardCtx }) {
                           </div>
                         ))}
                         {formData.co_author_ids.length === 0 && !coAuthorSearch && (
-                          <p className="text-slate-600 text-xs font-bold italic ml-2">No co-authors added yet. They will be notified via email.</p>
+                          <p className="text-[var(--color-on-surface-variant)] text-xs font-bold italic ml-2">No co-authors added yet. They will be notified via email.</p>
                         )}
                       </div>
                     </div>

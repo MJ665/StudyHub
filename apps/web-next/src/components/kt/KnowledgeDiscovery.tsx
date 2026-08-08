@@ -79,9 +79,9 @@ const KnowledgeDiscovery = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {suggestions.length === 0 ? (
           <div className="col-span-full p-12 text-center bg-[var(--color-surface-container)]/30 rounded-[2.5rem] border border-[var(--color-outline-variant)]/50">
-            <Zap size={48} className="mx-auto mb-4 text-slate-700 opacity-20" />
+            <Zap size={48} className="mx-auto mb-4 text-[var(--color-on-surface-variant)] opacity-20" />
             <p className="text-sm font-bold text-[var(--color-on-surface-variant)]">No knowledge gaps detected.</p>
-            <p className="text-xs text-slate-600 mt-2">Your organizational memory is currently high-fidelity.</p>
+            <p className="text-xs text-[var(--color-on-surface-variant)] mt-2">Your organizational memory is currently high-fidelity.</p>
           </div>
         ) : (
           suggestions.map((s, i) => (

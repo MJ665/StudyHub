@@ -105,10 +105,10 @@ export default function CertificateSignaturePanel() {
 
       <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Signature image</label>
       <div className="flex items-center gap-4 mb-6">
-        <div className="w-48 h-20 rounded-xl bg-white/5 border border-dashed border-[var(--color-outline-variant)] flex items-center justify-center overflow-hidden">
+        <div className="w-48 h-20 rounded-xl bg-[var(--color-surface-container-high)] border border-dashed border-[var(--color-outline-variant)] flex items-center justify-center overflow-hidden">
           {signatureUrl
             ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={signatureUrl} alt="signature" className="max-h-full max-w-full object-contain" />
-            : <span className="text-[10px] text-slate-600">No signature</span>}
+            : <span className="text-[10px] text-[var(--color-on-surface-variant)]">No signature</span>}
         </div>
         <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPickFile} />
         <button onClick={() => fileRef.current?.click()} disabled={uploading}

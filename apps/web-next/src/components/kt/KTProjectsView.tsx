@@ -328,7 +328,7 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
 
           {projects.length === 0 && (
             <div className="col-span-2 bg-[var(--color-surface-container)]/20 border border-slate-850 rounded-[2.5rem] p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
-              <FolderKanban size={40} className="text-slate-700 mb-4" />
+              <FolderKanban size={40} className="text-[var(--color-on-surface-variant)] mb-4" />
               <h3 className="text-lg font-bold text-[var(--color-on-surface-variant)]">No Projects Found</h3>
               <p className="text-xs text-[var(--color-on-surface-variant)] mt-2 max-w-sm">
                 Register a technical project container inside {selectedCompany?.name} to start uploading architecture and onboarding files.

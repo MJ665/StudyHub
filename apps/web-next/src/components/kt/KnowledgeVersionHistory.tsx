@@ -94,7 +94,7 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
                     {format(new Date(v.created_at), 'MMM dd, yyyy HH:mm')}
                   </span>
                 </div>
-                <ChevronRight size={16} className="text-slate-600 group-hover:text-amber-400 transition-colors" />
+                <ChevronRight size={16} className="text-[var(--color-on-surface-variant)] group-hover:text-amber-400 transition-colors" />
               </div>
 
               <p className="text-sm font-bold text-[var(--color-on-surface)] mb-3 line-clamp-2">{v.change_summary || 'No summary provided'}</p>

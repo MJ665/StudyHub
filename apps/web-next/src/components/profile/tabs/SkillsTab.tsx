@@ -59,7 +59,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
             <motion.div key="skills" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="space-y-6 pb-16">
               {/* Skill tags */}
-              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+              <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                 <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                   <Layers size={14} className="text-[var(--color-brand-primary)]" /> Technical Skills & Tags
                 </h3>
@@ -73,13 +73,13 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-[var(--color-on-surface-variant)] text-sm">
                     {isOwnProfile ? 'No skills added yet. Edit your profile to add skills.' : 'No skills listed.'}
                   </p>
                 )}
                 {isOwnProfile && (
                   <button onClick={openEdit}
-                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl text-xs font-bold border border-white/10 transition-all">
+                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl text-xs font-bold border border-[var(--color-outline-variant)] transition-all">
                     <Plus size={12} /> Add / Edit Skills
                   </button>
                 )}
@@ -87,7 +87,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
               {/* Strength bars (if set) */}
               {strengthEntries.length > 0 && (
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <Star size={14} className="text-amber-400" /> Proficiency Ratings
                   </h3>
@@ -110,7 +110,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
               {/* Knowledge stack from quiz history */}
               {registry?.topic_breakdown && Object.keys(registry.topic_breakdown).length > 0 && (
-                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-white/5">
+                <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
                     <BrainCircuit size={14} className="text-violet-400" /> Knowledge Stack (from Quizzes)
                   </h3>

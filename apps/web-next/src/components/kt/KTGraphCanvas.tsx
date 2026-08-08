@@ -227,7 +227,7 @@ export default function KTGraphCanvas({ nodes, edges, className = '' }: KTGraphC
       <div className="absolute bottom-3 left-3 flex items-center gap-4 text-[10px] text-[var(--color-on-surface-variant)]">
         <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-teal-500" /> Query match</span>
         <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-indigo-500" /> Related entity</span>
-        <span className="hidden sm:inline text-slate-600">scroll = zoom · drag = pan · click = focus · dbl-click = zoom in</span>
+        <span className="hidden sm:inline text-[var(--color-on-surface-variant)]">scroll = zoom · drag = pan · click = focus · dbl-click = zoom in</span>
       </div>
 
       {selected && (

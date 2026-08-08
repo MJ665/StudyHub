@@ -551,7 +551,7 @@ export default function LDAdminDashboard({
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowAddModal({ type: 'Org' })}
-            className="px-6 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-2xl text-xs font-black uppercase tracking-widest border border-white/5 transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl text-xs font-black uppercase tracking-widest border border-[var(--color-outline-variant)] transition-all flex items-center gap-2"
           >
             <Building2 size={16} /> New Organization
           </button>
@@ -567,7 +567,7 @@ export default function LDAdminDashboard({
           >
             <Plus size={16} /> Add User
           </button>
-          <div className="ml-2 pl-4 border-l border-white/10">
+          <div className="ml-2 pl-4 border-l border-[var(--color-outline-variant)]">
             <NotificationCenter />
           </div>
         </div>

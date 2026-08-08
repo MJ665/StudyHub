@@ -61,7 +61,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
               
               {profile && <ExecutiveGrowthAtlas userId={profile.id} />}
 
-              <div className="pt-8 border-t border-white/5">
+              <div className="pt-8 border-t border-[var(--color-outline-variant)]">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center text-[var(--color-brand-primary)]">
@@ -75,7 +75,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
                   <button 
                     disabled={generatingAtlas}
                     onClick={() => handleSyncIntel(true)}
-                    className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-white/5 transition-all disabled:opacity-30 active:scale-95"
+                    className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl border border-[var(--color-outline-variant)] transition-all disabled:opacity-30 active:scale-95"
                     title="Force Recalibration"
                   >
                     <RefreshCw size={18} className={generatingAtlas ? 'animate-spin' : ''} />
@@ -83,7 +83,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
                 </div>
 
                 {generatingAtlas ? (
-                  <div className="p-20 flex flex-col items-center justify-center text-center bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-white/5 border-dashed">
+                  <div className="p-20 flex flex-col items-center justify-center text-center bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-[var(--color-outline-variant)] border-dashed">
                     <RefreshCcw size={48} className="text-indigo-500 animate-spin mb-6" />
                     <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight">Synthesizing AI Growth Intelligence</h3>
                     <p className="text-[var(--color-on-surface-variant)] text-sm max-w-xs leading-relaxed">Analyzing 30+ performance vectors, learning velocity, and competency trajectories...</p>
@@ -95,7 +95,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.04 }}
-                        className="p-6 bg-[var(--color-surface-container)]/60 rounded-[1.5rem] border border-white/5 hover:border-indigo-500/30 transition-all group">
+                        className="p-6 bg-[var(--color-surface-container)]/60 rounded-[1.5rem] border border-[var(--color-outline-variant)] hover:border-indigo-500/30 transition-all group">
                         <div className="flex gap-4">
                           <span className="text-[10px] font-black text-indigo-500 opacity-50 mt-1">{String(i + 1).padStart(2, '0')}</span>
                           <p className="text-sm font-medium text-[var(--color-on-surface-variant)] leading-relaxed group-hover:text-[var(--color-on-surface)] transition-colors">{point}</p>
@@ -104,7 +104,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
                     ))}
                   </div>
                 ) : (
-                  <div className="p-20 text-center bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-white/5 border-dashed">
+                  <div className="p-20 text-center bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-[var(--color-outline-variant)] border-dashed">
                     <Map size={48} className="text-slate-800 mx-auto mb-6" />
                     <h3 className="text-lg font-black text-[var(--color-on-surface)] mb-2">No Growth Atlas Generated</h3>
                     <p className="text-[var(--color-on-surface-variant)] text-sm mb-8">Click 'Sync Intel' to generate your 30-point pedagogical trajectory.</p>

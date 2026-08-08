@@ -70,7 +70,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md bg-[var(--color-surface-container)] border border-white/10 rounded-2xl p-6 shadow-2xl"
+            className="w-full max-w-md bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-6 shadow-2xl"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2 text-rose-400">
@@ -86,7 +86,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
             <select
               value={issueType}
               onChange={(e) => setIssueType(e.target.value)}
-              className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-rose-500/50"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-rose-500/50"
             >
               {ISSUE_TYPES.map((t) => (
                 <option key={t.value} value={t.value}>{t.label}</option>
@@ -99,7 +99,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
               placeholder="What's wrong with this content?"
-              className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-rose-500/50 resize-none"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-rose-500/50 resize-none"
             />
 
             <div className="flex justify-end gap-2">

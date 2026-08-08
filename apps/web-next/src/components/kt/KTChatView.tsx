@@ -199,7 +199,7 @@ export default function KTChatView() {
     return (
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="text-center max-w-sm">
-          <MessageSquare className="mx-auto text-slate-700 mb-4" size={40} />
+          <MessageSquare className="mx-auto text-[var(--color-on-surface-variant)] mb-4" size={40} />
           <h3 className="text-lg font-bold text-[var(--color-on-surface-variant)]">No project selected</h3>
           <p className="text-xs text-[var(--color-on-surface-variant)] mt-2 mb-6">Pick a project you can access to chat over its knowledge.</p>
           <button onClick={() => setView('projects')} className="bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 px-6 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Select Project</button>
@@ -221,7 +221,7 @@ export default function KTChatView() {
           </button>
         </div>
         <div className="flex-1 overflow-y-auto px-2 pb-3 space-y-1 custom-scrollbar">
-          {sessions.length === 0 && <p className="text-[11px] text-slate-600 px-3 py-4">No chats yet.</p>}
+          {sessions.length === 0 && <p className="text-[11px] text-[var(--color-on-surface-variant)] px-3 py-4">No chats yet.</p>}
           {sessions.map(s => (
             <div key={s.session_id} className={`group flex items-center gap-1 rounded-lg px-2 py-2 cursor-pointer ${s.session_id === sessionId ? 'bg-[var(--color-surface-container-high)]/80' : 'hover:bg-[var(--color-surface-container)]'}`} onClick={() => openSession(s.session_id)}>
               <MessageSquare size={13} className="text-[var(--color-on-surface-variant)] shrink-0" />
@@ -333,7 +333,7 @@ export default function KTChatView() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button type="submit" disabled={!query.trim() || streaming || !sessionId} className="absolute right-2.5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container)] disabled:text-slate-600 text-[var(--color-on-surface)] flex items-center justify-center active:scale-95 transition-all">
+            <button type="submit" disabled={!query.trim() || streaming || !sessionId} className="absolute right-2.5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container)] disabled:text-[var(--color-on-surface-variant)] text-[var(--color-on-surface)] flex items-center justify-center active:scale-95 transition-all">
               {streaming ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
             </button>
           </form>

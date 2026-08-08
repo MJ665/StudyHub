@@ -34,9 +34,9 @@ export const RichText: React.FC<{ text: string; className?: string }> = ({ text,
           const codeContent = codeLines.join('\n').trim();
           
           return (
-            <div key={idx} className="my-4 rounded-2xl overflow-hidden border border-white/10 bg-[var(--color-surface-container)]/80 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div key={idx} className="my-4 rounded-2xl overflow-hidden border border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]/80 shadow-2xl" onClick={e => e.stopPropagation()}>
               {lang && (
-                <div className="bg-[var(--color-surface-container-high)]/50 px-4 py-2 border-b border-white/5 flex items-center justify-between">
+                <div className="bg-[var(--color-surface-container-high)]/50 px-4 py-2 border-b border-[var(--color-outline-variant)] flex items-center justify-between">
                   <span className="text-[10px] font-black font-mono text-[var(--color-on-surface-variant)] uppercase tracking-widest">{lang}</span>
                   <div className="flex gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-[var(--color-surface-bright)]" />
@@ -101,7 +101,7 @@ function renderMarkdownElements(text: string): React.ReactNode {
               <img 
                 src={url} 
                 alt={alt} 
-                className="max-w-full rounded-2xl border border-white/10 shadow-xl 
+                className="max-w-full rounded-2xl border border-[var(--color-outline-variant)] shadow-xl 
                            hover:border-indigo-500/30 transition-colors" 
               />
               {alt && alt !== 'image' && (

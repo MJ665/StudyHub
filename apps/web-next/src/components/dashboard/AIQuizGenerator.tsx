@@ -231,7 +231,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                     >
                       Select All
                     </button>
-                    <span className="text-slate-600">·</span>
+                    <span className="text-[var(--color-on-surface-variant)]">·</span>
                     <button
                       onClick={() => setSelectedQuestions(new Set())}
                       className="text-xs text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)] font-bold"
@@ -326,7 +326,7 @@ export default function AIQuizGenerator({ onClose, onImport, groupId, courseId }
                             ))}
                           </div>
                           {q.explanation && (
-                            <p className="text-xs text-slate-600 italic line-clamp-1">{q.explanation}</p>
+                            <p className="text-xs text-[var(--color-on-surface-variant)] italic line-clamp-1">{q.explanation}</p>
                           )}
                         </div>
                       </div>

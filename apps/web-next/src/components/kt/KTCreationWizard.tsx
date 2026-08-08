@@ -386,7 +386,7 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] p-4 hover:bg-white/5 rounded-full transition-all group">
+          <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] p-4 hover:bg-[var(--color-surface-container-high)] rounded-full transition-all group">
             <X size={28} className="group-hover:rotate-90 transition-transform duration-300" />
           </button>
         </div>
@@ -434,7 +434,7 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
             onClick={back}
             disabled={currentStep === 0}
             className={`px-10 py-5 rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all ${
-              currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-white/10 active:scale-95'
+              currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-bright)] active:scale-95'
             }`}
           >
             <ChevronLeft size={22} /> PREVIOUS

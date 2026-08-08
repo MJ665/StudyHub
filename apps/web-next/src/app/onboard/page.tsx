@@ -91,7 +91,7 @@ export default function OnboardPage() {
               <div><label className={label}>Org logo URL (optional)</label><input className={input} value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} /></div>
               <div><label className={label}>Admin signature URL (optional)</label><input className={input} value={signatureUrl} onChange={(e) => setSignatureUrl(e.target.value)} /></div>
               <button disabled={busy} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-2.5 font-bold disabled:opacity-50">{busy ? 'Completing…' : 'Complete onboarding'}</button>
-              <p className="text-center text-slate-600 text-xs">Powered by StudyBuddy</p>
+              <p className="text-center text-[var(--color-on-surface-variant)] text-xs">Powered by StudyBuddy</p>
             </form>
           ) : (
             <div className="rounded-xl bg-rose-500/10 text-rose-400 p-6 text-center">{err || 'Invalid or expired onboarding link.'}</div>
@@ -105,7 +105,7 @@ export default function OnboardPage() {
             <div><label className={label}>Your name</label><input className={input} value={contactName} onChange={(e) => setContactName(e.target.value)} required minLength={2} /></div>
             <div><label className={label}>Your email</label><input type="email" className={input} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} required /></div>
             <button disabled={busy} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-2.5 font-bold disabled:opacity-50">{busy ? 'Submitting…' : 'Request access'}</button>
-            <p className="text-center text-slate-600 text-xs">A StudyBuddy admin will review and email you an onboarding link.</p>
+            <p className="text-center text-[var(--color-on-surface-variant)] text-xs">A StudyBuddy admin will review and email you an onboarding link.</p>
           </form>
         )}
       </div>

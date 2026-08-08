@@ -58,7 +58,7 @@ export default function AdministrationEngine({
            <div className="flex-1 p-10">
               <h2 className="text-3xl font-black text-[var(--color-on-surface)] mb-8">Strategic Analytics Engine</h2>
               {/* This would be the dedicated analytics tab from LDAdminDashboard but standalone */}
-              <div className="bg-[var(--color-surface-container)]/50 border border-white/5 rounded-[3rem] p-20 text-center">
+              <div className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-[3rem] p-20 text-center">
                  <TrendingUp size={48} className="mx-auto text-brand-primary mb-6" />
                  <p className="text-[var(--color-on-surface-variant)] font-bold">Deep learning analytics visualization is active. Select a sector from the Executive dashboard.</p>
               </div>
@@ -75,9 +75,9 @@ export default function AdministrationEngine({
       <motion.aside 
         initial={false}
         animate={{ width: isSidebarOpen ? '280px' : '80px' }}
-        className="h-full bg-[var(--color-surface-container)] border-r border-white/5 flex flex-col z-20"
+        className="h-full bg-[var(--color-surface-container)] border-r border-[var(--color-outline-variant)] flex flex-col z-20"
       >
-        <div className="p-6 flex items-center gap-3 border-b border-white/5">
+        <div className="p-6 flex items-center gap-3 border-b border-[var(--color-outline-variant)]">
           <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-slate-950">
             <ShieldCheck size={24} />
           </div>
@@ -129,7 +129,7 @@ export default function AdministrationEngine({
           />
         </nav>
 
-        <div className="p-4 border-t border-white/5 space-y-2">
+        <div className="p-4 border-t border-[var(--color-outline-variant)] space-y-2">
           <NavItem 
             active={false} 
             onClick={onBack}
@@ -140,7 +140,7 @@ export default function AdministrationEngine({
           />
           <div 
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-white/5 cursor-pointer transition-all"
+            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)] cursor-pointer transition-all"
           >
             <Settings size={20} />
             {isSidebarOpen && <span className="text-xs font-black uppercase tracking-widest">Collapse</span>}
@@ -151,14 +151,14 @@ export default function AdministrationEngine({
       {/* Main Content Area */}
       <main className="flex-1 h-full overflow-hidden flex flex-col relative">
         {/* Global Search / Context Bar */}
-        <header className="h-20 bg-[var(--color-surface-container)]/50 backdrop-blur-xl border-b border-white/5 px-8 flex items-center justify-between z-10">
+        <header className="h-20 bg-[var(--color-surface-container)]/50 backdrop-blur-xl border-b border-[var(--color-outline-variant)] px-8 flex items-center justify-between z-10">
           <div className="flex items-center gap-4 flex-1 max-w-xl">
              <div className="relative w-full">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={16} />
                 <input 
                    type="text" 
                    placeholder="Search registry, entities, or protocols..."
-                   className="w-full bg-[var(--color-surface-dim)] border border-white/10 rounded-2xl pl-12 pr-4 py-3 text-xs text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all"
+                   className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-4 py-3 text-xs text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all"
                 />
              </div>
           </div>
@@ -206,7 +206,7 @@ function NavItem({
           ? 'bg-brand-primary text-slate-950 shadow-lg shadow-brand-primary/20' 
           : variant === 'danger'
             ? 'text-rose-500 hover:bg-rose-500/10'
-            : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-white/5'
+            : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)]'
       }`}
     >
       <div className={`${active ? '' : 'group-hover:scale-110'} transition-transform`}>

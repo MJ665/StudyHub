@@ -36,7 +36,7 @@ export default function ForgotPasswordPage({ onBack, onSuccess }: { onBack: () =
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-[var(--color-surface-container)] border border-white/5 rounded-[2.5rem] p-10 shadow-2xl relative z-10"
+        className="w-full max-w-md bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-10 shadow-2xl relative z-10"
       >
         <button 
           onClick={onBack}
@@ -59,14 +59,14 @@ export default function ForgotPasswordPage({ onBack, onSuccess }: { onBack: () =
           <div>
             <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">Email Identifier</label>
             <div className="relative">
-              <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
+              <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={18} />
               <input 
                 type="email" 
                 required
                 placeholder="satoshi@bitcoin.org"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-brand-primary/30 transition-all"
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-brand-primary/30 transition-all"
               />
             </div>
           </div>

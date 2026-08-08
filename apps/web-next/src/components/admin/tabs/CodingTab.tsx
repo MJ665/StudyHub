@@ -204,10 +204,10 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
 
 
                   {/* Coding Registry Table */}
-                  <div className="bg-[var(--color-surface-container)]/50 border border-white/5 rounded-[3rem] overflow-x-auto">
+                  <div className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-[3rem] overflow-x-auto">
                     <table className="w-full text-left">
                       <thead>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-[var(--color-outline-variant)]">
                           <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Challenge Title</th>
                           <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Course Sector</th>
                           <th className="px-8 py-6 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">System ID</th>
@@ -216,13 +216,13 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
                       </thead>
                       <tbody className="divide-y divide-white/5">
                         {(Array.isArray(codingQuestions) ? codingQuestions : []).map(q => (
-                          <tr key={q.id} className="group hover:bg-white/5 transition-all">
+                          <tr key={q.id} className="group hover:bg-[var(--color-surface-container-high)] transition-all">
                             <td className="px-8 py-6">
                               <p className="text-sm font-black text-[var(--color-on-surface)]">{q.title}</p>
                               <p className="text-[10px] text-[var(--color-on-surface-variant)] truncate max-w-xs">{q.description?.substring(0, 50)}...</p>
                             </td>
                             <td className="px-8 py-6">
-                              <span className="px-3 py-1 rounded-lg bg-white/5 text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase border border-white/5">
+                              <span className="px-3 py-1 rounded-lg bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase border border-[var(--color-outline-variant)]">
                                 {courses.find(c => c.id === q.course_id)?.name || 'General Registry'}
                               </span>
                             </td>
@@ -237,7 +237,7 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
                         {(Array.isArray(codingQuestions) ? codingQuestions : []).length === 0 && (
                           <tr>
                             <td colSpan={4} className="px-8 py-20 text-center">
-                              <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest italic">No coding challenges found in current registry.</p>
+                              <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest italic">No coding challenges found in current registry.</p>
                             </td>
                           </tr>
                         )}

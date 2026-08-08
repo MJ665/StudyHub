@@ -89,12 +89,12 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                 placeholder="Search conversations..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="bg-[var(--color-surface-container)] border border-white/5 rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-all w-full md:w-64"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-all w-full md:w-64"
               />
             </div>
             <button
               onClick={onBack}
-              className="px-6 py-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all border border-white/10 flex items-center gap-2"
+              className="px-6 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all border border-[var(--color-outline-variant)] flex items-center gap-2"
             >
               <ArrowLeft size={16} /> Exit
             </button>
@@ -105,14 +105,14 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
 
           {/* Sidebar Filters */}
           <aside className="lg:col-span-1 space-y-8">
-            <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-[2rem] border border-white/5">
+            <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-[2rem] border border-[var(--color-outline-variant)]">
               <h3 className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-6 flex items-center gap-2">
                 <Filter size={14} /> Knowledge Domains
               </h3>
               <div className="space-y-2">
                 <button
                   onClick={() => setSelectedBankId(null)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${!selectedBankId ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' : 'text-[var(--color-on-surface-variant)] hover:bg-white/5'}`}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${!selectedBankId ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]'}`}
                 >
                   All Domains
                 </button>
@@ -120,7 +120,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                   <button
                     key={bank.id}
                     onClick={() => setSelectedBankId(bank.id)}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${selectedBankId === bank.id ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' : 'text-[var(--color-on-surface-variant)] hover:bg-white/5'}`}
+                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${selectedBankId === bank.id ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]'}`}
                   >
                     <span className="truncate">{bank.name}</span>
                     {selectedBankId === bank.id && <ChevronRight size={14} />}
@@ -130,12 +130,12 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
             </div>
 
             <div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2rem] shadow-xl shadow-indigo-600/20">
-              <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center text-[var(--color-on-surface)] mb-4">
+              <div className="w-12 h-12 bg-[var(--color-surface-bright)] rounded-2xl flex items-center justify-center text-[var(--color-on-surface)] mb-4">
                 <TrendingUp size={24} />
               </div>
               <h3 className="text-lg font-black text-[var(--color-on-surface)] mb-2">Contribution Rank</h3>
               <p className="text-[var(--color-on-surface)]/70 text-xs leading-relaxed mb-6">Your insights help the community grow. Active contributors earn the 'Core Oracle' badge.</p>
-              <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-[var(--color-surface-bright)] rounded-full overflow-hidden">
                 <div className="h-full bg-white w-2/3" />
               </div>
               <p className="text-[10px] text-[var(--color-on-surface)]/50 font-black uppercase tracking-widest mt-3">Level 4 — 2.4k Karma</p>
@@ -150,7 +150,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                 <p className="text-[var(--color-on-surface-variant)] font-black text-[10px] uppercase tracking-widest animate-pulse">Syncing Threads...</p>
               </div>
             ) : threads.length === 0 ? (
-              <div className="py-32 text-center bg-[var(--color-surface-container)]/40 rounded-[3rem] border border-white/5 border-dashed">
+              <div className="py-32 text-center bg-[var(--color-surface-container)]/40 rounded-[3rem] border border-[var(--color-outline-variant)] border-dashed">
                 <MessageCircle size={48} className="text-slate-800 mx-auto mb-6" />
                 <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2">Silence in the Domain</h3>
                 <p className="text-[var(--color-on-surface-variant)] text-sm mb-8">No discussions found for this sector. Be the first to initiate contact.</p>
@@ -166,7 +166,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="group bg-[var(--color-surface-container)]/60 hover:bg-[var(--color-surface-container)]/80 border border-white/5 hover:border-white/10 rounded-[2.5rem] p-8 transition-all relative"
+                    className="group bg-[var(--color-surface-container)]/60 hover:bg-[var(--color-surface-container)]/80 border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 transition-all relative"
                   >
                     {thread.is_pinned && (
                       <div className="absolute top-8 right-8 text-[var(--color-brand-primary)]">
@@ -180,7 +180,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                         <button
                           onClick={() => handleVote(thread.id, 'up')}
                           disabled={voting === thread.id}
-                          className={`p-2 rounded-xl transition-all disabled:opacity-50 ${thread.voted ? 'text-[var(--color-brand-primary)] bg-indigo-500/10' : 'text-slate-600 hover:text-[var(--color-brand-primary)] hover:bg-indigo-500/10'}`}
+                          className={`p-2 rounded-xl transition-all disabled:opacity-50 ${thread.voted ? 'text-[var(--color-brand-primary)] bg-indigo-500/10' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-indigo-500/10'}`}
                         >
                           <ThumbsUp size={18} />
                         </button>
@@ -208,17 +208,17 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                           </div>
                         </div>
 
-                        <div className="bg-[var(--color-surface-dim)]/40 rounded-2xl p-6 mb-6 border border-white/5">
+                        <div className="bg-[var(--color-surface-dim)]/40 rounded-2xl p-6 mb-6 border border-[var(--color-outline-variant)]">
                           <p className="text-[var(--color-on-surface-variant)] leading-relaxed">{thread.content}</p>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-4">
-                          <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-xl border border-white/5">
+                          <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--color-surface-container-high)] rounded-xl border border-[var(--color-outline-variant)]">
                             <Hash size={12} className="text-[var(--color-on-surface-variant)]" />
                             <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">{thread.bank_name}</span>
                           </div>
 
-                          <div className="h-4 w-px bg-white/5" />
+                          <div className="h-4 w-px bg-[var(--color-surface-container-high)]" />
 
                           <button
                             onClick={() => setActiveQuestionId(thread.question_id)}
@@ -227,7 +227,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                             <MessageCircle size={14} /> {thread.reply_count} Replies
                           </button>
 
-                          <div className="ml-auto flex items-center gap-2 text-[10px] font-black text-slate-600 uppercase tracking-widest italic truncate max-w-[200px]">
+                          <div className="ml-auto flex items-center gap-2 text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest italic truncate max-w-[200px]">
                             Context: {thread.question_text}
                           </div>
                         </div>
@@ -242,7 +242,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                     <button
                       disabled={page === 1}
                       onClick={() => setPage(p => p - 1)}
-                      className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-xl border border-white/5 disabled:opacity-30 transition-all"
+                      className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-xl border border-[var(--color-outline-variant)] disabled:opacity-30 transition-all"
                     >
                       <ArrowLeft size={18} />
                     </button>
@@ -250,7 +250,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                     <button
                       disabled={page * 20 >= total}
                       onClick={() => setPage(p => p + 1)}
-                      className="p-3 bg-white/5 hover:bg-white/10 text-[var(--color-on-surface)] rounded-xl border border-white/5 disabled:opacity-30 transition-all"
+                      className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-xl border border-[var(--color-outline-variant)] disabled:opacity-30 transition-all"
                     >
                       <ChevronRight size={18} />
                     </button>

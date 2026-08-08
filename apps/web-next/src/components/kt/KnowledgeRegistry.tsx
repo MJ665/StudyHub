@@ -345,7 +345,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                   </div>
                   <div className="flex items-center gap-2 ml-auto">
                     {doc.tags?.slice(0, 3).map(tag => (
-                      <span key={tag} className="text-slate-600">#{tag}</span>
+                      <span key={tag} className="text-[var(--color-on-surface-variant)]">#{tag}</span>
                     ))}
                   </div>
                 </div>

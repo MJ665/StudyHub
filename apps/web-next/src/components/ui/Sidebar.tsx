@@ -118,7 +118,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
             </div>
           ))}
           {activeTracks.length === 0 && (
-            <p className="text-[10px] text-slate-600 italic">No tracks active</p>
+            <p className="text-[10px] text-[var(--color-on-surface-variant)] italic">No tracks active</p>
           )}
         </div>
 
@@ -220,7 +220,7 @@ const SidebarItem: React.FC<{ icon: string; label: string; active: boolean; onCl
       className={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all w-full text-left font-semibold outline-none
         ${active 
           ? 'text-[var(--color-brand-primary)] font-bold border-r-4 border-indigo-400 bg-indigo-500/10' 
-          : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-white/5 border-r-4 border-transparent'
+          : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)] border-r-4 border-transparent'
         }
       `}
     >

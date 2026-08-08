@@ -49,7 +49,7 @@ export default function ResetPasswordPage({
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-[var(--color-surface-container)] border border-white/5 rounded-[2.5rem] p-10 shadow-2xl relative z-10"
+        className="w-full max-w-md bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-10 shadow-2xl relative z-10"
       >
         <button 
           onClick={onBack}
@@ -78,7 +78,7 @@ export default function ResetPasswordPage({
               placeholder="000000"
               value={otp}
               onChange={e => setOtp(e.target.value)}
-              className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 text-center text-2xl font-black tracking-[0.5em] text-[var(--color-on-surface)] outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 text-center text-2xl font-black tracking-[0.5em] text-[var(--color-on-surface)] outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
             />
           </div>
 
@@ -86,7 +86,7 @@ export default function ResetPasswordPage({
             <div>
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">New Password</label>
               <div className="relative">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={18} />
                 <input 
                   type="password" 
                   required
@@ -94,7 +94,7 @@ export default function ResetPasswordPage({
                   placeholder="••••••••"
                   value={newPassword}
                   onChange={e => setNewPassword(e.target.value)}
-                  className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
                 />
               </div>
             </div>
@@ -102,7 +102,7 @@ export default function ResetPasswordPage({
             <div>
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)] mb-2 ml-1">Confirm Identity</label>
               <div className="relative">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={18} />
                 <input 
                   type="password" 
                   required
@@ -110,7 +110,7 @@ export default function ResetPasswordPage({
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
-                  className="w-full bg-[var(--color-surface-dim)] border border-white/5 rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
                 />
               </div>
             </div>

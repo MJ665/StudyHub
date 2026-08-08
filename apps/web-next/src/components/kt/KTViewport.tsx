@@ -199,7 +199,7 @@ export default function KTViewport({ user }: KTViewportProps) {
           >
             {redeeming ? 'Verifying…' : 'Unlock knowledge'}
           </button>
-          <p className="text-slate-600 text-[11px] mt-4">No key? Ask your L&amp;D admin to issue one for your project.</p>
+          <p className="text-[var(--color-on-surface-variant)] text-[11px] mt-4">No key? Ask your L&amp;D admin to issue one for your project.</p>
         </div>
       </div>
     );
