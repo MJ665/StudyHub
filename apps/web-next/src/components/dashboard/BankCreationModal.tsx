@@ -2,69 +2,16 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { X, Code, AlignLeft, Database, Plus, Loader2, Copy, Check, ChevronLeft, ChevronRight, Upload, AlertCircle, CheckCircle2 } from 'lucide-react';
 import ApiService from '../../services/ApiService';
 import { useToast } from '../ui/Toast';
+import QuestionBuilder from '../quiz/QuestionBuilder';
 
 // Suggestions are now fetched dynamically from the database using ApiService.getTopics()
-
-function JSONValidator({ value }: { value: string }) {
-  if (!value.trim()) return null;
-  try {
-    const parsed = JSON.parse(value);
-    const arr = Array.isArray(parsed) ? parsed : parsed.questions;
-    if (!Array.isArray(arr) || arr.length === 0) return (
-      <div className="flex items-center gap-2 text-amber-400 text-xs font-bold mt-1">
-        <AlertCircle size={12} /> Must be a JSON array with at least one question object
-      </div>
-    );
-    const missing = arr.filter((q: any) => 
-      typeof q.question !== 'string' ||
-      !Array.isArray(q.options) || 
-      q.options.length < 2 ||
-      typeof q.answer !== 'string' ||
-      !q.options.includes(q.answer)
-    );
-    if (missing.length > 0) return (
-      <div className="flex items-center gap-2 text-amber-400 text-xs font-bold mt-1">
-        <AlertCircle size={12} /> {missing.length} question(s) failed strict schema validation (missing fields, options not array, or answer not in options)
-      </div>
-    );
-    return (
-      <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold mt-1">
-        <CheckCircle2 size={12} /> Schema Verified — {arr.length} question(s) ready to import
-      </div>
-    );
-  } catch {
-    return (
-      <div className="flex items-center gap-2 text-rose-400 text-xs font-bold mt-1">
-        <AlertCircle size={12} /> Invalid JSON — check for syntax errors (missing quotes, commas, brackets)
-      </div>
-    );
-  }
-}
-
-function TextValidator({ value }: { value: string }) {
-  if (!value.trim()) return null;
-  const blocks = value.split(/\n\s*\n/).filter(b => b.trim());
-  const valid = blocks.filter(b => {
-    const lines = b.split('\n').map(l => l.trim()).filter(l => l);
-    return lines.length >= 2;
-  });
-  if (valid.length === 0) return (
-    <div className="flex items-center gap-2 text-amber-400 text-xs font-bold mt-1">
-      <AlertCircle size={12} /> Separate each question with a blank line. Need at least question + options.
-    </div>
-  );
-  return (
-    <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold mt-1">
-      <CheckCircle2 size={12} /> Detected {valid.length} question block(s)
-    </div>
-  );
-}
+// Question authoring is handled by the live JSON builder (QuestionBuilder);
+// the legacy TEXT/JSON textarea validators were removed.
 
 export default function BankCreationModal({ user, courses: coursesProp, onClose, onCreated }: any) {
   const courses = Array.isArray(coursesProp) ? coursesProp : [];
   const { toast } = useToast();
   const [step, setStep] = useState(1);
-  const [activeTab, setActiveTab] = useState<'TEXT' | 'JSON'>('JSON');
   const [loading, setLoading] = useState(false);
   const [copyLabel, setCopyLabel] = useState<'Copy Prompt' | 'Copied!'>('Copy Prompt');
   const [chapterInput, setChapterInput] = useState('');
@@ -103,8 +50,8 @@ export default function BankCreationModal({ user, courses: coursesProp, onClose,
   const [isOrgPublic, setIsOrgPublic] = useState(true);
 
   // Step 3: Questions
-  const [bankText, setBankText] = useState('');
-  const [bankJson, setBankJson] = useState('');
+  // Canonical questions authored via the live JSON builder (source of truth).
+  const [builderQuestions, setBuilderQuestions] = useState<any[]>([]);
 
   const [quickReferences, setQuickReferences] = useState('');
 
@@ -171,63 +118,28 @@ JSON Format:
         });
       }
 
-      if (activeTab === 'TEXT') {
-        if (!bankText.trim()) throw new Error('Please provide questions in text format.');
-        const blocks = bankText.split(/\n\s*\n/).filter(b => b.trim() !== '');
-        parsedQuestions = blocks.map(block => {
-          const lines = block.split('\n').map(l => l.trim()).filter(l => l);
-          const qText = lines[0].replace(/^\d+[.)]\s*/, '');
-          let options: string[] = [];
-          let answer = '';
-          for (let i = 1; i < lines.length; i++) {
-            const lower = lines[i].toLowerCase();
-            if (lower.startsWith('answer:') || lower.startsWith('ans:')) {
-              answer = lines[i].replace(/^(Answer|Ans):\s*/i, '').trim();
-            } else {
-              options.push(lines[i].replace(/^[a-dA-D][.)]\s*/, '').trim());
-            }
-          }
-          return {
-            question: qText,
-            options: options.length > 0 ? options : ['True', 'False'],
-            answer: answer || options[0] || 'True',
-            difficulty: bankDiff,
-            user_description: ''
-          };
-        });
-      }
-      if (activeTab === 'JSON') {
-        let sanitizedJson = bankJson.trim();
-        // Extract JSON if embedded in AI text
-        const jsonMatch = sanitizedJson.match(/\{[\s\S]*\}/);
-        if (jsonMatch) sanitizedJson = jsonMatch[0];
-
-        if (sanitizedJson.startsWith('```')) {
-          sanitizedJson = sanitizedJson.replace(/^```(json)?\n?/, '').replace(/\n?```$/, '').trim();
-        }
-        
-        const rawParsed = JSON.parse(sanitizedJson);
-        const questionsArray = Array.isArray(rawParsed) ? rawParsed : (rawParsed.questions || []);
-        
-        if (rawParsed.quick_references && Array.isArray(rawParsed.quick_references)) {
-          finalQuickRefs = rawParsed.quick_references.map((r: any) => ({
-            title: r.title || r.cmd || 'Reference',
-            content: r.content || r.desc || ''
-          }));
-        }
-
-        parsedQuestions = questionsArray.map((item: any) => ({
+      // Canonical questions come from the live JSON builder (form ⟷ JSON).
+      parsedQuestions = (builderQuestions || [])
+        .filter((item: any) => item && (item.question || '').trim())
+        .map((item: any) => ({
           question: item.question,
-          options: Array.isArray(item.options) ? item.options : ['True', 'False'],
-          answer: item.answer || item.options?.[0] || 'True',
+          question_type: item.question_type || 'mcq_single',
+          content_format: item.content_format || 'text',
+          options: Array.isArray(item.options) ? item.options.filter((o: string) => o !== undefined) : [],
+          answer: item.answer || item.options?.[0] || '',
+          correct_options: Array.isArray(item.correct_options) ? item.correct_options : undefined,
+          model_answer: item.model_answer || undefined,
+          rubric: item.rubric || undefined,
+          media_urls: Array.isArray(item.media_urls) && item.media_urls.length ? item.media_urls : undefined,
+          points: item.points || 1,
           difficulty: item.difficulty || bankDiff,
           user_description: item.user_description || '',
-          has_code: !!item.has_code || item.question.includes('```'),
-          code_language: item.code_language || null
+          explanation: item.explanation || undefined,
+          has_code: !!item.has_code || (item.content_format === 'code') || String(item.question || '').includes('```'),
+          code_language: item.code_language || null,
         }));
-      }
 
-      if (parsedQuestions.length === 0) throw new Error('Could not parse any questions from the input.');
+      if (parsedQuestions.length === 0) throw new Error('Add at least one question with a stem before creating the bank.');
 
       await ApiService.createQuestionBank({
         name: bankName,
@@ -413,42 +325,10 @@ JSON Format:
                   </p>
                 </div>
 
-                {/* JSON is the only supported paste format (Text Format removed). */}
-                <div className="flex bg-slate-800 p-1 rounded-xl">
-                  <div className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg font-bold text-sm bg-indigo-500 text-white shadow-md"><Code size={16} /> JSON Format</div>
-                </div>
-
-                {activeTab === 'JSON' ? (
-                  <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs text-slate-400 font-bold uppercase">Paste JSON Array from AI</label>
-                      <button className="text-xs text-indigo-400 hover:underline" onClick={() => setBankJson(`[
-  {
-    "question": "Which HTTP method is idempotent and used to fully replace a resource?",
-    "options": ["POST", "PUT", "PATCH", "CONNECT"],
-    "answer": "PUT",
-    "difficulty": "${bankDiff}",
-    "user_description": "PUT replaces the entire resource and is idempotent; POST creates and is not."
-  },
-  {
-    "question": "In Big-O notation, what is the average time complexity of a hash-map lookup?",
-    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-    "answer": "O(1)",
-    "difficulty": "${bankDiff}",
-    "user_description": "Hash lookups are constant time on average; worst case is O(n) on heavy collisions."
-  }
-]`)}>Load Template</button>
-                    </div>
-                    <textarea value={bankJson} onChange={e => setBankJson(e.target.value)} className="w-full h-52 bg-slate-800 border border-slate-700 rounded-xl p-4 text-emerald-400 font-mono text-sm leading-relaxed focus:ring-2 focus:ring-indigo-500 resize-y" placeholder={`[\n  {\n    "question": "...",\n    "options": ["A", "B", "C", "D"],\n    "answer": "A",\n    "difficulty": "Medium",\n    "user_description": ""\n  }\n]`} />
-                    <JSONValidator value={bankJson} />
-                  </div>
-                ) : (
-                  <div>
-                    <label className="block text-xs text-slate-400 font-bold uppercase mb-1">Text — One block per question (blank line between)</label>
-                    <textarea value={bankText} onChange={e => setBankText(e.target.value)} className="w-full h-52 bg-slate-800 border border-slate-700 rounded-xl p-4 text-white font-mono text-sm leading-relaxed focus:ring-2 focus:ring-indigo-500 resize-y" placeholder={`What is the capital of France?\nA. Paris\nB. London\nC. Rome\nD. Berlin\nAnswer: Paris\n\nNext question here...`} />
-                    <TextValidator value={bankText} />
-                  </div>
-                )}
+                {/* Live JSON builder — the single canonical authoring surface.
+                    Paste AI output into the JSON pane, or build via the form. */}
+                <QuestionBuilder questions={builderQuestions} onChange={setBuilderQuestions} />
+                <p className="text-[11px] text-slate-500">{builderQuestions.filter((q: any) => (q?.question || '').trim()).length} question(s) ready.</p>
 
                 <div className="flex gap-3 pt-1">
                   <button onClick={() => setStep(2)} className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>

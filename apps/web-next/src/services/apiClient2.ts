@@ -211,6 +211,21 @@ export class ApiClient2 extends ApiClient1 {
     });
   }
 
+  // ─── Content images (question builder / rich text) ────────────────────────
+  static async uploadContentImage(file: File): Promise<string> {
+    const presigned: any = await this.request('/resources/images/presigned-upload', {
+      method: 'POST',
+      body: JSON.stringify({ file_name: file.name, file_type: file.type, file_size_bytes: file.size }),
+    });
+    const post = presigned.upload_url; // { url, fields }
+    const form = new FormData();
+    Object.entries(post.fields || {}).forEach(([k, v]) => form.append(k, v as string));
+    form.append('file', file);
+    const up = await fetch(post.url, { method: 'POST', body: form });
+    if (!up.ok) throw new Error('Image upload failed');
+    return presigned.public_url as string;
+  }
+
   // ─── Certificate branding (L&D org signatory) ─────────────────────────────
   static async getBranding() {
     return this.request('/admin/branding');
