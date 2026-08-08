@@ -33,6 +33,7 @@ const config: ExpoConfig = {
       'INTERNET',
       'POST_NOTIFICATIONS',
       'CAMERA',
+      'RECORD_AUDIO',        // proctored-exam webcam capture (getUserMedia)
       'READ_MEDIA_IMAGES',
       'READ_MEDIA_VIDEO',
     ],

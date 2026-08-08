@@ -142,6 +142,13 @@ export default function WebAppScreen() {
 
   // ── Keep app-domain links in the WebView; open everything else externally ──
   const onShouldStart = useCallback((req: WebViewNavigation) => {
+    // Certificate/PDF downloads: the Android WebView can't render PDFs inline,
+    // but these links are self-authenticating (signed token in the URL, not the
+    // cookie), so hand them to the system browser/downloader.
+    if (/\/certificate\/download|\.pdf(\?|$)/i.test(req.url)) {
+      Linking.openURL(req.url).catch(() => {});
+      return false;
+    }
     const host = safeHost(req.url);
     if (req.url.startsWith('http') && host && WEB_HOST && host !== WEB_HOST) {
       Linking.openURL(req.url).catch(() => {});
