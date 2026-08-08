@@ -51,7 +51,7 @@ function ToastItem({ toast: t, onClose }: { toast: Toast; onClose: () => void })
     info: {
       bg: 'bg-indigo-900/60',
       border: 'border-indigo-500/40',
-      icon: <Info size={18} className="text-indigo-400 shrink-0" />
+      icon: <Info size={18} className="text-[var(--color-brand-primary)] shrink-0" />
     }
   };
 
@@ -68,11 +68,11 @@ function ToastItem({ toast: t, onClose }: { toast: Toast; onClose: () => void })
       aria-live="polite"
     >
       {style.icon}
-      <p className="text-sm font-medium text-white flex-1">{t.message}</p>
+      <p className="text-sm font-medium text-[var(--color-on-surface)] flex-1">{t.message}</p>
       <button
         onClick={onClose}
         aria-label="Dismiss notification"
-        className="text-white/40 hover:text-white transition-colors ml-2 shrink-0"
+        className="text-[var(--color-on-surface)]/40 hover:text-[var(--color-on-surface)] transition-colors ml-2 shrink-0"
       >
         <X size={16} />
       </button>

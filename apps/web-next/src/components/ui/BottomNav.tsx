@@ -55,7 +55,7 @@ export function BottomNav({ currentView, onChangeView, user, onLogout }: BottomN
   const Btn = ({ item, active }: { item: NavItem; active: boolean }) => (
     <button
       onClick={() => go(item)}
-      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 min-w-0 ${active ? 'text-brand-primary' : 'text-slate-400'}`}
+      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 min-w-0 ${active ? 'text-brand-primary' : 'text-[var(--color-on-surface-variant)]'}`}
     >
       <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>{item.icon}</span>
       <span className="text-[10px] font-semibold truncate max-w-full">{item.label}</span>
@@ -78,7 +78,7 @@ export function BottomNav({ currentView, onChangeView, user, onLogout }: BottomN
                 <button
                   key={item.label}
                   onClick={() => go(item)}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl border ${currentView === item.view ? 'border-brand-primary/40 bg-brand-primary/10 text-brand-primary' : 'border-white/5 bg-white/5 text-slate-300'}`}
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl border ${currentView === item.view ? 'border-brand-primary/40 bg-brand-primary/10 text-brand-primary' : 'border-white/5 bg-white/5 text-[var(--color-on-surface-variant)]'}`}
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>{item.icon}</span>
                   <span className="text-[11px] font-semibold text-center leading-tight">{item.label}</span>
@@ -105,7 +105,7 @@ export function BottomNav({ currentView, onChangeView, user, onLogout }: BottomN
         ))}
         <button
           onClick={() => setMoreOpen((o) => !o)}
-          className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 ${moreOpen ? 'text-brand-primary' : 'text-slate-400'}`}
+          className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 ${moreOpen ? 'text-brand-primary' : 'text-[var(--color-on-surface-variant)]'}`}
         >
           <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>apps</span>
           <span className="text-[10px] font-semibold">More</span>

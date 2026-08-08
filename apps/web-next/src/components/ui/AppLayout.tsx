@@ -40,7 +40,7 @@ export function AppLayout({ children, currentView, onChangeView, onLogout, user,
       {showSidebar && user && (
         <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 flex items-center gap-3 px-4 bg-[var(--color-surface-container-low)] border-b border-[var(--color-surface-bright)] print:hidden">
           <img src="/images/logo.png" alt="" className="w-7 h-7 rounded-lg object-cover" />
-          <span className="text-base font-black text-white">StudyBuddy</span>
+          <span className="text-base font-black text-[var(--color-on-surface)]">StudyBuddy</span>
         </header>
       )}
 
