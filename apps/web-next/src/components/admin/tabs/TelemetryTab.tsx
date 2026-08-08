@@ -25,6 +25,7 @@ import QuestionManagement from '../../dashboard/QuestionManagement';
 import QuestionReportUI from '../../admin/QuestionReportUI';
 import DataIntegrityDashboard from '../../dashboard/DataIntegrityDashboard';
 import SystemHealthMonitor from '../../dashboard/SystemHealthMonitor';
+import CertificateSignaturePanel from '../CertificateSignaturePanel';
 import { StatCard, OrgNode, DeptNode, SystemHealthPanel, PerformanceMetricGrid } from '../../admin/AdminWidgets';
 import { ResourceModal, DeleteModal, BulkAddModal, UserDetailsModal, CreationModal } from '../../admin/AdminModals';
 import { AuditLogTable, EmailLogTable, QuestionReportTable, SecurityPulse } from '../../admin/AdminTables';
@@ -188,6 +189,7 @@ export default function TelemetryTab({ ctx }: { ctx: AdminTabCtx }) {
                 className="space-y-6"
               >
                 <SystemHealthMonitor />
+                <CertificateSignaturePanel />
               </motion.div>
 </>
   );

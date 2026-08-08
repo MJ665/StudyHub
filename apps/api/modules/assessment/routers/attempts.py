@@ -588,9 +588,13 @@ def generate_certificate(
     if not attempt:
         raise HTTPException(status_code=404, detail="Attempt not found")
 
-    # Attempts are by definition completed once saved to DB in this architecture.
-    # In a real environment, we would use reportlab to generate the PDF
-    # and then upload to S3 and return a presigned URL.
+    # Certificate is earned only after a mentor has APPROVED the solved bank
+    # (is_reviewed). Until then, no certificate is issued.
+    if not attempt.is_reviewed:
+        raise HTTPException(
+            status_code=403,
+            detail="Certificate is available once a mentor has reviewed and approved this attempt.",
+        )
 
     import time as _time
 
@@ -605,12 +609,15 @@ def generate_certificate(
     import os
     from urllib.parse import quote
 
+    from services.certificate_service import verification_code
+
     base = os.getenv("FRONTEND_URL", "https://studybuddy.mj665.in").rstrip("/")
     absolute_cert_url = f"{base}{certificate_path}"
 
     return {
         "success": True,
         "certificate_url": certificate_path,
+        "verification_id": verification_code("bank", attempt_id),
         "share_url": (
             "https://www.linkedin.com/sharing/share-offsite/?url="
             + quote(absolute_cert_url, safe="")
@@ -628,104 +635,55 @@ def download_certificate(
     _verify_certificate_token(attempt_id, exp, token)
 
     from fastapi.responses import Response
-    import io
-    import os
-    try:
-        from reportlab.pdfgen import canvas
-        from reportlab.lib.pagesizes import landscape, letter
-    except ImportError:
-        raise HTTPException(status_code=500, detail="ReportLab not installed")
+
+    from services import certificate_service
 
     attempt = db.query(models.Attempt).filter(models.Attempt.id == attempt_id).first()
     if not attempt:
         raise HTTPException(status_code=404, detail="Attempt not found")
-        
+    # Approval-gated: a bank certificate only exists after mentor review.
+    if not attempt.is_reviewed:
+        raise HTTPException(status_code=403, detail="Certificate not yet available (pending mentor review).")
+
     bank = db.query(models.QuestionBank).filter(models.QuestionBank.id == attempt.bank_id).first()
     user = db.query(models.User).filter(models.User.id == attempt.user_id).first()
 
-    buffer = io.BytesIO()
-    c = canvas.Canvas(buffer, pagesize=landscape(letter))
-    width, height = landscape(letter)
-
-    # Draw border
-    c.setStrokeColorRGB(0.1, 0.1, 0.4)
-    c.setLineWidth(4)
-    c.rect(20, 20, width - 40, height - 40)
-    
-    # Try to load logo
-    # Api runs from apps/api
-    logo_path = os.path.join(os.path.dirname(__file__), "..", "..", "..", "web-next", "public", "images", "logo.png")
-    if os.path.exists(logo_path):
-        try:
-            # Draw logo (scaled)
-            c.drawImage(logo_path, width / 2 - 50, height - 120, width=100, height=100, preserveAspectRatio=True, mask='auto')
-        except Exception:
-            pass
-            
-    c.setFont("Helvetica-Bold", 36)
-    c.drawCentredString(width / 2, height - 160, "Certificate of Completion")
-    
-    c.setFont("Helvetica", 20)
-    c.drawCentredString(width / 2, height - 220, "This is to certify that")
-    
-    c.setFont("Helvetica-Bold", 28)
-    user_name = user.full_name if user else "Participant"
-    c.drawCentredString(width / 2, height - 270, user_name)
-    
-    c.setFont("Helvetica", 20)
-    c.drawCentredString(width / 2, height - 320, "has successfully completed the assessment")
-    
-    c.setFont("Helvetica-Bold", 24)
-    quiz_name = (getattr(bank, "name", None) or "Assessment") if bank else "Assessment"
-    c.drawCentredString(width / 2, height - 370, quiz_name)
-    
-    c.setFont("Helvetica", 16)
-    score_pct = (attempt.score / attempt.total * 100) if attempt.total > 0 else 0
-    c.drawCentredString(width / 2, height - 420, f"with a score of {attempt.score}/{attempt.total} ({score_pct:.1f}%)")
-    
-    # ── White-label co-branding (Org × StudyBuddy, Powered by StudyBuddy) ────
+    # White-label brand (Org × StudyBuddy) + the single org signatory.
     _brand = "StudyBuddy"
+    _super_id = None
     try:
-        _grp = (
-            db.query(models.Group).filter(models.Group.id == user.group_id).first()
-            if user
-            else None
-        )
+        _grp = db.query(models.Group).filter(models.Group.id == user.group_id).first() if user else None
         _dept = (
-            db.query(models.Department)
-            .filter(models.Department.id == _grp.department_id)
-            .first()
-            if _grp and _grp.department_id
-            else None
+            db.query(models.Department).filter(models.Department.id == _grp.department_id).first()
+            if _grp and _grp.department_id else None
         )
         _org = (
-            db.query(models.Organization)
-            .filter(models.Organization.id == _dept.organization_id)
-            .first()
-            if _dept
-            else None
+            db.query(models.Organization).filter(models.Organization.id == _dept.organization_id).first()
+            if _dept else None
         )
         if _org:
-            _brand = _org.brand_name or _org.name
-    except Exception:
+            _brand = getattr(_org, "brand_name", None) or _org.name
+            _super_id = _org.super_organization_id
+    except Exception:  # noqa: BLE001
         pass
-    c.setFont("Helvetica-Bold", 13)
-    c.setFillColorRGB(0.1, 0.1, 0.4)
-    c.drawCentredString(width / 2, height - 130, f"{_brand}  ×  StudyBuddy")
-    c.setFillColorRGB(0, 0, 0)
-    c.line(width - 250, 70, width - 100, 70)
-    c.setFont("Helvetica", 11)
-    c.drawCentredString(width - 175, 55, "Authorized Signature")
-    c.drawString(70, 55, f"Certificate ID: SB-{attempt.id}")
-    c.setFont("Helvetica-Oblique", 10)
-    c.setFillColorRGB(0.4, 0.4, 0.4)
-    c.drawCentredString(width / 2, 32, "Powered by StudyBuddy")
-    c.setFillColorRGB(0, 0, 0)
 
-    c.showPage()
-    c.save()
+    sig_name, sig_title, sig_bytes = certificate_service.resolve_signatory(db, _super_id)
 
-    pdf_content = buffer.getvalue()
-    buffer.close()
-
-    return Response(content=pdf_content, media_type="application/pdf")
+    total = attempt.total or 0
+    pct = (attempt.score / total * 100) if total else 0.0
+    pdf = certificate_service.render_certificate_pdf(
+        recipient_name=(user.full_name if user else "Participant"),
+        title=(getattr(bank, "name", None) or "Assessment"),
+        score=attempt.score,
+        total=attempt.total,
+        pct=pct,
+        passed=None,  # bank completion certificate — no pass/fail badge
+        verification_id=certificate_service.verification_code("bank", attempt_id),
+        kind_label="Completion",
+        achievement_line="has successfully completed the assessment",
+        org_brand=_brand,
+        signatory_name=sig_name,
+        signatory_title=sig_title,
+        signature_png_bytes=sig_bytes,
+    )
+    return Response(content=pdf, media_type="application/pdf")

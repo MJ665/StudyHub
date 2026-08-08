@@ -211,6 +211,25 @@ export class ApiClient2 extends ApiClient1 {
     });
   }
 
+  // ─── Certificate branding (L&D org signatory) ─────────────────────────────
+  static async getBranding() {
+    return this.request('/admin/branding');
+  }
+
+  static async presignSignature(filename: string, fileType: string) {
+    return this.request('/admin/branding/signature/presign', {
+      method: 'POST',
+      body: JSON.stringify({ filename, file_type: fileType })
+    });
+  }
+
+  static async updateSignatory(payload: { signatory_name?: string; signatory_title?: string; signature_s3_key?: string }) {
+    return this.request('/admin/branding/signatory', {
+      method: 'PATCH',
+      body: JSON.stringify(payload)
+    });
+  }
+
   static async getGroupResources(groupId: number, page: number = 1, size: number = 50) {
     return this.request(`/resources/group/${groupId}?page=${page}&size=${size}`);
   }

@@ -17,6 +17,7 @@ import {
   FileText
 } from 'lucide-react';
 import ApiService from '../../services/ApiService';
+import { toast } from 'react-hot-toast';
 
 interface QuizAttempt {
   id: number;
@@ -77,8 +78,9 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
       if (res && res.certificate_url) {
         window.open(res.certificate_url, '_blank');
       }
-    } catch (err) {
-      console.error("Failed to fetch certificate", err);
+    } catch (err: any) {
+      // Certificate is gated on mentor approval — surface that clearly.
+      toast.error(err?.message || 'Certificate is available once a mentor approves your attempt.');
     }
   };
 
@@ -88,8 +90,8 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
       if (res && res.share_url) {
         window.open(res.share_url, '_blank');
       }
-    } catch (err) {
-      console.error("Failed to share certificate", err);
+    } catch (err: any) {
+      toast.error(err?.message || 'Certificate is available once a mentor approves your attempt.');
     }
   };
 
