@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, model_validator
 
 
 class AIResponseEnvelope(BaseModel):
@@ -84,13 +84,53 @@ class AssignmentUpdate(BaseModel):
 
 class QuestionCreate(BaseModel):
     question: str
-    options: List[str]
-    answer: str
+    options: List[str] = []
+    answer: str = ""
     difficulty: Optional[str] = None
     user_description: Optional[str] = ""
     has_code: bool = False
     code_language: Optional[str] = None
     concept_tags: Optional[List[str]] = []
+    # Canonical rich-question schema (multi-type + multi-content). All optional
+    # with legacy-safe defaults so old MCQ JSON keeps validating.
+    question_type: str = "mcq_single"  # mcq_single|mcq_multi|true_false|short_answer|essay|coding|config
+    content_format: str = "text"       # text|markdown|latex|code
+    media_urls: Optional[List[str]] = None
+    correct_options: Optional[List[int]] = None  # indices for mcq_multi
+    model_answer: Optional[str] = None           # reference answer for AI grading
+    rubric: Optional[Any] = None                 # grading criteria (free-text/coding)
+    points: int = 1
+    explanation: Optional[str] = None
+    hints: Optional[List[str]] = None
+
+    @field_validator("question_type")
+    @classmethod
+    def _valid_qtype(cls, v: str) -> str:
+        allowed = {"mcq_single", "mcq_multi", "true_false", "short_answer", "essay", "coding", "config"}
+        if v not in allowed:
+            raise ValueError(f"question_type must be one of {sorted(allowed)}")
+        return v
+
+    @field_validator("content_format")
+    @classmethod
+    def _valid_fmt(cls, v: str) -> str:
+        allowed = {"text", "markdown", "latex", "code"}
+        if v not in allowed:
+            raise ValueError(f"content_format must be one of {sorted(allowed)}")
+        return v
+
+    @model_validator(mode="after")
+    def _validate_shape(self):
+        """Field-level guards at the boundary so bad JSON fails clearly."""
+        qt = self.question_type
+        if qt in ("mcq_single", "mcq_multi", "true_false"):
+            if not self.options or len(self.options) < 2:
+                raise ValueError(f"{qt} needs at least 2 options")
+            if qt == "mcq_multi" and not self.correct_options:
+                raise ValueError("mcq_multi needs correct_options (indices)")
+            if qt in ("mcq_single", "true_false") and not (self.answer or "").strip():
+                raise ValueError(f"{qt} needs an answer")
+        return self
 
 
 class QuestionBankCreate(BaseModel):

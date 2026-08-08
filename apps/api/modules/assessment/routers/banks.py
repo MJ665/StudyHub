@@ -193,6 +193,14 @@ def create_bank(
             has_code=q.has_code,
             code_language=q.code_language,
             concept_tags=q.concept_tags,
+            # Canonical rich-question fields.
+            question_type=q.question_type,
+            content_format=q.content_format,
+            media_urls=q.media_urls,
+            correct_options=q.correct_options,
+            model_answer=q.model_answer,
+            rubric=q.rubric,
+            points=q.points or 1,
         )
         db.add(db_q)
 
