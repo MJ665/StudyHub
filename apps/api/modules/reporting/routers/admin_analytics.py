@@ -1,5 +1,6 @@
 """admin_analytics endpoints (moved verbatim from routers/admin.py)."""
 from fastapi import APIRouter
+from pydantic import BaseModel
 
 from modules.reporting.routers.admin_shared import *  # noqa: F401,F403
 
@@ -447,3 +448,99 @@ def alerts_test(current_user: dict = Depends(require_ldadmin)):
         result["sent"] = False
         result["error"] = str(e)
     return result
+
+
+# ── Certificate branding: the single org signatory on all certificates ────────
+class SignaturePresignRequest(BaseModel):
+    filename: str
+    file_type: str = "image/png"
+
+
+class SignatoryUpdate(BaseModel):
+    signatory_name: Optional[str] = None
+    signatory_title: Optional[str] = None
+    signature_s3_key: Optional[str] = None
+
+
+def _branding_row(db, super_id):
+    row = (
+        db.query(models.OrgBrandingSettings)
+        .filter(models.OrgBrandingSettings.super_organization_id == super_id)
+        .first()
+    )
+    if not row:
+        row = models.OrgBrandingSettings(super_organization_id=super_id)
+        db.add(row)
+        db.flush()
+    return row
+
+
+@router.get("/branding")
+def get_branding(db: Session = Depends(get_db), current_user: dict = Depends(require_ldadmin)):
+    """Current org certificate signatory + a presigned preview of the signature."""
+    from auth_utils import caller_super_org_id
+    from services import s3_service
+
+    super_id = caller_super_org_id(current_user, db)
+    row = (
+        db.query(models.OrgBrandingSettings)
+        .filter(models.OrgBrandingSettings.super_organization_id == super_id)
+        .first()
+    )
+    if not row:
+        return {"signatory_name": None, "signatory_title": None, "signature_url": None}
+    return {
+        "signatory_name": row.signatory_name,
+        "signatory_title": row.signatory_title,
+        "signature_url": s3_service.sign_org_signature_url(row.signature_s3_key),
+    }
+
+
+@router.post("/branding/signature/presign")
+def presign_signature(
+    body: SignaturePresignRequest,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """Presigned POST so the L&D admin can upload the signature image directly to S3."""
+    from auth_utils import caller_super_org_id
+    from services import s3_service
+
+    super_id = caller_super_org_id(current_user, db)
+    if super_id is None:
+        raise HTTPException(400, "No organization resolved for the current user.")
+    return s3_service.generate_org_signature_upload_url(super_id, body.filename, body.file_type)
+
+
+@router.patch("/branding/signatory")
+def update_signatory(
+    body: SignatoryUpdate,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """Persist the org signatory name/title and the uploaded signature key."""
+    from auth_utils import caller_super_org_id
+    from services import s3_service
+
+    super_id = caller_super_org_id(current_user, db)
+    if super_id is None:
+        raise HTTPException(400, "No organization resolved for the current user.")
+    row = _branding_row(db, super_id)
+    if body.signatory_name is not None:
+        row.signatory_name = body.signatory_name.strip()[:255]
+    if body.signatory_title is not None:
+        row.signatory_title = body.signatory_title.strip()[:255]
+    if body.signature_s3_key is not None:
+        row.signature_s3_key = body.signature_s3_key.strip()[:500] or None
+    db.commit()
+    log_admin_action(
+        db=db, actor_id=int(current_user["sub"]), actor_role=current_user["role"],
+        action="UPDATE_CERT_SIGNATORY", resource_type="ORG_BRANDING", resource_id=super_id,
+        details={"has_signature": bool(row.signature_s3_key)},
+    )
+    return {
+        "success": True,
+        "signatory_name": row.signatory_name,
+        "signatory_title": row.signatory_title,
+        "signature_url": s3_service.sign_org_signature_url(row.signature_s3_key),
+    }

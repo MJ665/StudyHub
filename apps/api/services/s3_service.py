@@ -269,3 +269,51 @@ def object_exists(s3_key: str) -> bool:
         return True
     except Exception:
         return False
+
+
+def fetch_object_bytes(s3_key: str) -> bytes | None:
+    """Download an S3 object's raw bytes (e.g. a signature PNG for the certificate
+    renderer). Returns None on any failure — callers degrade gracefully."""
+    try:
+        s3_client = get_s3_client()
+        resp = s3_client.get_object(Bucket=settings.S3_BUCKET_NAME, Key=s3_key)
+        return resp["Body"].read()
+    except Exception as e:  # noqa: BLE001
+        logger.warning(f"fetch_object_bytes failed for {s3_key}: {e}")
+        return None
+
+
+def generate_org_signature_upload_url(
+    super_org_id: int, filename: str, file_type: str, max_size_bytes: int = 1048576
+) -> dict:
+    """Presigned POST for an L&D-uploaded org certificate signature (private).
+    Stored under org_signatures/{super_org_id}/... and served via presigned GET."""
+    import uuid
+
+    s3_client = get_s3_client()
+    safe_name = (
+        "".join(c for c in filename if c.isalnum() or c in (".", "_", "-"))
+        .strip()
+        .replace(" ", "_")
+    )
+    s3_key = f"org_signatures/{super_org_id}/{uuid.uuid4().hex[:8]}_{safe_name}"
+    try:
+        presigned_post = s3_client.generate_presigned_post(
+            Bucket=settings.S3_BUCKET_NAME,
+            Key=s3_key,
+            Fields={"Content-Type": file_type},
+            Conditions=[
+                {"Content-Type": file_type},
+                ["content-length-range", 1, max_size_bytes],
+            ],
+            ExpiresIn=600,
+        )
+        return {"upload_url": presigned_post, "s3_key": s3_key}
+    except ClientError as e:
+        logger.error(f"S3 org-signature presign failed: {e}")
+        raise HTTPException(status_code=503, detail="Could not generate signature upload URL.")
+
+
+def sign_org_signature_url(s3_key: str | None, expiry_seconds: int = 86400) -> str | None:
+    """Private-bucket presigned GET for a stored signature key (browser preview)."""
+    return sign_media_url(s3_key, expiry_seconds=expiry_seconds)
