@@ -49,6 +49,8 @@ NEW_TABLES = [
     "kt_graph_edges",
     # QA Sprint 2 Phase A: unified moderation reports for KT docs + coding.
     "content_reports",
+    # Certificates sprint: per-super-org certificate signatory + branding.
+    "org_branding_settings",
 ]
 
 
@@ -128,6 +130,26 @@ def provision_schema() -> None:
         ))
         conn.execute(text(
             "ALTER TABLE coding_questions ADD COLUMN IF NOT EXISTS group_id INTEGER"
+        ))
+        # Certificates sprint: Mettl-style exam result release + verdict override.
+        conn.execute(text(
+            "ALTER TABLE exam_attempts ADD COLUMN IF NOT EXISTS "
+            "result_status VARCHAR(12) NOT NULL DEFAULT 'pending'"
+        ))
+        conn.execute(text(
+            "ALTER TABLE exam_attempts ADD COLUMN IF NOT EXISTS result_verdict VARCHAR(6)"
+        ))
+        conn.execute(text(
+            "ALTER TABLE exam_attempts ADD COLUMN IF NOT EXISTS released_at TIMESTAMPTZ"
+        ))
+        conn.execute(text(
+            "ALTER TABLE exam_attempts ADD COLUMN IF NOT EXISTS released_by INTEGER"
+        ))
+        # Backfill: already-submitted attempts predate the release workflow, so
+        # treat them as released (don't retroactively hide historical scores).
+        conn.execute(text(
+            "UPDATE exam_attempts SET result_status='released' "
+            "WHERE status='submitted' AND result_status='pending'"
         ))
         # Exam scheduling window + granular Mettl-style config (settings JSONB).
         conn.execute(text(

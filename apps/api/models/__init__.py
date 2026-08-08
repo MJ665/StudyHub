@@ -22,6 +22,7 @@ from .exam import (  # noqa: F401
     Exam,
     ExamAttempt,
     ExamInvite,
+    OrgBrandingSettings,
     ProctorEvent,
 )
 from .kt_model import *  # noqa: F403

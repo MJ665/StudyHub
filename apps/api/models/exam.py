@@ -56,9 +56,30 @@ DEFAULT_EXAM_SETTINGS: dict = {
     "max_tab_switches": 0,        # 0 = unlimited; >0 auto-submits when exceeded
     "negative_marking": 0.0,      # fraction of points deducted per wrong answer
     "allow_backtrack": True,      # can revisit previous questions
-    "show_results_immediately": True,  # show score at submit
+    "show_results_immediately": True,  # legacy flag (kept for back-compat)
+    # Mettl-style result release. immediate = score shown at submit; review_release
+    # = scores hidden until the conductor releases them. Default review_release so
+    # scores never silently leak.
+    "score_visibility_mode": "review_release",  # immediate | review_release
+    "certificates_enabled": False,  # conductor allows exam certificates on release
     "instructions": "",          # candidate instructions shown in the lobby
 }
+
+
+class OrgBrandingSettings(Base):
+    """Per-super-organization branding for certificates: a single org signatory
+    (name + title + signature image) that renders on ALL certificates. Content
+    is customer-wide, so it is keyed by super_organization_id."""
+    __tablename__ = "org_branding_settings"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    super_organization_id: Mapped[int | None] = mapped_column(Integer, index=True, unique=True, nullable=True)
+    signatory_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    signatory_title: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    signature_s3_key: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    updated_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+    )
 
 
 class ExamInvite(Base):
@@ -99,6 +120,14 @@ class ExamAttempt(Base):
     total: Mapped[float | None] = mapped_column(Float, nullable=True)
     passed: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     flags_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)  # proctor flags
+    # Mettl-style result release: pending (hidden) -> released (candidate sees
+    # score+verdict) | withheld (explicitly hidden). result_verdict is the
+    # conductor's manual override (pass|fail) for cheating/exceptions; when NULL
+    # the verdict is computed from `passed` (pct >= exam.passing_score).
+    result_status: Mapped[str] = mapped_column(String(12), default="pending", nullable=False)  # pending|released|withheld
+    result_verdict: Mapped[str | None] = mapped_column(String(6), nullable=True)  # pass|fail (manual override)
+    released_at: Mapped[datetime.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    released_by: Mapped[int | None] = mapped_column(Integer, nullable=True)
     started_at: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     submitted_at: Mapped[datetime.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
