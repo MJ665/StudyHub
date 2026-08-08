@@ -20,6 +20,7 @@ interface FormData {
   difficulty: string;
   course_id: number | string;
   is_org_public: boolean;
+  visibility_scope: string;
   test_cases: TestCase[];
 }
 
@@ -36,6 +37,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
     difficulty: 'Medium',
     course_id: courses.length > 0 ? courses[0].id : '',
     is_org_public: true,
+    visibility_scope: 'global-public',
     test_cases: []
   });
 
@@ -345,6 +347,20 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                        <option key={c.id} value={c.id}>{c.name}</option>
                      ))}
                    </select>
+                </div>
+
+                <div>
+                   <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Who can see this?</label>
+                   <select
+                     value={formData.visibility_scope}
+                     onChange={e => setFormData({ ...formData, visibility_scope: e.target.value })}
+                     className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-white focus:ring-1 focus:ring-indigo-500 outline-none"
+                   >
+                     <option value="global-public">Everyone in the organization</option>
+                     <option value="course-specific">Members of the selected course</option>
+                     <option value="group-private">My group only</option>
+                   </select>
+                   <p className="text-[9px] text-on-surface-variant mt-1">Mentors &amp; admins always see every question.</p>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl">

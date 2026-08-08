@@ -199,6 +199,9 @@ class CodingQuestionCreate(BaseModel):
     initial_code: Optional[str] = None
     time_limit_minutes: Optional[int] = None
     test_cases: Optional[List[CodingTestCaseCreate]] = []
+    # Membership-based visibility: global-public | course-specific | group-private
+    visibility_scope: str = "global-public"
+    group_id: Optional[int] = None
 
 
 class CodingQuestionResponse(BaseModel):
@@ -209,6 +212,8 @@ class CodingQuestionResponse(BaseModel):
     difficulty: str
     initial_code: Optional[str] = None
     course_id: Optional[int] = None
+    visibility_scope: Optional[str] = None
+    group_id: Optional[int] = None
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

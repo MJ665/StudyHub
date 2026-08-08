@@ -119,6 +119,16 @@ def provision_schema() -> None:
         conn.execute(text(
             "ALTER TABLE proctor_events ALTER COLUMN media_url TYPE TEXT"
         ))
+        # QA Sprint 2 Phase B: membership-based visibility for coding questions
+        # (mirrors QuestionBank). Existing rows backfill to 'global-public' so
+        # nothing is hidden on upgrade.
+        conn.execute(text(
+            "ALTER TABLE coding_questions ADD COLUMN IF NOT EXISTS "
+            "visibility_scope VARCHAR(20) NOT NULL DEFAULT 'global-public'"
+        ))
+        conn.execute(text(
+            "ALTER TABLE coding_questions ADD COLUMN IF NOT EXISTS group_id INTEGER"
+        ))
         # Exam scheduling window + granular Mettl-style config (settings JSONB).
         conn.execute(text(
             "ALTER TABLE exams ADD COLUMN IF NOT EXISTS starts_at TIMESTAMPTZ"

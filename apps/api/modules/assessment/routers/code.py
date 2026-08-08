@@ -5,6 +5,7 @@ from typing import List, Optional
 from cache_manager import cache_manager
 from database import get_async_db, get_db
 from fastapi import APIRouter, Depends, HTTPException, Query
+import models
 from models.attempt import CodingAttempt, CodingHint
 from models.coding import CodingQuestion, CodingTestCase
 from auth_utils import (
@@ -88,6 +89,46 @@ def get_coding_questions(
         current_user,
         db,
     )
+
+    # Membership-based visibility (mirrors the QuestionBank model). Authors and
+    # mentors/admins see everything in their super-org scope; a plain member sees
+    # global-public, course-specific for their group's subscribed courses, and
+    # group-private for their own group — plus anything they authored.
+    from sqlalchemy import and_, or_
+
+    role = current_user.get("role")
+    if role not in ("LDAdmin", "GroupAdmin", "Mentor", "PlatformAdmin"):
+        _uid_raw = current_user.get("sub") or current_user.get("id")
+        uid = int(_uid_raw) if _uid_raw is not None else -1
+        gid = current_user.get("group_id")
+        accessible_course_ids = []
+        if gid:
+            accessible_course_ids = [
+                s.course_id
+                for s in db.query(models.GroupCourseSubscription).filter(
+                    models.GroupCourseSubscription.group_id == int(gid),
+                    models.GroupCourseSubscription.is_active.is_(True),
+                ).all()
+            ]
+        vis_clauses = [
+            CodingQuestion.visibility_scope == "global-public",
+            CodingQuestion.created_by == uid,
+        ]
+        if gid is not None:
+            vis_clauses.append(
+                and_(
+                    CodingQuestion.visibility_scope == "group-private",
+                    CodingQuestion.group_id == int(gid),
+                )
+            )
+        if accessible_course_ids:
+            vis_clauses.append(
+                and_(
+                    CodingQuestion.visibility_scope == "course-specific",
+                    CodingQuestion.course_id.in_(accessible_course_ids),
+                )
+            )
+        query = query.filter(or_(*vis_clauses))
 
     if course_id:
         query = query.filter(CodingQuestion.course_id == course_id)
@@ -410,6 +451,9 @@ class CodingQuestionCreate(BaseModel):
     course_id: Optional[int] = None
     is_public: bool = True
     concept_tags: Optional[List[str]] = None
+    # Membership-based visibility: global-public | course-specific | group-private
+    visibility_scope: str = "global-public"
+    group_id: Optional[int] = None
     test_cases: List[_TestCaseIn] = Field(default_factory=list)
 
 
@@ -443,6 +487,13 @@ def create_coding_question(
         created_by=int(author_id),
         organization_id=caller_org_id(current_user),
         super_organization_id=caller_super_org_id(current_user, db),
+        visibility_scope=(body.visibility_scope or "global-public"),
+        # group-private defaults to the author's own group when not specified.
+        group_id=(
+            body.group_id
+            if body.group_id is not None
+            else (current_user.get("group_id") if body.visibility_scope == "group-private" else None)
+        ),
     )
     db.add(q)
     db.flush()  # get q.id for the test cases

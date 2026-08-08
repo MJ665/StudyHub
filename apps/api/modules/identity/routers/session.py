@@ -212,6 +212,12 @@ def get_current_user(
         "success": True,
         "id": user.id,
         "user_id": user.id,
+        # `sub` + `organization_id` are required for tenant scoping helpers
+        # (caller_org_id / caller_super_org_id / scope_to_super_org). Omitting
+        # organization_id made scope_to_super_org fail closed for members, so
+        # scoped content (e.g. coding questions) was invisible to them.
+        "sub": str(user.id),
+        "organization_id": user.organization_id,
         "full_name": user.full_name,
         "group_id": user.group_id,
         "group_name": group.name if group else None,

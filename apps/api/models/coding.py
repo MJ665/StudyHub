@@ -43,6 +43,13 @@ class CodingQuestion(Base):
     is_compulsory: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_org_public: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    # Membership-based visibility (mirrors QuestionBank.visibility_scope):
+    #   global-public  → all members in the super-org
+    #   course-specific → members whose group is subscribed to course_id
+    #   group-private  → members of group_id only
+    # Existing rows backfill to 'global-public' so nothing is hidden on upgrade.
+    visibility_scope: Mapped[str] = mapped_column(String(20), default="global-public", nullable=False)
+    group_id: Mapped[int | None] = mapped_column(Integer, nullable=True, index=True)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default="now()", nullable=False)
 
     test_cases = relationship(
