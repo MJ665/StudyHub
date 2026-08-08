@@ -320,6 +320,28 @@ export default function ExamRunnerPage() {
               <div className={`text-5xl font-black mb-2 ${result.passed ? 'text-emerald-400' : 'text-rose-400'}`}>{result.percent}%</div>
               <div className="text-xl font-bold mb-4">{result.passed ? 'Passed' : 'Not passed'}</div>
               <div className="text-slate-400 text-sm">Score {result.score}/{result.total} · status {result.status} · {result.flags} integrity flag(s)</div>
+              {result.passed && (
+                <div className="flex items-center justify-center gap-3 mt-5">
+                  <button
+                    onClick={async () => {
+                      try {
+                        const r: any = await ApiService.request(`/exams/attempts/${paper.attempt_id}/certificate`);
+                        window.open(r.certificate_url, '_blank');
+                      } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
+                    }}
+                    className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-bold"
+                  >Download certificate</button>
+                  <button
+                    onClick={async () => {
+                      try {
+                        const r: any = await ApiService.request(`/exams/attempts/${paper.attempt_id}/certificate`);
+                        window.open(r.share_url, '_blank');
+                      } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
+                    }}
+                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm font-bold"
+                  >Share on LinkedIn</button>
+                </div>
+              )}
             </>
           )}
           <div className="mt-6"><a href="/exams" className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">← Back to exams</a></div>

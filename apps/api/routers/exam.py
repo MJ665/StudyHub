@@ -52,6 +52,9 @@ class ExamSettings(BaseModel):
     negative_marking: float = Field(default=0.0, ge=0.0, le=1.0)
     allow_backtrack: bool = True
     show_results_immediately: bool = True
+    # Mettl-style release + certificates
+    score_visibility_mode: str = Field(default="review_release", pattern="^(immediate|review_release)$")
+    certificates_enabled: bool = False
     instructions: str = ""
 
 

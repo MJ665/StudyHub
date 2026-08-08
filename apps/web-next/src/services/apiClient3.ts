@@ -191,6 +191,7 @@ export class ApiClient3 extends ApiClient2 {
       require_camera?: boolean; record_video?: boolean; require_fullscreen?: boolean;
       max_tab_switches?: number; negative_marking?: number; allow_backtrack?: boolean;
       show_results_immediately?: boolean; instructions?: string;
+      score_visibility_mode?: 'immediate' | 'review_release'; certificates_enabled?: boolean;
     };
   }) {
     return this.request('/exams', { method: 'POST', body: JSON.stringify(data) });
@@ -218,6 +219,18 @@ export class ApiClient3 extends ApiClient2 {
   }
   static async examAttemptsForReview(examId: number) {
     return this.request(`/exams/${examId}/attempts`);
+  }
+  static async releaseExamResults(examId: number, attemptIds: number[]) {
+    return this.request(`/exams/${examId}/results/release`, {
+      method: 'POST',
+      body: JSON.stringify({ attempt_ids: attemptIds }),
+    });
+  }
+  static async markExamResults(examId: number, attemptIds: number[], verdict: 'pass' | 'fail' | 'withhold') {
+    return this.request(`/exams/${examId}/results/mark`, {
+      method: 'POST',
+      body: JSON.stringify({ attempt_ids: attemptIds, verdict }),
+    });
   }
   static async examStats(examId: number) {
     return this.request(`/exams/${examId}/stats`);

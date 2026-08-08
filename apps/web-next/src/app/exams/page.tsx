@@ -78,6 +78,9 @@ export default function ExamsPage() {
   const [showResults, setShowResults] = useState(true);
   const [allowBacktrack, setAllowBacktrack] = useState(true);
   const [instructions, setInstructions] = useState('');
+  // Mettl-style result release + certificate issuance
+  const [scoreVisibility, setScoreVisibility] = useState<'immediate' | 'review_release'>('review_release');
+  const [certificatesEnabled, setCertificatesEnabled] = useState(false);
 
   // member-facing invited exams ("My Exams")
   const [invited, setInvited] = useState<InvitedExam[]>([]);
@@ -203,7 +206,9 @@ export default function ExamsPage() {
           max_tab_switches: Number(maxTabSwitches) || 0,
           negative_marking: Number(negativeMarking) || 0,
           allow_backtrack: allowBacktrack,
-          show_results_immediately: showResults,
+          show_results_immediately: scoreVisibility === 'immediate',
+          score_visibility_mode: scoreVisibility,
+          certificates_enabled: certificatesEnabled,
           instructions: instructions.trim(),
         },
       });
@@ -350,7 +355,13 @@ export default function ExamsPage() {
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={requireCamera} onChange={(e) => setRequireCamera(e.target.checked)} /> Require camera to start</label>
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={recordVideo} onChange={(e) => setRecordVideo(e.target.checked)} /> Record webcam video</label>
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={requireFullscreen} onChange={(e) => setRequireFullscreen(e.target.checked)} /> Force fullscreen</label>
-                <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={showResults} onChange={(e) => setShowResults(e.target.checked)} /> Show score immediately</label>
+                <div><label className={label}>Results visibility</label>
+                  <select className={input} value={scoreVisibility} onChange={(e) => setScoreVisibility(e.target.value as 'immediate' | 'review_release')}>
+                    <option value="review_release">Review &amp; release (you control when candidates see scores)</option>
+                    <option value="immediate">Show score immediately on submit</option>
+                  </select>
+                </div>
+                <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={certificatesEnabled} onChange={(e) => setCertificatesEnabled(e.target.checked)} /> Issue certificates to candidates who pass (on release)</label>
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={allowBacktrack} onChange={(e) => setAllowBacktrack(e.target.checked)} /> Allow going back to previous questions</label>
                 <div><label className={label}>Max tab-switches (0 = unlimited)</label><input type="number" className={input} value={maxTabSwitches} onChange={(e) => setMaxTabSwitches(e.target.value)} min={0} /></div>
                 <div><label className={label}>Negative marking (0–1 per wrong)</label><input type="number" step="0.05" className={input} value={negativeMarking} onChange={(e) => setNegativeMarking(e.target.value)} min={0} max={1} /></div>

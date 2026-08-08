@@ -13,6 +13,9 @@ interface Attempt {
   score: number | null;
   total: number | null;
   passed: boolean | null;
+  verdict?: 'pass' | 'fail' | null;
+  result_status?: 'pending' | 'released' | 'withheld';
+  released_at?: string | null;
   flags: number;
   submitted_at: string | null;
 }
@@ -121,14 +124,41 @@ export default function ProctorReviewPage() {
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<number | null>(null);
   const [stats, setStats] = useState<ExamStats | null>(null);
+  const [selected, setSelected] = useState<Set<number>>(new Set());
+  const [busy, setBusy] = useState(false);
 
-  useEffect(() => {
+  const reload = () => {
     ApiService.examAttemptsForReview(examId)
       .then((r) => setAttempts(r.attempts || []))
       .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Failed to load'))
       .finally(() => setLoading(false));
+  };
+  useEffect(() => {
+    reload();
     ApiService.examStats(examId).then((s) => setStats(s)).catch(() => setStats(null));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [examId]);
+
+  const toggle = (id: number) =>
+    setSelected((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
+
+  const doRelease = async () => {
+    if (selected.size === 0) return;
+    setBusy(true);
+    try {
+      const res: any = await ApiService.releaseExamResults(examId, [...selected]);
+      alert(`Released ${res.released} result(s); ${res.certificates_issued} certificate(s) issued.`);
+      setSelected(new Set()); reload();
+    } catch (e: any) { setError(e?.message || 'Release failed'); } finally { setBusy(false); }
+  };
+  const doMark = async (verdict: 'pass' | 'fail' | 'withhold') => {
+    if (selected.size === 0) return;
+    setBusy(true);
+    try {
+      await ApiService.markExamResults(examId, [...selected], verdict);
+      setSelected(new Set()); reload();
+    } catch (e: any) { setError(e?.message || 'Action failed'); } finally { setBusy(false); }
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10">
@@ -226,35 +256,57 @@ export default function ProctorReviewPage() {
           </section>
         )}
 
+        {/* Mettl-style release toolbar */}
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <span className="text-xs text-slate-400 mr-1">{selected.size} selected</span>
+          <button disabled={busy || selected.size === 0} onClick={doRelease}
+            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold disabled:opacity-40">
+            Release results {selected.size ? `(${selected.size})` : ''}
+          </button>
+          <button disabled={busy || selected.size === 0} onClick={() => doMark('pass')}
+            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-600/30 border border-slate-700 text-xs font-bold disabled:opacity-40">Force Pass</button>
+          <button disabled={busy || selected.size === 0} onClick={() => doMark('fail')}
+            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-600/30 border border-slate-700 text-xs font-bold disabled:opacity-40">Force Fail</button>
+          <button disabled={busy || selected.size === 0} onClick={() => doMark('withhold')}
+            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold disabled:opacity-40">Withhold</button>
+        </div>
+
         <div className="rounded-xl bg-slate-900 border border-slate-800 overflow-x-auto">
-          <div className="min-w-[560px]">
-          <div className="grid grid-cols-5 gap-2 px-4 py-3 text-xs uppercase tracking-widest text-slate-500 border-b border-slate-800">
-            <span>User</span><span>Status</span><span>Score</span><span>Result</span><span>Flags</span>
+          <div className="min-w-[620px]">
+          <div className="grid grid-cols-[32px_1fr_1fr_1fr_1fr_1fr] gap-2 px-4 py-3 text-xs uppercase tracking-widest text-slate-500 border-b border-slate-800">
+            <span></span><span>User</span><span>Status</span><span>Score</span><span>Result</span><span>Flags</span>
           </div>
           {loading ? <div className="p-4 text-slate-500 text-sm">Loading…</div> : attempts.length === 0 ? (
             <div className="p-4 text-slate-500 text-sm">No attempts yet.</div>
-          ) : attempts.map((a) => (
-            <div key={a.id}>
-              <button
-                onClick={() => setExpanded(expanded === a.id ? null : a.id)}
-                className="w-full grid grid-cols-5 gap-2 px-4 py-2.5 border-b border-slate-800/50 text-sm items-center text-left hover:bg-slate-800/40 transition-colors"
-              >
-                <span className="min-w-0">
+          ) : attempts.map((a) => {
+            const verdict = a.verdict ?? (a.passed == null ? null : a.passed ? 'pass' : 'fail');
+            const rs = a.result_status || 'pending';
+            return (
+            <div key={a.id} className="border-b border-slate-800/50">
+              <div className="grid grid-cols-[32px_1fr_1fr_1fr_1fr_1fr] gap-2 px-4 py-2.5 text-sm items-center hover:bg-slate-800/40 transition-colors">
+                <input type="checkbox" checked={selected.has(a.id)} onChange={() => toggle(a.id)}
+                  disabled={a.status === 'in_progress'} className="accent-emerald-500" />
+                <button onClick={() => setExpanded(expanded === a.id ? null : a.id)} className="min-w-0 text-left">
                   <span className="block truncate font-semibold">{a.user_name || `User ${a.user_id}`}</span>
                   {a.user_email && <span className="block truncate text-xs text-slate-500">{a.user_email}</span>}
-                </span>
+                </button>
                 <span className="text-slate-400">{a.status}</span>
                 <span>{a.score != null ? `${a.score}/${a.total}` : '—'}</span>
-                <span className={a.passed ? 'text-emerald-400' : a.passed === false ? 'text-rose-400' : 'text-slate-500'}>
-                  {a.passed == null ? '—' : a.passed ? 'Pass' : 'Fail'}
+                <span className="flex flex-col">
+                  <span className={verdict === 'pass' ? 'text-emerald-400' : verdict === 'fail' ? 'text-rose-400' : 'text-slate-500'}>
+                    {verdict == null ? '—' : verdict === 'pass' ? 'Pass' : 'Fail'}
+                  </span>
+                  <span className={`text-[10px] ${rs === 'released' ? 'text-emerald-500/70' : rs === 'withheld' ? 'text-amber-500/70' : 'text-slate-600'}`}>{rs}</span>
                 </span>
-                <span className={a.flags > 0 ? 'text-amber-400 font-bold' : 'text-slate-500'}>
+                <button onClick={() => setExpanded(expanded === a.id ? null : a.id)}
+                  className={`text-left ${a.flags > 0 ? 'text-amber-400 font-bold' : 'text-slate-500'}`}>
                   {a.flags > 0 ? `⚠ ${a.flags}` : '0'} <span className="text-slate-600">{expanded === a.id ? '▲' : '▼'}</span>
-                </span>
-              </button>
+                </button>
+              </div>
               {expanded === a.id && <ProctorDetail attemptId={a.id} />}
             </div>
-          ))}
+            );
+          })}
           </div>
         </div>
         <p className="text-center text-slate-600 text-xs mt-6">Powered by StudyBuddy</p>
