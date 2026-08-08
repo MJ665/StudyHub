@@ -18,17 +18,28 @@ async def document_versions(
         .where(KTDocumentVersion.document_id == doc_id)
         .order_by(KTDocumentVersion.version.desc())
     )
+    versions = result.scalars().all()
+
+    # Resolve author display names so the history reads "Changed by <Name>"
+    # instead of "Changed by ID: <n>".
+    author_ids = {v.author_id for v in versions if v.author_id is not None}
+    names: dict[int, str] = {}
+    if author_ids:
+        rows = await db.execute(
+            select(User.id, User.full_name).where(User.id.in_(author_ids))
+        )
+        names = {r.id: r.full_name for r in rows.all()}
+
     return [
         {
             "id": v.id,
             "version": v.version,
             "change_summary": v.change_summary,
-            # FE field name predates the model rebuild; snapshots record the
-            # writing author in `author_id`.
             "changed_by_id": v.author_id,
+            "author_name": names.get(v.author_id) or "Unknown",
             "created_at": v.created_at,
         }
-        for v in result.scalars().all()
+        for v in versions
     ]
 
 @router.post("/documents/{doc_id}/attachments/presign")

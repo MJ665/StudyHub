@@ -10,8 +10,9 @@ interface Version {
   id: string;
   version: number;
   created_at: string;
-  summary: string;
-  author: string | number;
+  change_summary?: string;
+  author_name?: string;
+  changed_by_id?: number;
 }
 
 interface KnowledgeVersionHistoryProps {
@@ -96,11 +97,11 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
                 <ChevronRight size={16} className="text-slate-600 group-hover:text-amber-400 transition-colors" />
               </div>
 
-              <p className="text-sm font-bold text-white mb-3 line-clamp-2">{v.summary || 'No summary provided'}</p>
+              <p className="text-sm font-bold text-white mb-3 line-clamp-2">{v.change_summary || 'No summary provided'}</p>
 
               <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
                 <User size={12} />
-                <span>Changed by ID: {v.author}</span>
+                <span>Changed by {v.author_name || 'Unknown'}</span>
               </div>
             </motion.div>
           ))

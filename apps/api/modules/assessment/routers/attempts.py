@@ -596,14 +596,25 @@ def generate_certificate(
 
     _exp = int(_time.time()) + CERT_TOKEN_TTL_SECONDS
     _tok = _certificate_token(attempt_id, _exp)
-    mock_certificate_url = (
+    certificate_path = (
         f"/api/quiz/attempts/{attempt_id}/certificate/download?exp={_exp}&token={_tok}"
     )
+    # LinkedIn share-offsite requires an ABSOLUTE https URL — a relative path
+    # can't be scraped/resolved. Anchor it to the public frontend origin (which
+    # proxies /api) so the shared link actually opens the certificate.
+    import os
+    from urllib.parse import quote
+
+    base = os.getenv("FRONTEND_URL", "https://studybuddy.mj665.in").rstrip("/")
+    absolute_cert_url = f"{base}{certificate_path}"
 
     return {
         "success": True,
-        "certificate_url": mock_certificate_url,
-        "share_url": f"https://www.linkedin.com/sharing/share-offsite/?url={mock_certificate_url}",
+        "certificate_url": certificate_path,
+        "share_url": (
+            "https://www.linkedin.com/sharing/share-offsite/?url="
+            + quote(absolute_cert_url, safe="")
+        ),
     }
 
 @router.get("/attempts/{attempt_id}/certificate/download")
