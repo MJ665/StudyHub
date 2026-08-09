@@ -75,7 +75,7 @@ export default function QuestionBuilder({ questions, onChange }: { questions: an
     }
   };
 
-  const input = 'w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-lg px-3 py-2 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-indigo-500/50';
+  const input = 'w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-lg px-3 py-2 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50';
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-[520px]">
@@ -90,7 +90,7 @@ export default function QuestionBuilder({ questions, onChange }: { questions: an
               <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Q{i + 1}</span>
               <div className="flex items-center gap-2">
                 <button onClick={() => setPreviewIdx(previewIdx === i ? null : i)} title="Preview" className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)]"><Eye size={14} /></button>
-                <button onClick={() => removeQ(i)} title="Remove" className="text-[var(--color-on-surface-variant)] hover:text-rose-400"><Trash2 size={14} /></button>
+                <button onClick={() => removeQ(i)} title="Remove" className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)]"><Trash2 size={14} /></button>
               </div>
             </div>
 
@@ -116,10 +116,10 @@ export default function QuestionBuilder({ questions, onChange }: { questions: an
                     ) : (
                       <input type="radio" name={`ans-${i}`} title="Correct" checked={q.answer === opt} onChange={() => patchQ(i, { answer: opt })} />
                     )}
-                    <button onClick={() => removeOpt(i, oi)} className="text-[var(--color-on-surface-variant)] hover:text-rose-400"><Trash2 size={12} /></button>
+                    <button onClick={() => removeOpt(i, oi)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)]"><Trash2 size={12} /></button>
                   </div>
                 ))}
-                <button onClick={() => addOpt(i)} className="text-[11px] font-bold text-[var(--color-brand-primary)] hover:text-indigo-300 flex items-center gap-1"><Plus size={12} /> Add option</button>
+                <button onClick={() => addOpt(i)} className="text-[11px] font-bold text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] flex items-center gap-1"><Plus size={12} /> Add option</button>
               </div>
             )}
 
@@ -146,7 +146,7 @@ export default function QuestionBuilder({ questions, onChange }: { questions: an
             )}
           </div>
         ))}
-        <button onClick={addQ} className="w-full py-2.5 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] text-sm font-bold flex items-center justify-center gap-2"><Plus size={16} /> Add question</button>
+        <button onClick={addQ} className="w-full py-2.5 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white text-sm font-bold flex items-center justify-center gap-2"><Plus size={16} /> Add question</button>
       </div>
 
       {/* Raw JSON pane */}
@@ -162,7 +162,7 @@ export default function QuestionBuilder({ questions, onChange }: { questions: an
             options={{ minimap: { enabled: false }, fontSize: 12, wordWrap: 'on', lineNumbers: 'on', scrollBeyondLastLine: false }}
           />
         </div>
-        {jsonError && <p className="text-xs text-rose-400 mt-2">⚠ {jsonError}</p>}
+        {jsonError && <p className="text-xs text-[var(--color-danger)] mt-2">⚠ {jsonError}</p>}
       </div>
     </div>
   );

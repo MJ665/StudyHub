@@ -58,9 +58,9 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
 {!selectedStudentHistory && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                  {students.map(student => (
-                   <div key={student.id} className="p-6 bg-surface-container rounded-[2rem] border border-surface-bright group hover:border-indigo-500/30 transition-all">
+                   <div key={student.id} className="p-6 bg-surface-container rounded-[2rem] border border-surface-bright group hover:border-[var(--color-brand-primary)]/30 transition-all">
                       <div className="flex items-center gap-4 mb-6">
-                         <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] font-black text-xl">
+                         <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)] font-black text-xl">
                             {student.full_name?.charAt(0)}
                          </div>
                          <div>
@@ -70,19 +70,19 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                       </div>
                       
                       <div className="grid grid-cols-3 gap-2 mb-6">
-                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-indigo-500/20 transition-all">
+                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-[var(--color-brand-primary)]/20 transition-all">
                              <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Acc.</p>
-                             <p className="text-xs font-black text-emerald-400">{student.avg_accuracy}%</p>
+                             <p className="text-xs font-black text-[var(--color-success)]">{student.avg_accuracy}%</p>
                           </div>
-                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-indigo-500/20 transition-all">
+                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-[var(--color-brand-primary)]/20 transition-all">
                              <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Streak</p>
-                             <p className="text-xs font-black text-amber-400">{student.streak_count}d</p>
+                             <p className="text-xs font-black text-[var(--color-warning)]">{student.streak_count}d</p>
                           </div>
-                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-indigo-500/20 transition-all">
+                          <div className="p-3 bg-[var(--color-surface-container-high)] rounded-2xl text-center border border-[var(--color-outline-variant)] group-hover:border-[var(--color-brand-primary)]/20 transition-all">
                              <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Risk</p>
                              <p className={`text-xs font-black ${
-                                student.risk_level?.includes('High') ? 'text-rose-400' :
-                                student.risk_level?.includes('Medium') ? 'text-amber-400' :
+                                student.risk_level?.includes('High') ? 'text-[var(--color-danger)]' :
+                                student.risk_level?.includes('Medium') ? 'text-[var(--color-warning)]' :
                                 'text-[var(--color-brand-primary)]'
                              }`}>{student.risk_level?.split(' ')[0] || 'Stable'}</p>
                           </div>
@@ -94,7 +94,7 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                             setSelectedStudent(student);
                             setShowAtlasModal(true);
                           }}
-                          className="flex-1 py-3 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)] hover:text-[var(--color-on-surface)] transition-all"
+                          className="flex-1 py-3 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)] hover:text-white transition-all"
                         >
                           Sync AI Intel
                         </button>
@@ -109,7 +109,7 @@ export default function MentorStudentsTab({ ctx }: { ctx: MentorCtx }) {
                  ))}
                  {students.length === 0 && (
                    <div className="col-span-full py-20 text-center">
-                     <Users size={48} className="text-slate-800 mx-auto mb-4" />
+                     <Users size={48} className="text-[var(--color-on-surface-variant)] mx-auto mb-4" />
                      <p className="text-[var(--color-on-surface-variant)]">No students found in this group.</p>
                    </div>
                  )}

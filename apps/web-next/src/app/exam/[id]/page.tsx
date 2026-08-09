@@ -298,12 +298,12 @@ export default function ExamRunnerPage() {
   if (error && phase === 'lobby') return (
     <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-8">
       <div className="max-w-md text-center">
-        <div className="text-rose-400 mb-4">{error}</div>
+        <div className="text-[var(--color-danger)] mb-4">{error}</div>
         <a href="/exams" className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">← Back to exams</a>
       </div>
     </div>
   );
-  if (error) return <div className="min-h-screen bg-[var(--color-surface-dim)] text-rose-400 flex items-center justify-center p-8">{error}</div>;
+  if (error) return <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-danger)] flex items-center justify-center p-8">{error}</div>;
   if (!paper) return <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface-variant)] flex items-center justify-center">Preparing exam…</div>;
 
   if (result) {
@@ -312,12 +312,12 @@ export default function ExamRunnerPage() {
         <div className="text-center max-w-md">
           {result.results_withheld ? (
             <>
-              <div className="text-3xl font-black mb-2 text-emerald-400">Submitted ✓</div>
+              <div className="text-3xl font-black mb-2 text-[var(--color-success)]">Submitted ✓</div>
               <div className="text-[var(--color-on-surface-variant)] text-sm">Your responses were recorded. Results will be shared by your L&amp;D team.</div>
             </>
           ) : (
             <>
-              <div className={`text-5xl font-black mb-2 ${result.passed ? 'text-emerald-400' : 'text-rose-400'}`}>{result.percent}%</div>
+              <div className={`text-5xl font-black mb-2 ${result.passed ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>{result.percent}%</div>
               <div className="text-xl font-bold mb-4">{result.passed ? 'Passed' : 'Not passed'}</div>
               <div className="text-[var(--color-on-surface-variant)] text-sm">Score {result.score}/{result.total} · status {result.status} · {result.flags} integrity flag(s)</div>
               {result.passed && (
@@ -329,7 +329,7 @@ export default function ExamRunnerPage() {
                         window.open(r.certificate_url, '_blank');
                       } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
                     }}
-                    className="px-4 py-2 rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-sm font-bold"
+                    className="px-4 py-2 rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-sm font-bold"
                   >Download certificate</button>
                   <button
                     onClick={async () => {
@@ -365,7 +365,7 @@ export default function ExamRunnerPage() {
           </div>
 
           {settings.instructions && (
-            <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-4 mb-5 text-sm text-[var(--color-on-surface-variant)] whitespace-pre-wrap">{settings.instructions}</div>
+            <div className="rounded-lg bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 p-4 mb-5 text-sm text-[var(--color-on-surface-variant)] whitespace-pre-wrap">{settings.instructions}</div>
           )}
 
           <ul className="text-xs text-[var(--color-on-surface-variant)] space-y-1 mb-6">
@@ -376,8 +376,8 @@ export default function ExamRunnerPage() {
             <li>⏱️ The timer starts when you click Start and cannot be paused.</li>
           </ul>
 
-          {error && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-3 text-sm mb-4">{error}</div>}
-          <button onClick={startExam} disabled={starting} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 py-3 font-bold">
+          {error && <div className="rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-3 text-sm mb-4">{error}</div>}
+          <button onClick={startExam} disabled={starting} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] disabled:opacity-60 py-3 font-bold">
             {starting ? 'Preparing…' : 'Start exam'}
           </button>
         </div>
@@ -387,10 +387,10 @@ export default function ExamRunnerPage() {
 
   const camActive = webcamNeeded && phase === 'running';
   const camBadge =
-    camStatus === 'no_face' ? { text: 'No face — stay in frame', cls: 'bg-amber-500/90' }
-    : camStatus === 'multiple' ? { text: 'Multiple faces detected', cls: 'bg-rose-500/90' }
-    : camStatus === 'denied' ? { text: 'Camera blocked', cls: 'bg-rose-600/90' }
-    : { text: settings.record_video ? 'Recording' : 'Monitoring', cls: 'bg-emerald-500/90' };
+    camStatus === 'no_face' ? { text: 'No face — stay in frame', cls: 'bg-[var(--color-warning)]/90' }
+    : camStatus === 'multiple' ? { text: 'Multiple faces detected', cls: 'bg-[var(--color-danger)]/90' }
+    : camStatus === 'denied' ? { text: 'Camera blocked', cls: 'bg-[var(--color-danger)]/90' }
+    : { text: settings.record_video ? 'Recording' : 'Monitoring', cls: 'bg-[var(--color-success)]/90' };
 
   return (
     <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)]">
@@ -403,7 +403,7 @@ export default function ExamRunnerPage() {
             <p className="text-[var(--color-on-surface-variant)] text-sm mb-5">This exam must run in fullscreen. Leaving it has been flagged for the proctor.</p>
             <button
               onClick={async () => { try { await document.documentElement.requestFullscreen(); setFullscreenLost(false); } catch { /* user gesture required */ } }}
-              className="px-5 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold"
+              className="px-5 py-3 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] font-bold"
             >
               Re-enter fullscreen
             </button>
@@ -422,8 +422,8 @@ export default function ExamRunnerPage() {
         <div className="max-w-3xl mx-auto flex items-center justify-between px-5 py-3">
           <div className="font-bold truncate">{paper.title}</div>
           <div className="flex items-center gap-4 text-sm">
-            {flags > 0 && <span className="text-amber-400">⚠ {flags} flag{flags > 1 ? 's' : ''}</span>}
-            <span className={`font-mono font-bold ${remaining < 60000 ? 'text-rose-400' : 'text-emerald-400'}`}>{fmtTime(remaining)}</span>
+            {flags > 0 && <span className="text-[var(--color-warning)]">⚠ {flags} flag{flags > 1 ? 's' : ''}</span>}
+            <span className={`font-mono font-bold ${remaining < 60000 ? 'text-[var(--color-danger)]' : 'text-[var(--color-success)]'}`}>{fmtTime(remaining)}</span>
           </div>
         </div>
       </div>
@@ -440,7 +440,7 @@ export default function ExamRunnerPage() {
                 onChange={(v) => setAnswers((a) => ({ ...a, [String(q.id)]: v }))}
               />
             ))}
-            <button onClick={submit} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-3 font-bold mt-2">Submit exam</button>
+            <button onClick={submit} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-3 font-bold mt-2">Submit exam</button>
           </>
         ) : (
           // Linear mode: one question at a time, no going back (allow_backtrack=false).
@@ -456,9 +456,9 @@ export default function ExamRunnerPage() {
               />
             )}
             {qIdx < paper.questions.length - 1 ? (
-              <button onClick={() => setQIdx((i) => Math.min(i + 1, paper.questions.length - 1))} className="w-full rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 py-3 font-bold mt-2">Next question →</button>
+              <button onClick={() => setQIdx((i) => Math.min(i + 1, paper.questions.length - 1))} className="w-full rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] py-3 font-bold mt-2">Next question →</button>
             ) : (
-              <button onClick={submit} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-3 font-bold mt-2">Submit exam</button>
+              <button onClick={submit} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-3 font-bold mt-2">Submit exam</button>
             )}
           </>
         )}

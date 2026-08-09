@@ -47,7 +47,7 @@ export function CoBrand({ className = '' }: { className?: string }) {
       )}
       {isOrg && <span className="font-bold">{brandName}</span>}
       {isOrg && <span className="text-[var(--color-on-surface-variant)]">×</span>}
-      <span className="font-black text-emerald-400">StudyBuddy</span>
+      <span className="font-black text-[var(--color-success)]">StudyBuddy</span>
     </div>
   );
 }

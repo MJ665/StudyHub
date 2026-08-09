@@ -102,16 +102,16 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
   return (
     <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm z-[110] flex items-center justify-center p-6 overflow-y-auto">
       <div className="bg-surface-container border border-surface-bright rounded-[2.5rem] w-full max-w-2xl shadow-2xl p-8 relative my-auto">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 opacity-[0.05] blur-3xl -mr-20 -mt-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-primary-container)] opacity-[0.05] blur-3xl -mr-20 -mt-20 pointer-events-none" />
         
         <div className="flex justify-between items-center mb-8 relative">
           <div className="flex items-center gap-3">
-             <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-[var(--color-brand-primary)]">
+             <div className="w-12 h-12 bg-[var(--color-brand-primary-container)]/10 rounded-xl flex items-center justify-center text-[var(--color-brand-primary)]">
                 <Terminal size={24} />
              </div>
              <div>
                 <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Algorithmic Lab</h3>
-                <p className="text-xs text-indigo-300 font-bold uppercase tracking-widest">Create Coding Assessment</p>
+                <p className="text-xs text-[var(--color-brand-primary)] font-bold uppercase tracking-widest">Create Coding Assessment</p>
              </div>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-[var(--color-surface-container-high)] rounded-full transition-colors text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]">
@@ -129,7 +129,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                     value={formData.title}
                     onChange={e => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g. Reverse a Linked List"
-                    className="w-full bg-surface-dim border border-surface-bright rounded-xl p-4 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none shadow-inner"
+                    className="w-full bg-surface-dim border border-surface-bright rounded-xl p-4 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none shadow-inner"
                   />
                </div>
                
@@ -139,7 +139,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                     value={formData.description}
                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Detailed requirements, constraints..."
-                    className="w-full h-32 bg-surface-dim border border-surface-bright rounded-xl p-4 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none resize-none shadow-inner"
+                    className="w-full h-32 bg-surface-dim border border-surface-bright rounded-xl p-4 text-sm text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none resize-none shadow-inner"
                   />
                </div>
 
@@ -149,7 +149,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                     <select 
                       value={formData.language}
                       onChange={e => setFormData({ ...formData, language: e.target.value })}
-                      className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none"
+                      className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none"
                     >
                       {config?.supported_languages?.map((lang: any) => (
                         <option key={lang.id} value={lang.id}>{lang.name}</option>
@@ -167,7 +167,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                     <select 
                       value={formData.difficulty}
                       onChange={e => setFormData({ ...formData, difficulty: e.target.value })}
-                      className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none"
+                      className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none"
                     >
                       {config?.difficulty_levels?.map((d: string) => (
                         <option key={d}>{d}</option>
@@ -193,7 +193,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                     value={formData.sample_solution}
                     onChange={e => setFormData({ ...formData, sample_solution: e.target.value })}
                     placeholder="Provide a working implementation..."
-                    className="w-full h-44 bg-surface-dim border border-surface-bright rounded-xl p-4 text-xs text-emerald-400 font-mono focus:ring-1 focus:ring-indigo-500 outline-none resize-none shadow-inner"
+                    className="w-full h-44 bg-surface-dim border border-surface-bright rounded-xl p-4 text-xs text-[var(--color-success)] font-mono focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none resize-none shadow-inner"
                   />
                </div>
 
@@ -211,13 +211,13 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                        placeholder="Add criterion..."
                        className="flex-1 bg-surface-dim border border-surface-bright rounded-lg px-3 py-2 text-xs text-[var(--color-on-surface)] outline-none"
                      />
-                     <button type="button" onClick={addCriteria} className="p-2 bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] rounded-lg hover:bg-indigo-500 transition-colors">
+                     <button type="button" onClick={addCriteria} className="p-2 bg-[var(--color-brand-primary-container)] text-white rounded-lg hover:bg-[var(--color-brand-primary-container)] transition-colors">
                        <Plus size={16} />
                      </button>
                    </div>
                    <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
                      {formData.evaluation_criteria.map((c, i) => (
-                       <span key={i} className="px-2 py-1 bg-indigo-500/10 border border-indigo-500/20 text-[var(--color-brand-primary)] text-[9px] font-black uppercase tracking-widest rounded-md flex items-center gap-1">
+                       <span key={i} className="px-2 py-1 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)] text-[9px] font-black uppercase tracking-widest rounded-md flex items-center gap-1">
                          {c}
                          <button type="button" onClick={() => removeCriteria(i)} className="hover:text-[var(--color-on-surface)]"><X size={10} /></button>
                        </span>
@@ -226,11 +226,11 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                 </div>
 
                 {/* Objective Test Cases Section (NEW) */}
-                <div className="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl">
+                <div className="p-4 bg-[var(--color-success)]/5 border border-[var(--color-success)]/20 rounded-2xl">
                    <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
-                         <Target className="text-emerald-400" size={14} />
-                         <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Objective Test Cases</span>
+                         <Target className="text-[var(--color-success)]" size={14} />
+                         <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-success)]">Objective Test Cases</span>
                       </div>
                       <button 
                         type="button" 
@@ -238,21 +238,21 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                           ...formData,
                           test_cases: [...(formData.test_cases || []), { input_data: '', expected_output: '', is_public: true, weight: 1 }]
                         })}
-                        className="text-[9px] font-black text-emerald-400 hover:text-[var(--color-on-surface)] uppercase flex items-center gap-1"
+                        className="text-[9px] font-black text-[var(--color-success)] hover:text-[var(--color-on-surface)] uppercase flex items-center gap-1"
                       >
                         <Plus size={12} /> Add Case
                       </button>
                    </div>
                    <div className="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                       {formData.test_cases?.map((tc: any, i: number) => (
-                        <div key={i} className="p-4 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-2xl relative group hover:border-emerald-500/30 transition-all">
+                        <div key={i} className="p-4 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-2xl relative group hover:border-[var(--color-success)]/30 transition-all">
                            <button 
                              type="button" 
                              onClick={() => setFormData({
                                ...formData,
                                test_cases: formData.test_cases.filter((_: any, idx: number) => idx !== i)
                              })}
-                             className="absolute -top-1 -right-1 p-1.5 bg-rose-500 rounded-full text-[var(--color-on-surface)] opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                             className="absolute -top-1 -right-1 p-1.5 bg-[var(--color-danger)] rounded-full text-[var(--color-on-surface)] opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
                            >
                              <X size={12} />
                            </button>
@@ -267,7 +267,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].input_data = e.target.value;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none"
+                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-[var(--color-success)] outline-none"
                                  />
                               </div>
                               <div>
@@ -280,7 +280,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].expected_output = e.target.value;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none"
+                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-[var(--color-success)] outline-none"
                                  />
                               </div>
                            </div>
@@ -297,7 +297,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].weight = parseInt(e.target.value) || 1;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-emerald-500 outline-none font-black"
+                                   className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-lg p-2 text-xs text-[var(--color-on-surface)] focus:border-[var(--color-success)] outline-none font-black"
                                  />
                               </div>
                               <div className="flex items-center gap-2 pt-4">
@@ -309,7 +309,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                                      newList[i].is_public = e.target.checked;
                                      setFormData({...formData, test_cases: newList});
                                    }}
-                                   className="w-3.5 h-3.5 accent-emerald-500"
+                                   className="w-3.5 h-3.5 accent-[var(--color-success)]"
                                  />
                                  <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Public</span>
                               </div>
@@ -317,7 +317,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                         </div>
                       ))}
                       {(!formData.test_cases || formData.test_cases.length === 0) && (
-                        <p className="text-[9px] text-emerald-400/50 italic text-center py-4">No objective test cases defined yet.</p>
+                        <p className="text-[9px] text-[var(--color-success)]/50 italic text-center py-4">No objective test cases defined yet.</p>
                       )}
                    </div>
                 </div>
@@ -331,7 +331,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                   value={formData.expected_approach}
                   onChange={e => setFormData({ ...formData, expected_approach: e.target.value })}
                   placeholder="Describe the logic students should use (Time complexity, patterns...)"
-                  className="w-full h-24 bg-surface-dim border border-surface-bright rounded-xl p-4 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none resize-none shadow-inner"
+                  className="w-full h-24 bg-surface-dim border border-surface-bright rounded-xl p-4 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none resize-none shadow-inner"
                 />
              </div>
               <div className="space-y-4">
@@ -340,7 +340,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                    <select 
                      value={formData.course_id}
                      onChange={e => setFormData({ ...formData, course_id: e.target.value })}
-                     className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none"
+                     className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none"
                    >
                      <option value="">Select Course...</option>
                      {courses.map((c: any) => (
@@ -354,7 +354,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                    <select
                      value={formData.visibility_scope}
                      onChange={e => setFormData({ ...formData, visibility_scope: e.target.value })}
-                     className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-indigo-500 outline-none"
+                     className="w-full bg-surface-dim border border-surface-bright rounded-xl p-3 text-xs text-[var(--color-on-surface)] focus:ring-1 focus:ring-[var(--color-brand-primary)] outline-none"
                    >
                      <option value="global-public">Everyone in the organization</option>
                      <option value="course-specific">Members of the selected course</option>
@@ -363,7 +363,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                    <p className="text-[9px] text-on-surface-variant mt-1">Mentors &amp; admins always see every question.</p>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl">
+                <div className="flex items-center justify-between p-4 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/20 rounded-2xl">
                    <div className="flex gap-2 items-center">
                      <Target className="text-[var(--color-brand-primary)]" size={14} />
                      <p className="text-[9px] text-[var(--color-brand-primary)] font-black uppercase tracking-widest">Global Visibility</p>
@@ -372,7 +372,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
                      type="checkbox" 
                      checked={formData.is_org_public} 
                      onChange={e => setFormData({ ...formData, is_org_public: e.target.checked })} 
-                     className="w-4 h-4 accent-indigo-500 cursor-pointer" 
+                     className="w-4 h-4 accent-[var(--color-brand-primary)] cursor-pointer" 
                    />
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function CodingQuestionModal({ user, onClose, onCreated, courses 
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] py-4 rounded-2xl font-black shadow-xl shadow-indigo-600/20 hover:bg-indigo-500 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full bg-[var(--color-brand-primary-container)] text-white py-4 rounded-2xl font-black shadow-xl shadow-[var(--color-brand-primary)]/20 hover:bg-[var(--color-brand-primary-container)] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? <Loader2 className="animate-spin" size={20} /> : <Plus size={20} />}
             Publish Algorithmic Challenge

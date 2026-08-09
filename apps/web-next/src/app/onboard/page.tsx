@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import ApiService from '@/services/ApiService';
 
-const input = 'w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500';
+const input = 'w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-4 py-2.5 text-sm focus:outline-none focus:border-[var(--color-success)]';
 const label = 'block text-[var(--color-on-surface-variant)] text-xs uppercase tracking-widest mb-1.5';
 
 export default function OnboardPage() {
@@ -70,12 +70,12 @@ export default function OnboardPage() {
     <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="text-emerald-400 font-black text-2xl">StudyBuddy</div>
+          <div className="text-[var(--color-success)] font-black text-2xl">StudyBuddy</div>
           <div className="text-[var(--color-on-surface-variant)] text-sm">Multi-tenant AI assessment platform</div>
         </div>
 
         {msg ? (
-          <div className="rounded-xl bg-emerald-500/10 text-emerald-300 p-6 text-center">{msg}</div>
+          <div className="rounded-xl bg-[var(--color-success)]/10 text-[var(--color-success)] p-6 text-center">{msg}</div>
         ) : !checked ? (
           <div className="text-[var(--color-on-surface-variant)] text-center">Loading…</div>
         ) : token ? (
@@ -83,28 +83,28 @@ export default function OnboardPage() {
           org ? (
             <form onSubmit={submitComplete} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-6 space-y-4">
               <h1 className="font-bold text-lg">Finish onboarding {org.org_name}</h1>
-              {err && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-3 text-sm">{err}</div>}
+              {err && <div className="rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-3 text-sm">{err}</div>}
               <div><label className={label}>L&amp;D Admin full name</label><input className={input} value={adminName} onChange={(e) => setAdminName(e.target.value)} required /></div>
               <div><label className={label}>L&amp;D Admin email</label><input type="email" className={input} value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} required /></div>
               <div><label className={label}>Password (min 8)</label><input type="password" className={input} value={adminPassword} onChange={(e) => setAdminPassword(e.target.value)} required minLength={8} /></div>
               <div><label className={label}>Brand name (optional)</label><input className={input} value={brandName} onChange={(e) => setBrandName(e.target.value)} placeholder={org.org_name} /></div>
               <div><label className={label}>Org logo URL (optional)</label><input className={input} value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} /></div>
               <div><label className={label}>Admin signature URL (optional)</label><input className={input} value={signatureUrl} onChange={(e) => setSignatureUrl(e.target.value)} /></div>
-              <button disabled={busy} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-2.5 font-bold disabled:opacity-50">{busy ? 'Completing…' : 'Complete onboarding'}</button>
+              <button disabled={busy} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-2.5 font-bold disabled:opacity-50">{busy ? 'Completing…' : 'Complete onboarding'}</button>
               <p className="text-center text-[var(--color-on-surface-variant)] text-xs">Powered by StudyBuddy</p>
             </form>
           ) : (
-            <div className="rounded-xl bg-rose-500/10 text-rose-400 p-6 text-center">{err || 'Invalid or expired onboarding link.'}</div>
+            <div className="rounded-xl bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-6 text-center">{err || 'Invalid or expired onboarding link.'}</div>
           )
         ) : (
           // Public signup (no token)
           <form onSubmit={submitSignup} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-6 space-y-4">
             <h1 className="font-bold text-lg">Register your organization</h1>
-            {err && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-3 text-sm">{err}</div>}
+            {err && <div className="rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-3 text-sm">{err}</div>}
             <div><label className={label}>Organization name</label><input className={input} value={orgName} onChange={(e) => setOrgName(e.target.value)} required minLength={2} /></div>
             <div><label className={label}>Your name</label><input className={input} value={contactName} onChange={(e) => setContactName(e.target.value)} required minLength={2} /></div>
             <div><label className={label}>Your email</label><input type="email" className={input} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} required /></div>
-            <button disabled={busy} className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 py-2.5 font-bold disabled:opacity-50">{busy ? 'Submitting…' : 'Request access'}</button>
+            <button disabled={busy} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-2.5 font-bold disabled:opacity-50">{busy ? 'Submitting…' : 'Request access'}</button>
             <p className="text-center text-[var(--color-on-surface-variant)] text-xs">A StudyBuddy admin will review and email you an onboarding link.</p>
           </form>
         )}

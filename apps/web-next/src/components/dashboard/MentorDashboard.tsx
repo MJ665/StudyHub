@@ -180,7 +180,7 @@ export default function MentorDashboard({
 
           <button 
             onClick={() => setShowCodingModal(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-2xl font-black border border-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-2xl font-black border border-[var(--color-brand-primary)]/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             <Code size={18} />
             <span>New Coding Lab</span>
@@ -216,15 +216,15 @@ export default function MentorDashboard({
               onClick={() => setSelectedGroupId(group.id)}
               className={`w-full p-4 rounded-2xl border text-left transition-all ${
                 selectedGroupId === group.id 
-                  ? 'bg-[var(--color-brand-primary-container)] border-indigo-500 text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
-                  : 'bg-surface-container border-surface-bright text-[var(--color-on-surface-variant)] hover:border-indigo-500/50'
+                  ? 'bg-[var(--color-brand-primary-container)] border-[var(--color-brand-primary)] text-[var(--color-on-surface)] shadow-lg shadow-[var(--color-brand-primary)]/20' 
+                  : 'bg-surface-container border-surface-bright text-[var(--color-on-surface-variant)] hover:border-[var(--color-brand-primary)]/50'
               }`}
             >
               <div className="flex items-center justify-between">
                 <span className="font-bold">{group.name}</span>
                 <ChevronRight size={16} className={selectedGroupId === group.id ? 'opacity-100' : 'opacity-0'} />
               </div>
-              <p className={`text-[10px] uppercase font-black tracking-widest mt-1 ${selectedGroupId === group.id ? 'text-indigo-200' : 'text-[var(--color-on-surface-variant)]'}`}>
+              <p className={`text-[10px] uppercase font-black tracking-widest mt-1 ${selectedGroupId === group.id ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                 {group.batch_name || 'Active Batch'}
               </p>
             </button>
@@ -232,7 +232,7 @@ export default function MentorDashboard({
           
           <div className="mt-8 p-6 bg-surface-container rounded-3xl border border-surface-bright">
              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <div className="w-10 h-10 rounded-xl bg-[var(--color-warning)]/10 flex items-center justify-center text-[var(--color-warning)]">
                   <Award size={20} />
                 </div>
                 <p className="text-sm font-black text-[var(--color-on-surface)]">Top Performers</p>
@@ -244,7 +244,7 @@ export default function MentorDashboard({
                        <div className="w-6 h-6 rounded-full bg-[var(--color-surface-container-high)] flex items-center justify-center text-[10px] font-bold text-[var(--color-on-surface-variant)]">{p.name.charAt(0)}</div>
                        <span className="text-xs text-[var(--color-on-surface-variant)] font-medium">{p.name}</span>
                     </div>
-                    <span className="text-xs font-black text-emerald-400">{p.score}</span>
+                    <span className="text-xs font-black text-[var(--color-success)]">{p.score}</span>
                   </div>
                 ))}
                 {(!mentorStats?.top_performers || mentorStats.top_performers.length === 0) && (
@@ -268,8 +268,8 @@ export default function MentorDashboard({
             </div>
 
             {/* AI Group Insight Banner */}
-            <div className="bg-gradient-to-br from-indigo-950/60 via-slate-900/60 to-surface-dim/40 p-10 rounded-[3rem] border border-[var(--color-outline-variant)] relative overflow-hidden mb-8 shadow-2xl group">
-               <div className="absolute -top-10 -right-10 w-64 h-64 bg-indigo-500/10 blur-[80px] pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-1000" />
+            <div className="bg-gradient-to-br from-[var(--color-brand-primary-container)]/60 via-[var(--color-surface-container)]/60 to-[var(--color-surface-dim)]/40 p-10 rounded-[3rem] border border-[var(--color-outline-variant)] relative overflow-hidden mb-8 shadow-2xl group">
+               <div className="absolute -top-10 -right-10 w-64 h-64 bg-[var(--color-brand-primary-container)]/10 blur-[80px] pointer-events-none group-hover:bg-[var(--color-brand-primary-container)]/20 transition-all duration-1000" />
                <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3 text-[var(--color-brand-primary)]">
                     <Brain className="animate-pulse" size={24} />
@@ -300,13 +300,13 @@ export default function MentorDashboard({
                        "{groupAiSummary || 'Direct pedagogical intervention markers will appear here after student activity is detected.'}"
                     </p>
                     <div className="flex flex-wrap gap-4">
-                       <div className="px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center gap-2">
+                       <div className="px-4 py-2 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-xl flex items-center gap-2">
                           <Sparkles size={14} className="text-[var(--color-brand-primary)]" />
-                          <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">AI Synthesis Active</span>
+                          <span className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest">AI Synthesis Active</span>
                        </div>
-                       <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-2">
-                          <TrendingUp size={14} className="text-emerald-400" />
-                          <span className="text-[10px] font-black text-emerald-300 uppercase tracking-widest">Growth Vectors Mapped</span>
+                       <div className="px-4 py-2 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-xl flex items-center gap-2">
+                          <TrendingUp size={14} className="text-[var(--color-success)]" />
+                          <span className="text-[10px] font-black text-[var(--color-success)] uppercase tracking-widest">Growth Vectors Mapped</span>
                        </div>
                     </div>
                  </div>
@@ -407,7 +407,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
         initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
         className="w-full max-w-3xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[3rem] shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]"
       >
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-brand-primary" />
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-primary-container)] to-brand-primary" />
         
         <header className="p-8 pb-4 flex justify-between items-center shrink-0">
            <div>
@@ -429,13 +429,13 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                     <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Source Code Submission ({attempt.language})</span>
                     <Code2 size={14} className="text-[var(--color-brand-primary)]" />
                   </div>
-                  <pre className="p-6 text-xs font-mono text-indigo-300 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-96">
+                  <pre className="p-6 text-xs font-mono text-[var(--color-brand-primary)] overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-96">
                     {attempt.submitted_code}
                   </pre>
                 </div>
 
                 {attempt.ai_feedback && (
-                  <div className="bg-indigo-500/5 rounded-3xl border border-indigo-500/10 p-6">
+                  <div className="bg-[var(--color-brand-primary-container)]/5 rounded-3xl border border-[var(--color-brand-primary)]/10 p-6">
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles size={16} className="text-[var(--color-brand-primary)]" />
                       <span className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest">AI Pedagogical Analysis</span>
@@ -455,23 +455,23 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                 
                 <div className="space-y-3">
                   {attempt.descriptive_answers?.map((ans: any, idx: number) => (
-                    <div key={idx} className={`p-6 rounded-3xl border ${ans.is_correct ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-rose-500/5 border-rose-500/10'}`}>
+                    <div key={idx} className={`p-6 rounded-3xl border ${ans.is_correct ? 'bg-[var(--color-success)]/5 border-[var(--color-success)]/10' : 'bg-[var(--color-danger)]/5 border-[var(--color-danger)]/10'}`}>
                       <div className="flex items-start justify-between gap-4 mb-4">
                         <p className="text-sm font-bold text-[var(--color-on-surface)] leading-relaxed">{idx + 1}. {ans.question_text}</p>
                         {ans.is_correct ? (
-                          <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
-                            <Trophy size={12} className="text-emerald-400" />
+                          <div className="w-6 h-6 rounded-full bg-[var(--color-success)]/20 flex items-center justify-center shrink-0">
+                            <Trophy size={12} className="text-[var(--color-success)]" />
                           </div>
                         ) : (
-                          <div className="w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0">
-                            <X size={12} className="text-rose-400" />
+                          <div className="w-6 h-6 rounded-full bg-[var(--color-danger)]/20 flex items-center justify-center shrink-0">
+                            <X size={12} className="text-[var(--color-danger)]" />
                           </div>
                         )}
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-4 bg-black/20 rounded-2xl">
                           <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-1">Student Answer</p>
-                          <p className={`text-sm font-black ${ans.is_correct ? 'text-emerald-400' : 'text-rose-400'}`}>{ans.user_answer || 'No Answer'}</p>
+                          <p className={`text-sm font-black ${ans.is_correct ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>{ans.user_answer || 'No Answer'}</p>
                         </div>
                         {!ans.is_correct && (
                           <div className="p-4 bg-black/20 rounded-2xl">
@@ -512,7 +512,7 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                      max={attempt.total}
                      value={overrideScore}
                      onChange={e => setOverrideScore(parseFloat(e.target.value))}
-                     className="flex-1 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-[var(--color-on-surface)] font-black text-center outline-none focus:ring-1 focus:ring-indigo-500"
+                     className="flex-1 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-[var(--color-on-surface)] font-black text-center outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]"
                    />
                 </div>
              </div>
@@ -523,14 +523,14 @@ function ReviewModal({ attempt, onClose, onReviewed }: { attempt: any, onClose: 
                   value={comment}
                   onChange={e => setComment(e.target.value)}
                   placeholder="Direct feedback to student regarding their performance, strategy, or conceptual alignment..."
-                  className="w-full h-32 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] text-sm resize-none outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  className="w-full h-32 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] text-sm resize-none outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)] transition-all"
                 />
              </div>
 
              <button 
                disabled={processing}
                onClick={handleSubmit}
-               className="w-full py-5 bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all disabled:opacity-50"
+               className="w-full py-5 bg-[var(--color-brand-primary-container)] text-white rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-[var(--color-brand-primary)]/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all disabled:opacity-50"
              >
                 {processing ? <Loader2 className="animate-spin" /> : <div className="flex items-center gap-2"><Trophy size={18} /> Archive & Verify Submission</div>}
              </button>

@@ -19,11 +19,11 @@ import re
 from typing import AsyncIterator
 
 from langgraph.graph import END, StateGraph
-from sqlalchemy import select
+from sqlalchemy import and_, func, select
 from typing_extensions import TypedDict
 
 from database import db_session_factory
-from models.kt_model import KTDocument, KTProject
+from models.kt_model import DocStatusEnum, KTDocument, KTProject
 
 from modules.kt.services.retrieval import vector_search as pg_vector_search
 
@@ -54,6 +54,23 @@ REFUSAL_NO_CONTEXT = (
 )
 REFUSAL_INJECTION = (
     "I can only answer questions about this project's knowledge base."
+)
+# Shown instead of the flat refusal when the caller's project(s) simply have no
+# approved/indexed knowledge yet — an onboarding nudge, not a dead end.
+ONBOARDING_NO_DOCS = (
+    "There's no approved knowledge in this project yet, so I don't have anything "
+    "to draw from. Here's how to get started:\n\n"
+    "1. Open **Create Knowledge** and add a document — paste notes, upload a file, "
+    "or write a runbook.\n"
+    "2. Submit it for review; the assigned mentor is notified.\n"
+    "3. Once it's approved it's indexed automatically, and I can answer questions "
+    "about it — with citations.\n\n"
+    "As soon as a document is approved, come back and ask away. 🚀"
+)
+NO_PROJECTS = (
+    "You don't have access to any knowledge projects yet. Redeem an access key "
+    "(KT → Access Keys) or ask a mentor to grant you a project, and I'll be able "
+    "to answer questions from that project's approved knowledge."
 )
 
 # How many candidates to pull from vector search before reranking, and how many
@@ -244,9 +261,23 @@ async def node_retrieve(state: KTChatState) -> KTChatState:
 async def node_generate(state: KTChatState) -> KTChatState:
     chunks = state.get("reranked_chunks", [])
     if not chunks:
-        state["full_response"] = REFUSAL_NO_CONTEXT
+        # Second look before refusing: social/meta/overview the regex missed, or
+        # an empty project (→ onboarding). Mirrors the streaming path.
+        from services.kt_engine import classify_intent_llm
+
+        company_id = state.get("company_id", "")
+        project_ids = state.get("project_ids", [])
+        fallback = await classify_intent_llm(state["query"])
+        if fallback in ("social", "meta", "overview"):
+            state["full_response"] = await resolve_conversational(
+                fallback, company_id, project_ids
+            )
+            state["refused"] = False
+        else:
+            _, total = await knowledge_overview(company_id, project_ids)
+            state["full_response"] = ONBOARDING_NO_DOCS if total == 0 else REFUSAL_NO_CONTEXT
+            state["refused"] = True
         state["cited_sources"] = []
-        state["refused"] = True
         state["generation_complete"] = True
         return state
 
@@ -279,6 +310,70 @@ kt_langraph_app = build_kt_chatbot_graph().compile()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Conversational / overview helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+async def knowledge_overview(company_id: str, project_ids: list[str]) -> tuple[str, int]:
+    """Data-backed answer to "what do you know / what can you access": lists the
+    caller's accessible projects with their indexed-document counts. Returns
+    (reply_text, total_indexed_docs) so callers can also detect the empty state."""
+    if not project_ids:
+        return NO_PROJECTS, 0
+
+    async with db_session_factory() as db:
+        rows = await db.execute(
+            select(KTProject.name, func.count(KTDocument.id))
+            .select_from(KTProject)
+            .outerjoin(
+                KTDocument,
+                and_(
+                    KTDocument.project_id == KTProject.id,
+                    KTDocument.status == DocStatusEnum.INGESTED,
+                ),
+            )
+            .where(KTProject.id.in_(project_ids))
+            .group_by(KTProject.id, KTProject.name)
+            .order_by(KTProject.name)
+        )
+        counts = [(name, int(n or 0)) for name, n in rows.fetchall()]
+
+    total = sum(n for _, n in counts)
+    if not counts:
+        return NO_PROJECTS, 0
+    if total == 0:
+        return ONBOARDING_NO_DOCS, 0
+
+    lines = "\n".join(
+        f"- **{name}** — {n} indexed document{'s' if n != 1 else ''}"
+        + ("" if n else " (nothing approved yet)")
+        for name, n in counts
+    )
+    reply = (
+        f"Here's the knowledge I can draw on for you right now "
+        f"({total} indexed document{'s' if total != 1 else ''} across "
+        f"{len(counts)} project{'s' if len(counts) != 1 else ''}):\n\n"
+        f"{lines}\n\n"
+        "Ask me anything about these — for example a system's design, why a "
+        "decision was made, or how to perform a task — and I'll answer with citations."
+    )
+    return reply, total
+
+
+async def resolve_conversational(
+    kind: str, company_id: str, project_ids: list[str]
+) -> str:
+    """Turn a conversational intent into a reply. 'overview' is data-backed;
+    greeting/social/meta use the canned friendly replies."""
+    from services.kt_engine import conversational_reply
+
+    if kind == "overview":
+        reply, _ = await knowledge_overview(company_id, project_ids)
+        return reply
+    return conversational_reply(kind)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Public API
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -296,6 +391,23 @@ async def invoke_kt_chatbot(
             "generation_complete": True,
             "refused": True,
         }
+
+    # Conversational / meta / overview — mirror the streaming path so both
+    # entrypoints behave identically (greeting/social/meta/overview never refuse).
+    from services.kt_engine import classify_conversational
+
+    _kind = classify_conversational(query)
+    if _kind:
+        _reply = await resolve_conversational(_kind, company_id, project_ids)
+        return {
+            "query": query,
+            "full_response": _reply,
+            "cited_sources": [],
+            "tokens_generated": 0,
+            "generation_complete": True,
+            "refused": False,
+        }
+
     initial: KTChatState = {
         "query": query,
         "company_id": company_id,
@@ -331,13 +443,14 @@ async def stream_kt_chatbot_response(
         ) + "\n"
         return
 
-    # Friendly: greetings / "what can you do" get a conversational reply (no RAG
-    # grounding needed) so the assistant never refuses a "hi".
-    from services.kt_engine import classify_conversational, conversational_reply
+    # Friendly: greetings / small-talk / "what can you do" / "what do you know"
+    # get a conversational (or data-backed) reply — no RAG grounding needed — so
+    # the assistant never refuses a "hi" or a meta question.
+    from services.kt_engine import classify_conversational, classify_intent_llm
 
     _kind = classify_conversational(query)
     if _kind:
-        _reply = conversational_reply(_kind)
+        _reply = await resolve_conversational(_kind, company_id, project_ids)
         yield json.dumps({"token": _reply, "done": False}) + "\n"
         yield json.dumps(
             {"token": "", "done": True, "sources": [], "full_response": _reply}
@@ -350,8 +463,33 @@ async def stream_kt_chatbot_response(
         logger.error("Stream retrieval failed: %s", e)
         chunks = []
 
-    # Guardrail: refuse when there is no grounding context.
+    # No grounding context. Before refusing, take a second look: the regexes may
+    # have missed a social/meta/overview question, OR the project may simply have
+    # no approved knowledge yet (→ onboarding, not a dead-end refusal).
     if not chunks:
+        fallback = await classify_intent_llm(query)
+        if fallback in ("social", "meta", "overview"):
+            _reply = await resolve_conversational(fallback, company_id, project_ids)
+            yield json.dumps({"token": _reply, "done": False}) + "\n"
+            yield json.dumps(
+                {"token": "", "done": True, "sources": [], "full_response": _reply}
+            ) + "\n"
+            return
+
+        _, total = await knowledge_overview(company_id, project_ids)
+        if total == 0:
+            yield json.dumps({"token": ONBOARDING_NO_DOCS, "done": False}) + "\n"
+            yield json.dumps(
+                {
+                    "token": "",
+                    "done": True,
+                    "sources": [],
+                    "full_response": ONBOARDING_NO_DOCS,
+                    "onboarding": True,
+                }
+            ) + "\n"
+            return
+
         yield json.dumps({"token": REFUSAL_NO_CONTEXT, "done": False}) + "\n"
         yield json.dumps(
             {"token": "", "done": True, "sources": [], "full_response": REFUSAL_NO_CONTEXT}

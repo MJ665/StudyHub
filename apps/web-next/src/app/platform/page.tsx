@@ -22,9 +22,9 @@ interface Usage {
 interface Stats { total_orgs: number; pending: number; approved: number; suspended: number }
 
 const STATUS_STYLES: Record<string, string> = {
-  pending: 'bg-amber-500/15 text-amber-400',
-  approved: 'bg-emerald-500/15 text-emerald-400',
-  suspended: 'bg-rose-500/15 text-rose-400',
+  pending: 'bg-[var(--color-warning)]/15 text-[var(--color-warning)]',
+  approved: 'bg-[var(--color-success)]/15 text-[var(--color-success)]',
+  suspended: 'bg-[var(--color-danger)]/15 text-[var(--color-danger)]',
 };
 
 export default function PlatformAdminPage() {
@@ -87,7 +87,7 @@ export default function PlatformAdminPage() {
           <button onClick={load} className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">Refresh</button>
         </header>
 
-        {error && <div className="mb-6 rounded-lg bg-rose-500/10 text-rose-400 p-4 text-sm">{error}</div>}
+        {error && <div className="mb-6 rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-4 text-sm">{error}</div>}
         {toast && (
           <div className="mb-6 rounded-lg bg-[var(--color-surface-container-high)] p-4 text-sm break-all flex justify-between gap-4">
             <span>{toast}</span>
@@ -115,7 +115,7 @@ export default function PlatformAdminPage() {
                 <div className="flex items-baseline justify-between mb-4">
                   <h2 className="font-bold">AI cost &amp; utilization (30d)</h2>
                   <div className="text-right">
-                    <div className="text-2xl font-black text-emerald-400">${usage.total_cost_usd.toFixed(4)}</div>
+                    <div className="text-2xl font-black text-[var(--color-success)]">${usage.total_cost_usd.toFixed(4)}</div>
                     <div className="text-[var(--color-on-surface-variant)] text-xs">{usage.total_calls} calls</div>
                   </div>
                 </div>
@@ -154,13 +154,13 @@ export default function PlatformAdminPage() {
                   <div className="flex items-center gap-3 shrink-0">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${STATUS_STYLES[o.status] || 'bg-[var(--color-surface-bright)]'}`}>{o.status}</span>
                     {o.status === 'pending' && (
-                      <button disabled={busy === o.id} onClick={() => act(o.id, 'approve')} className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold disabled:opacity-50">Approve</button>
+                      <button disabled={busy === o.id} onClick={() => act(o.id, 'approve')} className="px-3 py-1.5 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] text-xs font-bold disabled:opacity-50">Approve</button>
                     )}
                     {o.status === 'approved' && (
-                      <button disabled={busy === o.id} onClick={() => act(o.id, 'suspend')} className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-xs font-bold disabled:opacity-50">Suspend</button>
+                      <button disabled={busy === o.id} onClick={() => act(o.id, 'suspend')} className="px-3 py-1.5 rounded-lg bg-[var(--color-danger)] hover:bg-[var(--color-danger)] text-xs font-bold disabled:opacity-50">Suspend</button>
                     )}
                     {o.status === 'suspended' && (
-                      <button disabled={busy === o.id} onClick={() => act(o.id, 'reactivate')} className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-bright)] hover:bg-slate-600 text-xs font-bold disabled:opacity-50">Reactivate</button>
+                      <button disabled={busy === o.id} onClick={() => act(o.id, 'reactivate')} className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-bright)] hover:bg-[var(--color-surface-container-high)] text-xs font-bold disabled:opacity-50">Reactivate</button>
                     )}
                   </div>
                 </div>

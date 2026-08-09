@@ -220,10 +220,10 @@ export default function ResourceCenter({ group, user, onBack }: any) {
     const colors: Record<string, string> = {
       'General': 'bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]',
       'Lecture Notes': 'bg-blue-900/40 text-blue-300',
-      'Reference': 'bg-emerald-900/40 text-emerald-300',
-      'Cheat Sheet': 'bg-amber-900/40 text-amber-300',
-      'Assessment': 'bg-rose-900/40 text-rose-300',
-      'Other': 'bg-purple-900/40 text-purple-300',
+      'Reference': 'bg-[var(--color-success)]/40 text-[var(--color-success)]',
+      'Cheat Sheet': 'bg-[var(--color-warning)]/40 text-[var(--color-warning)]',
+      'Assessment': 'bg-[var(--color-danger)]/40 text-[var(--color-danger)]',
+      'Other': 'bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)]',
     };
     return colors[category] || 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]';
   };
@@ -235,7 +235,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
         <div className="flex items-center gap-2 text-xs text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-8">
           <span className="hover:text-[var(--color-brand-primary)] cursor-pointer transition-colors" onClick={onBack}>Dashboard</span>
           <ChevronRight size={12} />
-          <span className="text-indigo-500">Resource Center</span>
+          <span className="text-[var(--color-brand-primary)]">Resource Center</span>
         </div>
 
         <div className="flex justify-between items-center mb-10">
@@ -249,7 +249,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <label
               htmlFor="pdf-upload"
               aria-label="Upload PDF file"
-              className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold transition-all shadow-lg cursor-pointer ${uploading ? 'bg-[var(--color-brand-primary-container)]/50 cursor-not-allowed' : 'bg-[var(--color-brand-primary-container)] hover:bg-indigo-500'
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold transition-all shadow-lg cursor-pointer ${uploading ? 'bg-[var(--color-brand-primary-container)]/50 cursor-not-allowed' : 'bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)]'
                 } text-[var(--color-on-surface)]`}
             >
               {uploading ? <Loader2 size={20} className="animate-spin" /> : <UploadCloud size={20} />}
@@ -259,7 +259,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
         </div>
 
         {error && (
-          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl mb-6 flex items-center justify-between">
+          <div className="bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 text-[var(--color-danger)] p-4 rounded-xl mb-6 flex items-center justify-between">
             <span>{error}</span>
             <button onClick={() => setError('')}><X size={16} /></button>
           </div>
@@ -274,7 +274,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             </div>
             <div className="h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-200 ease-out"
+                className="h-full bg-gradient-brand rounded-full transition-all duration-200 ease-out"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
@@ -284,7 +284,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {loading ? (
             <div className="col-span-2 flex items-center justify-center py-20">
-              <Loader2 size={32} className="animate-spin text-indigo-500" />
+              <Loader2 size={32} className="animate-spin text-[var(--color-brand-primary)]" />
             </div>
           ) : resources.length === 0 ? (
             <div className="col-span-2 py-20 text-center border-2 border-dashed border-[var(--color-outline-variant)] rounded-3xl">
@@ -332,7 +332,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                   {/* Shareable Link Button */}
                   <button
                     onClick={() => handleCopyLink(res.view_url, res.id)}
-                    className={`flex-1 py-2 rounded-xl transition-colors text-sm font-bold flex items-center justify-center gap-2 ${copiedId === res.id ? 'bg-emerald-900/40 text-emerald-400 border border-emerald-500/20' : 'bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]'
+                    className={`flex-1 py-2 rounded-xl transition-colors text-sm font-bold flex items-center justify-center gap-2 ${copiedId === res.id ? 'bg-[var(--color-success)]/40 text-[var(--color-success)] border border-[var(--color-success)]/20' : 'bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]'
                       }`}
                     aria-label={`Copy link for ${res.file_name}`}
                     title="Copy Shareable Link (Valid for 1 Hour)"
@@ -353,7 +353,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                   {(res.uploaded_by === user.full_name || user.role === 'Admin') && (
                     <button
                       onClick={() => handleDeleteResource(res.id, res.file_name)}
-                      className="flex-1 py-2 bg-rose-900/20 hover:bg-rose-900/40 border border-rose-500/20 rounded-xl transition-colors text-rose-400 flex justify-center items-center"
+                      className="flex-1 py-2 bg-[var(--color-danger)]/20 hover:bg-[var(--color-danger)]/40 border border-[var(--color-danger)]/20 rounded-xl transition-colors text-[var(--color-danger)] flex justify-center items-center"
                       aria-label={`Delete ${res.file_name}`}
                     >
                       <Trash2 size={16} />
@@ -371,7 +371,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <button
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-[var(--color-brand-primary)]/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight size={20} className="rotate-180" />
             </button>
@@ -383,7 +383,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                   onClick={() => setCurrentPage(i + 1)}
                   className={`w-10 h-10 rounded-xl font-black text-xs transition-all ${
                     currentPage === i + 1 
-                      ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
+                      ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20' 
                       : 'bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
                   }`}
                 >
@@ -395,7 +395,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             <button
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:border-[var(--color-brand-primary)]/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight size={20} />
             </button>
@@ -418,7 +418,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
             
             <div className="overflow-y-auto flex-1 mb-4 pr-2 space-y-3">
               {loadingComments ? (
-                 <div className="flex justify-center p-4"><Loader2 className="animate-spin text-indigo-500" /></div>
+                 <div className="flex justify-center p-4"><Loader2 className="animate-spin text-[var(--color-brand-primary)]" /></div>
               ) : comments.length === 0 ? (
                 <p className="text-[var(--color-on-surface-variant)] text-center text-sm font-medium py-4">No feedback yet. Be the first!</p>
               ) : (
@@ -439,13 +439,13 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                 value={newComment}
                 onChange={e => setNewComment(e.target.value)}
                 placeholder="Leave feedback..."
-                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] text-sm focus:ring-2 focus:ring-indigo-500 resize-none mb-3"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] text-sm focus:ring-2 focus:ring-[var(--color-brand-primary)] resize-none mb-3"
                 rows={2}
               />
               <button
                 onClick={handleAddComment}
                 disabled={!newComment.trim()}
-                className="w-full py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-[var(--color-on-surface)] rounded-xl font-bold transition-all shadow-lg"
+                className="w-full py-3 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold transition-all shadow-lg"
               >
                 Post Feedback
               </button>
@@ -478,7 +478,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
               <select
                 value={uploadCategory}
                 onChange={e => setUploadCategory(e.target.value)}
-                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] mb-4 focus:ring-2 focus:ring-indigo-500"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] mb-4 focus:ring-2 focus:ring-[var(--color-brand-primary)]"
               >
                 {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
               </select>
@@ -492,7 +492,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                 maxLength={300}
                 rows={3}
                 placeholder="Brief description of this document..."
-                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] text-sm focus:ring-2 focus:ring-indigo-500 resize-none"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] text-sm focus:ring-2 focus:ring-[var(--color-brand-primary)] resize-none"
               />
             </div>
 
@@ -505,7 +505,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
               </button>
               <button
                 onClick={handleConfirmUpload}
-                className="flex-1 py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+                className="flex-1 py-3 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/30"
               >
                 Upload PDF
               </button>
@@ -527,7 +527,7 @@ export default function ResourceCenter({ group, user, onBack }: any) {
                 href={viewingPdfUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-4 py-2 rounded-xl transition-colors font-bold text-sm shadow-lg"
+                className="flex items-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white px-4 py-2 rounded-xl transition-colors font-bold text-sm shadow-lg"
               >
                 <FileText size={16} /> Open PDF in New Tab
               </a>

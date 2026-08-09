@@ -196,7 +196,7 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
                     </div>
                     <button
                       onClick={() => setAddingCourse(!addingCourse)}
-                      className="px-6 py-3 bg-brand-primary text-slate-950 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2"
+                      className="px-6 py-3 bg-brand-primary text-[var(--color-surface-dim)] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2"
                     >
                       <Plus size={14} /> {addingCourse ? 'Cancel' : 'New Course'}
                     </button>
@@ -219,7 +219,7 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
                       </div>
                       <button
                         onClick={handleAddCourse}
-                        className="bg-brand-primary text-slate-950 font-black uppercase tracking-widest text-[10px] py-4 px-8 rounded-2xl shadow-xl shadow-brand-primary/20"
+                        className="bg-brand-primary text-[var(--color-surface-dim)] font-black uppercase tracking-widest text-[10px] py-4 px-8 rounded-2xl shadow-xl shadow-brand-primary/20"
                       >
                         Initialize
                       </button>

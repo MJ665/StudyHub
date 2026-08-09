@@ -54,7 +54,7 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
           >
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-amber-400">
+                <div className="p-3 bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 rounded-2xl text-[var(--color-warning)]">
                   <AlertCircle size={20} />
                 </div>
                 <div>
@@ -85,10 +85,10 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="e.g. Your Knowledge Velocity has dipped in the last 72 hours. Let's focus on the 'Database Indexing' module this afternoon..."
-                  className="w-full h-40 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] text-sm outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all resize-none placeholder:text-[var(--color-on-surface-variant)]"
+                  className="w-full h-40 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] text-sm outline-none focus:border-[var(--color-warning)]/50 focus:ring-1 focus:ring-[var(--color-warning)]/50 transition-all resize-none placeholder:text-[var(--color-on-surface-variant)]"
                 />
                 <div className="absolute bottom-4 right-4 pointer-events-none opacity-20">
-                  <MessageSquare size={40} className="text-amber-500" />
+                  <MessageSquare size={40} className="text-[var(--color-warning)]" />
                 </div>
               </div>
             </div>
@@ -105,8 +105,8 @@ export default function InterventionModal({ isOpen, onClose, targetUserIds, targ
                 disabled={sending || !message.trim() || sent}
                 className={`flex-[2] py-4 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-lg ${
                   sent 
-                    ? 'bg-emerald-600 text-[var(--color-on-surface)] shadow-emerald-600/20' 
-                    : 'bg-amber-600 hover:bg-amber-500 text-[var(--color-on-surface)] shadow-amber-600/20 disabled:opacity-50'
+                    ? 'bg-[var(--color-success)] text-[var(--color-surface-dim)] shadow-[var(--color-success)]/20' 
+                    : 'bg-[var(--color-warning)] hover:bg-[var(--color-warning)] text-[var(--color-on-surface)] shadow-[var(--color-warning)]/20 disabled:opacity-50'
                 }`}
               >
                 {sending ? (

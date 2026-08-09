@@ -75,10 +75,10 @@ export function AuditLogTable() {
   return (
     <div className="overflow-hidden">
       <div className="flex justify-end gap-3 mb-4">
-        <button onClick={handleExportCSV} className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500/20 transition-all border border-emerald-500/20">
+        <button onClick={handleExportCSV} className="flex items-center gap-2 px-4 py-2 bg-[var(--color-success)]/10 text-[var(--color-success)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-success)]/20 transition-all border border-[var(--color-success)]/20">
           <Download size={14} /> Export CSV
         </button>
-        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500/20 transition-all border border-indigo-500/20">
+        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)]/20 transition-all border border-[var(--color-brand-primary)]/20">
           <RefreshCw size={14} /> Refresh Log
         </button>
       </div>
@@ -104,7 +104,7 @@ export function AuditLogTable() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] text-[10px] font-black">
+                    <div className="w-6 h-6 rounded-lg bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)] text-[10px] font-black">
                       {log.actor_role?.[0]}
                     </div>
                     <div className="flex flex-col">
@@ -114,16 +114,16 @@ export function AuditLogTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-tight ${log.action.includes('PROMOTE') ? 'bg-amber-500/20 text-amber-400' :
-                    log.action.includes('CREATE') ? 'bg-emerald-500/20 text-emerald-400' :
-                      log.action.includes('DELETE') ? 'bg-rose-500/20 text-rose-400' :
-                        'bg-slate-500/20 text-[var(--color-on-surface-variant)]'
+                  <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-tight ${log.action.includes('PROMOTE') ? 'bg-[var(--color-warning)]/20 text-[var(--color-warning)]' :
+                    log.action.includes('CREATE') ? 'bg-[var(--color-success)]/20 text-[var(--color-success)]' :
+                      log.action.includes('DELETE') ? 'bg-[var(--color-danger)]/20 text-[var(--color-danger)]' :
+                        'bg-[var(--color-surface-container-high)]/20 text-[var(--color-on-surface-variant)]'
                     }`}>
                     {log.action}
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="flex items-center gap-1 text-[9px] font-mono text-indigo-300/80">
+                  <div className="flex items-center gap-1 text-[9px] font-mono text-[var(--color-brand-primary)]/80">
                     <FileText size={12} /> {log.target_type}#{log.target_id}
                   </div>
                 </td>
@@ -174,7 +174,7 @@ export function EmailLogTable() {
   return (
     <div className="overflow-hidden">
       <div className="flex justify-end gap-3 mb-4">
-        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500/20 transition-all border border-indigo-500/20">
+        <button onClick={fetchLogs} className="flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)]/20 transition-all border border-[var(--color-brand-primary)]/20">
           <RefreshCw size={14} /> Sync Communications
         </button>
       </div>
@@ -203,14 +203,14 @@ export function EmailLogTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="px-2 py-0.5 rounded bg-indigo-500/10 text-[var(--color-brand-primary)] text-[8px] font-black uppercase tracking-tight">
+                  <span className="px-2 py-0.5 rounded bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[8px] font-black uppercase tracking-tight">
                     {log.type}
                   </span>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-1.5">
-                    <div className={`w-1.5 h-1.5 rounded-full ${log.status === 'sent' ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.4)]' : 'bg-rose-400'}`} />
-                    <span className={`text-[9px] font-black uppercase ${log.status === 'sent' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${log.status === 'sent' ? 'bg-[var(--color-success)] shadow-[0_0_6px_rgba(52,211,153,0.4)]' : 'bg-[var(--color-danger)]'}`} />
+                    <span className={`text-[9px] font-black uppercase ${log.status === 'sent' ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
                       {log.status}
                     </span>
                   </div>
@@ -277,7 +277,7 @@ export function QuestionReportTable() {
             key={String(opt.value)}
             onClick={() => setFilter(opt.value)}
             className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${filter === opt.value
-              ? 'bg-rose-500/20 border border-rose-500/50 text-rose-400'
+              ? 'bg-[var(--color-danger)]/20 border border-[var(--color-danger)]/50 text-[var(--color-danger)]'
               : 'bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
               }`}
           >
@@ -286,7 +286,7 @@ export function QuestionReportTable() {
         ))}
         <button
           onClick={fetchReports}
-          className="ml-auto p-2.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all"
+          className="ml-auto p-2.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-all"
         >
           <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
         </button>
@@ -313,11 +313,11 @@ export function QuestionReportTable() {
               <tr key={r.id} className="hover:bg-[var(--color-surface-container-high)] transition-all group">
                 <td className="px-6 py-4">
                   {r.is_resolved ? (
-                    <span className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-black uppercase">
+                    <span className="flex items-center gap-1.5 text-[var(--color-success)] text-[10px] font-black uppercase">
                       <Check size={12} /> Resolved
                     </span>
                   ) : (
-                    <span className="flex items-center gap-1.5 text-rose-400 text-[10px] font-black uppercase animate-pulse">
+                    <span className="flex items-center gap-1.5 text-[var(--color-danger)] text-[10px] font-black uppercase animate-pulse">
                       <AlertTriangle size={12} /> Pending
                     </span>
                   )}
@@ -341,7 +341,7 @@ export function QuestionReportTable() {
                   {!r.is_resolved && (
                     <button
                       onClick={() => handleResolve(r.id)}
-                      className="px-4 py-2 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-emerald-500/20"
+                      className="px-4 py-2 bg-[var(--color-success)]/10 text-[var(--color-success)] hover:bg-[var(--color-success)] hover:text-[var(--color-on-surface-variant)] rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-[var(--color-success)]/20"
                     >
                       Resolve
                     </button>
@@ -382,29 +382,29 @@ export function SecurityPulse() {
   return (
     <div className="grid grid-cols-3 gap-6 mb-8">
       <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-indigo-500/10 transition-all" />
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-brand-primary-container)]/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-[var(--color-brand-primary-container)]/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">30D Governance Velocity</p>
         <h4 className="text-4xl font-black text-[var(--color-on-surface)]">{stats?.thirty_day_velocity || 0}</h4>
         <p className="text-[8px] font-bold text-[var(--color-brand-primary)] uppercase mt-2 tracking-tighter">Total administrative sessions</p>
       </div>
       <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-amber-500/10 transition-all" />
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-warning)]/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-[var(--color-warning)]/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Role Mutations</p>
-        <h4 className="text-4xl font-black text-amber-400">{stats?.role_mutations || 0}</h4>
-        <p className="text-[8px] font-bold text-amber-500/60 uppercase mt-2 tracking-tighter">System-wide privilege escalations</p>
+        <h4 className="text-4xl font-black text-[var(--color-warning)]">{stats?.role_mutations || 0}</h4>
+        <p className="text-[8px] font-bold text-[var(--color-warning)]/60 uppercase mt-2 tracking-tighter">System-wide privilege escalations</p>
       </div>
       <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-emerald-500/10 transition-all" />
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-success)]/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-[var(--color-success)]/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Active Governance Nodes</p>
         <div className="flex -space-x-2 mt-2">
           {stats?.active_governance_nodes?.map((node: string, i: number) => (
-            <div key={i} className="w-8 h-8 rounded-full bg-[var(--color-surface-container-high)] border-2 border-slate-900 flex items-center justify-center text-[10px] font-black text-emerald-400" title={node}>
+            <div key={i} className="w-8 h-8 rounded-full bg-[var(--color-surface-container-high)] border-2 border-[var(--color-outline-variant)] flex items-center justify-center text-[10px] font-black text-[var(--color-success)]" title={node}>
               {node[0]}
             </div>
           ))}
           {!stats?.active_governance_nodes?.length && <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] italic uppercase">System Only</span>}
         </div>
-        <p className="text-[8px] font-bold text-emerald-500/60 uppercase mt-2 tracking-tighter">Verified L&D Administrators</p>
+        <p className="text-[8px] font-bold text-[var(--color-success)]/60 uppercase mt-2 tracking-tighter">Verified L&D Administrators</p>
       </div>
     </div>
   );

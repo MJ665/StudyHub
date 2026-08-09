@@ -19,10 +19,10 @@ export default function KTScopedProjectView() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto w-full">
-      <div className="mb-8 p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-2xl flex items-center gap-3">
-        <ShieldCheck size={20} className="text-emerald-400" />
+      <div className="mb-8 p-4 bg-[var(--color-success)]/20 border border-[var(--color-success)]/20 rounded-2xl flex items-center gap-3">
+        <ShieldCheck size={20} className="text-[var(--color-success)]" />
         <div>
-          <p className="text-emerald-400 font-bold text-sm">Access Key Active</p>
+          <p className="text-[var(--color-success)] font-bold text-sm">Access Key Active</p>
           <p className="text-[var(--color-on-surface-variant)] text-xs">{scopeLabel} — {scopedProjectIds.length} project(s) unlocked</p>
         </div>
       </div>
@@ -37,7 +37,7 @@ export default function KTScopedProjectView() {
               selectProject(project);
               setView('documents' as any);
             }}
-            className="p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-left hover:border-indigo-500/50 transition-all group"
+            className="p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-left hover:border-[var(--color-brand-primary)]/50 transition-all group"
           >
             <h3 className="font-bold text-[var(--color-on-surface)] group-hover:text-[var(--color-brand-primary)] transition-colors">{project.name}</h3>
             <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">{project.doc_count || 0} accessible documents</p>

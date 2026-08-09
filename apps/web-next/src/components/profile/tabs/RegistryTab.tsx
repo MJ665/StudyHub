@@ -67,7 +67,7 @@ export default function RegistryTab({ ctx }: { ctx: ProfileTabCtx }) {
                     .sort((a: any, b: any) => new Date(b.attempted_at).getTime() - new Date(a.attempted_at).getTime())
                     .map((evt: any, i: number) => (
                       <div key={i} className="flex gap-4 p-4 hover:bg-white/[0.02] rounded-xl transition-colors group">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-surface-bright)] group-hover:bg-indigo-500 mt-2 transition-colors flex-shrink-0" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-surface-bright)] group-hover:bg-[var(--color-brand-primary-container)] mt-2 transition-colors flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="text-xs font-bold text-[var(--color-on-surface-variant)]">
                             {evt.bank_name ? `Quiz: ${evt.bank_name}` : evt.question_title ? `Code: ${evt.question_title}` : 'Activity'} —  score {evt.score ?? '—'} {evt.total ? `/ ${evt.total} (${Math.round((evt.score / evt.total) * 100)}%)` : ''}

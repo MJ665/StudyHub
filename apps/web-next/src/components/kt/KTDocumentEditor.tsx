@@ -67,16 +67,16 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
   return (
     <div className="flex flex-col gap-6 w-full">
       {/* Edit header bar */}
-      <div className="flex items-center justify-between p-4 bg-amber-950/20 border border-amber-500/30 rounded-2xl">
+      <div className="flex items-center justify-between p-4 bg-[var(--color-warning)]/20 border border-[var(--color-warning)]/30 rounded-2xl">
         <div className="flex items-center gap-3">
-          <Edit3 size={16} className="text-amber-400" />
-          <span className="text-amber-400 font-bold text-sm">Editing Mode</span>
+          <Edit3 size={16} className="text-[var(--color-warning)]" />
+          <span className="text-[var(--color-warning)] font-bold text-sm">Editing Mode</span>
         </div>
         <div className="flex items-center gap-3">
           <input
             type="text"
             placeholder="Change summary (e.g. Fixed deployment steps)..."
-            className="bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] w-72 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+            className="bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] w-72 focus:outline-none focus:ring-2 focus:ring-[var(--color-warning)]/50"
             value={formData.change_summary}
             onChange={e => setFormData({...formData, change_summary: e.target.value})}
           />
@@ -85,12 +85,12 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
             {previewMode ? 'Edit' : 'Preview'}
           </button>
           <button onClick={onCancel} className="text-[var(--color-on-surface-variant)] px-3">Cancel</button>
-          <button onClick={handleSave} disabled={saving || submitting} className="bg-[var(--color-brand-primary-container)] px-4 py-2 rounded-xl text-[var(--color-on-surface)] flex items-center gap-2">
+          <button onClick={handleSave} disabled={saving || submitting} className="bg-[var(--color-brand-primary-container)] px-4 py-2 rounded-xl text-white flex items-center gap-2">
             {saving ? <Loader2 className="animate-spin" size={14} /> : <Save size={14} />}
             Save Changes
           </button>
           {canSubmit && (
-            <button onClick={handleFinalize} disabled={saving || submitting} className="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-xl text-[var(--color-on-surface)] flex items-center gap-2 font-bold">
+            <button onClick={handleFinalize} disabled={saving || submitting} className="bg-[var(--color-success)] hover:bg-[var(--color-success)] px-4 py-2 rounded-xl text-[var(--color-on-surface)] flex items-center gap-2 font-bold">
               {submitting ? <Loader2 className="animate-spin" size={14} /> : <Send size={14} />}
               Finalize &amp; Submit for review
             </button>
@@ -103,7 +103,7 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
         type="text"
         value={formData.title}
         onChange={e => setFormData({...formData, title: e.target.value})}
-        className="text-3xl font-black bg-transparent border-b border-[var(--color-outline-variant)] pb-2 text-[var(--color-on-surface)] focus:outline-none focus:border-indigo-500 w-full"
+        className="text-3xl font-black bg-transparent border-b border-[var(--color-outline-variant)] pb-2 text-[var(--color-on-surface)] focus:outline-none focus:border-[var(--color-brand-primary)] w-full"
       />
       
       {/* Monaco Editor for body + live markdown preview */}

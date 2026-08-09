@@ -35,7 +35,7 @@ export function AppLayout({ children, currentView, onChangeView, onLogout, user,
   }, [currentView, user, isGroupAdmin, isMentor, isLdAdmin, onChangeView]);
 
   return (
-    <div className="flex h-screen print:h-auto bg-[var(--color-surface-dim)] overflow-hidden print:overflow-visible font-sans text-[var(--color-on-surface)] selection:bg-[var(--color-brand-primary)]/30">
+    <div className="flex h-screen print:h-auto bg-[var(--color-surface-dim)] overflow-hidden print:overflow-visible font-sans text-[var(--color-surface-dim)] selection:bg-[var(--color-brand-primary)]/30">
       {/* ── Branding top bar (mobile + tablet, below lg) ── */}
       {showSidebar && user && (
         <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 flex items-center gap-3 px-4 bg-[var(--color-surface-container-low)] border-b border-[var(--color-surface-bright)] print:hidden">

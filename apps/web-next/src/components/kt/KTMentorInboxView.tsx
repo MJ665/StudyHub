@@ -212,13 +212,13 @@ export default function KTMentorInboxView() {
         <div className="flex gap-4 mt-8 bg-[var(--color-surface-container)]/50 p-2 rounded-2xl w-max border border-[var(--color-outline-variant)]">
           <button 
             onClick={() => setActiveTab('Inbox')}
-            className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${activeTab === 'Inbox' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+            className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${activeTab === 'Inbox' ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
           >
             Review Inbox
           </button>
           <button 
             onClick={() => setActiveTab('Unanswered')}
-            className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'Unanswered' ? 'bg-amber-600 text-[var(--color-on-surface)] shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-amber-400'}`}
+            className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'Unanswered' ? 'bg-[var(--color-warning)] text-[var(--color-on-surface)] shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-warning)]'}`}
           >
             <AlertTriangle size={14} />
             Unanswered AI Queries
@@ -230,27 +230,27 @@ export default function KTMentorInboxView() {
         <div className="space-y-4">
           {loadingGaps ? (
             <div className="h-[300px] flex items-center justify-center">
-              <Loader2 className="animate-spin text-indigo-500" size={32} />
+              <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} />
             </div>
           ) : orphanedQueries.length === 0 ? (
             <div className="h-[300px] flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] border-dashed rounded-[2rem] bg-[var(--color-surface-container)]/20">
-                <Mail size={48} className="mb-4 opacity-50 text-amber-500" />
+                <Mail size={48} className="mb-4 opacity-50 text-[var(--color-warning)]" />
                 <h3 className="text-xl font-bold text-[var(--color-on-surface-variant)]">No orphaned queries found</h3>
                 <p className="text-sm mt-2 max-w-md text-center">The AI knowledge graph has successfully answered all recent user prompts. When it fails, the orphaned queries will queue here for Mentor review.</p>
             </div>
           ) : (
             <div className="space-y-4">
               {orphanedQueries.map((gap) => (
-                <div key={gap.id} className="bg-[var(--color-surface-container)]/40 border border-slate-850 rounded-[2rem] p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div key={gap.id} className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-[2rem] p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 flex items-center justify-center text-[var(--color-warning)] shrink-0">
                       <AlertTriangle size={22} />
                     </div>
                     <div>
                       <h3 className="text-[var(--color-on-surface)] font-bold text-base">"{gap.query_text}"</h3>
                       <p className="text-[var(--color-on-surface-variant)] text-xs mt-1">Asked {gap.occurrence_count} times</p>
                       <div className="flex flex-wrap gap-3 mt-3 text-[10px] font-bold text-[var(--color-on-surface-variant)]">
-                        <span className="bg-[var(--color-surface-dim)] px-2.5 py-1 rounded-lg border border-slate-850">
+                        <span className="bg-[var(--color-surface-dim)] px-2.5 py-1 rounded-lg border border-[var(--color-outline-variant)]">
                           Last Ask: {new Date(gap.last_asked_at).toLocaleString()}
                         </span>
                       </div>
@@ -267,7 +267,7 @@ export default function KTMentorInboxView() {
                           })
                           .catch((e) => toast.error(e.message, { id: gap.id }));
                       }}
-                      className="bg-[var(--color-surface-container-high)] hover:bg-emerald-900/40 hover:text-emerald-400 text-[var(--color-on-surface-variant)] px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2"
+                      className="bg-[var(--color-surface-container-high)] hover:bg-[var(--color-success)]/40 hover:text-[var(--color-success)] text-[var(--color-on-surface-variant)] px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2"
                     >
                       <Check size={14} />
                       Mark Resolved
@@ -280,7 +280,7 @@ export default function KTMentorInboxView() {
         </div>
       ) : loading ? (
         <div className="h-[300px] flex items-center justify-center">
-          <Loader2 className="animate-spin text-indigo-500" size={32} />
+          <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} />
         </div>
       ) : (
         <div className="space-y-4">
@@ -290,10 +290,10 @@ export default function KTMentorInboxView() {
             return (
               <div 
                 key={item.id}
-                className="bg-[var(--color-surface-container)]/40 border border-slate-850 rounded-[2rem] p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+                className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-[2rem] p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[var(--color-brand-primary)] shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 flex items-center justify-center text-[var(--color-brand-primary)] shrink-0">
                     <FileText size={22} />
                   </div>
                   <div>
@@ -301,16 +301,16 @@ export default function KTMentorInboxView() {
                     <p className="text-[var(--color-on-surface-variant)] text-xs mt-1">Submitted by: {item.author_name || 'Incoming engineer'}</p>
                     
                     <div className="flex flex-wrap gap-3 mt-3 text-[10px] font-bold text-[var(--color-on-surface-variant)]">
-                      <span className="bg-[var(--color-surface-dim)] px-2.5 py-1 rounded-lg border border-slate-850">
+                      <span className="bg-[var(--color-surface-dim)] px-2.5 py-1 rounded-lg border border-[var(--color-outline-variant)]">
                         {item.doc_type || 'Spec'}
                       </span>
                       {item.sprint && (
-                        <span className="bg-[var(--color-surface-dim)] px-2.5 py-1 rounded-lg border border-slate-850">
+                        <span className="bg-[var(--color-surface-dim)] px-2.5 py-1 rounded-lg border border-[var(--color-outline-variant)]">
                           {item.sprint}
                         </span>
                       )}
                       {statusMsg && (
-                        <span className="bg-indigo-500/20 text-indigo-300 px-2.5 py-1 rounded-lg border border-indigo-500/30 flex items-center gap-2">
+                        <span className="bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)] px-2.5 py-1 rounded-lg border border-[var(--color-brand-primary)]/30 flex items-center gap-2">
                           <Loader2 size={10} className="animate-spin" /> {statusMsg}
                         </span>
                       )}
@@ -322,7 +322,7 @@ export default function KTMentorInboxView() {
                   <button
                     onClick={() => handleApprove(item.id)}
                     disabled={isProcessing}
-                    className="bg-indigo-650 hover:bg-indigo-650/90 disabled:bg-slate-850 text-[var(--color-on-surface)] px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/10 active:scale-95"
+                    className="bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)]/90 disabled:bg-[var(--color-surface-container)] text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[var(--color-brand-primary)]/10 active:scale-95"
                   >
                     {isProcessing ? (
                       <Loader2 className="animate-spin" size={14} />
@@ -348,7 +348,7 @@ export default function KTMentorInboxView() {
           })}
 
           {inbox.length === 0 && (
-            <div className="bg-[var(--color-surface-container)]/10 border border-slate-850 rounded-[2rem] p-12 text-center">
+            <div className="bg-[var(--color-surface-container)]/10 border border-[var(--color-outline-variant)] rounded-[2rem] p-12 text-center">
               <Mail className="mx-auto text-[var(--color-on-surface-variant)] mb-3" size={36} />
               <p className="text-[var(--color-on-surface-variant)] font-bold">Review Inbox Clear</p>
               <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">All incoming engineering docs are validated, embedded, and indexed into the knowledge graph for grounded retrieval.</p>
@@ -369,10 +369,10 @@ export default function KTMentorInboxView() {
               onClick={(e) => e.stopPropagation()}
               className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 max-w-lg w-full shadow-2xl relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-rose-500/5 rounded-full blur-[60px] pointer-events-none" />
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[var(--color-danger)]/5 rounded-full blur-[60px] pointer-events-none" />
               
               <h3 className="text-xl font-bold text-[var(--color-on-surface)] mb-2 flex items-center gap-3">
-                <ShieldAlert className="text-rose-400" size={22} />
+                <ShieldAlert className="text-[var(--color-danger)]" size={22} />
                 <span>Rejection Review Comments</span>
               </h3>
               <p className="text-[var(--color-on-surface-variant)] text-xs mb-6">
@@ -385,18 +385,18 @@ export default function KTMentorInboxView() {
                   <textarea
                     placeholder="Describe missing system specs, sprint logic omissions, or required changes..."
                     rows={4}
-                    className="w-full bg-[var(--color-surface-dim)] border border-slate-850 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-rose-500/50 text-[var(--color-on-surface)] text-sm resize-none"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-danger)]/50 text-[var(--color-on-surface)] text-sm resize-none"
                     value={rejectionNotes}
                     onChange={(e) => setRejectionNotes(e.target.value)}
                     required
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4 border-t border-slate-850">
+                <div className="flex gap-3 pt-4 border-t border-[var(--color-outline-variant)]">
                   <button
                     onClick={handleConfirmRejection}
                     disabled={submittingRejection || !rejectionNotes.trim()}
-                    className="flex-1 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-850 text-[var(--color-on-surface)] py-3.5 rounded-2xl font-bold transition-all shadow-xl shadow-rose-500/25 flex items-center justify-center gap-2 text-sm"
+                    className="flex-1 bg-[var(--color-danger)] hover:bg-[var(--color-danger)] disabled:bg-[var(--color-surface-container)] text-[var(--color-on-surface)] py-3.5 rounded-2xl font-bold transition-all shadow-xl shadow-[var(--color-danger)]/25 flex items-center justify-center gap-2 text-sm"
                   >
                     {submittingRejection ? <Loader2 className="animate-spin" size={16} /> : 'Confirm Rejection'}
                   </button>

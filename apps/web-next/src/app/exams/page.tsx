@@ -33,7 +33,7 @@ interface InvitedExam {
   my_status: 'invited' | 'started' | 'submitted';
 }
 
-const input = 'w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-3 py-2 text-sm focus:outline-none focus:border-emerald-500';
+const input = 'w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-success)]';
 const label = 'block text-[var(--color-on-surface-variant)] text-[11px] uppercase tracking-widest mb-1';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -243,12 +243,12 @@ export default function ExamsPage() {
           </div>
           <div className="flex gap-2">
             <a href="/" className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">← Portal</a>
-            {isAuthor && <button onClick={() => { setShowCreate((s) => !s); setError(null); setNotice(null); }} className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-sm font-bold">{showCreate ? 'Cancel' : 'New exam'}</button>}
+            {isAuthor && <button onClick={() => { setShowCreate((s) => !s); setError(null); setNotice(null); }} className="px-4 py-2 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] text-sm font-bold">{showCreate ? 'Cancel' : 'New exam'}</button>}
           </div>
         </header>
 
-        {error && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-4 text-sm mb-4">{error}</div>}
-        {notice && <div className="rounded-lg bg-emerald-500/10 text-emerald-400 p-4 text-sm mb-4">{notice}</div>}
+        {error && <div className="rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-4 text-sm mb-4">{error}</div>}
+        {notice && <div className="rounded-lg bg-[var(--color-success)]/10 text-[var(--color-success)] p-4 text-sm mb-4">{notice}</div>}
 
         {/* My Exams — the candidate feed. Everyone with invites sees this. */}
         {invited.length > 0 && (
@@ -257,10 +257,10 @@ export default function ExamsPage() {
             <div className="space-y-2">
               {invited.map((e) => {
                 const badge = e.window_state === 'open'
-                  ? { t: 'Open now', c: 'bg-emerald-500/20 text-emerald-300' }
+                  ? { t: 'Open now', c: 'bg-[var(--color-success)]/20 text-[var(--color-success)]' }
                   : e.window_state === 'upcoming'
-                    ? { t: 'Upcoming', c: 'bg-amber-500/20 text-amber-300' }
-                    : { t: 'Closed', c: 'bg-slate-600/30 text-[var(--color-on-surface-variant)]' };
+                    ? { t: 'Upcoming', c: 'bg-[var(--color-warning)]/20 text-[var(--color-warning)]' }
+                    : { t: 'Closed', c: 'bg-[var(--color-surface-container-high)]/30 text-[var(--color-on-surface-variant)]' };
                 const done = e.my_status === 'submitted';
                 return (
                   <div key={e.id} className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-4 flex items-center justify-between gap-3 flex-wrap">
@@ -279,7 +279,7 @@ export default function ExamsPage() {
                         <a
                           href={e.window_state === 'open' ? `/exam/${e.id}` : undefined}
                           aria-disabled={e.window_state !== 'open'}
-                          className={`px-4 py-2 rounded-lg text-sm font-bold ${e.window_state === 'open' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] cursor-not-allowed pointer-events-none'}`}
+                          className={`px-4 py-2 rounded-lg text-sm font-bold ${e.window_state === 'open' ? 'bg-[var(--color-success)] hover:bg-[var(--color-success)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] cursor-not-allowed pointer-events-none'}`}
                         >
                           {e.my_status === 'started' ? 'Resume' : 'Start'}
                         </a>
@@ -300,10 +300,10 @@ export default function ExamsPage() {
             <div className="md:col-span-2">
               <div className="flex items-center justify-between mb-1">
                 <label className={label + ' mb-0'}>Question bank</label>
-                <button type="button" onClick={() => setShowBankWizard(true)} className="text-[11px] font-bold text-emerald-400 hover:text-emerald-300">+ Create new bank</button>
+                <button type="button" onClick={() => setShowBankWizard(true)} className="text-[11px] font-bold text-[var(--color-success)] hover:text-[var(--color-success)]">+ Create new bank</button>
               </div>
               {selectedBank ? (
-                <div className="flex items-center justify-between gap-3 rounded-lg bg-[var(--color-surface-container-high)] border border-emerald-600/50 px-3 py-2">
+                <div className="flex items-center justify-between gap-3 rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-success)]/50 px-3 py-2">
                   <div className="min-w-0">
                     <div className="text-sm font-semibold truncate">{selectedBank.name}</div>
                     <div className="text-[11px] text-[var(--color-on-surface-variant)]">{selectedBank.question_count ?? '—'} questions · draws all questions from this bank</div>
@@ -313,7 +313,7 @@ export default function ExamsPage() {
               ) : (
                 <>
                   <input className={input} value={bankSearch} onChange={(e) => setBankSearch(e.target.value)} placeholder="Search banks by name…" />
-                  <div className="mt-2 max-h-52 overflow-y-auto rounded-lg border border-[var(--color-outline-variant)] divide-y divide-slate-800/60">
+                  <div className="mt-2 max-h-52 overflow-y-auto rounded-lg border border-[var(--color-outline-variant)] divide-y divide-[var(--color-outline-variant)]/60">
                     {filteredBanks.length === 0 ? (
                       <div className="px-3 py-3 text-xs text-[var(--color-on-surface-variant)]">No banks found. Use “Create new bank”.</div>
                     ) : filteredBanks.map((b) => (
@@ -374,9 +374,9 @@ export default function ExamsPage() {
               <label className={label}>Notify recipients (internal users, by email)</label>
               <div className="flex flex-wrap items-center gap-2 rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-2 py-2">
                 {recipients.map((em) => (
-                  <span key={em} className="inline-flex items-center gap-1 rounded-md bg-emerald-600/20 text-emerald-300 text-xs px-2 py-1">
+                  <span key={em} className="inline-flex items-center gap-1 rounded-md bg-[var(--color-success)]/20 text-[var(--color-success)] text-xs px-2 py-1">
                     {em}
-                    <button type="button" onClick={() => setRecipients((prev) => prev.filter((x) => x !== em))} className="text-emerald-400 hover:text-[var(--color-on-surface)]">×</button>
+                    <button type="button" onClick={() => setRecipients((prev) => prev.filter((x) => x !== em))} className="text-[var(--color-success)] hover:text-[var(--color-on-surface)]">×</button>
                   </span>
                 ))}
                 <input
@@ -391,8 +391,8 @@ export default function ExamsPage() {
               <p className="text-[11px] text-[var(--color-on-surface-variant)] mt-1">On publish, each recipient gets an email with a direct exam link + an in-app notification. Only matched internal users are notified.</p>
             </div>
 
-            <label className="flex items-center gap-2 text-sm md:col-span-2"><input type="checkbox" checked={publish} onChange={(e) => setPublish(e.target.checked)} className="accent-emerald-500" /> Publish immediately</label>
-            <button disabled={creating} className="md:col-span-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 py-2.5 font-bold disabled:opacity-50">{creating ? 'Creating…' : 'Create exam'}</button>
+            <label className="flex items-center gap-2 text-sm md:col-span-2"><input type="checkbox" checked={publish} onChange={(e) => setPublish(e.target.checked)} className="accent-[var(--color-success)]" /> Publish immediately</label>
+            <button disabled={creating} className="md:col-span-2 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-2.5 font-bold disabled:opacity-50">{creating ? 'Creating…' : 'Create exam'}</button>
           </form>
         )}
 
@@ -406,7 +406,7 @@ export default function ExamsPage() {
                 <div className="text-[var(--color-on-surface-variant)] text-xs">{ex.question_count} questions · {ex.duration_minutes} min · proctoring: {ex.proctoring_mode} {ex.is_published ? '' : '· draft'}</div>
               </div>
               <div className="flex gap-2 shrink-0">
-                <a href={`/exam/${ex.id}`} className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold">Take</a>
+                <a href={`/exam/${ex.id}`} className="px-3 py-1.5 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] text-xs font-bold">Take</a>
                 <a href={`/exams/${ex.id}/review`} className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-xs font-bold">Review</a>
               </div>
             </div>

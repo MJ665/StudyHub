@@ -55,7 +55,7 @@ export default function WizardStep3({ ctx }: { ctx: WizardCtx }) {
                     <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Problem Statement</label>
                     <textarea 
                       placeholder="What were we trying to solve? e.g. Payment webhook failures during high traffic..."
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-slate-800"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                       value={formData.problem_statement}
                       onChange={e => setFormData({...formData, problem_statement: e.target.value})}
                     />
@@ -64,7 +64,7 @@ export default function WizardStep3({ ctx }: { ctx: WizardCtx }) {
                     <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Decisions Made</label>
                     <textarea 
                       placeholder="What was specifically decided? e.g. Chose Redis over Memcached because..."
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-slate-800"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                       value={formData.decisions_made}
                       onChange={e => setFormData({...formData, decisions_made: e.target.value})}
                     />
@@ -73,7 +73,7 @@ export default function WizardStep3({ ctx }: { ctx: WizardCtx }) {
                     <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Outcome & Results</label>
                     <textarea 
                       placeholder="What was built? What were the results? e.g. Reduced failure rate from 3.2% to 0.01%."
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-slate-800"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                       value={formData.outcome}
                       onChange={e => setFormData({...formData, outcome: e.target.value})}
                     />
@@ -82,7 +82,7 @@ export default function WizardStep3({ ctx }: { ctx: WizardCtx }) {
                     <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Conclusion & Verdict</label>
                     <textarea 
                       placeholder="Final takeaway for future developers..."
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-slate-800"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                       value={formData.conclusion}
                       onChange={e => setFormData({...formData, conclusion: e.target.value})}
                     />

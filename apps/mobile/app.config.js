@@ -20,14 +20,14 @@ const config: ExpoConfig = {
   icon: './assets/icon.png',
   scheme: 'studybuddy',
   userInterfaceStyle: 'dark',
-  backgroundColor: '#0c1324',
+  backgroundColor: '#0b1220',
   assetBundlePatterns: ['**/*'],
   android: {
     package: 'com.studybuddy.app',
     versionCode: 1,
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#0c1324',
+      backgroundColor: '#0b1220',
     },
     permissions: [
       'INTERNET',
@@ -49,7 +49,7 @@ const config: ExpoConfig = {
         image: './assets/splash-icon.png',
         imageWidth: 200,
         resizeMode: 'contain',
-        backgroundColor: '#0c1324',
+        backgroundColor: '#0b1220',
       },
     ],
     [

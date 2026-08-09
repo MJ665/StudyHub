@@ -245,7 +245,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                         } catch (err: any) { toast('error', err.message); }
                         finally { setProcessing(false); }
                       }}
-                      className="w-full bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 disabled:opacity-30"
+                      className="w-full bg-[var(--color-brand-primary-container)] text-white py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-[var(--color-brand-primary)]/30 flex items-center justify-center gap-3 disabled:opacity-30"
                     >
                       {processing ? <Loader2 className="animate-spin" /> : <BadgeCheck />}
                       Execute Integration Flow
@@ -336,7 +336,7 @@ export default function AdminOnboardingOverlay({ ctx }: { ctx: AdminTabCtx }) {
                         } catch (err: any) { toast('error', err.message); }
                         finally { setProcessing(false); }
                       }}
-                      className="w-full bg-emerald-600 text-[var(--color-on-surface)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-emerald-600/30 flex items-center justify-center gap-3 disabled:opacity-30"
+                      className="w-full bg-[var(--color-success)] text-[var(--color-surface-dim)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-[var(--color-success)]/30 flex items-center justify-center gap-3 disabled:opacity-30"
                     >
                       {processing ? <Loader2 className="animate-spin" /> : <Check />}
                       Register Entity

@@ -110,8 +110,8 @@ export function HealthOverviewChart({ groupData, cohortData }: { groupData: any[
         <div className="space-y-4">
             {cohortData && (
                 <div className="flex bg-[var(--color-surface-container-high)] p-1 rounded-xl w-max mb-4">
-                    <button onClick={() => setView('Group')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Group' ? 'bg-indigo-500 text-[var(--color-on-surface)] shadow-md' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>Group Health</button>
-                    <button onClick={() => setView('Cohort')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Cohort' ? 'bg-indigo-500 text-[var(--color-on-surface)] shadow-md' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>Cohort Health</button>
+                    <button onClick={() => setView('Group')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Group' ? 'bg-[var(--color-brand-primary-container)] text-white shadow-md' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>Group Health</button>
+                    <button onClick={() => setView('Cohort')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${view === 'Cohort' ? 'bg-[var(--color-brand-primary-container)] text-white shadow-md' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>Cohort Health</button>
                 </div>
             )}
             {data.map((item, idx) => (
@@ -124,7 +124,7 @@ export function HealthOverviewChart({ groupData, cohortData }: { groupData: any[
                         <motion.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${item.accuracy}%` }}
-                            className={`h-full rounded-full ${item.accuracy > 80 ? 'bg-emerald-500' : item.accuracy > 60 ? 'bg-indigo-500' : 'bg-rose-500'}`}
+                            className={`h-full rounded-full ${item.accuracy > 80 ? 'bg-[var(--color-success)]' : item.accuracy > 60 ? 'bg-[var(--color-brand-primary-container)]' : 'bg-[var(--color-danger)]'}`}
                         />
                     </div>
                 </div>
@@ -150,11 +150,11 @@ export function EngagementDecayWidget({ batchId }: { batchId?: number }) {
   const isPositive = data.decay_index_pct >= 0;
 
   return (
-    <div className={`p-5 rounded-2xl border ${isPositive ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-rose-500/5 border-rose-500/20'}`}>
+    <div className={`p-5 rounded-2xl border ${isPositive ? 'bg-[var(--color-success)]/5 border-[var(--color-success)]/20' : 'bg-[var(--color-danger)]/5 border-[var(--color-danger)]/20'}`}>
       <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Engagement Decay Index</p>
       <div className="flex items-center justify-between">
         <div>
-          <p className={`text-2xl font-black ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+          <p className={`text-2xl font-black ${isPositive ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
             {isPositive ? '+' : ''}{data.decay_index_pct}%
           </p>
           <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-1">{data.risk_level}</p>
@@ -235,7 +235,7 @@ export function LearningVelocityChart({ userId }: { userId: number }) {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Learning Velocity (slope)</p>
-        <span className={`text-xs font-black ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+        <span className={`text-xs font-black ${isPositive ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
           {isPositive ? '↑' : '↓'} {Math.abs(data.slope)}/attempt — {data.interpretation}
         </span>
       </div>
@@ -347,9 +347,9 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
   ];
 
   const riskColor = (r: string) =>
-    r === 'On Track' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' :
-    r === 'Medium Risk' ? 'text-amber-400 bg-amber-500/10 border-amber-500/20' :
-    'text-rose-400 bg-rose-500/10 border-rose-500/20';
+    r === 'On Track' ? 'text-[var(--color-success)] bg-[var(--color-success)]/10 border-[var(--color-success)]/20' :
+    r === 'Medium Risk' ? 'text-[var(--color-warning)] bg-[var(--color-warning)]/10 border-[var(--color-warning)]/20' :
+    'text-[var(--color-danger)] bg-[var(--color-danger)]/10 border-[var(--color-danger)]/20';
 
   return (
     <div className="space-y-3">
@@ -360,7 +360,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
             key={c.key}
             onClick={() => setSortBy(c.key)}
             className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${
-              sortBy === c.key ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
+              sortBy === c.key ? 'bg-[var(--color-brand-primary-container)] text-white' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
             }`}
           >
             {c.label}
@@ -403,7 +403,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                   </td>
                   <td className="py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[9px] font-black text-[var(--color-brand-primary)] shrink-0">
+                      <div className="w-6 h-6 rounded-lg bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 flex items-center justify-center text-[9px] font-black text-[var(--color-brand-primary)] shrink-0">
                         {user.profile_photo_url ? (
                           <img src={user.profile_photo_url} className="w-full h-full rounded-lg object-cover" alt="" />
                         ) : user.full_name?.charAt(0)}
@@ -415,22 +415,22 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                     </div>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.quiz_accuracy > 80 ? 'text-emerald-400' : user.quiz_accuracy > 60 ? 'text-[var(--color-brand-primary)]' : 'text-rose-400'}`}>
+                    <span className={`text-[10px] font-bold ${user.quiz_accuracy > 80 ? 'text-[var(--color-success)]' : user.quiz_accuracy > 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-danger)]'}`}>
                       {user.quiz_accuracy}%
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.coding_accuracy > 70 ? 'text-emerald-400' : user.coding_accuracy > 50 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
+                    <span className={`text-[10px] font-bold ${user.coding_accuracy > 70 ? 'text-[var(--color-success)]' : user.coding_accuracy > 50 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.coding_accuracy}%
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.ai_avg_score > 75 ? 'text-purple-400' : user.ai_avg_score > 50 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
+                    <span className={`text-[10px] font-bold ${user.ai_avg_score > 75 ? 'text-[var(--color-brand-primary)]' : user.ai_avg_score > 50 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.ai_avg_score > 0 ? `${user.ai_avg_score}%` : '—'}
                     </span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.assignment_completion >= 80 ? 'text-emerald-400' : user.assignment_completion >= 50 ? 'text-amber-400' : 'text-[var(--color-on-surface-variant)]'}`}>
+                    <span className={`text-[10px] font-bold ${user.assignment_completion >= 80 ? 'text-[var(--color-success)]' : user.assignment_completion >= 50 ? 'text-[var(--color-warning)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.assignment_completion}%
                     </span>
                   </td>
@@ -443,7 +443,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                     <span className="text-[10px] text-[var(--color-on-surface-variant)]">{user.days_active}</span>
                   </td>
                   <td className="py-3 text-center">
-                    <span className={`text-[10px] font-bold ${user.velocity > 5 ? 'text-emerald-400' : user.velocity < -5 ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}`}>
+                    <span className={`text-[10px] font-bold ${user.velocity > 5 ? 'text-[var(--color-success)]' : user.velocity < -5 ? 'text-[var(--color-danger)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                       {user.velocity > 5 ? '↑' : user.velocity < -5 ? '↓' : '→'}
                     </span>
                   </td>
@@ -454,7 +454,7 @@ export function LeaderboardTable({ groupId, onIntel }: { groupId: number; onInte
                   </td>
                   <td className="py-3 text-right">
                     <div className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)]">
-                      <span className={`text-xs font-black ${user.overall_score >= 80 ? 'text-emerald-400' : user.overall_score >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface)]'}`}>
+                      <span className={`text-xs font-black ${user.overall_score >= 80 ? 'text-[var(--color-success)]' : user.overall_score >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface)]'}`}>
                         {user.overall_score}%
                       </span>
                     </div>

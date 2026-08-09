@@ -54,7 +54,7 @@ const KnowledgeDiscovery = () => {
   if (loading) {
     return (
       <div className="h-64 flex items-center justify-center bg-[var(--color-surface-container)]/50 rounded-[2rem] border border-[var(--color-outline-variant)]">
-        <Loader2 className="animate-spin text-indigo-500" size={32} />
+        <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} />
       </div>
     );
   }
@@ -63,7 +63,7 @@ const KnowledgeDiscovery = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-indigo-500/20">
+          <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20">
             <Compass size={20} />
           </div>
           <div>
@@ -71,7 +71,7 @@ const KnowledgeDiscovery = () => {
             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Intelligent Gap Detection</p>
           </div>
         </div>
-        <div className="px-3 py-1 bg-indigo-500/10 text-[var(--color-brand-primary)] text-[10px] font-black rounded-full border border-indigo-500/20 uppercase">
+        <div className="px-3 py-1 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[10px] font-black rounded-full border border-[var(--color-brand-primary)]/20 uppercase">
           {suggestions.length} Signals
         </div>
       </div>
@@ -90,24 +90,24 @@ const KnowledgeDiscovery = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] hover:border-indigo-500/50 transition-all relative overflow-hidden"
+              className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] hover:border-[var(--color-brand-primary)]/50 transition-all relative overflow-hidden"
             >
               <div className={`absolute top-0 right-0 w-1 h-full ${
-                s.priority === 'CRITICAL' ? 'bg-red-500' : s.priority === 'HIGH' ? 'bg-amber-500' : 'bg-indigo-500'
+                s.priority === 'CRITICAL' ? 'bg-[var(--color-danger)]' : s.priority === 'HIGH' ? 'bg-[var(--color-warning)]' : 'bg-[var(--color-brand-primary-container)]'
               }`} />
               
               <div className="flex items-center gap-2 mb-4">
                 {s.type === 'GAP_DETECTED' ? (
-                  <div className="p-2 bg-amber-500/10 text-amber-500 rounded-lg">
+                  <div className="p-2 bg-[var(--color-warning)]/10 text-[var(--color-warning)] rounded-lg">
                     <Lightbulb size={16} />
                   </div>
                 ) : (
-                  <div className="p-2 bg-red-500/10 text-red-500 rounded-lg">
+                  <div className="p-2 bg-[var(--color-danger)]/10 text-[var(--color-danger)] rounded-lg">
                     <AlertCircle size={16} />
                   </div>
                 )}
                 <span className={`text-[9px] font-black uppercase tracking-widest ${
-                  s.priority === 'CRITICAL' ? 'text-red-400' : s.priority === 'HIGH' ? 'text-amber-400' : 'text-[var(--color-brand-primary)]'
+                  s.priority === 'CRITICAL' ? 'text-[var(--color-danger)]' : s.priority === 'HIGH' ? 'text-[var(--color-warning)]' : 'text-[var(--color-brand-primary)]'
                 }`}>
                   {s.priority} Priority
                 </span>
@@ -118,7 +118,7 @@ const KnowledgeDiscovery = () => {
                 {s.description}
               </p>
 
-              <button className="w-full py-3 bg-[var(--color-surface-container-high)] rounded-xl text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface)] hover:bg-indigo-500 transition-all flex items-center justify-center gap-2 group-hover:bg-[var(--color-brand-primary-container)]">
+              <button className="w-full py-3 bg-[var(--color-surface-container-high)] rounded-xl text-[10px] font-black uppercase tracking-widest text-white hover:bg-[var(--color-brand-primary-container)] transition-all flex items-center justify-center gap-2 group-hover:bg-[var(--color-brand-primary-container)]">
                 {s.action_label}
                 <ArrowRight size={14} />
               </button>

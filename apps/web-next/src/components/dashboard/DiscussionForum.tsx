@@ -73,7 +73,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-indigo-500/10 rounded-xl text-[var(--color-brand-primary)]">
+              <div className="p-2 bg-[var(--color-brand-primary-container)]/10 rounded-xl text-[var(--color-brand-primary)]">
                 <MessageSquare size={20} />
               </div>
               <h1 className="text-3xl font-black text-[var(--color-on-surface)]">Community Terminal</h1>
@@ -89,7 +89,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                 placeholder="Search conversations..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-all w-full md:w-64"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-all w-full md:w-64"
               />
             </div>
             <button
@@ -112,7 +112,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
               <div className="space-y-2">
                 <button
                   onClick={() => setSelectedBankId(null)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${!selectedBankId ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]'}`}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${!selectedBankId ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20' : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]'}`}
                 >
                   All Domains
                 </button>
@@ -120,7 +120,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                   <button
                     key={bank.id}
                     onClick={() => setSelectedBankId(bank.id)}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${selectedBankId === bank.id ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]'}`}
+                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${selectedBankId === bank.id ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20' : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]'}`}
                   >
                     <span className="truncate">{bank.name}</span>
                     {selectedBankId === bank.id && <ChevronRight size={14} />}
@@ -129,7 +129,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
               </div>
             </div>
 
-            <div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2rem] shadow-xl shadow-indigo-600/20">
+            <div className="p-6 bg-gradient-to-br from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] rounded-[2rem] shadow-xl shadow-[var(--color-brand-primary)]/20">
               <div className="w-12 h-12 bg-[var(--color-surface-bright)] rounded-2xl flex items-center justify-center text-[var(--color-on-surface)] mb-4">
                 <TrendingUp size={24} />
               </div>
@@ -146,15 +146,15 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
           <main className="lg:col-span-3">
             {loading ? (
               <div className="flex flex-col items-center justify-center py-32 space-y-4">
-                <div className="animate-spin w-10 h-10 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full" />
+                <div className="animate-spin w-10 h-10 border-4 border-[var(--color-brand-primary)]/20 border-t-[var(--color-brand-primary)] rounded-full" />
                 <p className="text-[var(--color-on-surface-variant)] font-black text-[10px] uppercase tracking-widest animate-pulse">Syncing Threads...</p>
               </div>
             ) : threads.length === 0 ? (
               <div className="py-32 text-center bg-[var(--color-surface-container)]/40 rounded-[3rem] border border-[var(--color-outline-variant)] border-dashed">
-                <MessageCircle size={48} className="text-slate-800 mx-auto mb-6" />
+                <MessageCircle size={48} className="text-[var(--color-on-surface-variant)] mx-auto mb-6" />
                 <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2">Silence in the Domain</h3>
                 <p className="text-[var(--color-on-surface-variant)] text-sm mb-8">No discussions found for this sector. Be the first to initiate contact.</p>
-                <button className="px-8 py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all shadow-lg shadow-indigo-600/20">
+                <button className="px-8 py-3 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-black text-sm transition-all shadow-lg shadow-[var(--color-brand-primary)]/20">
                   NEW BROADCAST
                 </button>
               </div>
@@ -180,7 +180,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                         <button
                           onClick={() => handleVote(thread.id, 'up')}
                           disabled={voting === thread.id}
-                          className={`p-2 rounded-xl transition-all disabled:opacity-50 ${thread.voted ? 'text-[var(--color-brand-primary)] bg-indigo-500/10' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-indigo-500/10'}`}
+                          className={`p-2 rounded-xl transition-all disabled:opacity-50 ${thread.voted ? 'text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-container)]/10'}`}
                         >
                           <ThumbsUp size={18} />
                         </button>
@@ -191,7 +191,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
                         <div className="flex items-center gap-3 mb-3">
                           <div
                             onClick={() => thread.user_slug && onViewProfile(thread.user_slug)}
-                            className="w-8 h-8 bg-indigo-500/20 border border-indigo-500/30 rounded-lg flex items-center justify-center text-[var(--color-brand-primary)] text-xs font-black cursor-pointer hover:bg-indigo-500/30 transition-all"
+                            className="w-8 h-8 bg-[var(--color-brand-primary-container)]/20 border border-[var(--color-brand-primary)]/30 rounded-lg flex items-center justify-center text-[var(--color-brand-primary)] text-xs font-black cursor-pointer hover:bg-[var(--color-brand-primary-container)]/30 transition-all"
                           >
                             {thread.user_name.charAt(0)}
                           </div>
@@ -222,7 +222,7 @@ export default function DiscussionForum({ user, onViewProfile, onBack }: { user:
 
                           <button
                             onClick={() => setActiveQuestionId(thread.question_id)}
-                            className="flex items-center gap-2 text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest hover:text-indigo-300 transition-colors"
+                            className="flex items-center gap-2 text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest hover:text-[var(--color-brand-primary)] transition-colors"
                           >
                             <MessageCircle size={14} /> {thread.reply_count} Replies
                           </button>

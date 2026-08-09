@@ -110,9 +110,9 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
           {activeTracks.map((course, i) => (
             <div key={course.id || i} className="flex items-center gap-2.5">
               <div className={`w-2 h-2 rounded-full ${
-                i % 3 === 0 ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]' :
-                i % 3 === 1 ? 'bg-indigo-400 shadow-[0_0_6px_rgba(129,140,248,0.5)]' :
-                'bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.5)]'
+                i % 3 === 0 ? 'bg-[var(--color-success)] shadow-[0_0_6px_rgba(52,211,153,0.5)]' :
+                i % 3 === 1 ? 'bg-[var(--color-brand-primary-container)] shadow-[0_0_6px_rgba(129,140,248,0.5)]' :
+                'bg-[var(--color-warning)] shadow-[0_0_6px_rgba(251,191,36,0.5)]'
               }`} />
               <span className="text-xs text-[var(--color-on-surface-variant)] font-medium truncate max-w-[140px]">{course.name}</span>
             </div>
@@ -129,14 +129,14 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
           <div className="space-y-1">
             <button
               onClick={onOpenAIPath}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-on-surface-variant)] hover:text-purple-400 hover:bg-purple-500/10 transition-all font-semibold"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-container)]/10 transition-all font-semibold"
             >
-              <Map size={16} className="text-purple-400" />
+              <Map size={16} className="text-[var(--color-brand-primary)]" />
               Learning Path
             </button>
             <button
               onClick={onOpenAIQuiz}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-indigo-500/10 transition-all font-semibold"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-container)]/10 transition-all font-semibold"
             >
               <Sparkles size={16} className="text-[var(--color-brand-primary)]" />
               AI Quiz Builder
@@ -153,7 +153,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
         {accuracy !== null && (
           <div className="mx-2 mb-4 p-3 bg-surface-container rounded-xl border border-[var(--color-surface-bright)]">
             <p className="text-[10px] uppercase tracking-widest font-bold text-[var(--color-on-surface-variant)] mb-1">Average Accuracy</p>
-            <p className={`text-2xl font-black ${accuracy >= 70 ? 'text-emerald-400' : accuracy >= 40 ? 'text-amber-400' : 'text-rose-400'}`}>
+            <p className={`text-2xl font-black ${accuracy >= 70 ? 'text-[var(--color-success)]' : accuracy >= 40 ? 'text-[var(--color-warning)]' : 'text-[var(--color-danger)]'}`}>
               {accuracy}%
             </p>
             {/* Progress bar */}
@@ -162,7 +162,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
                 initial={{ width: 0 }}
                 animate={{ width: `${accuracy}%` }}
                 transition={{ duration: 1, ease: 'easeOut' }}
-                className={`h-full rounded-full ${accuracy >= 70 ? 'bg-emerald-400' : accuracy >= 40 ? 'bg-amber-400' : 'bg-rose-400'}`}
+                className={`h-full rounded-full ${accuracy >= 70 ? 'bg-[var(--color-success)]' : accuracy >= 40 ? 'bg-[var(--color-warning)]' : 'bg-[var(--color-danger)]'}`}
               />
             </div>
           </div>
@@ -188,7 +188,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
 
         <button
           onClick={onLogout}
-          className="w-full flex items-center justify-center gap-2 p-3 text-rose-400 hover:bg-rose-950/30 rounded-xl transition-colors font-bold border border-transparent hover:border-rose-900/50"
+          className="w-full flex items-center justify-center gap-2 p-3 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/30 rounded-xl transition-colors font-bold border border-transparent hover:border-[var(--color-danger)]/50"
         >
           <LogOut size={16} /> Logout
         </button>
@@ -204,7 +204,7 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
               }
             }
           }}
-          className="w-full flex items-center justify-center gap-2 p-3 mt-1 text-[var(--color-on-surface-variant)] hover:text-rose-400 hover:bg-rose-950/20 rounded-xl transition-colors text-xs font-semibold"
+          className="w-full flex items-center justify-center gap-2 p-3 mt-1 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger)]/20 rounded-xl transition-colors text-xs font-semibold"
         >
           <LogOut size={14} /> Sign out of all devices
         </button>
@@ -219,7 +219,7 @@ const SidebarItem: React.FC<{ icon: string; label: string; active: boolean; onCl
       onClick={onClick}
       className={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all w-full text-left font-semibold outline-none
         ${active 
-          ? 'text-[var(--color-brand-primary)] font-bold border-r-4 border-indigo-400 bg-indigo-500/10' 
+          ? 'text-[var(--color-brand-primary)] font-bold border-r-4 border-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10' 
           : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)] border-r-4 border-transparent'
         }
       `}
@@ -229,7 +229,7 @@ const SidebarItem: React.FC<{ icon: string; label: string; active: boolean; onCl
       {active && (
         <motion.div
           layoutId="sidebar-active"
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-indigo-400 rounded-r-full pointer-events-none"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[var(--color-brand-primary-container)] rounded-r-full pointer-events-none"
           initial={false}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         />

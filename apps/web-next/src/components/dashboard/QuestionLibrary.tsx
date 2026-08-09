@@ -74,7 +74,7 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div>
             <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
-              <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400">
+              <div className="p-3 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-2xl text-[var(--color-success)]">
                 <Library size={32} />
               </div>
               Knowledge Library
@@ -84,13 +84,13 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
 
           <div className="flex items-center gap-4">
              <div className="relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)] group-focus-within:text-emerald-400 transition-colors" size={18} />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)] group-focus-within:text-[var(--color-success)] transition-colors" size={18} />
                 <input 
                   type="text" 
                   placeholder="Query knowledge base..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-2xl py-3 pl-12 pr-6 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-emerald-500/20 w-full md:w-64 transition-all"
+                  className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-2xl py-3 pl-12 pr-6 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-success)]/20 w-full md:w-64 transition-all"
                 />
              </div>
           </div>
@@ -104,7 +104,7 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${
                   selectedCategory === cat 
-                    ? 'bg-emerald-600 text-[var(--color-on-surface)] shadow-lg shadow-emerald-600/20' 
+                    ? 'bg-[var(--color-success)] text-[var(--color-surface-dim)] shadow-lg shadow-[var(--color-success)]/20' 
                     : 'bg-[var(--color-surface-container)]/50 text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
@@ -115,7 +115,7 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
-            <Loader2 className="animate-spin text-emerald-500" size={48} />
+            <Loader2 className="animate-spin text-[var(--color-success)]" size={48} />
             <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Indexing Global Knowledge...</p>
           </div>
         ) : (
@@ -130,25 +130,25 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
                 onClick={() => onStartQuiz(bank, 50)}
               >
                 <div className="flex justify-between items-start mb-6">
-                   <div className="p-3 bg-[var(--color-surface-dim)] rounded-2xl text-emerald-400">
+                   <div className="p-3 bg-[var(--color-surface-dim)] rounded-2xl text-[var(--color-success)]">
                       <BrainCircuit size={24} />
                    </div>
                    <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.2em] ${
-                      bank.difficulty === 'advanced' ? 'bg-rose-500/10 text-rose-400' :
-                      bank.difficulty === 'intermediate' ? 'bg-amber-500/10 text-amber-400' :
-                      'bg-emerald-500/10 text-emerald-400'
+                      bank.difficulty === 'advanced' ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]' :
+                      bank.difficulty === 'intermediate' ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]' :
+                      'bg-[var(--color-success)]/10 text-[var(--color-success)]'
                    }`}>
                       {bank.difficulty || 'Intermediate'}
                    </div>
                 </div>
 
-                <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 group-hover:text-emerald-400 transition-colors line-clamp-1">{bank.name}</h3>
+                <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 group-hover:text-[var(--color-success)] transition-colors line-clamp-1">{bank.name}</h3>
                 <div className="flex items-center gap-4 mb-6">
                    <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
                       <Tag size={12} className="text-[var(--color-brand-primary)]" /> {bank.category || 'General'}
                    </div>
                    <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
-                      <Clock size={12} className="text-amber-400" /> 20m
+                      <Clock size={12} className="text-[var(--color-warning)]" /> 20m
                    </div>
                 </div>
 
@@ -168,7 +168,7 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
                       <Users size={14} className="text-[var(--color-on-surface-variant)]" />
                       <span className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">{bank.visibility_scope || 'Public Domain'}</span>
                    </div>
-                   <div className="flex items-center gap-1 text-emerald-400 font-black text-xs">
+                   <div className="flex items-center gap-1 text-[var(--color-success)] font-black text-xs">
                       START <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                    </div>
                 </div>
@@ -179,7 +179,7 @@ export default function QuestionLibrary({ user, onStartQuiz, onBack }: QuestionL
         
         {!loading && filteredBanks.length === 0 && (
            <div className="py-32 text-center bg-[var(--color-surface-container)]/20 rounded-[3rem] border border-dashed border-[var(--color-outline-variant)]">
-              <Library size={64} className="mx-auto text-slate-800 mb-6" />
+              <Library size={64} className="mx-auto text-[var(--color-on-surface-variant)] mb-6" />
               <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Knowledge Void</h3>
               <p className="text-[var(--color-on-surface-variant)] font-medium">No directives found matching your current filter set.</p>
            </div>

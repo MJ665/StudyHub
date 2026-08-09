@@ -76,7 +76,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                       </span>
                     </div>
                     <div className="mt-4 h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
-                      <div className="h-full bg-indigo-500 transition-all" style={{ width: `${weightedProficiency}%` }} />
+                      <div className="h-full bg-[var(--color-brand-primary-container)] transition-all" style={{ width: `${weightedProficiency}%` }} />
                     </div>
                   </div>
 
@@ -87,12 +87,12 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Consistency Index</p>
                     <div className="flex items-end gap-3">
                       <span className="text-4xl font-black text-[var(--color-on-surface)]">{(consistencyIndex || 0).toFixed(0)}</span>
-                      <span className="text-[10px] font-bold text-emerald-400 mb-1.5 uppercase tracking-widest flex items-center gap-1">
+                      <span className="text-[10px] font-bold text-[var(--color-success)] mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Stability <ShieldCheck size={10} />
                       </span>
                     </div>
                     <div className="mt-4 h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-500 transition-all" style={{ width: `${consistencyIndex}%` }} />
+                      <div className="h-full bg-[var(--color-success)] transition-all" style={{ width: `${consistencyIndex}%` }} />
                     </div>
                   </div>
 
@@ -103,12 +103,12 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Learning Velocity</p>
                     <div className="flex items-end gap-3">
                       <span className="text-4xl font-black text-[var(--color-on-surface)]">{((learningVelocity || 0) * 10).toFixed(1)}</span>
-                      <span className="text-[10px] font-bold text-purple-400 mb-1.5 uppercase tracking-widest flex items-center gap-1">
+                      <span className="text-[10px] font-bold text-[var(--color-brand-primary)] mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Units/Day <Zap size={10} />
                       </span>
                     </div>
                     <div className="mt-4 h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
-                      <div className="h-full bg-purple-500 transition-all" style={{ width: `${Math.min(100, learningVelocity * 10)}%` }} />
+                      <div className="h-full bg-[var(--color-brand-primary-container)] transition-all" style={{ width: `${Math.min(100, learningVelocity * 10)}%` }} />
                     </div>
                   </div>
                 </div>
@@ -172,7 +172,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 {/* Activity Heatmap */}
                 <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
-                    <Zap size={14} className="text-amber-400" /> Activity Heatmap
+                    <Zap size={14} className="text-[var(--color-warning)]" /> Activity Heatmap
                   </h3>
                   <ActivityHeatmap userId={profile.id} />
                 </div>
@@ -181,7 +181,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 {weeklyActivity.length > 0 && (
                   <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                     <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
-                      <Clock size={14} className="text-violet-400" /> Weekly Engagement
+                      <Clock size={14} className="text-[var(--color-brand-primary)]" /> Weekly Engagement
                     </h3>
                     <ResponsiveContainer width="100%" height={140}>
                       <BarChart data={weeklyActivity}>
@@ -203,7 +203,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 {quizAttempts.length > 0 && (
                   <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                     <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
-                      <Star size={14} className="text-amber-400" /> Score Distribution
+                      <Star size={14} className="text-[var(--color-warning)]" /> Score Distribution
                     </h3>
                     <div className="flex items-center gap-8">
                       <ResponsiveContainer width="50%" height={160}>
@@ -252,11 +252,11 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                 {/* Pros / Cons AI (from registry) */}
                 <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4 flex items-center gap-2">
-                    <Zap size={14} className="text-emerald-400" /> AI Strengths
+                    <Zap size={14} className="text-[var(--color-success)]" /> AI Strengths
                   </h3>
                   {(registry?.pros || ['Strong quiz engagement', 'Consistent learning pattern']).map((p: string, i: number) => (
                     <div key={i} className="flex items-start gap-2 mb-2">
-                      <CheckCircle2 size={14} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 size={14} className="text-[var(--color-success)] mt-0.5 flex-shrink-0" />
                       <span className="text-xs text-[var(--color-on-surface-variant)]">{p}</span>
                     </div>
                   ))}
@@ -264,20 +264,20 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                 <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4 flex items-center gap-2">
-                    <TrendingDown size={14} className="text-rose-400" /> Growth Areas
+                    <TrendingDown size={14} className="text-[var(--color-danger)]" /> Growth Areas
                   </h3>
                   {(registry?.cons || ['Focus on coding challenges', 'Increase daily attempts']).map((c: string, i: number) => (
                     <div key={i} className="flex items-start gap-2 mb-2">
-                      <XCircle size={14} className="text-rose-400 mt-0.5 flex-shrink-0" />
+                      <XCircle size={14} className="text-[var(--color-danger)] mt-0.5 flex-shrink-0" />
                       <span className="text-xs text-[var(--color-on-surface-variant)]">{c}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Percentile rank */}
-                <div className="p-6 bg-gradient-to-br from-indigo-900/30 to-slate-900/60 rounded-3xl border border-indigo-500/20">
+                <div className="p-6 bg-gradient-to-br from-[var(--color-brand-primary-container)]/30 to-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-brand-primary)]/20">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3 flex items-center gap-2">
-                    <Trophy size={14} className="text-amber-400" /> Group Rank
+                    <Trophy size={14} className="text-[var(--color-warning)]" /> Group Rank
                   </h3>
                   <div className="text-4xl font-black text-[var(--color-on-surface)] mb-1">
                     #{registry?.group_rank ?? '—'}
@@ -285,7 +285,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                   <div className="text-xs text-[var(--color-on-surface-variant)]">of {registry?.group_size ?? '—'} members</div>
                   {registry?.percentile != null && (
                     <div className="mt-3 h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all"
+                      <div className="h-full bg-gradient-to-r from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] rounded-full transition-all"
                         style={{ width: `${registry.percentile}%` }} />
                     </div>
                   )}

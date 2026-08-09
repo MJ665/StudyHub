@@ -116,7 +116,7 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div>
             <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
-              <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-amber-400">
+              <div className="p-3 bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 rounded-2xl text-[var(--color-warning)]">
                 <History size={32} />
               </div>
               Attempt Registry
@@ -126,26 +126,26 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
 
           <div className="flex items-center gap-4">
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)] group-focus-within:text-amber-400 transition-colors" size={18} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)] group-focus-within:text-[var(--color-warning)] transition-colors" size={18} />
               <input 
                 type="text" 
                 placeholder="Search historical records..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-2xl py-3 pl-12 pr-6 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-amber-500/20 w-full md:w-64 transition-all"
+                className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-2xl py-3 pl-12 pr-6 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-warning)]/20 w-full md:w-64 transition-all"
               />
             </div>
             
             <div className="flex bg-[var(--color-surface-container)]/50 p-1 rounded-2xl border border-[var(--color-outline-variant)]">
               <button 
                 onClick={() => setActiveTab('quiz')}
-                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === 'quiz' ? 'bg-amber-500 text-slate-950' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
+                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === 'quiz' ? 'bg-[var(--color-warning)] text-[var(--color-on-surface-variant)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
               >
                 <BrainCircuit size={14} /> Quiz
               </button>
               <button 
                 onClick={() => setActiveTab('coding')}
-                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === 'coding' ? 'bg-amber-500 text-slate-950' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
+                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === 'coding' ? 'bg-[var(--color-warning)] text-[var(--color-on-surface-variant)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
               >
                 <Code size={14} /> Code
               </button>
@@ -155,7 +155,7 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
-            <Loader2 className="animate-spin text-amber-500" size={48} />
+            <Loader2 className="animate-spin text-[var(--color-warning)]" size={48} />
             <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Querying Historical Database...</p>
           </div>
         ) : (
@@ -167,14 +167,14 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
                   <div className="space-y-4">
                      <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)]">
-                           <Trophy size={16} className="text-amber-400" />
+                           <Trophy size={16} className="text-[var(--color-warning)]" />
                            <span className="text-xs font-bold">Best Score</span>
                         </div>
                         <span className="text-sm font-black text-[var(--color-on-surface)]">{Math.max(0, ...(data?.quiz_attempts.map(a => (a.score/a.total)*100) || [0])).toFixed(0)}%</span>
                      </div>
                      <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)]">
-                           <TrendingUp size={16} className="text-emerald-400" />
+                           <TrendingUp size={16} className="text-[var(--color-success)]" />
                            <span className="text-xs font-bold">Accuracy</span>
                         </div>
                          <span className="text-sm font-black text-[var(--color-on-surface)]">{(() => {
@@ -207,7 +207,7 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
                               <motion.div 
                                 initial={{ width: 0 }}
                                 animate={{ width: `${stats.avg}%` }}
-                                className="h-full bg-amber-500/50"
+                                className="h-full bg-[var(--color-warning)]/50"
                               />
                            </div>
                         </div>
@@ -230,11 +230,11 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
                               className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-6 rounded-[2rem] flex items-center justify-between group hover:bg-[var(--color-surface-container)]/60 transition-all cursor-pointer"
                            >
                               <div className="flex items-center gap-6">
-                                 <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center text-amber-400 font-black text-xs">
+                                 <div className="w-12 h-12 bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 rounded-2xl flex items-center justify-center text-[var(--color-warning)] font-black text-xs">
                                     {Math.round((attempt.score / attempt.total) * 100)}%
                                  </div>
                                  <div>
-                                    <h4 className="text-[var(--color-on-surface)] font-bold mb-1 group-hover:text-amber-400 transition-colors">{attempt.bank_name}</h4>
+                                    <h4 className="text-[var(--color-on-surface)] font-bold mb-1 group-hover:text-[var(--color-warning)] transition-colors">{attempt.bank_name}</h4>
                                     <div className="flex items-center gap-4 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
                                        <span className="flex items-center gap-1"><Calendar size={12} /> {new Date(attempt.attempted_at).toLocaleDateString()}</span>
                                        <span className="flex items-center gap-1"><Zap size={12} /> {attempt.score}/{attempt.total} Points</span>
@@ -245,7 +245,7 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
                                  <button 
                                    onClick={() => handleGetCertificate(attempt.id)}
                                    title="Download Certificate"
-                                   className="p-3 bg-[var(--color-surface-dim)] rounded-xl text-[var(--color-on-surface-variant)] group-hover:text-amber-400 group-hover:bg-amber-500/10 transition-all"
+                                   className="p-3 bg-[var(--color-surface-dim)] rounded-xl text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-warning)] group-hover:bg-[var(--color-warning)]/10 transition-all"
                                  >
                                     <FileText size={18} />
                                  </button>
@@ -269,11 +269,11 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
                               className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-6 rounded-[2rem] flex items-center justify-between group hover:bg-[var(--color-surface-container)]/60 transition-all cursor-pointer"
                            >
                               <div className="flex items-center gap-6">
-                                 <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 font-black text-xs">
+                                 <div className="w-12 h-12 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-2xl flex items-center justify-center text-[var(--color-success)] font-black text-xs">
                                     {attempt.score}%
                                  </div>
                                  <div>
-                                    <h4 className="text-[var(--color-on-surface)] font-bold mb-1 group-hover:text-emerald-400 transition-colors">
+                                    <h4 className="text-[var(--color-on-surface)] font-bold mb-1 group-hover:text-[var(--color-success)] transition-colors">
                                        {attempt.question_title || `Coding Lab Solution #${attempt.id}`}
                                     </h4>
                                     <div className="flex items-center gap-4 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
@@ -282,7 +282,7 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
                                     </div>
                                  </div>
                               </div>
-                              <button className="p-3 bg-[var(--color-surface-dim)] rounded-xl text-[var(--color-on-surface-variant)] group-hover:text-emerald-400 group-hover:bg-emerald-500/10 transition-all">
+                              <button className="p-3 bg-[var(--color-surface-dim)] rounded-xl text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-success)] group-hover:bg-[var(--color-success)]/10 transition-all">
                                  <FileText size={18} />
                               </button>
                            </motion.div>

@@ -93,7 +93,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
              </button>
              <div>
                <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
-                 <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-[var(--color-brand-primary)]">
+                 <div className="p-3 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-2xl text-[var(--color-brand-primary)]">
                    <ClipboardList size={32} />
                  </div>
                  Mandatory Assignments
@@ -109,7 +109,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                 onClick={() => setFilter(f)}
                 className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
                   filter === f 
-                    ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-600/20' 
+                    ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20' 
                     : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
@@ -121,7 +121,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
-            <Loader2 className="animate-spin text-indigo-500" size={48} />
+            <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={48} />
             <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Synchronizing Directives...</p>
           </div>
         ) : filteredAssignments.length === 0 ? (
@@ -153,14 +153,14 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                     transition={{ delay: idx * 0.05 }}
                     onClick={() => setSelectedAssignment(asgn)}
                     className={`group bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${
-                      asgn.is_completed ? 'border-emerald-500/20' : overdue ? 'border-rose-500/20' : 'border-[var(--color-outline-variant)]'
+                      asgn.is_completed ? 'border-[var(--color-success)]/20' : overdue ? 'border-[var(--color-danger)]/20' : 'border-[var(--color-outline-variant)]'
                     } rounded-[2.5rem] p-8 hover:bg-[var(--color-surface-container)]/60 transition-all relative overflow-hidden cursor-pointer shadow-2xl`}
                   >
                     {/* Status Badge */}
                     <div className="flex justify-between items-start mb-6">
                       <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ${
-                        asgn.is_completed ? 'bg-emerald-500/10 text-emerald-400' :
-                        overdue ? 'bg-rose-500/10 text-rose-400' : 'bg-indigo-500/10 text-[var(--color-brand-primary)]'
+                        asgn.is_completed ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' :
+                        overdue ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]' : 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]'
                       }`}>
                         {asgn.is_completed ? <CheckCircle2 size={12} /> : overdue ? <AlertCircle size={12} /> : <Clock size={12} />}
                         {asgn.is_completed ? 'Completed' : overdue ? 'Overdue' : 'Active'}
@@ -179,7 +179,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                     <div className="grid grid-cols-2 gap-4 mb-8">
                        <div className="bg-[var(--color-surface-dim)]/50 p-4 rounded-2xl border border-[var(--color-outline-variant)]">
                           <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-1">Due Date</p>
-                          <p className={`text-xs font-bold ${overdue ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}`}>
+                          <p className={`text-xs font-bold ${overdue ? 'text-[var(--color-danger)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                              {asgn.due_date ? new Date(asgn.due_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'No Deadline'}
                           </p>
                        </div>
@@ -192,23 +192,23 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                     </div>
 
                     {asgn.is_completed ? (
-                      <div className="flex items-center justify-between p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl">
+                      <div className="flex items-center justify-between p-4 bg-[var(--color-success)]/5 border border-[var(--color-success)]/10 rounded-2xl">
                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-black text-xs">
+                            <div className="w-8 h-8 rounded-full bg-[var(--color-success)]/20 flex items-center justify-center text-[var(--color-success)] font-black text-xs">
                                {asgn.score}%
                             </div>
-                            <p className="text-xs font-bold text-emerald-500/80 uppercase tracking-widest">Protocol Passed</p>
+                            <p className="text-xs font-bold text-[var(--color-success)]/80 uppercase tracking-widest">Protocol Passed</p>
                          </div>
-                         <CheckCircle2 size={20} className="text-emerald-500" />
+                         <CheckCircle2 size={20} className="text-[var(--color-success)]" />
                       </div>
                     ) : !canAttempt ? (
-                      <div className="flex items-center gap-3 p-4 bg-rose-500/5 border border-rose-500/10 rounded-2xl text-rose-500">
+                      <div className="flex items-center gap-3 p-4 bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/10 rounded-2xl text-[var(--color-danger)]">
                          <Lock size={18} />
                          <p className="text-xs font-black uppercase tracking-widest">Access Locked (Overdue)</p>
                       </div>
                     ) : (
                       <button 
-                        className="w-full py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl shadow-[var(--color-brand-primary)]/20 flex items-center justify-center gap-2"
                       >
                          Open Detailed View <ChevronRight size={14} />
                       </button>

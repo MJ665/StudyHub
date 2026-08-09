@@ -74,7 +74,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
 
   const getNotifStyle = (type: string) => {
     const config = typeConfig.find(c => c.id === type) || typeConfig.find(c => c.id === 'system');
-    if (!config) return { icon: 'Info', color: 'text-[var(--color-on-surface-variant)]', bg: 'bg-slate-500/10' };
+    if (!config) return { icon: 'Info', color: 'text-[var(--color-on-surface-variant)]', bg: 'bg-[var(--color-surface-container-high)]/10' };
     return config;
   };
 
@@ -188,7 +188,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-rose-500 rounded-full text-[8px] font-black text-[var(--color-on-surface)] flex items-center justify-center"
+            className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[var(--color-danger)] rounded-full text-[8px] font-black text-[var(--color-on-surface)] flex items-center justify-center"
           >
             {unreadCount > 9 ? '9+' : unreadCount}
           </motion.span>
@@ -218,7 +218,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                   <Bell size={16} className="text-[var(--color-brand-primary)]" />
                   <span className="text-sm font-black text-[var(--color-on-surface)]">Notifications</span>
                   {unreadCount > 0 && (
-                    <span className="px-1.5 py-0.5 bg-rose-500/20 border border-rose-500/30 rounded-md text-[9px] font-black text-rose-400">
+                    <span className="px-1.5 py-0.5 bg-[var(--color-danger)]/20 border border-[var(--color-danger)]/30 rounded-md text-[9px] font-black text-[var(--color-danger)]">
                       {unreadCount} new
                     </span>
                   )}
@@ -234,7 +234,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                   {unreadCount > 0 && (
                     <button
                       onClick={markAllRead}
-                      className="p-1.5 text-[var(--color-on-surface-variant)] hover:text-emerald-400 transition-colors rounded-lg hover:bg-[var(--color-surface-container-high)]"
+                      className="p-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-success)] transition-colors rounded-lg hover:bg-[var(--color-surface-container-high)]"
                       title="Mark all read"
                     >
                       <CheckCheck size={13} />
@@ -257,7 +257,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                     onClick={() => setFilter(f)}
                     className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${
                       filter === f
-                        ? 'bg-indigo-500/20 text-[var(--color-brand-primary)] border border-indigo-500/30'
+                        ? 'bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30'
                         : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'
                     }`}
                   >
@@ -280,7 +280,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                     </p>
                   </div>
                 ) : (
-                  <div className="divide-y divide-slate-800/60">
+                  <div className="divide-y divide-[var(--color-outline-variant)]/60">
                     {filtered.map(n => {
                       const config = getNotifStyle(n.notification_type);
                       return (
@@ -288,13 +288,13 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                           key={n.id}
                           layout
                           className={`group relative flex items-start gap-3 px-5 py-4 transition-colors hover:bg-white/[0.02] cursor-pointer ${
-                            !n.is_read ? 'bg-indigo-500/[0.03]' : ''
+                            !n.is_read ? 'bg-[var(--color-brand-primary-container)]/[0.03]' : ''
                           }`}
                           onClick={() => handleNotifClick(n)}
                         >
                           {/* unread dot */}
                           {!n.is_read && (
-                            <div className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                            <div className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[var(--color-brand-primary-container)] rounded-full" />
                           )}
 
                           {/* Icon */}
@@ -328,7 +328,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                             {!n.is_read && (
                               <button
                                 onClick={e => { e.stopPropagation(); markRead(n.id); }}
-                                className="p-1 text-[var(--color-on-surface-variant)] hover:text-emerald-400 transition-colors"
+                                className="p-1 text-[var(--color-on-surface-variant)] hover:text-[var(--color-success)] transition-colors"
                                 title="Mark read"
                               >
                                 <CheckCheck size={11} />
@@ -336,7 +336,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                             )}
                             <button
                               onClick={e => { e.stopPropagation(); deleteNotification(n.id); }}
-                              className="p-1 text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-colors"
+                              className="p-1 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-colors"
                               title="Delete"
                             >
                               <Trash2 size={11} />
@@ -355,7 +355,7 @@ export default function NotificationCenter({ compact = false }: NotificationCent
                   <p className="text-[9px] text-[var(--color-on-surface-variant)] font-bold">{notifications.length} total notifications</p>
                   <button
                     onClick={markAllRead}
-                    className="text-[9px] text-[var(--color-brand-primary)] hover:text-indigo-300 font-black uppercase tracking-widest transition-colors"
+                    className="text-[9px] text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] font-black uppercase tracking-widest transition-colors"
                   >
                     Mark all read
                   </button>

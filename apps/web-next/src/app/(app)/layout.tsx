@@ -42,7 +42,7 @@ function AppAreaInner({ children }: { children: React.ReactNode }) {
   if (!hydrated) {
     return (
       <div className="min-h-screen bg-[var(--color-surface-dim)] flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-2 border-[var(--color-brand-primary)] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

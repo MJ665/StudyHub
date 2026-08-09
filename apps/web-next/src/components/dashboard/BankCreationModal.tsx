@@ -186,7 +186,7 @@ JSON Format:
           <div className="flex items-center gap-4">
             <div className="flex gap-1.5">
               {[1, 2, 3].map(s => (
-                <div key={s} className={`h-1.5 rounded-full transition-all duration-300 ${s === step ? 'w-6 bg-indigo-500' : s < step ? 'w-4 bg-emerald-500' : 'w-4 bg-[var(--color-surface-bright)]'}`} />
+                <div key={s} className={`h-1.5 rounded-full transition-all duration-300 ${s === step ? 'w-6 bg-[var(--color-brand-primary-container)]' : s < step ? 'w-4 bg-[var(--color-success)]' : 'w-4 bg-[var(--color-surface-bright)]'}`} />
               ))}
             </div>
             <button onClick={onClose} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"><X size={22} /></button>
@@ -195,7 +195,7 @@ JSON Format:
 
         {courses.length === 0 ? (
           <div className="py-10 text-center">
-            <p className="text-rose-400 font-bold mb-2">No Courses Available</p>
+            <p className="text-[var(--color-danger)] font-bold mb-2">No Courses Available</p>
             <p className="text-[var(--color-on-surface-variant)] text-sm">Ask your Admin to create a course first.</p>
           </div>
         ) : (
@@ -206,17 +206,17 @@ JSON Format:
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Course *</label>
-                    <select value={bankCourseId} onChange={e => setBankCourseId(Number(e.target.value))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500">
+                    <select value={bankCourseId} onChange={e => setBankCourseId(Number(e.target.value))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]">
                       {courses.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Bank Name *</label>
-                    <input value={bankName} onChange={e => setBankName(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Kubernetes Deep Dive" />
+                    <input value={bankName} onChange={e => setBankName(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]" placeholder="e.g. Kubernetes Deep Dive" />
                   </div>
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Sprint / Week Name</label>
-                    <input value={sprintName} onChange={e => setSprintName(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Week 3" />
+                    <input value={sprintName} onChange={e => setSprintName(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]" placeholder="e.g. Week 3" />
                   </div>
                   <div className="relative">
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Chapter / Topic</label>
@@ -224,7 +224,7 @@ JSON Format:
                       value={chapterInput}
                       onChange={e => { setChapterInput(e.target.value); setShowSuggestions(true); }}
                       onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]"
                       placeholder="Type any topic (e.g. Docker, Python...)"
                     />
                     {showSuggestions && filteredSuggestions.length > 0 && (
@@ -239,22 +239,22 @@ JSON Format:
                   </div>
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Difficulty</label>
-                    <select value={bankDiff} onChange={e => setBankDiff(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500">
+                    <select value={bankDiff} onChange={e => setBankDiff(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]">
                       {difficulties.map(d => <option key={d}>{d}</option>)}
                     </select>
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Description (Optional)</label>
-                    <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" placeholder="Brief description..." />
+                    <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]" placeholder="Brief description..." />
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Quick References (Optional)</label>
-                    <textarea value={quickReferences} onChange={e => setQuickReferences(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500 h-24 text-sm" placeholder="Title: Content (one per line)&#10;declare -r: Read-only variable&#10;declare -i: Integer attribute" />
+                    <textarea value={quickReferences} onChange={e => setQuickReferences(e.target.value)} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)] h-24 text-sm" placeholder="Title: Content (one per line)&#10;declare -r: Read-only variable&#10;declare -i: Integer attribute" />
                   </div>
                   <div className="md:col-span-2">
-                    <div className="flex items-center justify-between p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl">
+                    <div className="flex items-center justify-between p-4 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/20 rounded-2xl">
                       <div className="flex gap-3 items-center">
-                        <div className="p-2 bg-indigo-500/20 rounded-lg text-[var(--color-brand-primary)]">
+                        <div className="p-2 bg-[var(--color-brand-primary-container)]/20 rounded-lg text-[var(--color-brand-primary)]">
                            <CheckCircle2 size={16} />
                         </div>
                         <div>
@@ -266,12 +266,12 @@ JSON Format:
                         type="checkbox" 
                         checked={isOrgPublic} 
                         onChange={e => setIsOrgPublic(e.target.checked)} 
-                        className="w-5 h-5 accent-indigo-500 cursor-pointer" 
+                        className="w-5 h-5 accent-[var(--color-brand-primary)] cursor-pointer" 
                       />
                     </div>
                   </div>
                 </div>
-                <button onClick={() => { if (!bankName || !bankCourseId) { if (toast) toast.error('Bank Name and Course are required.'); return; } setStep(2); }} className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">
+                <button onClick={() => { if (!bankName || !bankCourseId) { if (toast) toast.error('Bank Name and Course are required.'); return; } setStep(2); }} className="w-full bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-[var(--color-brand-primary)]/20">
                   Next: Quiz Settings <ChevronRight size={18} />
                 </button>
               </div>
@@ -283,11 +283,11 @@ JSON Format:
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Time per Question (sec)</label>
-                    <input type="number" value={timePerQuestion} onChange={e => setTimePerQuestion(Math.max(5, parseInt(e.target.value) || 30))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" min={5} />
+                    <input type="number" value={timePerQuestion} onChange={e => setTimePerQuestion(Math.max(5, parseInt(e.target.value) || 30))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]" min={5} />
                   </div>
                   <div>
                     <label className="block text-xs text-[var(--color-on-surface-variant)] font-bold uppercase mb-1">Target Question Count</label>
-                    <input type="number" value={targetCount} onChange={e => setTargetCount(Math.max(1, parseInt(e.target.value) || 10))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500" min={1} />
+                    <input type="number" value={targetCount} onChange={e => setTargetCount(Math.max(1, parseInt(e.target.value) || 10))} className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)]" min={1} />
                     <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Used in the AI prompt in Step 3</p>
                   </div>
                 </div>
@@ -300,13 +300,13 @@ JSON Format:
                   ].map(({ label, sub, val, set }) => (
                     <div key={label} className="flex items-center justify-between p-4 bg-[var(--color-surface-container-high)]/60 rounded-xl border border-[var(--color-outline-variant)]">
                       <div><p className="font-bold text-[var(--color-on-surface)] text-sm">{label}</p><p className="text-xs text-[var(--color-on-surface-variant)] mt-0.5">{sub}</p></div>
-                      <input type="checkbox" checked={val} onChange={e => set(e.target.checked)} className="w-5 h-5 accent-indigo-500 cursor-pointer" />
+                      <input type="checkbox" checked={val} onChange={e => set(e.target.checked)} className="w-5 h-5 accent-[var(--color-brand-primary)] cursor-pointer" />
                     </div>
                   ))}
                 </div>
                 <div className="flex gap-3 pt-2">
                   <button onClick={() => setStep(1)} className="flex-1 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
-                  <button onClick={() => setStep(3)} className="flex-[2] bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">Next: Add Questions <ChevronRight size={18} /></button>
+                  <button onClick={() => setStep(3)} className="flex-[2] bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-[var(--color-brand-primary)]/20">Next: Add Questions <ChevronRight size={18} /></button>
                 </div>
               </div>
             )}
@@ -319,7 +319,7 @@ JSON Format:
                 <div className="bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-4">
                   <div className="flex justify-between items-center mb-2">
                     <p className="text-sm font-bold text-[var(--color-on-surface-variant)] flex items-center gap-2"><Upload size={14} className="text-[var(--color-brand-primary)]" /> AI Prompt Generator</p>
-                    <button type="button" onClick={handleCopyPrompt} className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-bold transition-all ${copyLabel === 'Copied!' ? 'bg-emerald-600 text-[var(--color-on-surface)]' : 'bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)]'}`}>
+                    <button type="button" onClick={handleCopyPrompt} className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-bold transition-all ${copyLabel === 'Copied!' ? 'bg-[var(--color-success)] text-[var(--color-surface-dim)]' : 'bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white'}`}>
                       {copyLabel === 'Copied!' ? <Check size={12} /> : <Copy size={12} />}{copyLabel}
                     </button>
                   </div>
@@ -335,7 +335,7 @@ JSON Format:
 
                 <div className="flex gap-3 pt-1">
                   <button onClick={() => setStep(2)} className="flex-1 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
-                  <button disabled={loading} onClick={handleSubmit} className="flex-[2] py-3 px-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 disabled:opacity-50">
+                  <button disabled={loading} onClick={handleSubmit} className="flex-[2] py-3 px-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white font-bold rounded-xl transition-all shadow-lg shadow-[var(--color-brand-primary)]/30 flex items-center justify-center gap-2 disabled:opacity-50">
                     {loading ? <Loader2 className="animate-spin" size={18} /> : <Plus size={18} />}
                     {loading ? 'Creating...' : 'Create Question Bank'}
                   </button>

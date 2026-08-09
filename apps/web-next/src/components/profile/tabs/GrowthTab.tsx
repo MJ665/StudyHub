@@ -64,7 +64,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
               <div className="pt-8 border-t border-[var(--color-outline-variant)]">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center text-[var(--color-brand-primary)]">
+                    <div className="w-12 h-12 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-2xl flex items-center justify-center text-[var(--color-brand-primary)]">
                       <BrainCircuit size={24} />
                     </div>
                     <div>
@@ -84,7 +84,7 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
 
                 {generatingAtlas ? (
                   <div className="p-20 flex flex-col items-center justify-center text-center bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-[var(--color-outline-variant)] border-dashed">
-                    <RefreshCcw size={48} className="text-indigo-500 animate-spin mb-6" />
+                    <RefreshCcw size={48} className="text-[var(--color-brand-primary)] animate-spin mb-6" />
                     <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight">Synthesizing AI Growth Intelligence</h3>
                     <p className="text-[var(--color-on-surface-variant)] text-sm max-w-xs leading-relaxed">Analyzing 30+ performance vectors, learning velocity, and competency trajectories...</p>
                   </div>
@@ -95,9 +95,9 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.04 }}
-                        className="p-6 bg-[var(--color-surface-container)]/60 rounded-[1.5rem] border border-[var(--color-outline-variant)] hover:border-indigo-500/30 transition-all group">
+                        className="p-6 bg-[var(--color-surface-container)]/60 rounded-[1.5rem] border border-[var(--color-outline-variant)] hover:border-[var(--color-brand-primary)]/30 transition-all group">
                         <div className="flex gap-4">
-                          <span className="text-[10px] font-black text-indigo-500 opacity-50 mt-1">{String(i + 1).padStart(2, '0')}</span>
+                          <span className="text-[10px] font-black text-[var(--color-brand-primary)] opacity-50 mt-1">{String(i + 1).padStart(2, '0')}</span>
                           <p className="text-sm font-medium text-[var(--color-on-surface-variant)] leading-relaxed group-hover:text-[var(--color-on-surface)] transition-colors">{point}</p>
                         </div>
                       </motion.div>
@@ -105,11 +105,11 @@ export default function GrowthTab({ ctx }: { ctx: ProfileTabCtx }) {
                   </div>
                 ) : (
                   <div className="p-20 text-center bg-[var(--color-surface-container)]/40 rounded-[2.5rem] border border-[var(--color-outline-variant)] border-dashed">
-                    <Map size={48} className="text-slate-800 mx-auto mb-6" />
+                    <Map size={48} className="text-[var(--color-on-surface-variant)] mx-auto mb-6" />
                     <h3 className="text-lg font-black text-[var(--color-on-surface)] mb-2">No Growth Atlas Generated</h3>
                     <p className="text-[var(--color-on-surface-variant)] text-sm mb-8">Click 'Sync Intel' to generate your 30-point pedagogical trajectory.</p>
                     <button onClick={() => handleSyncIntel()}
-                      className="px-8 py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all shadow-lg shadow-indigo-600/20">
+                      className="px-8 py-3 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-black text-sm transition-all shadow-lg shadow-[var(--color-brand-primary)]/20">
                       GENERATE ATLAS
                     </button>
                   </div>

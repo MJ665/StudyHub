@@ -1,10 +1,79 @@
 @import "tailwindcss";
 
 @theme {
-  /* Classic (default) — the original cool lavender/teal dark palette. These are
-     the compile-time token names Tailwind utilities reference (bg-surface-*,
-     text-on-surface, text-brand-primary, …). Runtime themes below override the
-     VALUES via [data-theme], so any token-based component re-themes for free. */
+  /* Navy Light (default) — white surfaces + navy/blue brand. These are the
+     compile-time token names Tailwind utilities reference (bg-surface-*,
+     text-on-surface, text-brand-primary, bg-success, …). Runtime themes below
+     override the VALUES via [data-theme], so any token-based component — and any
+     var()-based gradient — re-themes for free. */
+  --color-surface-dim: #e7ecf4;
+  --color-surface-container-low: #f1f4fa;
+  --color-surface-container: #ffffff;
+  --color-surface-container-high: #f5f7fb;
+  --color-surface-container-highest: #eaeef6;
+  --color-surface-bright: #ffffff;
+
+  --color-on-surface: #0f1e3d;           /* navy near-black text */
+  --color-on-surface-variant: #45536e;
+  --color-outline-variant: #c3cddd;      /* visible on white */
+
+  --color-brand-primary: #1e3a8a;        /* navy (readable on light) */
+  --color-brand-primary-container: #2563eb;
+  --color-brand-secondary: #0ea5e9;
+  --color-brand-tertiary: #1d4ed8;
+
+  /* Semantic status hues (kept meaningful per theme; light needs darker text). */
+  --color-success: #059669;
+  --color-success-container: #d1fae5;
+  --color-warning: #b45309;
+  --color-warning-container: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-container: #fee2e2;
+
+  /* Theme-aware gradients — use .bg-gradient-brand/-hero/-accent (below) or
+     bg-[image:var(--gradient-*)]. Redefined per theme so they never camouflage. */
+  --gradient-brand: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  --gradient-hero: linear-gradient(135deg, #e8f0ff 0%, #f5f9ff 50%, #eef4ff 100%);
+  --gradient-accent: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+}
+
+:root { color-scheme: light; }
+
+/* ── Navy · DARK ────────────────────────────────────────────────────────────
+   Deep navy-black surfaces + soft-white text + bright blue accent. */
+:root[data-theme="navy-dark"] {
+  color-scheme: dark;
+  --color-surface-dim: #0b1220;
+  --color-surface-container-low: #101a2e;
+  --color-surface-container: #131c30;
+  --color-surface-container-high: #1b2740;
+  --color-surface-container-highest: #223252;
+  --color-surface-bright: #2a3a5c;
+
+  --color-on-surface: #e8edf7;
+  --color-on-surface-variant: #9fb0cc;
+  --color-outline-variant: #2a3550;
+
+  --color-brand-primary: #93b4ff;        /* blue (readable on dark) */
+  --color-brand-primary-container: #3b82f6;
+  --color-brand-secondary: #38bdf8;
+  --color-brand-tertiary: #60a5fa;
+
+  --color-success: #34d399;
+  --color-success-container: #064e3b;
+  --color-warning: #fbbf24;
+  --color-warning-container: #451a03;
+  --color-danger: #f87171;
+  --color-danger-container: #450a0a;
+
+  --gradient-brand: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  --gradient-hero: linear-gradient(135deg, #0b1220 0%, #131c30 60%, #1b2740 100%);
+  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #38bdf8 100%);
+}
+
+/* ── Classic (optional) — the original cool lavender/teal dark palette. ────── */
+:root[data-theme="classic"] {
+  color-scheme: dark;
   --color-surface-dim: #0c1324;
   --color-surface-container-low: #151b2d;
   --color-surface-container: #191f31;
@@ -20,51 +89,25 @@
   --color-brand-primary-container: #8083ff;
   --color-brand-secondary: #4edea3;
   --color-brand-tertiary: #ffb2b7;
-}
 
-/* ── Warm Minimalism · DARK ─────────────────────────────────────────────────
-   Near-black warm neutrals + a single terracotta accent. */
-:root[data-theme="warm-dark"] {
-  color-scheme: dark;
-  --color-surface-dim: #14100c;
-  --color-surface-container-low: #1c1712;
-  --color-surface-container: #241d16;
-  --color-surface-container-high: #2e251c;
-  --color-surface-container-highest: #3a2f24;
-  --color-surface-bright: #47392c;
+  --color-success: #4edea3;
+  --color-success-container: #0c3b2e;
+  --color-warning: #fcd34d;
+  --color-warning-container: #3a2f0c;
+  --color-danger: #ffb2b7;
+  --color-danger-container: #3f1a1d;
 
-  --color-on-surface: #f6f0e8;
-  --color-on-surface-variant: #cbbba9;
-  --color-outline-variant: #4a3e32;
-
-  --color-brand-primary: #e0a184;        /* terracotta (readable on dark) */
-  --color-brand-primary-container: #c9764f;
-  --color-brand-secondary: #e0a06a;
-  --color-brand-tertiary: #e8b4a0;
-}
-
-/* ── Warm Minimalism · LIGHT ────────────────────────────────────────────────
-   Warm off-white (never pure white) + terracotta accent. */
-:root[data-theme="warm-light"] {
-  color-scheme: light;
-  --color-surface-dim: #ece5db;
-  --color-surface-container-low: #f5f0e8;
-  --color-surface-container: #faf7f1;    /* warm off-white */
-  --color-surface-container-high: #efe8dd;
-  --color-surface-container-highest: #e5dccd;
-  --color-surface-bright: #ffffff;
-
-  --color-on-surface: #2b2119;           /* warm near-black text */
-  --color-on-surface-variant: #6c5d4d;
-  --color-outline-variant: #d9ccbb;
-
-  --color-brand-primary: #b6602f;        /* terracotta (readable on light) */
-  --color-brand-primary-container: #9c4f22;
-  --color-brand-secondary: #a06a3a;
-  --color-brand-tertiary: #c9764f;
+  --gradient-brand: linear-gradient(135deg, #8083ff 0%, #6366f1 100%);
+  --gradient-hero: linear-gradient(135deg, #0c1324 0%, #191f31 100%);
+  --gradient-accent: linear-gradient(135deg, #8083ff 0%, #4edea3 100%);
 }
 
 @layer base {
+  /* Theme-aware gradient helpers (values swap per [data-theme]). */
+  .bg-gradient-brand { background-image: var(--gradient-brand); }
+  .bg-gradient-hero { background-image: var(--gradient-hero); }
+  .bg-gradient-accent { background-image: var(--gradient-accent); }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
@@ -72,11 +115,11 @@
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: var(--color-outline-variant);
     border-radius: 10px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: var(--color-on-surface-variant);
   }
 
   /* Material Symbols Outlined — used in sidebar nav + bank card icons */

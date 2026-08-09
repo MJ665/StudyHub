@@ -61,8 +61,8 @@ export default function QuestionReportUI() {
   };
   const TYPE_COLOR: Record<string, string> = {
     question: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-    kt_document: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-    coding_question: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    kt_document: 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border-[var(--color-brand-primary)]/20',
+    coding_question: 'bg-[var(--color-warning)]/10 text-[var(--color-warning)] border-[var(--color-warning)]/20',
   };
 
   // ── Inline edit of the reported question ──
@@ -117,7 +117,7 @@ export default function QuestionReportUI() {
     <div className="flex-1 flex flex-col h-full bg-[var(--color-surface-dim)]/50 rounded-[3rem] border border-[var(--color-outline-variant)] overflow-hidden">
       <header className="p-8 border-b border-[var(--color-outline-variant)] flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 text-rose-400 mb-2">
+          <div className="flex items-center gap-2 text-[var(--color-danger)] mb-2">
             <AlertTriangle size={18} />
             <span className="font-black uppercase tracking-[0.2em] text-[10px]">Data Integrity Audit</span>
           </div>
@@ -133,7 +133,7 @@ export default function QuestionReportUI() {
               placeholder="Search reports..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-1 focus:ring-rose-500/50 transition-all w-64"
+              className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-6 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-danger)]/50 transition-all w-64"
             />
           </div>
 
@@ -156,7 +156,7 @@ export default function QuestionReportUI() {
       <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
         {loading ? (
           <div className="h-full flex flex-col items-center justify-center space-y-4">
-            <Loader2 className="animate-spin text-rose-500" size={40} />
+            <Loader2 className="animate-spin text-[var(--color-danger)]" size={40} />
             <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Scanning Report Cluster...</p>
           </div>
         ) : filteredReports.length === 0 ? (
@@ -173,7 +173,7 @@ export default function QuestionReportUI() {
                 key={report.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-3xl p-6 hover:border-rose-500/20 transition-all group"
+                className="bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-3xl p-6 hover:border-[var(--color-danger)]/20 transition-all group"
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex items-center gap-3">
@@ -188,11 +188,11 @@ export default function QuestionReportUI() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border ${TYPE_COLOR[report.content_type] || 'bg-slate-500/10 text-[var(--color-on-surface-variant)] border-slate-500/20'}`}>
+                    <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border ${TYPE_COLOR[report.content_type] || 'bg-[var(--color-surface-container-high)]/10 text-[var(--color-on-surface-variant)] border-[var(--color-outline-variant)]/20'}`}>
                       {TYPE_LABEL[report.content_type] || report.content_type}
                     </span>
                     <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest ${
-                      report.status === 'pending' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                      report.status === 'pending' ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20' : 'bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20'
                     }`}>
                       {report.status}
                     </span>
@@ -200,13 +200,13 @@ export default function QuestionReportUI() {
                 </div>
 
                 <div className="bg-[var(--color-surface-dim)]/50 rounded-2xl p-5 mb-6 border border-[var(--color-outline-variant)]">
-                  <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-2">Reported Content</p>
+                  <p className="text-[10px] font-black text-[var(--color-danger)] uppercase tracking-widest mb-2">Reported Content</p>
                   <p className="text-sm text-[var(--color-on-surface-variant)] font-medium leading-relaxed italic mb-4 break-words">"{report.content_title || 'Untitled'}"</p>
 
-                  <div className="flex gap-4 p-4 bg-rose-500/5 rounded-xl border border-rose-500/10">
-                    <AlertTriangle size={16} className="text-rose-500 shrink-0" />
+                  <div className="flex gap-4 p-4 bg-[var(--color-danger)]/5 rounded-xl border border-[var(--color-danger)]/10">
+                    <AlertTriangle size={16} className="text-[var(--color-danger)] shrink-0" />
                     <div className="min-w-0">
-                      <p className="text-xs font-black text-rose-400 uppercase tracking-widest mb-1">Issue: {report.issue_type}</p>
+                      <p className="text-xs font-black text-[var(--color-danger)] uppercase tracking-widest mb-1">Issue: {report.issue_type}</p>
                       <p className="text-xs text-[var(--color-on-surface-variant)] break-words">{report.description || 'No additional description provided.'}</p>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default function QuestionReportUI() {
                   {report.content_type === 'question' ? (
                     <button
                       onClick={() => openEdit(report)}
-                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)] hover:text-indigo-300 transition-all"
+                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] transition-all"
                     >
                       <Edit3 size={14} /> Edit Question
                     </button>
@@ -232,7 +232,7 @@ export default function QuestionReportUI() {
                       </button>
                       <button
                         onClick={() => handleResolve(report, 'resolved')}
-                        className="px-4 py-2 bg-emerald-600 text-[var(--color-on-surface)] rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-600/20 hover:scale-105 active:scale-95 transition-all"
+                        className="px-4 py-2 bg-[var(--color-success)] text-[var(--color-surface-dim)] rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[var(--color-success)]/20 hover:scale-105 active:scale-95 transition-all"
                       >
                         Mark Resolved
                       </button>
@@ -259,19 +259,19 @@ export default function QuestionReportUI() {
               </div>
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Question</label>
               <textarea value={editText} onChange={(e) => setEditText(e.target.value)} rows={3}
-                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Options (one per line)</label>
               <textarea value={editOptions} onChange={(e) => setEditOptions(e.target.value)} rows={4}
-                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Correct Answer</label>
               <input value={editAnswer} onChange={(e) => setEditAnswer(e.target.value)}
-                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
               <div className="flex flex-wrap justify-end gap-2">
                 <button disabled={savingEdit} onClick={() => setEditing(null)} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
                 <button disabled={savingEdit} onClick={() => saveEdit(false)} className="px-4 py-2 rounded-xl bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] text-xs font-bold border border-[var(--color-outline-variant)]">
                   {savingEdit ? <Loader2 size={14} className="animate-spin" /> : 'Save'}
                 </button>
-                <button disabled={savingEdit} onClick={() => saveEdit(true)} className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)] text-xs font-bold">
+                <button disabled={savingEdit} onClick={() => saveEdit(true)} className="px-4 py-2 rounded-xl bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)] text-xs font-bold">
                   Save & Resolve
                 </button>
               </div>

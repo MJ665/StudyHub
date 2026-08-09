@@ -94,12 +94,12 @@ export default function CertificateSignaturePanel() {
         <div>
           <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Signatory name</label>
           <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Dr. Asha Rao"
-            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-indigo-500/50" />
+            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
         </div>
         <div>
           <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Title</label>
           <input value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Head of Learning &amp; Development"
-            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-indigo-500/50" />
+            className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-3 py-2.5 text-sm text-[var(--color-on-surface)] outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
         </div>
       </div>
 
@@ -118,11 +118,11 @@ export default function CertificateSignaturePanel() {
       </div>
 
       <button onClick={save} disabled={saving}
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] text-sm font-bold disabled:opacity-50">
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white text-sm font-bold disabled:opacity-50">
         {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />} Save signatory
       </button>
       {!signatureUrl && (
-        <p className="text-[11px] text-amber-400/80 mt-3 flex items-center gap-1.5"><CheckCircle2 size={12} /> Certificates still generate without a signature — the block falls back cleanly.</p>
+        <p className="text-[11px] text-[var(--color-warning)]/80 mt-3 flex items-center gap-1.5"><CheckCircle2 size={12} /> Certificates still generate without a signature — the block falls back cleanly.</p>
       )}
     </div>
   );

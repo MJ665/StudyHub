@@ -88,8 +88,8 @@ export default function LDAdminDashboard({
     return (
       <div className="min-h-screen bg-[var(--color-surface-dim)] flex flex-col items-center justify-center p-8">
         <div className="relative mb-8">
-          <ShieldAlert size={64} className="text-amber-500 animate-pulse" />
-          <div className="absolute -inset-4 bg-amber-500/20 blur-2xl rounded-full -z-10" />
+          <ShieldAlert size={64} className="text-[var(--color-warning)] animate-pulse" />
+          <div className="absolute -inset-4 bg-[var(--color-warning)]/20 blur-2xl rounded-full -z-10" />
         </div>
         <h1 className="text-2xl font-black text-[var(--color-on-surface)] uppercase tracking-tighter mb-2">No Cohort Assigned</h1>
         <p className="text-on-surface-variant text-sm max-w-md text-center font-medium">
@@ -97,7 +97,7 @@ export default function LDAdminDashboard({
         </p>
         <button
           onClick={() => onLogout?.()}
-          className="mt-8 px-8 py-4 bg-[var(--color-brand-primary-container)] rounded-xl text-[var(--color-on-surface)] font-black text-xs uppercase tracking-widest hover:bg-indigo-500 transition-all active:scale-95 shadow-lg shadow-indigo-500/20"
+          className="mt-8 px-8 py-4 bg-[var(--color-brand-primary-container)] rounded-xl text-white font-black text-xs uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)] transition-all active:scale-95 shadow-lg shadow-[var(--color-brand-primary)]/20"
         >
           Logout & Reset
         </button>
@@ -555,7 +555,7 @@ export default function LDAdminDashboard({
           >
             <Building2 size={16} /> New Organization
           </button>
-          <button onClick={() => setView('onboarding')} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'onboarding' ? 'bg-brand-primary text-slate-950 shadow-lg shadow-brand-primary/20' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>
+          <button onClick={() => setView('onboarding')} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'onboarding' ? 'bg-brand-primary text-[var(--color-surface-dim)] shadow-lg shadow-brand-primary/20' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>
             <Upload size={16} /> Bulk Integration
           </button>
           <button
@@ -563,7 +563,7 @@ export default function LDAdminDashboard({
               setNodeDetails({ type: 'ORG_ADMIN', id: 0, name: 'System Admin' });
               setView('addUser');
             }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'addUser' ? 'bg-emerald-600 text-[var(--color-on-surface)] shadow-lg shadow-emerald-500/20' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${view === 'addUser' ? 'bg-[var(--color-success)] text-[var(--color-surface-dim)] shadow-lg shadow-[var(--color-success)]/20' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
           >
             <Plus size={16} /> Add User
           </button>
@@ -662,7 +662,7 @@ export default function LDAdminDashboard({
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
-                  className={`px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-brand-primary text-slate-950 shadow-lg' : 'text-on-surface-variant hover:text-[var(--color-on-surface)]'
+                  className={`px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-brand-primary text-[var(--color-surface-dim)] shadow-lg' : 'text-on-surface-variant hover:text-[var(--color-on-surface)]'
                     }`}
                 >
                   {tab}
@@ -737,8 +737,8 @@ export default function LDAdminDashboard({
             <SystemHealthPanel stats={stats} />
           </div>
 
-          <div id="role-override-tool" className="bg-[var(--color-brand-primary-container)]/10 border border-indigo-500/30 rounded-[2rem] p-8 shadow-inner relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500 opacity-10 blur-3xl pointer-events-none" />
+          <div id="role-override-tool" className="bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/30 rounded-[2rem] p-8 shadow-inner relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-brand-primary-container)] opacity-10 blur-3xl pointer-events-none" />
             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--color-brand-primary)] mb-6 flex items-center gap-2">
               <ShieldCheck size={16} /> Role Override
             </h4>
@@ -748,12 +748,12 @@ export default function LDAdminDashboard({
                 placeholder="Entity ID"
                 value={promoteId}
                 onChange={e => setPromoteId(e.target.value)}
-                className="bg-[var(--color-surface-container)] border border-indigo-500/20 rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-brand-primary)]/20 rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
               />
               <select
                 value={promoteRole}
                 onChange={e => setPromoteRole(e.target.value)}
-                className="bg-[var(--color-surface-container)] border border-indigo-500/20 rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-brand-primary)]/20 rounded-xl px-4 py-3 text-xs text-[var(--color-on-surface)] outline-none"
               >
                 <option>Mentor</option>
                 {user?.role === 'LDAdmin' && (
@@ -786,7 +786,7 @@ export default function LDAdminDashboard({
                     setProcessing(false);
                   }
                 }}
-                className="w-full bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] p-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-[var(--color-brand-primary-container)] text-white p-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {processing ? <><Loader2 size={12} className="animate-spin" /> Processing...</> : 'Execute Promotion'}
               </button>

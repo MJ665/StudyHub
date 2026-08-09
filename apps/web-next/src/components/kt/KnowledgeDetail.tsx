@@ -162,7 +162,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
   if (loading) {
     return (
       <div className="h-[600px] flex items-center justify-center">
-        <Loader2 className="animate-spin text-indigo-500" size={48} />
+        <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={48} />
       </div>
     );
   }
@@ -191,7 +191,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
             </button>
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
-                <span className="px-2 py-0.5 bg-indigo-500/10 text-[var(--color-brand-primary)] text-[10px] font-black rounded border border-indigo-500/20 uppercase tracking-widest">
+                <span className="px-2 py-0.5 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[10px] font-black rounded border border-[var(--color-brand-primary)]/20 uppercase tracking-widest">
                   {doc.doc_type}
                 </span>
                 <span className="px-2 py-0.5 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black rounded border border-[var(--color-outline-variant)] uppercase tracking-widest">
@@ -209,7 +209,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               {((doc as any).can_edit) && (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="mb-6 flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-indigo-500/30 rounded-xl font-bold text-xs transition-all"
+                  className="mb-6 flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30 rounded-xl font-bold text-xs transition-all"
                 >
                   <FileText size={14} /> Edit Document
                 </button>
@@ -248,10 +248,10 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
           <div className="space-y-3">
             <button 
               onClick={onEndorse}
-              className="w-full flex items-center justify-between px-6 py-4 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-all group"
+              className="w-full flex items-center justify-between px-6 py-4 rounded-2xl bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20 hover:bg-[var(--color-warning)]/20 transition-all group"
             >
               <div className="flex items-center gap-3">
-                <Star size={18} className="group-hover:fill-amber-400 transition-all" />
+                <Star size={18} className="group-hover:fill-[var(--color-warning)] transition-all" />
                 <span className="font-bold">Endorse Document</span>
               </div>
               <span className="text-xs opacity-60 font-black">{doc.endorsement_count || 0}</span>
@@ -267,12 +267,12 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               kind="kt_document"
               targetId={doc.id}
               label="Report an issue"
-              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]/50 hover:bg-rose-500/10 hover:text-rose-400 transition-all font-bold"
+              className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]/50 hover:bg-[var(--color-danger)]/10 hover:text-[var(--color-danger)] transition-all font-bold"
             />
             {isAdmin && (
               <button 
                 onClick={handleDeprecate}
-                className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-all"
+                className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20 hover:bg-[var(--color-danger)]/20 transition-all"
               >
                 <Trash2 size={18} />
                 <span className="font-bold">Deprecate Document</span>
@@ -300,16 +300,16 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
             <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] flex items-center gap-2">
               <Paperclip size={12} className="text-[var(--color-brand-primary)]" /> Attachments
             </h3>
-            <label className="cursor-pointer p-2 rounded-lg bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20 hover:bg-indigo-500/20 transition-all">
+            <label className="cursor-pointer p-2 rounded-lg bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20 hover:bg-[var(--color-brand-primary-container)]/20 transition-all">
               <Plus size={16} />
               <input type="file" className="hidden" onChange={handleFileUpload} disabled={uploading} />
             </label>
           </div>
 
           {uploading && (
-            <div className="flex items-center gap-3 p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl mb-4 animate-pulse">
+            <div className="flex items-center gap-3 p-4 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/20 rounded-2xl mb-4 animate-pulse">
               <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={16} />
-              <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-widest">Uploading to Cloud...</span>
+              <span className="text-[10px] font-bold text-[var(--color-brand-primary)] uppercase tracking-widest">Uploading to Cloud...</span>
             </div>
           )}
 
@@ -326,7 +326,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
                     <p className="text-xs font-bold text-[var(--color-on-surface)] truncate pr-4" title={att.filename}>{att.filename}</p>
                     <button 
                       onClick={() => handleDeleteAttachment(att.id)}
-                      className="opacity-0 group-hover:opacity-100 p-1.5 text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all"
+                      className="opacity-0 group-hover:opacity-100 p-1.5 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-all"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -340,7 +340,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
                         {att.file_type === 'application/pdf' || att.filename.toLowerCase().endsWith('.pdf') ? (
                           <button 
                             onClick={() => setPreviewPdf(att)}
-                            className="flex items-center gap-1.5 text-[9px] font-black text-rose-400 uppercase tracking-widest hover:text-rose-300"
+                            className="flex items-center gap-1.5 text-[9px] font-black text-[var(--color-danger)] uppercase tracking-widest hover:text-[var(--color-danger)]"
                           >
                             <FileText size={12} /> Preview
                           </button>
@@ -349,7 +349,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
                           href={att.download_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-[9px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest hover:text-indigo-300"
+                          className="flex items-center gap-1.5 text-[9px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest hover:text-[var(--color-brand-primary)]"
                         >
                           <Download size={12} /> Download
                         </a>

@@ -50,7 +50,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             className="relative bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] max-w-md w-full shadow-2xl"
           >
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${
-              actualType === 'danger' ? 'bg-rose-500/10 text-rose-400' : 'bg-amber-500/10 text-amber-400'
+              actualType === 'danger' ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]' : 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]'
             }`}>
               <AlertTriangle size={24} />
             </div>
@@ -66,7 +66,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               <button
                 onClick={onConfirm}
                 className={`flex-1 py-3 px-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all text-[var(--color-on-surface)] shadow-lg ${
-                  actualType === 'danger' ? 'bg-rose-600 hover:bg-rose-500 shadow-rose-600/20' : 'bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 shadow-indigo-600/20'
+                  actualType === 'danger' ? 'bg-[var(--color-danger)] hover:bg-[var(--color-danger)] shadow-[var(--color-danger)]/20' : 'bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] shadow-[var(--color-brand-primary)]/20'
                 }`}
               >
                 {confirmText}

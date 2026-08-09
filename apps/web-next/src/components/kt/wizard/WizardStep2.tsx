@@ -57,14 +57,14 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                       <input 
                         type="text"
                         placeholder="Add technology (e.g. PostgreSQL, Redis, FastAPI)..."
-                        className="flex-1 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-[var(--color-on-surface)] placeholder:text-slate-800"
+                        className="flex-1 bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-lg text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                         value={tagInput}
                         onChange={e => setTagInput(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && addListItem('tech_stack', tagInput, setTagInput)}
                       />
                       <button 
                         onClick={() => addListItem('tech_stack', tagInput, setTagInput)}
-                        className="px-10 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-[1.5rem] font-black tracking-tight transition-all shadow-lg shadow-indigo-500/20"
+                        className="px-10 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-[1.5rem] font-black tracking-tight transition-all shadow-lg shadow-[var(--color-brand-primary)]/20"
                       >
                         ADD
                       </button>
@@ -80,10 +80,10 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                           <motion.span 
                             layout
                             key={tag}
-                            className="px-6 py-3 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl text-sm font-black text-[var(--color-on-surface-variant)] flex items-center gap-3 group hover:border-indigo-500/50 transition-all shadow-sm"
+                            className="px-6 py-3 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl text-sm font-black text-[var(--color-on-surface-variant)] flex items-center gap-3 group hover:border-[var(--color-brand-primary)]/50 transition-all shadow-sm"
                           >
                             {tag}
-                            <button onClick={() => removeListItem('tech_stack', tag)} className="text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-colors">
+                            <button onClick={() => removeListItem('tech_stack', tag)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-colors">
                               <X size={16} />
                             </button>
                           </motion.span>
@@ -96,7 +96,7 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                     <div className="space-y-3">
                       <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Complexity</label>
                       <select 
-                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.25rem] p-5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
+                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.25rem] p-5 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
                         value={formData.complexity}
                         onChange={e => setFormData({...formData, complexity: e.target.value})}
                       >
@@ -108,7 +108,7 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                     <div className="space-y-3">
                       <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Access Level</label>
                       <select 
-                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.25rem] p-5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
+                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.25rem] p-5 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
                         value={formData.access_level}
                         onChange={e => setFormData({...formData, access_level: e.target.value})}
                       >
@@ -120,7 +120,7 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                     <div className="space-y-3">
                       <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Sensitivity</label>
                       <select 
-                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.25rem] p-5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
+                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.25rem] p-5 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
                         value={formData.sensitivity}
                         onChange={e => setFormData({...formData, sensitivity: e.target.value})}
                       >
@@ -131,7 +131,7 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between p-8 bg-indigo-500/5 border border-indigo-500/10 rounded-[2rem]">
+                  <div className="flex items-center justify-between p-8 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/10 rounded-[2rem]">
                     <div>
                       <h4 className="text-lg font-black text-[var(--color-on-surface)]">Evergreen Knowledge?</h4>
                       <p className="text-[var(--color-on-surface-variant)] text-sm font-medium mt-1">Is this information timeless (Architecture) or time-bound (Sprint Notes)?</p>

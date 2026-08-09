@@ -139,17 +139,17 @@ export default function LDAdminModals({ ctx }: { ctx: AdminTabCtx }) {
                         <div>
                           <div className="flex items-center gap-3 mb-2">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${
-                              task.status === 'COMPLETED' ? 'bg-emerald-500/20 text-emerald-400' :
-                              task.status === 'FAILED' ? 'bg-rose-500/20 text-rose-400' :
-                              task.status === 'RUNNING' ? 'bg-indigo-500/20 text-[var(--color-brand-primary)]' :
-                              'bg-amber-500/20 text-amber-400'
+                              task.status === 'COMPLETED' ? 'bg-[var(--color-success)]/20 text-[var(--color-success)]' :
+                              task.status === 'FAILED' ? 'bg-[var(--color-danger)]/20 text-[var(--color-danger)]' :
+                              task.status === 'RUNNING' ? 'bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)]' :
+                              'bg-[var(--color-warning)]/20 text-[var(--color-warning)]'
                             }`}>
                               {task.status || 'UNKNOWN'}
                             </span>
                             <span className="text-sm font-bold text-[var(--color-on-surface)]">{task.task_name}</span>
                           </div>
                           {task.error_message && (
-                            <p className="text-xs text-rose-400 font-mono bg-rose-500/5 p-2 rounded-lg border border-rose-500/10 mb-2">
+                            <p className="text-xs text-[var(--color-danger)] font-mono bg-[var(--color-danger)]/5 p-2 rounded-lg border border-[var(--color-danger)]/10 mb-2">
                               {task.error_message}
                             </p>
                           )}

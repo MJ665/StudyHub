@@ -52,20 +52,20 @@ export default function AssessmentResultPage() {
           <div
             className={`absolute inset-0 opacity-5 pointer-events-none ${
               accuracy >= 70
-                ? 'bg-gradient-to-br from-emerald-500 to-teal-500'
+                ? 'bg-gradient-to-br from-[var(--color-success)] to-[var(--color-success)]'
                 : accuracy >= 40
-                  ? 'bg-gradient-to-br from-amber-500 to-orange-500'
-                  : 'bg-gradient-to-br from-rose-500 to-pink-500'
+                  ? 'bg-gradient-to-br from-[var(--color-warning)] to-[var(--color-warning)]'
+                  : 'bg-gradient-to-br from-[var(--color-danger)] to-[var(--color-danger)]'
             }`}
           />
 
           <div
             className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl font-black border-4 ${
               accuracy >= 70
-                ? 'border-emerald-500 bg-emerald-900/20 text-emerald-400'
+                ? 'border-[var(--color-success)] bg-[var(--color-success)]/20 text-[var(--color-success)]'
                 : accuracy >= 40
-                  ? 'border-amber-500 bg-amber-900/20 text-amber-400'
-                  : 'border-rose-500 bg-rose-900/20 text-rose-400'
+                  ? 'border-[var(--color-warning)] bg-[var(--color-warning)]/20 text-[var(--color-warning)]'
+                  : 'border-[var(--color-danger)] bg-[var(--color-danger)]/20 text-[var(--color-danger)]'
             }`}
           >
             {accuracy}%
@@ -112,7 +112,7 @@ export default function AssessmentResultPage() {
             </button>
             <button
               onClick={() => router.push('/leaderboard')}
-              className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+              className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/30"
             >
               View Leaderboard <ChevronRight size={18} />
             </button>
@@ -128,8 +128,8 @@ export default function AssessmentResultPage() {
                   key={i}
                   className={`p-4 rounded-xl border text-sm ${
                     item.is_correct
-                      ? 'bg-emerald-900/10 border-emerald-500/20'
-                      : 'bg-rose-900/10 border-rose-500/20'
+                      ? 'bg-[var(--color-success)]/10 border-[var(--color-success)]/20'
+                      : 'bg-[var(--color-danger)]/10 border-[var(--color-danger)]/20'
                   }`}
                 >
                   <p className="text-[var(--color-on-surface-variant)] font-medium mb-2">
@@ -139,14 +139,14 @@ export default function AssessmentResultPage() {
                     <span
                       className={`text-xs font-bold px-2 py-1 rounded ${
                         item.is_correct
-                          ? 'bg-emerald-900/30 text-emerald-400'
-                          : 'bg-rose-900/30 text-rose-400'
+                          ? 'bg-[var(--color-success)]/30 text-[var(--color-success)]'
+                          : 'bg-[var(--color-danger)]/30 text-[var(--color-danger)]'
                       }`}
                     >
                       Your: {item.user_answer || 'Skipped'}
                     </span>
                     {!item.is_correct && (
-                      <span className="text-xs font-bold px-2 py-1 rounded bg-emerald-900/30 text-emerald-400">
+                      <span className="text-xs font-bold px-2 py-1 rounded bg-[var(--color-success)]/30 text-[var(--color-success)]">
                         Correct: {item.correct_answer}
                       </span>
                     )}

@@ -45,11 +45,11 @@ export function KPICard({ label, value, icon, color = 'indigo', sub }: {
   label: string; value: React.ReactNode; icon?: React.ReactNode; color?: string; sub?: string;
 }) {
   const colorMap: Record<string, string> = {
-    indigo: 'text-[var(--color-brand-primary)] bg-indigo-500/10',
-    violet: 'text-violet-400 bg-violet-500/10',
-    emerald: 'text-emerald-400 bg-emerald-500/10',
-    amber: 'text-amber-400 bg-amber-500/10',
-    rose: 'text-rose-400 bg-rose-500/10',
+    indigo: 'text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10',
+    violet: 'text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10',
+    emerald: 'text-[var(--color-success)] bg-[var(--color-success)]/10',
+    amber: 'text-[var(--color-warning)] bg-[var(--color-warning)]/10',
+    rose: 'text-[var(--color-danger)] bg-[var(--color-danger)]/10',
   };
   const cls = colorMap[color] || colorMap.indigo;
   return (

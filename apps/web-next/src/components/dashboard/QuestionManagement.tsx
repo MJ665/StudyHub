@@ -135,13 +135,13 @@ export default function QuestionManagement({ user }: { user: any }) {
           <div className="flex bg-[var(--color-surface-dim)] p-1 rounded-xl border border-[var(--color-outline-variant)]">
              <button 
                onClick={() => setActiveType('Quiz')}
-               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Quiz' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Quiz' ? 'bg-[var(--color-brand-primary-container)] text-white' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
              >
                Quiz Banks
              </button>
              <button 
                onClick={() => setActiveType('Coding')}
-               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Coding' ? 'bg-brand-primary text-slate-950' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+               className={`px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeType === 'Coding' ? 'bg-brand-primary text-[var(--color-surface-dim)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
              >
                Coding
              </button>
@@ -176,10 +176,10 @@ export default function QuestionManagement({ user }: { user: any }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8 group hover:border-indigo-500/30 transition-all flex items-center justify-between"
+                className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8 group hover:border-[var(--color-brand-primary)]/30 transition-all flex items-center justify-between"
               >
                 <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-indigo-500/20 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-2xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20 group-hover:scale-110 transition-transform">
                     <Database size={28} />
                   </div>
                   <div>
@@ -190,7 +190,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                         <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">{courses.find(c => c.id === bank.course_id)?.name || 'General'}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Layers size={12} className="text-indigo-500" />
+                        <Layers size={12} className="text-[var(--color-brand-primary)]" />
                         <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">Quiz Bank</span>
                       </div>
                     </div>
@@ -204,7 +204,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                   <button
                     onClick={() => handleDeleteBank(bank.id)}
                     disabled={isDeleting === bank.id}
-                    className="p-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all border border-rose-500/20"
+                    className="p-3 bg-[var(--color-danger)]/10 hover:bg-[var(--color-danger)]/20 text-[var(--color-danger)] rounded-xl transition-all border border-[var(--color-danger)]/20"
                   >
                     {isDeleting === bank.id ? <Loader2 size={18} className="animate-spin" /> : <Trash2 size={18} />}
                   </button>
@@ -247,7 +247,7 @@ export default function QuestionManagement({ user }: { user: any }) {
                   <button
                     onClick={() => handleDeleteCoding(q.id)}
                     disabled={isDeleting === q.id}
-                    className="p-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all border border-rose-500/20"
+                    className="p-3 bg-[var(--color-danger)]/10 hover:bg-[var(--color-danger)]/20 text-[var(--color-danger)] rounded-xl transition-all border border-[var(--color-danger)]/20"
                   >
                     {isDeleting === q.id ? <Loader2 size={18} className="animate-spin" /> : <Trash2 size={18} />}
                   </button>
@@ -295,12 +295,12 @@ export default function QuestionManagement({ user }: { user: any }) {
             <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-lg bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 shadow-2xl">
               <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-4"><Edit3 size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Edit {editItem.type === 'Quiz' ? 'Question Bank' : 'Coding Challenge'}</span></div>
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{editItem.type === 'Quiz' ? 'Bank name' : 'Title'}</label>
-              <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
               <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Description</label>
-              <textarea value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} rows={3} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-indigo-500/50" />
+              <textarea value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} rows={3} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-[var(--color-brand-primary)]/50" />
               <div className="flex justify-end gap-2">
                 <button disabled={savingEdit} onClick={() => setEditItem(null)} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
-                <button disabled={savingEdit} onClick={saveEdit} className="px-5 py-2 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] text-xs font-bold flex items-center gap-2">
+                <button disabled={savingEdit} onClick={saveEdit} className="px-5 py-2 rounded-xl bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white text-xs font-bold flex items-center gap-2">
                   {savingEdit ? <Loader2 size={14} className="animate-spin" /> : 'Save'}
                 </button>
               </div>

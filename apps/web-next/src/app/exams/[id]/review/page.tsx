@@ -73,7 +73,7 @@ function ProctorDetail({ attemptId }: { attemptId: number }) {
           <div className="flex gap-1 mt-2 flex-wrap">
             {data.videos.map((v, i) => (
               <button key={v.id} onClick={() => setVIdx(i)}
-                className={`text-[10px] px-2 py-1 rounded ${i === vIdx ? 'bg-emerald-600 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-bright)]'}`}>
+                className={`text-[10px] px-2 py-1 rounded ${i === vIdx ? 'bg-[var(--color-success)] text-[var(--color-surface-dim)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-bright)]'}`}>
                 {fmt(v.at)}
               </button>
             ))}
@@ -99,13 +99,13 @@ function ProctorDetail({ attemptId }: { attemptId: number }) {
       <div>
         <div className="text-xs uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Flag timeline ({data.flags.length})</div>
         {data.flags.length === 0 ? (
-          <div className="text-emerald-500/70 text-xs">No integrity flags.</div>
+          <div className="text-[var(--color-success)]/70 text-xs">No integrity flags.</div>
         ) : (
           <ul className="space-y-1">
             {data.flags.map((f) => (
               <li key={f.id} className="flex items-center gap-3 text-xs">
                 <span className="text-[var(--color-on-surface-variant)] font-mono w-20">{fmt(f.at)}</span>
-                <span className="text-amber-400 font-semibold">{f.event_type.replace(/_/g, ' ')}</span>
+                <span className="text-[var(--color-warning)] font-semibold">{f.event_type.replace(/_/g, ' ')}</span>
                 {f.detail && <span className="text-[var(--color-on-surface-variant)] truncate">{f.detail}</span>}
               </li>
             ))}
@@ -179,7 +179,7 @@ export default function ProctorReviewPage() {
                   URL.revokeObjectURL(url);
                 } catch { setError('Export failed'); }
               }}
-              className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-sm font-bold"
+              className="px-4 py-2 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] text-sm font-bold"
             >
               Export CSV
             </button>
@@ -187,7 +187,7 @@ export default function ProctorReviewPage() {
           </div>
         </header>
 
-        {error && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-4 text-sm mb-4">{error}</div>}
+        {error && <div className="rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-4 text-sm mb-4">{error}</div>}
 
         {stats && (
           <section className="mb-6 space-y-4">
@@ -215,7 +215,7 @@ export default function ProctorReviewPage() {
                   const max = Math.max(1, ...stats.scores.distribution.map((x) => x.count));
                   return (
                     <div key={b.range} className="flex-1 flex flex-col items-center justify-end gap-1">
-                      <div className="w-full bg-emerald-600/70 rounded-t" style={{ height: `${(b.count / max) * 100}%` }} title={`${b.count}`} />
+                      <div className="w-full bg-[var(--color-success)]/70 rounded-t" style={{ height: `${(b.count / max) * 100}%` }} title={`${b.count}`} />
                       <div className="text-[10px] text-[var(--color-on-surface-variant)]">{b.range}</div>
                       <div className="text-[10px] text-[var(--color-on-surface-variant)] font-bold">{b.count}</div>
                     </div>
@@ -236,7 +236,7 @@ export default function ProctorReviewPage() {
                       <li key={q.question_id} className="flex items-center gap-2 text-xs">
                         <span className="text-[var(--color-on-surface-variant)] w-6">Q{i + 1}</span>
                         <div className="flex-1 bg-[var(--color-surface-container-high)] rounded h-2 overflow-hidden">
-                          {!manual && <div className={`h-full ${(pct ?? 0) >= 60 ? 'bg-emerald-500' : (pct ?? 0) >= 30 ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${pct ?? 0}%` }} />}
+                          {!manual && <div className={`h-full ${(pct ?? 0) >= 60 ? 'bg-[var(--color-success)]' : (pct ?? 0) >= 30 ? 'bg-[var(--color-warning)]' : 'bg-[var(--color-danger)]'}`} style={{ width: `${pct ?? 0}%` }} />}
                         </div>
                         <span className="w-14 text-right text-[var(--color-on-surface-variant)]">{manual ? 'manual' : `${pct}%`}</span>
                       </li>
@@ -260,13 +260,13 @@ export default function ProctorReviewPage() {
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <span className="text-xs text-[var(--color-on-surface-variant)] mr-1">{selected.size} selected</span>
           <button disabled={busy || selected.size === 0} onClick={doRelease}
-            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold disabled:opacity-40">
+            className="px-3 py-1.5 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] text-xs font-bold disabled:opacity-40">
             Release results {selected.size ? `(${selected.size})` : ''}
           </button>
           <button disabled={busy || selected.size === 0} onClick={() => doMark('pass')}
-            className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-emerald-600/30 border border-[var(--color-outline-variant)] text-xs font-bold disabled:opacity-40">Force Pass</button>
+            className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-success)]/30 border border-[var(--color-outline-variant)] text-xs font-bold disabled:opacity-40">Force Pass</button>
           <button disabled={busy || selected.size === 0} onClick={() => doMark('fail')}
-            className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-rose-600/30 border border-[var(--color-outline-variant)] text-xs font-bold disabled:opacity-40">Force Fail</button>
+            className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-danger)]/30 border border-[var(--color-outline-variant)] text-xs font-bold disabled:opacity-40">Force Fail</button>
           <button disabled={busy || selected.size === 0} onClick={() => doMark('withhold')}
             className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] border border-[var(--color-outline-variant)] text-xs font-bold disabled:opacity-40">Withhold</button>
         </div>
@@ -285,7 +285,7 @@ export default function ProctorReviewPage() {
             <div key={a.id} className="border-b border-[var(--color-outline-variant)]/50">
               <div className="grid grid-cols-[32px_1fr_1fr_1fr_1fr_1fr] gap-2 px-4 py-2.5 text-sm items-center hover:bg-[var(--color-surface-container-high)]/40 transition-colors">
                 <input type="checkbox" checked={selected.has(a.id)} onChange={() => toggle(a.id)}
-                  disabled={a.status === 'in_progress'} className="accent-emerald-500" />
+                  disabled={a.status === 'in_progress'} className="accent-[var(--color-success)]" />
                 <button onClick={() => setExpanded(expanded === a.id ? null : a.id)} className="min-w-0 text-left">
                   <span className="block truncate font-semibold">{a.user_name || `User ${a.user_id}`}</span>
                   {a.user_email && <span className="block truncate text-xs text-[var(--color-on-surface-variant)]">{a.user_email}</span>}
@@ -293,13 +293,13 @@ export default function ProctorReviewPage() {
                 <span className="text-[var(--color-on-surface-variant)]">{a.status}</span>
                 <span>{a.score != null ? `${a.score}/${a.total}` : '—'}</span>
                 <span className="flex flex-col">
-                  <span className={verdict === 'pass' ? 'text-emerald-400' : verdict === 'fail' ? 'text-rose-400' : 'text-[var(--color-on-surface-variant)]'}>
+                  <span className={verdict === 'pass' ? 'text-[var(--color-success)]' : verdict === 'fail' ? 'text-[var(--color-danger)]' : 'text-[var(--color-on-surface-variant)]'}>
                     {verdict == null ? '—' : verdict === 'pass' ? 'Pass' : 'Fail'}
                   </span>
-                  <span className={`text-[10px] ${rs === 'released' ? 'text-emerald-500/70' : rs === 'withheld' ? 'text-amber-500/70' : 'text-[var(--color-on-surface-variant)]'}`}>{rs}</span>
+                  <span className={`text-[10px] ${rs === 'released' ? 'text-[var(--color-success)]/70' : rs === 'withheld' ? 'text-[var(--color-warning)]/70' : 'text-[var(--color-on-surface-variant)]'}`}>{rs}</span>
                 </span>
                 <button onClick={() => setExpanded(expanded === a.id ? null : a.id)}
-                  className={`text-left ${a.flags > 0 ? 'text-amber-400 font-bold' : 'text-[var(--color-on-surface-variant)]'}`}>
+                  className={`text-left ${a.flags > 0 ? 'text-[var(--color-warning)] font-bold' : 'text-[var(--color-on-surface-variant)]'}`}>
                   {a.flags > 0 ? `⚠ ${a.flags}` : '0'} <span className="text-[var(--color-on-surface-variant)]">{expanded === a.id ? '▲' : '▼'}</span>
                 </button>
               </div>

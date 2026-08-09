@@ -31,8 +31,8 @@ import SystemHealthMonitor from '../dashboard/SystemHealthMonitor';
 
 export function StatCard({ icon, label, value, trend, color }: any) {
   const colors: any = {
-    indigo: 'bg-indigo-500/10 border-indigo-500/20 text-[var(--color-brand-primary)]',
-    emerald: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
+    indigo: 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)]',
+    emerald: 'bg-[var(--color-success)]/10 border-[var(--color-success)]/20 text-[var(--color-success)]',
   };
   return (
     <div className={`p-8 rounded-[2.5rem] border ${colors[color]} shadow-xl flex items-center justify-between`}>
@@ -72,20 +72,20 @@ export function OrgNode({ org, expanded, onToggle, onAdd, onEdit, onDelete, onAc
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onDelete({ type: 'Org', id: org.id, name: org.name }); }}
-            className="p-3 bg-rose-500/10 text-rose-400 rounded-xl hover:bg-rose-500 hover:text-[var(--color-on-surface)] transition-all"
+            className="p-3 bg-[var(--color-danger)]/10 text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger)] hover:text-[var(--color-on-surface)] transition-all"
             title="Delete Organization"
           >
             <Trash2 size={18} />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onAction('MANDATE', org.id, org.name, 'Organization'); }}
-            className="p-3 bg-brand-primary/10 text-brand-primary rounded-xl hover:bg-brand-primary hover:text-slate-950 transition-all"
+            className="p-3 bg-brand-primary/10 text-brand-primary rounded-xl hover:bg-brand-primary hover:text-[var(--color-surface-dim)] transition-all"
             title="Assign Mandate"
           >
             <Target size={20} />
           </button>
           <div className="w-px h-8 bg-[var(--color-surface-container-high)] mx-1" />
-          <button onClick={(e) => { e.stopPropagation(); onAdd({ type: 'Dept', parentId: org.id }); }} className="p-3 bg-brand-primary/10 text-brand-primary rounded-xl hover:bg-brand-primary hover:text-slate-950 transition-all">
+          <button onClick={(e) => { e.stopPropagation(); onAdd({ type: 'Dept', parentId: org.id }); }} className="p-3 bg-brand-primary/10 text-brand-primary rounded-xl hover:bg-brand-primary hover:text-[var(--color-surface-dim)] transition-all">
             <Plus size={20} />
           </button>
           {expanded ? <ChevronDown size={24} className="text-on-surface-variant" /> : <ChevronRight size={24} className="text-on-surface-variant" />}
@@ -136,25 +136,25 @@ export function DeptNode({ dept, expanded, onToggle, onAdd, onEdit, onDelete, on
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onDelete({ type: 'Dept', id: dept.id, name: dept.name }); }}
-            className="p-2 text-rose-500/50 hover:text-rose-400 transition-all"
+            className="p-2 text-[var(--color-danger)]/50 hover:text-[var(--color-danger)] transition-all"
             title="Delete Department"
           >
             <Trash2 size={14} />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onAction('MANDATE', dept.id, dept.name, 'Department'); }}
-            className="p-2 bg-brand-primary/10 text-brand-primary rounded-lg hover:bg-brand-primary hover:text-slate-950 transition-all"
+            className="p-2 bg-brand-primary/10 text-brand-primary rounded-lg hover:bg-brand-primary hover:text-[var(--color-surface-dim)] transition-all"
             title="Assign Mandate"
           >
             <Target size={16} />
           </button>
           <div className="w-px h-4 bg-[var(--color-surface-container-high)] mx-1" />
-          <button onClick={(e) => { e.stopPropagation(); onAdd({ type: 'Vertical', parentId: dept.id }); }} className="p-2 bg-indigo-500/10 text-[var(--color-brand-primary)] rounded-lg"><Plus size={16} /></button>
+          <button onClick={(e) => { e.stopPropagation(); onAdd({ type: 'Vertical', parentId: dept.id }); }} className="p-2 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] rounded-lg"><Plus size={16} /></button>
           {expanded ? <ChevronDown size={18} className="text-[var(--color-on-surface-variant)]" /> : <ChevronRight size={18} className="text-[var(--color-on-surface-variant)]" />}
         </div>
       </div>
       {expanded && (
-        <div className="px-6 pb-4 pt-2 space-y-4 border-l-2 border-indigo-500/20 ml-6">
+        <div className="px-6 pb-4 pt-2 space-y-4 border-l-2 border-[var(--color-brand-primary)]/20 ml-6">
           {dept.verticals.map((v: any) => (
             <div key={v.id} className="space-y-4">
               <div className="flex items-center justify-between">
@@ -168,7 +168,7 @@ export function DeptNode({ dept, expanded, onToggle, onAdd, onEdit, onDelete, on
                   </button>
                   <button
                     onClick={() => onDelete({ type: 'Vertical', id: v.id, name: v.name })}
-                    className="text-rose-900 hover:text-rose-500"
+                    className="text-[var(--color-danger)] hover:text-[var(--color-danger)]"
                   >
                     <Trash2 size={12} />
                   </button>
@@ -180,7 +180,7 @@ export function DeptNode({ dept, expanded, onToggle, onAdd, onEdit, onDelete, on
                     <Target size={12} />
                   </button>
                 </div>
-                <button onClick={() => onAdd({ type: 'Batch', parentId: v.id })} className="text-amber-500 hover:text-amber-400"><Plus size={14} /></button>
+                <button onClick={() => onAdd({ type: 'Batch', parentId: v.id })} className="text-[var(--color-warning)] hover:text-[var(--color-warning)]"><Plus size={14} /></button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {v.batches.map((b: any) => (
@@ -188,9 +188,9 @@ export function DeptNode({ dept, expanded, onToggle, onAdd, onEdit, onDelete, on
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest">{b.name}</p>
+                          <p className="text-[10px] font-black text-[var(--color-warning)] uppercase tracking-widest">{b.name}</p>
                           <button onClick={() => onEdit({ type: 'Batch', id: b.id, name: b.name })} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]"><Settings size={10} /></button>
-                          <button onClick={() => onDelete({ type: 'Batch', id: b.id, name: b.name })} className="text-rose-900 hover:text-rose-700"><Trash2 size={10} /></button>
+                          <button onClick={() => onDelete({ type: 'Batch', id: b.id, name: b.name })} className="text-[var(--color-danger)] hover:text-[var(--color-danger)]"><Trash2 size={10} /></button>
                         </div>
                         <p className="text-[8px] text-[var(--color-on-surface-variant)] font-bold uppercase mt-1">Cohort Managed</p>
                       </div>
@@ -198,12 +198,12 @@ export function DeptNode({ dept, expanded, onToggle, onAdd, onEdit, onDelete, on
                         <button
                           title="Assign Mandate"
                           onClick={() => onAction('MANDATE', b.id, b.name, 'Batch')}
-                          className="p-1.5 bg-brand-primary/10 text-brand-primary rounded-lg hover:bg-brand-primary hover:text-slate-950 transition-all"
+                          className="p-1.5 bg-brand-primary/10 text-brand-primary rounded-lg hover:bg-brand-primary hover:text-[var(--color-surface-dim)] transition-all"
                         >
                           <Target size={14} />
                         </button>
                         <button onClick={() => b.id ? (onViewReport ? onViewReport(b.id) : window.open(`/api/reports/batch/${b.id}/summary`, '_blank')) : null} className="p-1.5 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] rounded-lg hover:text-[var(--color-on-surface)] transition-all"><TrendingUp size={14} /></button>
-                        <button onClick={() => onAdd({ type: 'Group', parentId: b.id })} className="p-1.5 bg-emerald-500/10 text-emerald-400 rounded-lg transition-all"><Plus size={14} /></button>
+                        <button onClick={() => onAdd({ type: 'Group', parentId: b.id })} className="p-1.5 bg-[var(--color-success)]/10 text-[var(--color-success)] rounded-lg transition-all"><Plus size={14} /></button>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -215,17 +215,17 @@ export function DeptNode({ dept, expanded, onToggle, onAdd, onEdit, onDelete, on
                             onAction('GROUP_SELECT', g.id, g.name);
                           }}
                           className={`px-4 py-2 rounded-2xl flex items-center gap-3 cursor-pointer transition-all border ${nodeDetails?.id === g.id
-                            ? 'bg-brand-primary text-slate-950 border-brand-primary shadow-lg shadow-brand-primary/20'
+                            ? 'bg-brand-primary text-[var(--color-surface-dim)] border-brand-primary shadow-lg shadow-brand-primary/20'
                             : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-brand-primary/30 hover:text-[var(--color-on-surface)]'
                             }`}
                         >
-                          <div className={`w-2 h-2 rounded-full ${nodeDetails?.id === g.id ? 'bg-[var(--color-surface-dim)]' : 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]'}`} />
+                          <div className={`w-2 h-2 rounded-full ${nodeDetails?.id === g.id ? 'bg-[var(--color-surface-dim)]' : 'bg-[var(--color-success)] shadow-[0_0_6px_rgba(52,211,153,0.5)]'}`} />
                           <span className="text-[10px] font-black uppercase tracking-widest">{g.name}</span>
 
                           {nodeDetails?.id === g.id ? (
-                            <div className="flex items-center gap-1.5 ml-2 border-l border-slate-950/20 pl-2">
+                            <div className="flex items-center gap-1.5 ml-2 border-l border-[var(--color-outline-variant)]/20 pl-2">
                               <button title="Edit Group" onClick={(e) => { e.stopPropagation(); onEdit({ type: 'Group', id: g.id, name: g.name }); }} className="hover:scale-110 transition-transform"><Settings size={12} /></button>
-                              <button title="Delete Group" onClick={(e) => { e.stopPropagation(); onDelete({ type: 'Group', id: g.id, name: g.name }); }} className="hover:scale-110 transition-transform text-rose-900 hover:text-rose-500"><Trash2 size={12} /></button>
+                              <button title="Delete Group" onClick={(e) => { e.stopPropagation(); onDelete({ type: 'Group', id: g.id, name: g.name }); }} className="hover:scale-110 transition-transform text-[var(--color-danger)] hover:text-[var(--color-danger)]"><Trash2 size={12} /></button>
                               <div className="w-px h-3 bg-[var(--color-surface-dim)]/20 mx-0.5" />
                               <button title="Add Member" onClick={(e) => { e.stopPropagation(); onAction('MEMBER_ADD', g.id, g.name); }} className="hover:scale-110 transition-transform"><UserPlus size={12} /></button>
                               <button title="Add Mentor" onClick={(e) => { e.stopPropagation(); onAction('MENTOR_ADD', g.id, g.name); }} className="hover:scale-110 transition-transform"><ShieldCheck size={12} /></button>
@@ -297,7 +297,7 @@ export function SystemHealthPanel({ stats }: { stats: any }) {
       <div className="space-y-3">
         <h5 className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest border-b border-surface-bright pb-2 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Activity size={12} className="text-emerald-400" /> Infrastructure Nodes
+            <Activity size={12} className="text-[var(--color-success)]" /> Infrastructure Nodes
           </div>
           <button
             onClick={async () => {
@@ -320,7 +320,7 @@ export function SystemHealthPanel({ stats }: { stats: any }) {
             <div key={key} className="p-3 bg-surface-dim rounded-xl border border-surface-bright flex items-center justify-between">
               <p className="text-[9px] text-[var(--color-on-surface-variant)] font-black uppercase">{label}</p>
               <div className="text-[10px] font-bold text-[var(--color-on-surface)] flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full ${isOk ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]' : status === 'Checking...' ? 'bg-amber-400 animate-pulse' : 'bg-rose-400'}`} />
+                <div className={`w-2 h-2 rounded-full ${isOk ? 'bg-[var(--color-success)] shadow-[0_0_6px_rgba(52,211,153,0.5)]' : status === 'Checking...' ? 'bg-[var(--color-warning)] animate-pulse' : 'bg-[var(--color-danger)]'}`} />
                 {status}
               </div>
             </div>
@@ -344,7 +344,7 @@ export function SystemHealthPanel({ stats }: { stats: any }) {
           </div>
         ) : (
           Object.entries(tasks).map(([name, data]: [string, any]) => (
-            <div key={name} className="p-3 bg-surface-dim rounded-xl border border-surface-bright group hover:border-indigo-500/30 transition-all">
+            <div key={name} className="p-3 bg-surface-dim rounded-xl border border-surface-bright group hover:border-[var(--color-brand-primary)]/30 transition-all">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[9px] text-[var(--color-brand-primary)] font-black uppercase tracking-tighter truncate max-w-[150px]">{name.replace(/_/g, ' ')}</p>
                 <button
@@ -358,7 +358,7 @@ export function SystemHealthPanel({ stats }: { stats: any }) {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
-                  <div className={`w-1.5 h-1.5 rounded-full ${data.status === 'success' ? 'bg-emerald-500' : 'bg-rose-500'}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full ${data.status === 'success' ? 'bg-[var(--color-success)]' : 'bg-[var(--color-danger)]'}`} />
                   <p className="text-[10px] text-[var(--color-on-surface)] font-bold">{data.runs} runs</p>
                 </div>
                 <div className="flex items-center gap-1 text-[var(--color-on-surface-variant)]">
@@ -387,8 +387,8 @@ export function PerformanceMetricGrid({ metrics }: { metrics: any }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {Object.entries(metrics).map(([key, data]: [string, any]) => {
-        const typeColor = data.type === 'quantitative' ? 'text-[var(--color-brand-primary)]' : data.type === 'qualitative' ? 'text-purple-400' : 'text-amber-400';
-        const bgColor = data.type === 'quantitative' ? 'bg-indigo-500/5' : data.type === 'qualitative' ? 'bg-purple-500/5' : 'bg-amber-500/5';
+        const typeColor = data.type === 'quantitative' ? 'text-[var(--color-brand-primary)]' : data.type === 'qualitative' ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-warning)]';
+        const bgColor = data.type === 'quantitative' ? 'bg-[var(--color-brand-primary-container)]/5' : data.type === 'qualitative' ? 'bg-[var(--color-brand-primary-container)]/5' : 'bg-[var(--color-warning)]/5';
 
         return (
           <div key={key} className={`${bgColor} border border-[var(--color-outline-variant)] rounded-2xl p-4 hover:border-[var(--color-outline-variant)] transition-all group relative overflow-hidden`}>
@@ -409,7 +409,7 @@ export function PerformanceMetricGrid({ metrics }: { metrics: any }) {
             {data.raw !== undefined && (
               <div className="mt-3 w-full h-1 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                 <div
-                  className={`h-full ${data.type === 'quantitative' ? 'bg-indigo-500' : 'bg-purple-500'} rounded-full transition-all duration-1000 shadow-[0_0_8px_rgba(99,102,241,0.4)]`}
+                  className={`h-full ${data.type === 'quantitative' ? 'bg-[var(--color-brand-primary-container)]' : 'bg-[var(--color-brand-primary-container)]'} rounded-full transition-all duration-1000 shadow-[0_0_8px_rgba(99,102,241,0.4)]`}
                   style={{ width: `${Math.min(100, Math.max(0, data.raw))}%` }}
                 />
               </div>

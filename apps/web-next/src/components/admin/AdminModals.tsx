@@ -34,7 +34,7 @@ export function ResourceModal({ type, initialName = '', onClose, onSubmit, mode 
   return (
     <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-md z-[130] flex items-center justify-center p-6">
       <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-10 rounded-[3rem] w-full max-w-sm shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary to-indigo-600" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-brand" />
         <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">{mode === 'CREATE' ? 'Initialize' : 'Modify'} {type}</h3>
         <p className="text-[10px] text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest mb-10">Strategic Structural Governance</p>
 
@@ -54,7 +54,7 @@ export function ResourceModal({ type, initialName = '', onClose, onSubmit, mode 
           <button
             onClick={() => onSubmit(name)}
             disabled={!name.trim() || name === initialName}
-            className="flex-1 py-4 bg-brand-primary text-slate-950 rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-brand-primary/20 hover:brightness-110 disabled:opacity-30 disabled:grayscale transition-all"
+            className="flex-1 py-4 bg-brand-primary text-[var(--color-surface-dim)] rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-brand-primary/20 hover:brightness-110 disabled:opacity-30 disabled:grayscale transition-all"
           >
             {mode === 'CREATE' ? 'Execute' : 'Update'}
           </button>
@@ -67,24 +67,24 @@ export function ResourceModal({ type, initialName = '', onClose, onSubmit, mode 
 
 export function DeleteModal({ type, name, onClose, onConfirm, processing }: any) {
   return (
-    <div className="fixed inset-0 bg-rose-950/20 backdrop-blur-xl z-[140] flex items-center justify-center p-6">
-      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-rose-500/30 p-10 rounded-[3rem] w-full max-w-sm shadow-2xl relative overflow-hidden text-center">
-        <div className="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
+    <div className="fixed inset-0 bg-[var(--color-danger)]/20 backdrop-blur-xl z-[140] flex items-center justify-center p-6">
+      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-[var(--color-danger)]/30 p-10 rounded-[3rem] w-full max-w-sm shadow-2xl relative overflow-hidden text-center">
+        <div className="w-20 h-20 bg-[var(--color-danger)]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[var(--color-danger)]">
           <ShieldAlert size={40} />
         </div>
         <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Purge Request</h3>
-        <p className="text-[10px] text-rose-400 font-black uppercase tracking-[0.2em] mb-6">Irreversible Registry Deletion</p>
+        <p className="text-[10px] text-[var(--color-danger)] font-black uppercase tracking-[0.2em] mb-6">Irreversible Registry Deletion</p>
 
-        <div className="p-6 bg-rose-500/5 rounded-3xl border border-rose-500/10 mb-8">
+        <div className="p-6 bg-[var(--color-danger)]/5 rounded-3xl border border-[var(--color-danger)]/10 mb-8">
           <p className="text-sm text-[var(--color-on-surface-variant)]">Are you certain you want to purge <span className="text-[var(--color-on-surface)] font-bold">{name}</span> ({type}) from the organizational hierarchy?</p>
-          <p className="text-[10px] text-rose-500 font-black uppercase tracking-widest mt-4">All downstream dependencies will be lost.</p>
+          <p className="text-[10px] text-[var(--color-danger)] font-black uppercase tracking-widest mt-4">All downstream dependencies will be lost.</p>
         </div>
 
         <div className="flex flex-col gap-3">
           <button
             disabled={processing}
             onClick={onConfirm}
-            className="w-full py-5 bg-rose-600 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-rose-900/40 hover:bg-rose-500 transition-all flex items-center justify-center gap-3"
+            className="w-full py-5 bg-[var(--color-danger)] text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-[var(--color-danger)]/40 hover:bg-[var(--color-danger)] transition-all flex items-center justify-center gap-3"
           >
             {processing ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
             Confirm Purge
@@ -118,29 +118,29 @@ export function BulkAddModal({ onClose, onSubmit, tree, currentUser }: any) {
   return (
     <div className="fixed inset-0 bg-[var(--color-surface-dim)]/90 backdrop-blur-xl z-[130] flex items-center justify-center p-6">
       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-10 rounded-[3.5rem] w-full max-w-2xl shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-500 shadow-[0_0_20px_rgba(99,102,241,0.5)]" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--color-brand-primary-container)] shadow-[0_0_20px_rgba(99,102,241,0.5)]" />
         <h3 className="text-3xl font-black text-[var(--color-on-surface)] mb-2">Bulk Onboarding Protocol</h3>
         <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mb-10">Cross-Organization Network Bridging</p>
         <div className="space-y-8">
           <div>
             <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2">Operational Node Target</label>
             {isGroupAdmin ? (
-              <div className="w-full bg-[var(--color-surface-dim)]/50 border border-indigo-500/30 rounded-2xl p-4 text-[var(--color-brand-primary)] font-bold flex items-center gap-2">
+              <div className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-brand-primary)]/30 rounded-2xl p-4 text-[var(--color-brand-primary)] font-bold flex items-center gap-2">
                 <Shield size={14} /> {groups.find(g => String(g.id) === String(groupId))?.name || 'Authorized Scoped Context'}
               </div>
             ) : (
-              <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all">
+              <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/30 transition-all">
                 <option value="">Select Target Sync Point...</option>
                 {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
               </select>
             )}
           </div>
-          <div className="flex items-center p-4 bg-indigo-500/5 rounded-2xl border border-indigo-500/10">
+          <div className="flex items-center p-4 bg-[var(--color-brand-primary-container)]/5 rounded-2xl border border-[var(--color-brand-primary)]/10">
             <p className="text-[10px] text-[var(--color-brand-primary)] leading-relaxed font-bold">Each account receives individual credentials by email after onboarding.</p>
           </div>
           <div>
             <label className="block text-[10px] font-black uppercase text-[var(--color-on-surface-variant)] mb-2">Directory Registry (Format: Full Name, email@host.com)</label>
-            <textarea value={csvText} onChange={(e) => setCsvText(e.target.value)} className="w-full h-48 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-xs resize-none outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all" placeholder="John Wick, baba.yaga@continental.com" />
+            <textarea value={csvText} onChange={(e) => setCsvText(e.target.value)} className="w-full h-48 bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-3xl p-6 text-[var(--color-on-surface)] font-mono text-xs resize-none outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/30 transition-all" placeholder="John Wick, baba.yaga@continental.com" />
           </div>
           <div className="flex gap-4">
             <button onClick={onClose} className="flex-1 py-5 font-black uppercase tracking-widest text-xs text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors">Cancel Protocol</button>
@@ -151,7 +151,7 @@ export function BulkAddModal({ onClose, onSubmit, tree, currentUser }: any) {
                 return { full_name: n, email: e, role: 'Member' };
               });
               onSubmit(parseInt(groupId), users);
-            }} disabled={!groupId || !csvText.trim()} className="flex-1 py-5 bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] rounded-[2rem] font-black uppercase tracking-widest text-xs shadow-xl shadow-indigo-600/30 hover:bg-indigo-500 transition-all">Begin Synchronization</button>
+            }} disabled={!groupId || !csvText.trim()} className="flex-1 py-5 bg-[var(--color-brand-primary-container)] text-white rounded-[2rem] font-black uppercase tracking-widest text-xs shadow-xl shadow-[var(--color-brand-primary)]/30 hover:bg-[var(--color-brand-primary-container)] transition-all">Begin Synchronization</button>
           </div>
         </div>
       </motion.div>
@@ -208,7 +208,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
             <div>
               <h3 className="text-4xl font-black text-[var(--color-on-surface)] mb-2">{user.full_name}</h3>
               <div className="flex gap-2">
-                <span className="px-3 py-1 rounded-lg bg-indigo-500/10 text-[var(--color-brand-primary)] text-[10px] font-black uppercase tracking-widest border border-indigo-500/20">Access: {user.role}</span>
+                <span className="px-3 py-1 rounded-lg bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[10px] font-black uppercase tracking-widest border border-[var(--color-brand-primary)]/20">Access: {user.role}</span>
                 <span className="px-3 py-1 rounded-lg bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest border border-[var(--color-outline-variant)]">GID: #{user.group_id}</span>
               </div>
             </div>
@@ -289,14 +289,14 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
 
               {/* Activity Timeline Trace */}
               <div className="bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8">
-                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-6">Activity Symmetry Trace (Last 30 Cycles)</p>
+                <p className="text-[10px] font-black text-[var(--color-success)] uppercase tracking-[0.2em] mb-6">Activity Symmetry Trace (Last 30 Cycles)</p>
                 <div className="flex items-end justify-between h-20 gap-1 px-2">
                   {(insights.metrics.timeline || []).map((d: any, i: number) => (
                     <div key={i} className="flex-1 group relative">
                       <motion.div
                         initial={{ height: 0 }}
                         animate={{ height: `${Math.min((d.activity || 0) * 20, 100)}%` }}
-                        className={`w-full rounded-t-sm ${(d.activity || 0) > 0 ? 'bg-emerald-500/40 hover:bg-emerald-400 border-x border-emerald-500/20' : 'bg-[var(--color-surface-container-high)]'}`}
+                        className={`w-full rounded-t-sm ${(d.activity || 0) > 0 ? 'bg-[var(--color-success)]/40 hover:bg-[var(--color-success)] border-x border-[var(--color-success)]/20' : 'bg-[var(--color-surface-container-high)]'}`}
                       />
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-2 rounded-lg text-[8px] text-[var(--color-on-surface)] whitespace-nowrap z-10 shadow-2xl">
                         {d.date}: {d.activity || 0} Intels
@@ -317,7 +317,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                   <button
                     onClick={handleGenerateAtlas}
                     disabled={generatingAtlas}
-                    className="bg-brand-primary/10 hover:bg-brand-primary hover:text-slate-950 text-brand-primary px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all border border-brand-primary/20 disabled:opacity-50"
+                    className="bg-brand-primary/10 hover:bg-brand-primary hover:text-[var(--color-surface-dim)] text-brand-primary px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all border border-brand-primary/20 disabled:opacity-50"
                   >
                     {generatingAtlas ? (
                       <div className="flex items-center gap-1.5">
@@ -353,11 +353,11 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                 <div className="flex items-center justify-between mb-6">
                   <p className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Neural Execution Logs (Last 25 Fragments)</p>
                   <div className="flex gap-2">
-                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[8px] font-bold text-[var(--color-brand-primary)]">
-                      <div className="w-1 h-1 rounded-full bg-indigo-400 animate-pulse" /> QUIZ
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 text-[8px] font-bold text-[var(--color-brand-primary)]">
+                      <div className="w-1 h-1 rounded-full bg-[var(--color-brand-primary-container)] animate-pulse" /> QUIZ
                     </div>
-                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[8px] font-bold text-emerald-400">
-                      <div className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" /> CODE
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 text-[8px] font-bold text-[var(--color-success)]">
+                      <div className="w-1 h-1 rounded-full bg-[var(--color-success)] animate-pulse" /> CODE
                     </div>
                   </div>
                 </div>
@@ -366,7 +366,7 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
                   {Array.isArray(insights.raw_logs) && insights.raw_logs.map((log: any, i: number) => (
                     <div key={i} className="flex items-center justify-between p-4 bg-[var(--color-surface-container-high)] rounded-2xl border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] transition-all group">
                       <div className="flex items-center gap-4">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[8px] ${log.type === 'QUIZ' ? 'bg-indigo-500/20 text-[var(--color-brand-primary)]' : 'bg-emerald-500/20 text-emerald-400'
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[8px] ${log.type === 'QUIZ' ? 'bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)]' : 'bg-[var(--color-success)]/20 text-[var(--color-success)]'
                           }`}>
                           {log.type}
                         </div>
@@ -430,7 +430,7 @@ export function CreationModal({ type, onClose, onSubmit }: { type: string, onClo
           <button
             disabled={!name.trim()}
             onClick={() => onSubmit(name)}
-            className="flex-1 py-4 bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] rounded-2xl font-black disabled:opacity-50"
+            className="flex-1 py-4 bg-[var(--color-brand-primary-container)] text-white rounded-2xl font-black disabled:opacity-50"
           >
             Create
           </button>

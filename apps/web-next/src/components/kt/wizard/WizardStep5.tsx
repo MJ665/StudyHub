@@ -48,7 +48,7 @@ export default function WizardStep5({ ctx }: { ctx: WizardCtx }) {
                 <div className="h-full flex flex-col space-y-6">
                   <div className="flex justify-between items-center px-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
+                      <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center border border-[var(--color-brand-primary)]/20">
                         <Terminal size={20} className="text-[var(--color-brand-primary)]" />
                       </div>
                       <h4 className="text-xl font-black text-[var(--color-on-surface)] uppercase tracking-wider">Engineering Log</h4>
@@ -57,13 +57,13 @@ export default function WizardStep5({ ctx }: { ctx: WizardCtx }) {
                       <div className="flex bg-[var(--color-surface-container)]/50 p-1 rounded-2xl border border-[var(--color-outline-variant)] mr-4">
                         <button 
                           onClick={() => setEditorMode('edit')}
-                          className={`px-6 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${editorMode === 'edit' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-500/20' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+                          className={`px-6 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${editorMode === 'edit' ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                         >
                           <Edit3 size={14} /> WRITE
                         </button>
                         <button 
                           onClick={() => setEditorMode('preview')}
-                          className={`px-6 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${editorMode === 'preview' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg shadow-indigo-500/20' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+                          className={`px-6 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${editorMode === 'preview' ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                         >
                           <Eye size={14} /> PREVIEW
                         </button>
@@ -77,7 +77,7 @@ export default function WizardStep5({ ctx }: { ctx: WizardCtx }) {
                       <button 
                         onClick={handleAIAssistant}
                         disabled={isAILoading}
-                        className={`px-6 py-2 rounded-full text-[10px] font-black transition-all flex items-center gap-2 shadow-lg ${isAILoading ? 'bg-[var(--color-brand-primary-container)]/50 text-[var(--color-on-surface)]/50 cursor-not-allowed shadow-none' : 'bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] shadow-indigo-500/20'}`}
+                        className={`px-6 py-2 rounded-full text-[10px] font-black transition-all flex items-center gap-2 shadow-lg ${isAILoading ? 'bg-[var(--color-brand-primary-container)]/50 text-white/50 cursor-not-allowed shadow-none' : 'bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white shadow-[var(--color-brand-primary)]/20'}`}
                       >
                         {isAILoading ? (
                           <>
@@ -128,16 +128,16 @@ export default function WizardStep5({ ctx }: { ctx: WizardCtx }) {
                       <div className="flex-1 bg-[var(--color-surface-dim)]/80 border border-[var(--color-outline-variant)] rounded-[3rem] p-12 overflow-y-auto scrollbar-hide shadow-inner">
                         <article className="prose prose-invert prose-slate max-w-none 
                           prose-headings:font-black prose-headings:tracking-tighter prose-headings:text-[var(--color-on-surface)]
-                          prose-h1:text-5xl prose-h1:mb-8 prose-h1:bg-gradient-to-r prose-h1:from-white prose-h1:to-slate-500 prose-h1:bg-clip-text prose-h1:text-transparent
+                          prose-h1:text-5xl prose-h1:mb-8 prose-h1:bg-gradient-to-r prose-h1:from-[var(--color-on-surface)] prose-h1:to-[var(--color-on-surface-variant)] prose-h1:bg-clip-text prose-h1:text-transparent
                           prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-4 prose-h2:border-b prose-h2:border-[var(--color-outline-variant)]
                           prose-p:text-[var(--color-on-surface-variant)] prose-p:leading-relaxed prose-p:text-lg
                           prose-strong:text-[var(--color-on-surface)] prose-strong:font-black
-                          prose-code:text-[var(--color-brand-primary)] prose-code:bg-indigo-500/10 prose-code:px-2 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+                          prose-code:text-[var(--color-brand-primary)] prose-code:bg-[var(--color-brand-primary-container)]/10 prose-code:px-2 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
                           prose-a:text-[var(--color-brand-primary)] prose-a:no-underline hover:prose-a:underline
                           prose-img:rounded-[2rem] prose-img:border prose-img:border-[var(--color-outline-variant)]
                           prose-pre:bg-[var(--color-surface-container)] prose-pre:border prose-pre:border-[var(--color-outline-variant)] prose-pre:rounded-[2rem] prose-pre:p-8
-                          prose-li:text-[var(--color-on-surface-variant)] prose-li:marker:text-indigo-500
-                          prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-500/5 prose-blockquote:px-8 prose-blockquote:py-1 prose-blockquote:rounded-r-2xl
+                          prose-li:text-[var(--color-on-surface-variant)] prose-li:marker:text-[var(--color-brand-primary)]
+                          prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-brand-primary)] prose-blockquote:bg-[var(--color-brand-primary-container)]/5 prose-blockquote:px-8 prose-blockquote:py-1 prose-blockquote:rounded-r-2xl
                         ">
                           <ReactMarkdown remarkPlugins={[remarkGfm]}>
                             {formData.body_markdown || '*No content yet. Start writing in the editor to see it here.*'}

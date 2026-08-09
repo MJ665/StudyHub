@@ -24,8 +24,8 @@ export function renderQuestionText(text: string): React.ReactNode {
           return (
             <code
               key={i}
-              className="bg-slate-700/60 px-2 py-0.5 rounded-md text-indigo-300
-                         font-mono text-[0.9em] border border-slate-600/40 inline-block"
+              className="bg-[var(--color-surface-container)]/60 px-2 py-0.5 rounded-md text-[var(--color-brand-primary)]
+                         font-mono text-[0.9em] border border-[var(--color-outline-variant)]/40 inline-block"
             >
               {code}
             </code>

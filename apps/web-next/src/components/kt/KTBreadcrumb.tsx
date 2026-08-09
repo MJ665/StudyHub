@@ -39,7 +39,7 @@ export default function KTBreadcrumb() {
   };
 
   return (
-    <div className="flex items-center gap-2.5 px-8 py-4 border-b border-slate-900 bg-[var(--color-surface-dim)]/40 backdrop-blur-md text-xs font-semibold text-[var(--color-on-surface-variant)] overflow-x-auto scrollbar-hide select-none">
+    <div className="flex items-center gap-2.5 px-8 py-4 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-dim)]/40 backdrop-blur-md text-xs font-semibold text-[var(--color-on-surface-variant)] overflow-x-auto scrollbar-hide select-none">
       
       {/* Organization Root */}
       <button 

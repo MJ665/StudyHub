@@ -58,15 +58,15 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
       >
         {/* Header Decoration */}
         <div className={`h-2 w-full ${
-          assignment.is_completed ? 'bg-emerald-500' : 
-          isOverdue ? 'bg-rose-500' : 'bg-indigo-500'
+          assignment.is_completed ? 'bg-[var(--color-success)]' : 
+          isOverdue ? 'bg-[var(--color-danger)]' : 'bg-[var(--color-brand-primary-container)]'
         }`} />
 
         <div className="p-10">
           <div className="flex justify-between items-start mb-8">
             <div className="flex items-center gap-4">
               <div className={`p-4 rounded-2xl ${
-                assignment.assignment_type === 'quiz' ? 'bg-indigo-500/10 text-[var(--color-brand-primary)]' : 'bg-violet-500/10 text-violet-400'
+                assignment.assignment_type === 'quiz' ? 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]' : 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]'
               }`}>
                 {assignment.assignment_type === 'quiz' ? <BrainCircuit size={28} /> : <Code size={28} />}
               </div>
@@ -77,8 +77,8 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
                     Directive Protocol
                   </span>
                   <span className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                    assignment.is_completed ? 'bg-emerald-500/10 text-emerald-400' : 
-                    isOverdue ? 'bg-rose-500/10 text-rose-400' : 'bg-indigo-500/10 text-[var(--color-brand-primary)]'
+                    assignment.is_completed ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' : 
+                    isOverdue ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]' : 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]'
                   }`}>
                     {assignment.is_completed ? 'Success' : isOverdue ? 'Delayed' : 'Pending'}
                   </span>
@@ -99,7 +99,7 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
                 <Calendar size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest">Deadline</span>
               </div>
-              <p className={`text-sm font-bold ${isOverdue ? 'text-rose-400' : 'text-[var(--color-on-surface)]'}`}>
+              <p className={`text-sm font-bold ${isOverdue ? 'text-[var(--color-danger)]' : 'text-[var(--color-on-surface)]'}`}>
                 {assignment.due_date ? new Date(assignment.due_date).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }) : 'Indefinite'}
               </p>
             </div>
@@ -136,9 +136,9 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
             </div>
 
             {assignment.lock_after_due && (
-              <div className="flex items-center gap-3 p-4 bg-rose-500/5 border border-rose-500/10 rounded-2xl">
-                <Lock size={16} className="text-rose-500" />
-                <p className="text-xs font-bold text-rose-500/80 uppercase tracking-widest">
+              <div className="flex items-center gap-3 p-4 bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/10 rounded-2xl">
+                <Lock size={16} className="text-[var(--color-danger)]" />
+                <p className="text-xs font-bold text-[var(--color-danger)]/80 uppercase tracking-widest">
                   Hard Deadline: Access will be terminated immediately after expiration.
                 </p>
               </div>
@@ -153,17 +153,17 @@ export default function AssignmentDetailModal({ assignment, onClose, onStart }: 
               Back to Registry
             </button>
             {assignment.is_completed ? (
-              <div className="flex-1 py-4 bg-emerald-500/20 text-emerald-400 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-2 border border-emerald-500/20">
+              <div className="flex-1 py-4 bg-[var(--color-success)]/20 text-[var(--color-success)] rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-2 border border-[var(--color-success)]/20">
                 Protocol Satisfied <ShieldCheck size={14} />
               </div>
             ) : !canAttempt ? (
-              <div className="flex-1 py-4 bg-rose-500/20 text-rose-500 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-2 border border-rose-500/20">
+              <div className="flex-1 py-4 bg-[var(--color-danger)]/20 text-[var(--color-danger)] rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-2 border border-[var(--color-danger)]/20">
                 Access Terminated <Lock size={14} />
               </div>
             ) : (
               <button
                 onClick={() => onStart(assignment)}
-                className="flex-1 py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2 group"
+                className="flex-1 py-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl shadow-[var(--color-brand-primary)]/20 flex items-center justify-center gap-2 group"
               >
                 Initiate Engagement <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>

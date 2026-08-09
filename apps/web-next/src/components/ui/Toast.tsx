@@ -34,23 +34,23 @@ export const useToast = () => {
 function ToastItem({ toast: t, onClose }: { toast: Toast; onClose: () => void }) {
   const styles: Record<ToastType, { bg: string; border: string; icon: React.ReactNode }> = {
     success: {
-      bg: 'bg-emerald-900/60',
-      border: 'border-emerald-500/40',
-      icon: <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
+      bg: 'bg-[var(--color-success)]/60',
+      border: 'border-[var(--color-success)]/40',
+      icon: <CheckCircle2 size={18} className="text-[var(--color-success)] shrink-0" />
     },
     error: {
-      bg: 'bg-rose-900/60',
-      border: 'border-rose-500/40',
-      icon: <XCircle size={18} className="text-rose-400 shrink-0" />
+      bg: 'bg-[var(--color-danger)]/60',
+      border: 'border-[var(--color-danger)]/40',
+      icon: <XCircle size={18} className="text-[var(--color-danger)] shrink-0" />
     },
     warning: {
-      bg: 'bg-amber-900/60',
-      border: 'border-amber-500/40',
-      icon: <AlertCircle size={18} className="text-amber-400 shrink-0" />
+      bg: 'bg-[var(--color-warning)]/60',
+      border: 'border-[var(--color-warning)]/40',
+      icon: <AlertCircle size={18} className="text-[var(--color-warning)] shrink-0" />
     },
     info: {
-      bg: 'bg-indigo-900/60',
-      border: 'border-indigo-500/40',
+      bg: 'bg-[var(--color-brand-primary-container)]/60',
+      border: 'border-[var(--color-brand-primary)]/40',
       icon: <Info size={18} className="text-[var(--color-brand-primary)] shrink-0" />
     }
   };

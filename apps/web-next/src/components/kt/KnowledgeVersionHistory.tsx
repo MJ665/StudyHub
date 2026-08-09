@@ -43,7 +43,7 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
     <div className="flex flex-col h-full bg-[var(--color-surface-container)]/50 backdrop-blur-xl border-l border-[var(--color-outline-variant)]">
       <div className="p-6 border-b border-[var(--color-outline-variant)] flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20">
+          <div className="w-10 h-10 rounded-xl bg-[var(--color-warning)]/10 flex items-center justify-center text-[var(--color-warning)] border border-[var(--color-warning)]/20">
             <History size={20} />
           </div>
           <div>
@@ -62,7 +62,7 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
       <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
         {isLoading ? (
           <div className="h-full flex items-center justify-center">
-            <Loader2 className="animate-spin text-amber-500" size={32} />
+            <Loader2 className="animate-spin text-[var(--color-warning)]" size={32} />
           </div>
         ) : versions.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] text-center p-8">
@@ -78,7 +78,7 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => onSelectVersion?.(v)}
-              className="group p-5 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl cursor-pointer hover:border-amber-500/50 transition-all relative overflow-hidden"
+              className="group p-5 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl cursor-pointer hover:border-[var(--color-warning)]/50 transition-all relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                 <GitBranch size={48} />
@@ -86,7 +86,7 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
 
               <div className="flex justify-between items-start mb-4 relative z-10">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-1 bg-amber-500/10 text-amber-400 text-[10px] font-black rounded border border-amber-500/20 uppercase">
+                  <span className="px-2 py-1 bg-[var(--color-warning)]/10 text-[var(--color-warning)] text-[10px] font-black rounded border border-[var(--color-warning)]/20 uppercase">
                     v{v.version}
                   </span>
                   <span className="text-[10px] font-bold text-[var(--color-on-surface-variant)] flex items-center gap-1">
@@ -94,7 +94,7 @@ const KnowledgeVersionHistory = ({ docId, onClose, onSelectVersion }: KnowledgeV
                     {format(new Date(v.created_at), 'MMM dd, yyyy HH:mm')}
                   </span>
                 </div>
-                <ChevronRight size={16} className="text-[var(--color-on-surface-variant)] group-hover:text-amber-400 transition-colors" />
+                <ChevronRight size={16} className="text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-warning)] transition-colors" />
               </div>
 
               <p className="text-sm font-bold text-[var(--color-on-surface)] mb-3 line-clamp-2">{v.change_summary || 'No summary provided'}</p>

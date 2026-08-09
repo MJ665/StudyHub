@@ -8,10 +8,10 @@ interface GradeRow { user_id: number; user_name: string; best_score: number; bes
 interface Item { question_id: number; question: string; difficulty: number; discrimination: number; flag: string; responses: number }
 
 const FLAG_STYLE: Record<string, string> = {
-  ok: 'text-emerald-400',
+  ok: 'text-[var(--color-success)]',
   too_easy: 'text-sky-400',
-  too_hard: 'text-rose-400',
-  poor_discrimination: 'text-amber-400',
+  too_hard: 'text-[var(--color-danger)]',
+  poor_discrimination: 'text-[var(--color-warning)]',
 };
 
 export default function GradebookPage() {
@@ -70,13 +70,13 @@ export default function GradebookPage() {
 
         <div className="flex gap-2 mb-5">
           {(['grades', 'items'] as const).map((t) => (
-            <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-bold ${tab === t ? 'bg-emerald-600' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}>
+            <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-bold ${tab === t ? 'bg-[var(--color-success)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}>
               {t === 'grades' ? 'Grades' : 'Item analysis'}
             </button>
           ))}
         </div>
 
-        {error && <div className="rounded-lg bg-rose-500/10 text-rose-400 p-4 text-sm mb-4">{error}</div>}
+        {error && <div className="rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-4 text-sm mb-4">{error}</div>}
         {loading ? (
           <div className="text-[var(--color-on-surface-variant)]">Loading…</div>
         ) : tab === 'grades' ? (
@@ -88,7 +88,7 @@ export default function GradebookPage() {
             {grades.map((g) => (
               <div key={g.user_id} className="grid grid-cols-4 gap-2 px-4 py-2.5 border-b border-[var(--color-outline-variant)]/50 text-sm">
                 <span className="col-span-2 truncate">{g.user_name || `User ${g.user_id}`}</span>
-                <span className={g.best_pct >= 40 ? 'text-emerald-400' : 'text-rose-400'}>{g.best_pct}% ({g.best_score}/{g.best_total})</span>
+                <span className={g.best_pct >= 40 ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}>{g.best_pct}% ({g.best_score}/{g.best_total})</span>
                 <span className="text-[var(--color-on-surface-variant)]">{g.attempts}</span>
               </div>
             ))}

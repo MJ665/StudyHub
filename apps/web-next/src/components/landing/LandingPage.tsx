@@ -84,7 +84,7 @@ function Hero() {
           className="mx-auto max-w-3xl text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl">
           Assess your people.
           <br />
-          <span className="bg-gradient-to-r from-indigo-300 via-violet-300 to-emerald-300 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-blue-300 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
             Keep the knowledge they carry.
           </span>
         </motion.h1>
@@ -149,7 +149,7 @@ function Products() {
         <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">Everything shares the same org, people, auth & AI core</h2>
       </motion.div>
       <div className="grid gap-6 lg:grid-cols-2">
-        <motion.div {...fadeUp} className="relative overflow-hidden rounded-[2rem] border border-indigo-500/20 bg-gradient-to-b from-indigo-500/[0.08] to-transparent p-8">
+        <motion.div {...fadeUp} className="relative overflow-hidden rounded-[2rem] border border-blue-500/20 bg-gradient-to-b from-blue-500/[0.08] to-transparent p-8">
           <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/15 text-indigo-300"><ClipboardCheck size={24} /></div>
           <h3 className="text-2xl font-black text-white">Assess</h3>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">One engine for every kind of evaluation — behavior is configuration, not separate tools.</p>
@@ -269,7 +269,7 @@ function Personas() {
 function CTA() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-      <motion.div {...fadeUp} className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-indigo-600/20 via-slate-900 to-emerald-600/10 px-6 py-14 text-center md:px-16">
+      <motion.div {...fadeUp} className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-blue-600/20 via-slate-900 to-sky-600/10 px-6 py-14 text-center md:px-16">
         <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[600px] max-w-[120vw] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[100px]" />
         <h2 className="relative text-3xl font-black tracking-tight text-white sm:text-4xl">Ready to assess your teams and keep their knowledge?</h2>
         <p className="relative mx-auto mt-4 max-w-xl text-slate-300">Accounts are provisioned by your L&D admins. Sign in if you already have one, or request a walkthrough.</p>

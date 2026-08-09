@@ -46,7 +46,7 @@ export const RichText: React.FC<{ text: string; className?: string }> = ({ text,
                 </div>
               )}
               <div className="p-5 overflow-x-auto custom-scrollbar">
-                <pre className="font-mono text-sm leading-relaxed text-indigo-300 selection:bg-indigo-500/30">
+                <pre className="font-mono text-sm leading-relaxed text-[var(--color-brand-primary)] selection:bg-[var(--color-brand-primary-container)]/30">
                   <code>{codeContent}</code>
                 </pre>
               </div>
@@ -81,8 +81,8 @@ function renderMarkdownElements(text: string): React.ReactNode {
           return (
             <code
               key={i}
-              className="bg-indigo-500/10 px-2 py-0.5 rounded-md text-[var(--color-brand-primary)]
-                         font-mono text-[0.95em] border border-indigo-500/20 mx-1"
+              className="bg-[var(--color-brand-primary-container)]/10 px-2 py-0.5 rounded-md text-[var(--color-brand-primary)]
+                         font-mono text-[0.95em] border border-[var(--color-brand-primary)]/20 mx-1"
             >
               {code}
             </code>
@@ -102,7 +102,7 @@ function renderMarkdownElements(text: string): React.ReactNode {
                 src={url} 
                 alt={alt} 
                 className="max-w-full rounded-2xl border border-[var(--color-outline-variant)] shadow-xl 
-                           hover:border-indigo-500/30 transition-colors" 
+                           hover:border-[var(--color-brand-primary)]/30 transition-colors" 
               />
               {alt && alt !== 'image' && (
                 <span className="block text-center text-[10px] text-[var(--color-on-surface-variant)] mt-2 italic">

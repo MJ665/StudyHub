@@ -80,7 +80,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
               key={t}
               onClick={() => setFilter(t)}
               className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                filter === t ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
+                filter === t ? 'bg-[var(--color-brand-primary-container)] text-white shadow-lg' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
               }`}
             >
               {t}
@@ -91,7 +91,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
 
       {loading ? (
         <div className="flex-1 flex flex-col items-center justify-center space-y-4">
-          <Loader2 size={40} className="text-indigo-500 animate-spin" />
+          <Loader2 size={40} className="text-[var(--color-brand-primary)] animate-spin" />
           <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Reconstructing History...</p>
         </div>
       ) : (
@@ -110,10 +110,10 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
               </div>
             ) : (
               filteredAttempts.map((attempt) => (
-                <div key={attempt.id} className="bg-surface-container p-6 rounded-[2.5rem] border border-surface-bright group hover:border-indigo-500/30 transition-all flex items-center justify-between">
+                <div key={attempt.id} className="bg-surface-container p-6 rounded-[2.5rem] border border-surface-bright group hover:border-[var(--color-brand-primary)]/30 transition-all flex items-center justify-between">
                   <div className="flex items-center gap-6">
                     <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
-                      attempt.is_correct || attempt.score >= 70 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'
+                      attempt.is_correct || attempt.score >= 70 ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' : 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]'
                     }`}>
                       {attempt.type === 'coding' ? <Brain size={28} /> : <FileText size={28} />}
                     </div>
@@ -122,7 +122,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
                       <div className="flex items-center gap-4 mt-1 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                         <span className="flex items-center gap-1"><Calendar size={12} /> {new Date(attempt.attempted_at).toLocaleDateString()}</span>
                         <span className="flex items-center gap-1"><Clock size={12} /> {Math.floor(attempt.time_taken / 60)}m {attempt.time_taken % 60}s</span>
-                        <span className={`px-2 py-0.5 rounded ${attempt.type === 'coding' ? 'bg-indigo-500/10 text-[var(--color-brand-primary)]' : 'bg-amber-500/10 text-amber-400'}`}>
+                        <span className={`px-2 py-0.5 rounded ${attempt.type === 'coding' ? 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]' : 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]'}`}>
                           {attempt.type}
                         </span>
                       </div>
@@ -132,7 +132,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
                   <div className="text-right">
                     <div className="flex items-center justify-end gap-2 mb-1">
                       <p className="text-2xl font-black text-[var(--color-on-surface)]">{attempt.score}<span className="text-[var(--color-on-surface-variant)] text-sm">/{attempt.total}</span></p>
-                      {attempt.score >= 70 ? <CheckCircle2 className="text-emerald-500" size={20} /> : <AlertCircle className="text-amber-500" size={20} />}
+                      {attempt.score >= 70 ? <CheckCircle2 className="text-[var(--color-success)]" size={20} /> : <AlertCircle className="text-[var(--color-warning)]" size={20} />}
                     </div>
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-[0.2em]">Accuracy Profile</p>
                   </div>
@@ -143,17 +143,17 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
 
           {/* Aggregate Insights Sidebar */}
           <div className="space-y-6">
-            <div className="bg-[var(--color-brand-primary-container)] p-8 rounded-[3rem] text-[var(--color-on-surface)] shadow-xl shadow-indigo-600/20 relative overflow-hidden group">
+            <div className="bg-[var(--color-brand-primary-container)] p-8 rounded-[3rem] text-white shadow-xl shadow-[var(--color-brand-primary)]/20 relative overflow-hidden group">
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-[var(--color-surface-bright)] blur-3xl rounded-full" />
-              <TrendingUp className="mb-4 text-indigo-200" size={32} />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-200 mb-2">Long-term Trajectory</p>
+              <TrendingUp className="mb-4 text-[var(--color-brand-primary)]" size={32} />
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-2">Long-term Trajectory</p>
               <h3 className="text-3xl font-black mb-4">{intel?.metrics?.m17b_velocity_label?.value || 'Steady Growth'}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-indigo-200">Avg. Accuracy</span>
+                  <span className="text-[var(--color-brand-primary)]">Avg. Accuracy</span>
                   <span className="font-bold">{intel?.metrics?.m02_overall_accuracy?.value || '0%'}</span>
                 </div>
-                <div className="w-full h-1.5 bg-indigo-900 rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-[var(--color-brand-primary-container)] rounded-full overflow-hidden">
                   <div className="h-full bg-white rounded-full" style={{ width: `${intel?.raw_vectors?.m02_overall_accuracy || 0}%` }} />
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
               <h4 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6">Pedagogical Markers</h4>
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-success)]/10 flex items-center justify-center text-[var(--color-success)] shrink-0">
                     <CheckCircle2 size={20} />
                   </div>
                   <div>
@@ -174,7 +174,7 @@ export default function MemberAssignmentHistory({ student, onBack }: AssignmentH
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-warning)]/10 flex items-center justify-center text-[var(--color-warning)] shrink-0">
                     <AlertCircle size={20} />
                   </div>
                   <div>

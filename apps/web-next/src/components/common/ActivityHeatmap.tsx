@@ -21,13 +21,13 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const DAYS = ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'];
 
 function getColor(count: number, max: number): string {
-  if (count === 0) return 'bg-slate-100/50 dark:bg-[var(--color-surface-container-high)]/40 border border-slate-200/10 dark:border-[var(--color-outline-variant)]/20';
+  if (count === 0) return 'bg-[var(--color-surface-container-highest)]/50 dark:bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)]/10 dark:border-[var(--color-outline-variant)]/20';
   const pct = max > 0 ? count / max : 0;
   
-  if (pct < 0.25) return 'bg-indigo-400/30 dark:bg-indigo-900/40 border border-indigo-400/20';
-  if (pct < 0.50) return 'bg-indigo-500 dark:bg-indigo-700 shadow-[inset_0_0_4px_rgba(0,0,0,0.1)]';
-  if (pct < 0.75) return 'bg-violet-500 dark:bg-violet-600';
-  return 'bg-fuchsia-600 dark:bg-fuchsia-500 shadow-[0_0_10px_rgba(192,38,211,0.3)] ring-1 ring-fuchsia-400/30';
+  if (pct < 0.25) return 'bg-[var(--color-brand-primary-container)]/30 dark:bg-[var(--color-brand-primary-container)]/40 border border-[var(--color-brand-primary)]/20';
+  if (pct < 0.50) return 'bg-[var(--color-brand-primary-container)] dark:bg-[var(--color-brand-primary-container)] shadow-[inset_0_0_4px_rgba(0,0,0,0.1)]';
+  if (pct < 0.75) return 'bg-[var(--color-brand-primary-container)] dark:bg-[var(--color-brand-primary-container)]';
+  return 'bg-[var(--color-brand-primary-container)] dark:bg-[var(--color-brand-primary-container)] shadow-[0_0_10px_rgba(192,38,211,0.3)] ring-1 ring-[var(--color-brand-primary)]/30';
 }
 
 export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmapProps) {
@@ -130,7 +130,7 @@ export default function ActivityHeatmap({ userId, initialData }: ActivityHeatmap
           {[0, 0.1, 0.4, 0.7, 1].map((pct, i) => (
             <div
               key={i}
-              className={`h-3 w-3 rounded-sm ${pct === 0 ? 'bg-[var(--color-surface-container-high)]' : pct < 0.2 ? 'bg-indigo-900/60' : pct < 0.4 ? 'bg-indigo-700' : pct < 0.7 ? 'bg-indigo-500' : 'bg-indigo-400'}`}
+              className={`h-3 w-3 rounded-sm ${pct === 0 ? 'bg-[var(--color-surface-container-high)]' : pct < 0.2 ? 'bg-[var(--color-brand-primary-container)]/60' : pct < 0.4 ? 'bg-[var(--color-brand-primary-container)]' : pct < 0.7 ? 'bg-[var(--color-brand-primary-container)]' : 'bg-[var(--color-brand-primary-container)]'}`}
             />
           ))}
           <span>More</span>

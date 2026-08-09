@@ -77,7 +77,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
       )}
 
       <div className={`p-5 rounded-2xl border transition-all duration-300 ${d.is_pinned
-          ? 'bg-indigo-500/10 border-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.1)]'
+          ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/30 shadow-[0_0_20px_rgba(99,102,241,0.1)]'
           : 'bg-[var(--color-surface-container)]/50 border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)]'
         }`}>
         <div className="flex items-start justify-between gap-4">
@@ -89,7 +89,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
               <div className="flex items-center gap-2">
                 <span className="text-sm font-black text-[var(--color-on-surface)]">{d.user_name}</span>
                 {d.is_pinned && (
-                  <span className="flex items-center gap-1 px-2 py-0.5 bg-indigo-500/20 text-[var(--color-brand-primary)] text-[10px] font-black uppercase tracking-widest rounded-full">
+                  <span className="flex items-center gap-1 px-2 py-0.5 bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)] text-[10px] font-black uppercase tracking-widest rounded-full">
                     <Pin size={10} /> Explanation
                   </span>
                 )}
@@ -112,7 +112,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
             >
               <CornerDownRight size={14} />
             </button>
-            <button className="p-1.5 hover:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-lg transition-all">
+            <button className="p-1.5 hover:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] rounded-lg transition-all">
               <Flag size={14} />
             </button>
           </div>
@@ -148,7 +148,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
         {/* Header */}
         <div className="p-8 border-b border-[var(--color-outline-variant)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-[var(--color-brand-primary-container)]/20 border border-[var(--color-brand-primary)]/30 rounded-2xl flex items-center justify-center">
               <MessageSquare className="text-[var(--color-brand-primary)]" size={24} />
             </div>
             <div>
@@ -165,7 +165,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
         <div className="flex-1 overflow-y-auto p-8 scrollbar-thin scrollbar-thumb-white/10">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <Loader2 className="text-indigo-500 animate-spin" size={32} />
+              <Loader2 className="text-[var(--color-brand-primary)] animate-spin" size={32} />
               <p className="text-xs font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest animate-pulse">Synchronizing Neural Links...</p>
             </div>
           ) : discussions.length === 0 ? (
@@ -190,7 +190,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
         {/* Input Area */}
         <div className="p-8 bg-[var(--color-surface-container)]/50 border-t border-[var(--color-outline-variant)] shrink-0">
           {replyTo && (
-            <div className="flex items-center justify-between bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-xl mb-4">
+            <div className="flex items-center justify-between bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 px-4 py-2 rounded-xl mb-4">
               <div className="flex items-center gap-2">
                 <CornerDownRight size={14} className="text-[var(--color-brand-primary)]" />
                 <span className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest">Replying to thread</span>
@@ -206,12 +206,12 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Explain your reasoning or ask a question..."
-              className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pr-20 text-sm text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none min-h-[100px]"
+              className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pr-20 text-sm text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)] transition-all resize-none min-h-[100px]"
             />
             <button
               type="submit"
               disabled={submitting || !comment.trim()}
-              className="absolute bottom-4 right-4 p-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl shadow-xl shadow-indigo-500/20 transition-all disabled:opacity-50 disabled:grayscale"
+              className="absolute bottom-4 right-4 p-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl shadow-xl shadow-[var(--color-brand-primary)]/20 transition-all disabled:opacity-50 disabled:grayscale"
             >
               {submitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
             </button>

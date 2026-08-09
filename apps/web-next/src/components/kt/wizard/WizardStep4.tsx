@@ -55,7 +55,7 @@ export default function WizardStep4({ ctx }: { ctx: WizardCtx }) {
                     <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Lessons Learned</label>
                     <textarea 
                       placeholder="e.g. Always verify webhook signatures before processing. Retries must be exponential..."
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-slate-800"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                       value={formData.lessons_learned}
                       onChange={e => setFormData({...formData, lessons_learned: e.target.value})}
                     />
@@ -64,7 +64,7 @@ export default function WizardStep4({ ctx }: { ctx: WizardCtx }) {
                     <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Open Questions</label>
                     <textarea 
                       placeholder="What remains unsolved? e.g. Scaling to 10k RPS might require Sharding..."
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-slate-800"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 h-40 font-medium text-lg leading-relaxed text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                       value={formData.open_questions}
                       onChange={e => setFormData({...formData, open_questions: e.target.value})}
                     />

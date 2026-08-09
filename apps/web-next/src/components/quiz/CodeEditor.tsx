@@ -176,7 +176,7 @@ export default function CodeEditor({ question, onFinish }: any) {
               <h2 className="text-lg font-black text-[var(--color-on-surface)]">{question.title}</h2>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="flex h-1.5 w-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
                   <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                     AI Intellisense: {supportedLanguages.find(l => l.id === language)?.name || language}
                   </p>
@@ -238,14 +238,14 @@ export default function CodeEditor({ question, onFinish }: any) {
            </button>
            <button 
              onClick={() => setShowSettings(!showSettings)}
-             className={`p-2.5 rounded-xl border transition-all ${showSettings ? 'bg-brand-primary border-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}
+             className={`p-2.5 rounded-xl border transition-all ${showSettings ? 'bg-brand-primary border-brand-primary text-[var(--color-on-surface-variant)]' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}
              title="Editor Configurations"
            >
              <Settings size={18} />
            </button>
            <button
              onClick={() => setShowCriteria(!showCriteria)}
-             className={`p-2.5 rounded-xl border transition-all ${showCriteria ? 'bg-[var(--color-brand-primary-container)] border-indigo-500 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}
+             className={`p-2.5 rounded-xl border transition-all ${showCriteria ? 'bg-[var(--color-brand-primary-container)] border-[var(--color-brand-primary)] text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}
              title="Mission Requirements"
            >
              <Info size={18} />
@@ -255,16 +255,16 @@ export default function CodeEditor({ question, onFinish }: any) {
                kind="coding_question"
                targetId={question.id}
                label=""
-               className="p-2.5 rounded-xl border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-rose-400 hover:border-rose-500/40 transition-all"
+               className="p-2.5 rounded-xl border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] hover:border-[var(--color-danger)]/40 transition-all"
              />
            )}
            <button 
              onClick={handleEvaluate}
              disabled={isEvaluating}
-             className="bg-brand-primary text-slate-950 px-6 py-2.5 rounded-xl font-black flex items-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
+             className="bg-brand-primary text-[var(--color-surface-dim)] px-6 py-2.5 rounded-xl font-black flex items-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
            >
              {isEvaluating ? (
-               <div className="animate-spin h-4 w-4 border-2 border-slate-950 border-t-transparent rounded-full" />
+               <div className="animate-spin h-4 w-4 border-2 border-[var(--color-outline-variant)] border-t-transparent rounded-full" />
              ) : (
                <>Run Test <Terminal size={18} /></>
              )}
@@ -296,7 +296,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                       <button 
                         key={t.id} 
                         onClick={() => setTheme(t.id)}
-                        className={`w-full text-left px-3 py-2 rounded-lg text-[10px] font-bold transition-all ${theme === t.id ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-[10px] font-bold transition-all ${theme === t.id ? 'bg-brand-primary text-[var(--color-surface-dim)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                       >
                         {t.name}
                       </button>
@@ -314,7 +314,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                       <button 
                         key={s} 
                         onClick={() => setFontSize(s)}
-                        className={`w-8 h-8 rounded-lg text-[10px] font-black transition-all ${fontSize === s ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
+                        className={`w-8 h-8 rounded-lg text-[10px] font-black transition-all ${fontSize === s ? 'bg-brand-primary text-[var(--color-surface-dim)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
                       >
                         {s}
                       </button>
@@ -422,10 +422,10 @@ export default function CodeEditor({ question, onFinish }: any) {
            <div className="absolute bottom-6 left-6 right-6 pointer-events-none flex justify-center gap-3">
               {hints.map((h, i) => (
                 <div key={i} className="group relative pointer-events-auto">
-                   <div className="bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] p-3 rounded-2xl shadow-lg cursor-help border border-[var(--color-outline-variant)]">
+                   <div className="bg-[var(--color-brand-primary-container)] text-white p-3 rounded-2xl shadow-lg cursor-help border border-[var(--color-outline-variant)]">
                       <Lightbulb size={18} />
                    </div>
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 max-w-[92vw] bg-[var(--color-surface-container)] border border-indigo-500/30 p-4 rounded-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-sm text-[var(--color-on-surface-variant)]">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 max-w-[92vw] bg-[var(--color-surface-container)] border border-[var(--color-brand-primary)]/30 p-4 rounded-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-sm text-[var(--color-on-surface-variant)]">
                       <p className="font-black text-brand-primary text-[10px] mb-2 uppercase tracking-widest">Protocol Hint L-{i + 1}</p>
                       {h}
                    </div>
@@ -442,8 +442,8 @@ export default function CodeEditor({ question, onFinish }: any) {
                    ) : (
                      <>
                         <div className="relative">
-                          <Lightbulb size={16} className="text-amber-400" />
-                          <span className="absolute -top-2 -right-2 w-4 h-4 bg-rose-500 text-[8px] font-black rounded-full flex items-center justify-center border-2 border-slate-900">
+                          <Lightbulb size={16} className="text-[var(--color-warning)]" />
+                          <span className="absolute -top-2 -right-2 w-4 h-4 bg-[var(--color-danger)] text-[8px] font-black rounded-full flex items-center justify-center border-2 border-[var(--color-outline-variant)]">
                             {(question.max_hints_allowed || 3) - hintLevel}
                           </span>
                         </div> 
@@ -460,9 +460,9 @@ export default function CodeEditor({ question, onFinish }: any) {
            {evalResult ? (
              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 space-y-6 overflow-y-auto w-full">
                 <div className="text-center p-8 rounded-[2.5rem] bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] relative overflow-hidden">
-                   <div className={`absolute inset-0 opacity-5 pointer-events-none ${evalResult.passed ? 'bg-emerald-500' : 'bg-rose-500'}`} />
-                   <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center border-4 relative ${evalResult.passed ? 'border-emerald-500/50 bg-emerald-500/10 shadow-lg shadow-emerald-500/10' : 'border-rose-500/50 bg-rose-500/10 shadow-lg shadow-rose-500/10'}`}>
-                      <span className={`text-3xl font-black ${evalResult.passed ? 'text-emerald-400' : 'text-rose-400'}`}>
+                   <div className={`absolute inset-0 opacity-5 pointer-events-none ${evalResult.passed ? 'bg-[var(--color-success)]' : 'bg-[var(--color-danger)]'}`} />
+                   <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center border-4 relative ${evalResult.passed ? 'border-[var(--color-success)]/50 bg-[var(--color-success)]/10 shadow-lg shadow-[var(--color-success)]/10' : 'border-[var(--color-danger)]/50 bg-[var(--color-danger)]/10 shadow-lg shadow-[var(--color-danger)]/10'}`}>
+                      <span className={`text-3xl font-black ${evalResult.passed ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
                         {evalResult.score}%
                       </span>
                    </div>
@@ -473,9 +473,9 @@ export default function CodeEditor({ question, onFinish }: any) {
                 <div className="space-y-2">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Judicial Verdict</span>
                   <div className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed bg-[var(--color-surface-dim)] p-6 rounded-[1.5rem] border border-[var(--color-outline-variant)] font-medium italic relative">
-                    <span className="absolute top-4 left-4 text-indigo-500/20 text-4xl font-serif">"</span>
+                    <span className="absolute top-4 left-4 text-[var(--color-brand-primary)]/20 text-4xl font-serif">"</span>
                     <p className="relative z-10">{evalResult.feedback}</p>
-                    <span className="absolute bottom-2 right-4 text-indigo-500/20 text-4xl font-serif">"</span>
+                    <span className="absolute bottom-2 right-4 text-[var(--color-brand-primary)]/20 text-4xl font-serif">"</span>
                   </div>
                 </div>
 
@@ -484,7 +484,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                     <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Optimization Log</span>
                     <div className="space-y-2">
                       {evalResult.suggestions.map((s: string, i: number) => (
-                        <div key={i} className="flex gap-3 p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/10 text-xs text-indigo-300 group hover:bg-indigo-500/10 transition-colors">
+                        <div key={i} className="flex gap-3 p-3 bg-[var(--color-brand-primary-container)]/5 rounded-xl border border-[var(--color-brand-primary)]/10 text-xs text-[var(--color-brand-primary)] group hover:bg-[var(--color-brand-primary-container)]/10 transition-colors">
                           <Sparkles size={14} className="shrink-0 group-hover:scale-110 transition-transform" /> 
                           <span className="font-medium">{s}</span>
                         </div>
@@ -495,7 +495,7 @@ export default function CodeEditor({ question, onFinish }: any) {
 
                 <div className="pt-4 space-y-3">
                    {evalResult.passed ? (
-                     <button onClick={() => onFinish(evalResult)} className="w-full py-5 bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)] rounded-2xl font-black transition-all shadow-xl shadow-emerald-600/20 uppercase tracking-[0.2em] text-[10px]">
+                     <button onClick={() => onFinish(evalResult)} className="w-full py-5 bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)] rounded-2xl font-black transition-all shadow-xl shadow-[var(--color-success)]/20 uppercase tracking-[0.2em] text-[10px]">
                        Proceed to Next Sector
                      </button>
                    ) : (

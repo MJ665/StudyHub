@@ -192,11 +192,11 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
                   <div className="flex justify-between items-center mb-8">
                     <div>
                       <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Coding Lab Management</h3>
-                      <p className="text-[10px] text-emerald-400 font-black uppercase tracking-[0.3em] mt-1">Algorithmic Challenge Registry</p>
+                      <p className="text-[10px] text-[var(--color-success)] font-black uppercase tracking-[0.3em] mt-1">Algorithmic Challenge Registry</p>
                     </div>
                     <button
                       onClick={() => setShowCodingModal(true)}
-                      className="px-6 py-3 bg-emerald-600 text-[var(--color-on-surface)] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2"
+                      className="px-6 py-3 bg-[var(--color-success)] text-[var(--color-surface-dim)] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-success)] transition-all shadow-lg shadow-[var(--color-success)]/20 flex items-center gap-2"
                     >
                       <Plus size={14} /> New Challenge
                     </button>

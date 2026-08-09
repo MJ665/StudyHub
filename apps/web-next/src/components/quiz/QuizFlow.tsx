@@ -239,7 +239,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
         <motion.div 
           initial={{ width: 0 }} 
           animate={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }} 
-          className="h-full bg-gradient-to-r from-indigo-500 via-brand-primary to-purple-500" 
+          className="h-full bg-gradient-brand"
         />
       </div>
 
@@ -263,7 +263,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                   className={`
                     h-12 rounded-xl text-[10px] font-black transition-all flex items-center justify-center relative border
                     ${i === currentIdx 
-                      ? 'bg-brand-primary border-brand-primary text-slate-950 shadow-xl shadow-brand-primary/20 scale-110 z-10' 
+                      ? 'bg-brand-primary border-brand-primary text-[var(--color-on-surface-variant)] shadow-xl shadow-brand-primary/20 scale-110 z-10' 
                       : answers[i] 
                         ? 'bg-brand-primary/5 border-brand-primary/20 text-brand-primary' 
                         : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)]'}
@@ -271,7 +271,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                 >
                   {i + 1}
                   {bookmarks.includes(questions[i]?.id) && (
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full border-2 border-slate-900" />
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-[var(--color-warning)] rounded-full border-2 border-[var(--color-outline-variant)]" />
                   )}
                 </button>
               ))}
@@ -296,7 +296,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
              <p className="text-[11px] leading-relaxed text-[var(--color-on-surface-variant)] font-bold">
                 Telemetry is synchronized in real-time. You can terminate the session and resume from any station.
              </p>
-             <button onClick={() => setConfirmLeave(true)} className="mt-4 flex items-center justify-center gap-2 py-3 bg-[var(--color-surface-container-high)] hover:bg-rose-500/10 text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
+             <button onClick={() => setConfirmLeave(true)} className="mt-4 flex items-center justify-center gap-2 py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-danger)]/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
                <LogOut size={14} /> Terminate Protocol
              </button>
           </div>
@@ -316,7 +316,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
             <div className="flex items-center gap-2 md:gap-4">
               {bank.show_timer && (
                 <div className={`flex items-center gap-4 px-6 py-3 rounded-2xl border transition-all ${
-                  timeLeft <= 10 ? 'bg-rose-500/10 border-rose-500/50 text-rose-400 animate-pulse' : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)] text-brand-primary'
+                  timeLeft <= 10 ? 'bg-[var(--color-danger)]/10 border-[var(--color-danger)]/50 text-[var(--color-danger)] animate-pulse' : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)] text-brand-primary'
                 }`}>
                   <Timer size={20} />
                   <span className="text-xl font-black font-mono">
@@ -326,13 +326,13 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
               )}
               
               <div className="flex items-center gap-2 p-1 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl">
-                 <button onClick={toggleBookmark} className={`p-3 rounded-xl transition-all ${isBookmarked ? 'bg-amber-500/10 text-amber-500' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>
+                 <button onClick={toggleBookmark} className={`p-3 rounded-xl transition-all ${isBookmarked ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}>
                    <Bookmark size={20} fill={isBookmarked ? "currentColor" : "none"} />
                  </button>
                  <button onClick={() => setShowDiscussions(true)} className="p-3 rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
                    <MessageSquare size={20} />
                  </button>
-                 <button onClick={() => setShowReportModal(true)} className="p-3 rounded-xl text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-all">
+                 <button onClick={() => setShowReportModal(true)} className="p-3 rounded-xl text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-all">
                    <AlertTriangle size={20} />
                  </button>
               </div>
@@ -382,7 +382,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                       }`}
                     >
                       <div className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center font-black text-sm transition-all ${
-                        answers[currentIdx] === opt ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container)] text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-on-surface)]'
+                        answers[currentIdx] === opt ? 'bg-brand-primary text-[var(--color-surface-dim)]' : 'bg-[var(--color-surface-container)] text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-on-surface)]'
                       }`}>
                         {String.fromCharCode(65 + idx)}
                       </div>
@@ -422,8 +422,8 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
               disabled={isSubmitting}
               className={`flex items-center gap-3 px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all shadow-xl ${
                 currentIdx === questions.length - 1 
-                  ? 'bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)] shadow-emerald-600/20' 
-                  : 'bg-brand-primary hover:bg-brand-primary/90 text-slate-950 shadow-brand-primary/20'
+                  ? 'bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)] shadow-[var(--color-success)]/20' 
+                  : 'bg-brand-primary hover:bg-brand-primary/90 text-[var(--color-surface-dim)] shadow-brand-primary/20'
               }`}
             >
               {currentIdx === questions.length - 1 ? 'Finalize Protocol' : 'Advance Sector'}
@@ -446,13 +446,13 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-3">
                   {['wrong_answer', 'typo', 'unclear', 'duplicate', 'other'].map(r => (
-                    <button key={r} onClick={() => setReportReason(r)} className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${reportReason === r ? 'bg-rose-500/20 border-rose-500 text-rose-400' : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}>
+                    <button key={r} onClick={() => setReportReason(r)} className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${reportReason === r ? 'bg-[var(--color-danger)]/20 border-[var(--color-danger)] text-[var(--color-danger)]' : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}>
                       {r.replace('_', ' ')}
                     </button>
                   ))}
                 </div>
                 <textarea value={reportComment} onChange={e => setReportComment(e.target.value)} className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-6 text-[var(--color-on-surface)] text-sm outline-none h-32 resize-none" placeholder="Describe the anomaly..." />
-                <button onClick={submitReport} disabled={reportSubmitting} className="w-full py-5 bg-rose-600 text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-rose-600/20">
+                <button onClick={submitReport} disabled={reportSubmitting} className="w-full py-5 bg-[var(--color-danger)] text-[var(--color-on-surface)] rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-[var(--color-danger)]/20">
                   {reportSubmitting ? 'Syncing...' : 'Submit Report'}
                 </button>
               </div>

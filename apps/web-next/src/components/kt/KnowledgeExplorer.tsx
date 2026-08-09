@@ -313,7 +313,7 @@ export default function KnowledgeExplorer({
       {loading && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-[var(--color-surface-dim)]/80 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="animate-spin text-indigo-500" size={36} />
+            <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={36} />
             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Mapping Concept Nodes...</p>
           </div>
         </div>
@@ -388,7 +388,7 @@ export default function KnowledgeExplorer({
           >
             <div>
               <div className="flex justify-between items-start mb-8">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border bg-indigo-500/20 border-indigo-500/30 text-[var(--color-brand-primary)]">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border bg-[var(--color-brand-primary-container)]/20 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)]">
                   {selectedNode.type === 'document' ? <Layers size={24} /> : <Database size={24} />}
                 </div>
                 <button onClick={() => setSelectedNode(null)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all">
@@ -418,7 +418,7 @@ export default function KnowledgeExplorer({
             <div className="flex gap-2">
               <button 
                 onClick={hopToNode}
-                className="flex-1 py-4 bg-amber-600 hover:bg-amber-500 text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-amber-500/20"
+                className="flex-1 py-4 bg-[var(--color-warning)] hover:bg-[var(--color-warning)] text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-[var(--color-warning)]/20"
               >
                 Hop to Node
               </button>

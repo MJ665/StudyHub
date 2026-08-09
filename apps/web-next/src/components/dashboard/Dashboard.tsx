@@ -183,8 +183,8 @@ export default function Dashboard({
 
         {/* My Exams — invited/scheduled proctored exams (Mettl-style) */}
         {myExams.length > 0 && (
-          <div className="mb-8 rounded-3xl border border-emerald-500/30 bg-gradient-to-r from-emerald-900/40 to-slate-900/40 p-6">
-            <div className="flex items-center gap-2 mb-4 text-emerald-400 text-sm font-black uppercase tracking-widest">
+          <div className="mb-8 rounded-3xl border border-[var(--color-success)]/30 bg-[var(--color-success-container)] p-6">
+            <div className="flex items-center gap-2 mb-4 text-[var(--color-success)] text-sm font-black uppercase tracking-widest">
               <ClipboardList size={16} /> My Exams
             </div>
             <div className="space-y-2">
@@ -200,12 +200,12 @@ export default function Dashboard({
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-black uppercase px-2 py-1 rounded ${open ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}`}>
+                      <span className={`text-[10px] font-black uppercase px-2 py-1 rounded ${open ? 'bg-[var(--color-success)]/20 text-[var(--color-success)]' : 'bg-[var(--color-warning)]/20 text-[var(--color-warning)]'}`}>
                         {open ? 'Open now' : 'Upcoming'}
                       </span>
                       <a
                         href={open ? `/exam/${e.id}` : '/exams'}
-                        className={`px-4 py-2 rounded-lg text-sm font-bold ${open ? 'bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]'}`}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold ${open ? 'bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)]' : 'bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)]'}`}
                       >
                         {open ? (e.my_status === 'started' ? 'Resume' : 'Start') : 'View'}
                       </a>
@@ -251,8 +251,8 @@ export default function Dashboard({
             </div>
 
             {dailyChallenge ? (
-              <div className="mb-10 bg-gradient-to-r from-indigo-900/60 to-purple-900/60 border border-indigo-500/30 rounded-3xl p-8 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 opacity-10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:opacity-20 transition-opacity" />
+              <div className="mb-10 bg-gradient-hero border border-[var(--color-brand-primary)]/30 rounded-3xl p-8 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-primary-container)] opacity-10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:opacity-20 transition-opacity" />
                 <div className="flex items-center gap-2 mb-4 text-[var(--color-brand-primary)]">
                    <Timer size={20} className="animate-pulse" />
                    <span className="font-bold uppercase tracking-widest text-sm">Challenge of the Day</span>
@@ -260,9 +260,9 @@ export default function Dashboard({
                 <h4 className="text-2xl font-bold text-[var(--color-on-surface)] mb-4 line-clamp-2">{dailyChallenge.question?.question}</h4>
                 <div className="flex items-center justify-between mt-6">
                   <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider ${
-                      dailyChallenge.question?.difficulty === 'Easy' ? 'bg-emerald-500/20 text-emerald-400' :
-                      dailyChallenge.question?.difficulty === 'Medium' ? 'bg-amber-500/20 text-amber-400' :
-                      'bg-rose-500/20 text-rose-400'
+                      dailyChallenge.question?.difficulty === 'Easy' ? 'bg-[var(--color-success)]/20 text-[var(--color-success)]' :
+                      dailyChallenge.question?.difficulty === 'Medium' ? 'bg-[var(--color-warning)]/20 text-[var(--color-warning)]' :
+                      'bg-[var(--color-danger)]/20 text-[var(--color-danger)]'
                   }`}>
                     {dailyChallenge.question?.difficulty}
                   </span>
@@ -270,7 +270,7 @@ export default function Dashboard({
                     onClick={() => {
                         onStartDailyChallenge(dailyChallenge);
                     }}
-                    className="bg-white text-indigo-950 px-6 py-2.5 rounded-xl font-bold hover:bg-indigo-50 transition-colors shadow-xl shadow-white/5"
+                    className="bg-white text-[var(--color-brand-primary)] px-6 py-2.5 rounded-xl font-bold hover:bg-[var(--color-brand-primary-container)] transition-colors shadow-xl shadow-white/5"
                   >
                     Take Challenge
                   </button>
@@ -285,7 +285,7 @@ export default function Dashboard({
             )}
 
             {loading ? (
-                 <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div></div>
+                 <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-brand-primary)]"></div></div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {myAssignments.length === 0 ? (
@@ -296,7 +296,7 @@ export default function Dashboard({
                   myAssignments.map((a: any) => (
                     <motion.div key={a.assignment_id} whileHover={{ y: -4 }} className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 flex flex-col items-start shadow-xl relative overflow-hidden group">
                       <div className="flex w-full items-center justify-between mb-4">
-                        <span className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${a.is_completed ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}`}>
+                        <span className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${a.is_completed ? 'bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20' : 'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20'}`}>
                            {a.is_completed ? 'Completed' : 'Pending'}
                         </span>
                         <span className="text-xs font-mono text-[var(--color-on-surface-variant)]"><Clock size={12} className="inline mr-1" /> {new Date(a.due_date).toLocaleDateString()}</span>
@@ -305,24 +305,24 @@ export default function Dashboard({
                       
                       <div className="flex flex-wrap gap-2 mb-4">
                         {a.max_attempts && (
-                          <span className="text-[10px] bg-indigo-500/10 text-[var(--color-brand-primary)] px-2 py-1 rounded-lg border border-indigo-500/20 font-bold uppercase tracking-widest">
+                          <span className="text-[10px] bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] px-2 py-1 rounded-lg border border-[var(--color-brand-primary)]/20 font-bold uppercase tracking-widest">
                             Max Attempts: {a.max_attempts}
                           </span>
                         )}
                         {a.passing_score_percent && (
-                          <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-lg border border-emerald-500/20 font-bold uppercase tracking-widest">
+                          <span className="text-[10px] bg-[var(--color-success)]/10 text-[var(--color-success)] px-2 py-1 rounded-lg border border-[var(--color-success)]/20 font-bold uppercase tracking-widest">
                             Passing: {a.passing_score_percent}%
                           </span>
                         )}
                         {a.lock_after_due && (
-                          <span className="text-[10px] bg-rose-500/10 text-rose-400 px-2 py-1 rounded-lg border border-rose-500/20 font-bold uppercase tracking-widest">
+                          <span className="text-[10px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] px-2 py-1 rounded-lg border border-[var(--color-danger)]/20 font-bold uppercase tracking-widest">
                             Due Lock
                           </span>
                         )}
                       </div>
 
                       {a.is_completed ? (
-                        <p className="text-emerald-400 font-bold mb-4 text-sm mt-auto">Score: {a.score}</p>
+                        <p className="text-[var(--color-success)] font-bold mb-4 text-sm mt-auto">Score: {a.score}</p>
                       ) : (
                         <button 
                           onClick={() => handleStartAssignment(a)}
@@ -357,7 +357,7 @@ export default function Dashboard({
                     <motion.div key={q.id} whileHover={{ x: 4 }} className="bg-surface-container border border-surface-bright rounded-3xl p-6 shadow-xl group">
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-3">
-                           <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                           <div className="w-10 h-10 rounded-xl bg-[var(--color-warning)]/10 flex items-center justify-center text-[var(--color-warning)]">
                              <Star size={18} fill="currentColor" />
                            </div>
                            <div>
@@ -376,7 +376,7 @@ export default function Dashboard({
                               toast('error', 'Failed to remove bookmark');
                             }
                           }}
-                          className="p-2 hover:bg-rose-500/10 text-[var(--color-on-surface-variant)] hover:text-rose-400 rounded-xl transition-all"
+                          className="p-2 hover:bg-[var(--color-danger)]/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] rounded-xl transition-all"
                         >
                           <Trash2 size={18} />
                         </button>
@@ -388,7 +388,7 @@ export default function Dashboard({
                       
                       <div className="flex flex-wrap gap-2 mb-6">
                          {q.options.map((opt: string, idx: number) => (
-                           <div key={idx} className={`px-4 py-2 rounded-xl text-xs font-bold border ${q.answer === opt ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}>
+                           <div key={idx} className={`px-4 py-2 rounded-xl text-xs font-bold border ${q.answer === opt ? 'bg-[var(--color-success)]/10 border-[var(--color-success)]/30 text-[var(--color-success)]' : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'}`}>
                              {opt}
                            </div>
                          ))}
@@ -422,9 +422,9 @@ export default function Dashboard({
                   <motion.div key={q.id} whileHover={{ y: -4 }} className="bg-surface-container border border-surface-bright rounded-3xl p-6 flex flex-col h-full shadow-xl">
                     <div className="flex justify-between mb-4">
                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                         q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                         q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                         'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                         q.difficulty === 'Easy' ? 'bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20' :
+                         q.difficulty === 'Medium' ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20' :
+                         'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20'
                        }`}>
                          {q.difficulty}
                        </span>
@@ -474,13 +474,13 @@ export default function Dashboard({
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <button 
               onClick={() => setShowLearningPath(true)}
-              className="flex items-center justify-center gap-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 px-5 py-3 rounded-2xl font-bold border border-purple-500/20 shadow-lg shadow-purple-500/10 transition-all active:scale-[0.98] whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/30 text-[var(--color-brand-primary)] px-5 py-3 rounded-2xl font-bold border border-[var(--color-brand-primary)]/20 shadow-lg shadow-[var(--color-brand-primary)]/10 transition-all active:scale-[0.98] whitespace-nowrap"
             >
               <Sparkles size={18} /> AI Path
             </button>
             <button 
               onClick={() => setShowBankModal(true)}
-              className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-5 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/30 transition-all active:scale-[0.98] whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white px-5 py-3 rounded-2xl font-bold shadow-lg shadow-[var(--color-brand-primary)]/30 transition-all active:scale-[0.98] whitespace-nowrap"
             >
               <Plus size={18} /> Create Bank
             </button>
@@ -491,7 +491,7 @@ export default function Dashboard({
                 placeholder="Search banks..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-4 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-inner"
+                className="w-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl pl-12 pr-4 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)] transition-all shadow-inner"
               />
             </div>
           </div>
@@ -518,7 +518,7 @@ export default function Dashboard({
         </div>
 
         {loading ? (
-             <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div></div>
+             <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-brand-primary)]"></div></div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {banks.filter(b => b.name.toLowerCase().includes(searchQuery.toLowerCase())).map(bank => {
@@ -531,15 +531,15 @@ export default function Dashboard({
                 whileHover={{ y: -4, scale: 1.01 }}
                 className={`bg-surface-container border rounded-3xl p-6 flex flex-col h-full shadow-2xl relative overflow-hidden group transition-all
                   ${isWeakest
-                    ? 'border-indigo-500/40 ring-2 ring-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.15)]'
+                    ? 'border-[var(--color-brand-primary)]/40 ring-2 ring-[var(--color-brand-primary)]/20 shadow-[0_0_30px_rgba(99,102,241,0.15)]'
                     : 'border-surface-bright hover:border-brand-primary/50'
                   }`}
               >
                 {/* "Needs Attention" badge — PRD Section D */}
                 {isWeakest && (
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-indigo-500/20 text-[var(--color-brand-primary)]
-                                     text-[9px] font-black uppercase tracking-widest border border-indigo-500/30
+                    <span className="px-2.5 py-1 rounded-full bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)]
+                                     text-[9px] font-black uppercase tracking-widest border border-[var(--color-brand-primary)]/30
                                      shadow-[0_0_12px_rgba(99,102,241,0.3)]">
                       Needs Attention
                     </span>
@@ -548,9 +548,9 @@ export default function Dashboard({
 
                 {/* Decorative bloom behind the difficulty tag */}
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br opacity-5 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none transition-opacity group-hover:opacity-20 ${
-                    bank.difficulty === 'Easy' ? 'from-emerald-500 to-emerald-300' :
-                    bank.difficulty === 'Medium' ? 'from-amber-500 to-amber-300' :
-                    bank.difficulty === 'Hard' ? 'from-rose-500 to-rose-300' : 'from-indigo-500 to-purple-500'
+                    bank.difficulty === 'Easy' ? 'from-[var(--color-success)] to-[var(--color-success)]' :
+                    bank.difficulty === 'Medium' ? 'from-[var(--color-warning)] to-[var(--color-warning)]' :
+                    bank.difficulty === 'Hard' ? 'from-[var(--color-danger)] to-[var(--color-danger)]' : 'from-[var(--color-brand-primary)] to-[var(--color-brand-primary-container)]'
                 }`} />
 
                 {/* ─── SECTION D: Icon + Difficulty Badge ─────────────── */}
@@ -566,10 +566,10 @@ export default function Dashboard({
                   <div className="flex items-center gap-2">
                     {/* Difficulty pill — PRD Section D */}
                     <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                        bank.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                        bank.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                        bank.difficulty === 'Hard' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-                        'bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20'
+                        bank.difficulty === 'Easy' ? 'bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20' :
+                        bank.difficulty === 'Medium' ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20' :
+                        bank.difficulty === 'Hard' ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20' :
+                        'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20'
                       }`}>
                       {bank.difficulty}
                     </span>
@@ -579,7 +579,7 @@ export default function Dashboard({
                           if(confirm(`Delete ${bank.name}?`)) {
                              ApiService.deleteBank(bank.id).then(() => setBanks(banks.filter(b => b.id !== bank.id)));
                           }
-                       }} className="text-[var(--color-on-surface-variant)] hover:text-rose-500 transition-colors p-1" title="Delete Bank"><Trash2 size={16}/></button>
+                       }} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-colors p-1" title="Delete Bank"><Trash2 size={16}/></button>
                     )}
                   </div>
                 </div>
@@ -606,17 +606,17 @@ export default function Dashboard({
                 {/* Settings badges — show what the creator configured */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {bank.show_timer !== false && (
-                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20">
+                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20">
                       <Timer size={10} /> Timer
                     </span>
                   )}
                   {bank.shuffle !== false && (
-                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20">
                       <Shuffle size={10} /> Shuffled
                     </span>
                   )}
                   {bank.allow_descriptive !== false && (
-                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20">
                       <FileText size={10} /> Notes
                     </span>
                   )}
@@ -625,13 +625,13 @@ export default function Dashboard({
                 <div className="mt-auto flex gap-3 z-10">
                   <button
                     onClick={() => setQuizConfigModal(bank)}
-                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl transition-all font-bold text-sm shadow-lg shadow-indigo-600/20 active:scale-[0.98]"
+                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl transition-all font-bold text-sm shadow-lg shadow-[var(--color-brand-primary)]/20 active:scale-[0.98]"
                   >
                     Start Quiz
                   </button>
                   <button
                     onClick={() => onViewLeaderboard(bank)}
-                    className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-xl transition-colors border border-[var(--color-outline-variant)] hover:border-slate-600"
+                    className="p-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface-variant)] rounded-xl transition-colors border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)]"
                     title="Leaderboard"
                   >
                     <Trophy size={20} />
@@ -663,7 +663,7 @@ export default function Dashboard({
                 exit={{ opacity: 0, scale: 0.95 }}
                 className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-3xl w-full max-w-sm shadow-2xl relative overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-brand" />
                 <div className="flex justify-between items-start mb-6 pt-2">
                   <h3 className="text-xl font-bold text-[var(--color-on-surface)] pr-4 leading-tight">Start: {quizConfigModal.name}</h3>
                   <button onClick={() => setQuizConfigModal(null)} className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] shrink-0">
@@ -678,7 +678,7 @@ export default function Dashboard({
                       type="number"
                       value={quizMaxQuestions}
                       onChange={e => setQuizMaxQuestions(Math.max(1, parseInt(e.target.value) || 1))}
-                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-4 pl-12 text-[var(--color-on-surface)] text-lg font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl p-4 pl-12 text-[var(--color-on-surface)] text-lg font-bold focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]"
                       min={1}
                       max={quizConfigModal.question_count}
                     />
@@ -699,7 +699,7 @@ export default function Dashboard({
                   </button>
                   <button
                     onClick={() => onStartQuiz(quizConfigModal, quizMaxQuestions)}
-                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/30"
                   >
                     Begin
                   </button>
@@ -748,10 +748,10 @@ export default function Dashboard({
       <aside className="hidden xl:flex w-72 shrink-0 py-10 pr-8 flex-col gap-4">
         <div 
           onClick={onViewForum}
-          className="p-6 bg-gradient-to-br from-indigo-600/20 to-violet-600/20 border border-indigo-500/30 rounded-3xl cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all group"
+          className="p-6 bg-gradient-hero border border-[var(--color-brand-primary)]/30 rounded-3xl cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all group"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-[var(--color-on-surface)] shadow-lg shadow-indigo-500/30 group-hover:rotate-12 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-primary-container)] flex items-center justify-center text-white shadow-lg shadow-[var(--color-brand-primary)]/30 group-hover:rotate-12 transition-transform">
               <Users size={20} />
             </div>
             <div>
@@ -769,10 +769,10 @@ export default function Dashboard({
           <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-4">Navigation</p>
           <div className="space-y-1">
             {[
-              { label: 'Assignments', icon: ClipboardList, color: 'text-rose-400', onClick: onViewAssignments },
-              { label: 'Attempt History', icon: History, color: 'text-amber-400', onClick: onViewHistory },
+              { label: 'Assignments', icon: ClipboardList, color: 'text-[var(--color-danger)]', onClick: onViewAssignments },
+              { label: 'Attempt History', icon: History, color: 'text-[var(--color-warning)]', onClick: onViewHistory },
               { label: 'Question Library', icon: BookOpen, color: 'text-[var(--color-brand-primary)]', onClick: onViewLibrary },
-              { label: 'Notifications', icon: Timer, color: 'text-emerald-400', onClick: onViewNotifications },
+              { label: 'Notifications', icon: Timer, color: 'text-[var(--color-success)]', onClick: onViewNotifications },
             ].map(nav => (
               <button 
                 key={nav.label}
@@ -804,7 +804,7 @@ export default function Dashboard({
             <div className="space-y-3">
               {[
                 { label: 'Total Attempts', value: myStats.total_attempts || 0, color: 'text-[var(--color-brand-primary)]' },
-                { label: 'Avg Accuracy', value: `${myStats.overall_accuracy || 0}%`, color: myStats.overall_accuracy >= 70 ? 'text-emerald-400' : myStats.overall_accuracy >= 40 ? 'text-amber-400' : 'text-rose-400' },
+                { label: 'Avg Accuracy', value: `${myStats.overall_accuracy || 0}%`, color: myStats.overall_accuracy >= 70 ? 'text-[var(--color-success)]' : myStats.overall_accuracy >= 40 ? 'text-[var(--color-warning)]' : 'text-[var(--color-danger)]' },
                 { label: 'Streak 🔥', value: `${myStats.streak_count || 0} days`, color: 'text-orange-400' },
               ].map(stat => (
                 <div key={stat.label} className="flex justify-between items-center">

@@ -67,7 +67,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
                   <div className="flex flex-wrap gap-2">
                     {expertiseSkills.map((skill: string, i: number) => (
                       <span key={i}
-                        className="px-4 py-2 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 rounded-xl text-sm font-bold">
+                        className="px-4 py-2 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] rounded-xl text-sm font-bold">
                         {skill}
                       </span>
                     ))}
@@ -89,7 +89,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
               {strengthEntries.length > 0 && (
                 <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
-                    <Star size={14} className="text-amber-400" /> Proficiency Ratings
+                    <Star size={14} className="text-[var(--color-warning)]" /> Proficiency Ratings
                   </h3>
                   <div className="space-y-4">
                     {strengthEntries.map(([sk, val]: [string, any]) => (
@@ -99,7 +99,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
                           <span className="text-[var(--color-brand-primary)] font-black">{val}%</span>
                         </div>
                         <div className="h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
-                          <motion.div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full"
+                          <motion.div className="h-full bg-gradient-to-r from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] rounded-full"
                             initial={{ width: 0 }} animate={{ width: `${val}%` }} transition={{ duration: 0.8, ease: 'easeOut' }} />
                         </div>
                       </div>
@@ -112,7 +112,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
               {registry?.topic_breakdown && Object.keys(registry.topic_breakdown).length > 0 && (
                 <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
-                    <BrainCircuit size={14} className="text-violet-400" /> Knowledge Stack (from Quizzes)
+                    <BrainCircuit size={14} className="text-[var(--color-brand-primary)]" /> Knowledge Stack (from Quizzes)
                   </h3>
                   <div className="space-y-3">
                     {Object.entries(registry.topic_breakdown).map(([topic, data]: any) => (
@@ -122,7 +122,7 @@ export default function SkillsTab({ ctx }: { ctx: ProfileTabCtx }) {
                           <span className="text-[var(--color-brand-primary)] font-black">{data.avg?.toFixed(0) ?? 0}%</span>
                         </div>
                         <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
-                          <div className="h-full bg-indigo-500/70 rounded-full" style={{ width: `${data.avg ?? 0}%` }} />
+                          <div className="h-full bg-[var(--color-brand-primary-container)]/70 rounded-full" style={{ width: `${data.avg ?? 0}%` }} />
                         </div>
                       </div>
                     ))}

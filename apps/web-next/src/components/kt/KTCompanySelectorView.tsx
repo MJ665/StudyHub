@@ -95,7 +95,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
         {isAdmin && (
           <button
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 border border-indigo-500/30"
+            className="bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-[var(--color-brand-primary)]/20 active:scale-95 border border-[var(--color-brand-primary)]/30"
           >
             <Plus size={18} />
             <span>Create Domain</span>
@@ -110,7 +110,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
           animate={{ opacity: 1, y: 0 }}
           className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2rem] p-8 mb-10 shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[var(--color-brand-primary-container)]/5 rounded-full blur-[80px] pointer-events-none" />
           <h2 className="text-xl font-bold text-[var(--color-on-surface)] mb-6 flex items-center gap-3">
             <Building2 className="text-[var(--color-brand-primary)]" size={20} />
             <span>Create New Corporate Workspace</span>
@@ -121,7 +121,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
               <input
                 type="text"
                 placeholder="e.g. Acme Corp"
-                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                 value={newCompanyName}
                 onChange={(e) => setNewCompanyName(e.target.value)}
                 required
@@ -132,7 +132,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
               <input
                 type="text"
                 placeholder="e.g. acme.com"
-                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm font-mono"
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm font-mono"
                 value={newCompanyDomain}
                 onChange={(e) => setNewCompanyDomain(e.target.value)}
               />
@@ -141,7 +141,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
               <button
                 type="submit"
                 disabled={creating}
-                className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-3.5 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-500/10 flex items-center justify-center gap-2 text-sm"
+                className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:bg-[var(--color-surface-container-high)] text-white py-3.5 rounded-2xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/10 flex items-center justify-center gap-2 text-sm"
               >
                 {creating ? <Loader2 className="animate-spin" size={16} /> : 'Save Domain'}
               </button>
@@ -161,7 +161,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
       {loading ? (
         <div className="h-[400px] flex items-center justify-center">
           <div className="flex flex-col items-center gap-4">
-            <Loader2 className="animate-spin text-indigo-500" size={36} />
+            <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={36} />
             <p className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Fetching corporate registry...</p>
           </div>
         </div>
@@ -177,13 +177,13 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
               key={company.id}
               variants={cardVariants}
               onClick={() => selectCompany(company)}
-              className="group bg-[var(--color-surface-container)]/40 hover:bg-[var(--color-surface-container)] border border-slate-850 hover:border-slate-750 rounded-[2rem] p-8 cursor-pointer transition-all shadow-xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between h-64"
+              className="group bg-[var(--color-surface-container)]/40 hover:bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)] rounded-[2rem] p-8 cursor-pointer transition-all shadow-xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between h-64"
             >
               {/* Card top banner */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
               
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 group-hover:bg-[var(--color-brand-primary-container)]/10 transition-colors">
+                <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center border border-[var(--color-brand-primary)]/20 group-hover:bg-[var(--color-brand-primary-container)]/10 transition-colors">
                   <Building2 size={24} className="text-[var(--color-brand-primary)] group-hover:scale-110 transition-transform" />
                 </div>
                 
@@ -200,7 +200,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
                 <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] group-hover:text-[var(--color-on-surface-variant)] transition-colors">
                   Access Space
                 </span>
-                <div className="w-8 h-8 rounded-full bg-[var(--color-surface-dim)] flex items-center justify-center text-[var(--color-on-surface-variant)] group-hover:bg-[var(--color-brand-primary-container)] group-hover:text-[var(--color-on-surface)] transition-all">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-surface-dim)] flex items-center justify-center text-[var(--color-on-surface-variant)] group-hover:bg-[var(--color-brand-primary-container)] group-hover:text-white transition-all">
                   <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </div>
@@ -208,7 +208,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
           ))}
 
           {companies.length === 0 && (
-            <div className="col-span-full bg-[var(--color-surface-container)]/25 border border-slate-850 rounded-[2rem] p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
+            <div className="col-span-full bg-[var(--color-surface-container)]/25 border border-[var(--color-outline-variant)] rounded-[2rem] p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
               <Building2 size={40} className="text-[var(--color-on-surface-variant)] mb-4" />
               <h3 className="text-lg font-bold text-[var(--color-on-surface-variant)]">No Domains Registered</h3>
               <p className="text-xs text-[var(--color-on-surface-variant)] mt-2 max-w-sm">

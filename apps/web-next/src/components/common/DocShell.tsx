@@ -25,7 +25,7 @@ export function DocShell({
           </a>
           <div className="flex items-center gap-5 text-sm font-semibold text-[var(--color-on-surface-variant)]">
             <a href="/" className="hover:text-[var(--color-on-surface)] transition-colors">Home</a>
-            <a href="/login" className="rounded-lg bg-[var(--color-brand-primary-container)] px-4 py-2 text-[var(--color-on-surface)] hover:bg-indigo-500 transition-colors">Sign in</a>
+            <a href="/login" className="rounded-lg bg-[var(--color-brand-primary-container)] px-4 py-2 text-white hover:bg-[var(--color-brand-primary-container)] transition-colors">Sign in</a>
           </div>
         </div>
       </header>

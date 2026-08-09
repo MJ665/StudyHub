@@ -74,7 +74,7 @@ export default function ForgotPasswordPage({ onBack, onSuccess }: { onBack: () =
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-brand-primary hover:bg-brand-primary/90 text-slate-950 py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-brand-primary/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+            className="w-full bg-brand-primary hover:bg-brand-primary/90 text-[var(--color-surface-dim)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-brand-primary/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
           >
             {loading ? <Loader2 className="animate-spin" /> : <>Initialize Recovery <ArrowRight size={18} /></>}
           </button>

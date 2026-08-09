@@ -158,7 +158,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
         <Award className="text-[var(--color-brand-primary)]" size={20} />
         <span className="text-base font-black text-[var(--color-on-surface)]">StudyBuddy KT</span>
         {notificationsCount > 0 && (
-          <span className="ml-auto w-5 h-5 rounded-full bg-[var(--color-brand-primary-container)] text-[10px] font-bold flex items-center justify-center text-[var(--color-on-surface)]">{notificationsCount}</span>
+          <span className="ml-auto w-5 h-5 rounded-full bg-[var(--color-brand-primary-container)] text-[10px] font-bold flex items-center justify-center text-white">{notificationsCount}</span>
         )}
       </header>
 
@@ -188,11 +188,11 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
         {/* Sidebar Header & Company Selector */}
         <div className="p-6 border-b border-[var(--color-outline-variant)]">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] flex items-center justify-center shadow-lg shadow-[var(--color-brand-primary)]/30">
               <Award className="text-[var(--color-on-surface)]" size={20} />
             </div>
             <div>
-              <h1 className="text-lg font-black bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent tracking-tight">StudyBuddy KT</h1>
+              <h1 className="text-lg font-black bg-gradient-to-r from-[var(--color-on-surface)] to-[var(--color-on-surface-variant)] bg-clip-text text-transparent tracking-tight">StudyBuddy KT</h1>
               <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest">Enterprise Intel</p>
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 flex items-center justify-between hover:border-[var(--color-outline-variant)] transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-4 flex items-center justify-between hover:border-[var(--color-outline-variant)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50"
             >
               <div className="flex items-center gap-3 text-left">
                 <LayoutGrid size={16} className="text-[var(--color-brand-primary)]" />
@@ -246,7 +246,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
                         }}
                         className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all flex items-center justify-between ${
                           selectedCompany?.id === company.id
-                            ? 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-indigo-500/20'
+                            ? 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20'
                             : 'text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-on-surface)] border border-transparent'
                         }`}
                       >
@@ -281,11 +281,11 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
                 onClick={() => handleNavClick(item.id)}
                 className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all border ${
                   isActive
-                    ? 'bg-[var(--color-brand-primary-container)]/10 border-indigo-500/25 text-[var(--color-brand-primary)] shadow-[0_0_20px_rgba(99,102,241,0.05)]'
+                    ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/25 text-[var(--color-brand-primary)] shadow-[0_0_20px_rgba(99,102,241,0.05)]'
                     : 'bg-transparent border-transparent text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)]/30 hover:text-[var(--color-on-surface)]'
                 }`}
               >
-                <div className={`p-1.5 rounded-lg ${isActive ? 'bg-indigo-500/10 text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
+                <div className={`p-1.5 rounded-lg ${isActive ? 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>
                   {item.icon}
                 </div>
                 <span className="text-xs font-black uppercase tracking-widest flex-1 text-left">
@@ -293,7 +293,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
                 </span>
 
                 {item.id === 'mentor-inbox' && notificationsCount > 0 && (
-                  <span className="w-5 h-5 rounded-full bg-[var(--color-brand-primary-container)] text-[10px] font-bold flex items-center justify-center text-[var(--color-on-surface)] animate-pulse">
+                  <span className="w-5 h-5 rounded-full bg-[var(--color-brand-primary-container)] text-[10px] font-bold flex items-center justify-center text-white animate-pulse">
                     {notificationsCount}
                   </span>
                 )}
@@ -304,7 +304,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
 
         {/* Sidebar Footer */}
         <div className="p-6 border-t border-[var(--color-outline-variant)] space-y-3">
-          <div className="flex items-center gap-3 bg-[var(--color-surface-dim)]/40 p-3 rounded-2xl border border-slate-850">
+          <div className="flex items-center gap-3 bg-[var(--color-surface-dim)]/40 p-3 rounded-2xl border border-[var(--color-outline-variant)]">
             <div className="w-9 h-9 rounded-full bg-[var(--color-surface-container-high)] flex items-center justify-center text-sm font-bold uppercase text-[var(--color-brand-primary)] border border-[var(--color-outline-variant)]">
               {user?.full_name?.charAt(0) || 'U'}
             </div>
@@ -327,7 +327,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
       {/* Main Content Pane */}
       <main className="flex-1 min-w-0 flex flex-col h-full bg-[var(--color-surface-dim)] relative overflow-hidden z-10 pt-14 md:pt-0">
         {/* Subtle radial background glows for premium visual aesthetic */}
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-500/5 blur-[120px] pointer-events-none" />
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[var(--color-brand-primary-container)]/5 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[var(--color-brand-primary-container)]/3 blur-[100px] pointer-events-none" />
         
         <KTBreadcrumb />

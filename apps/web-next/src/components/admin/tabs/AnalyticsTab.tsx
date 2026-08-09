@@ -205,8 +205,8 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                   <PerformanceDistributionChart />
                 </div>
 
-                <div className="p-8 bg-indigo-500/5 border border-indigo-500/20 rounded-[3rem] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] -mr-32 -mt-32" />
+                <div className="p-8 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/20 rounded-[3rem] relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-primary-container)]/10 blur-[100px] -mr-32 -mt-32" />
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-6">
                     <div>
                       <h3 className="text-xl font-black text-[var(--color-on-surface)]">Batch Executive Strategy</h3>
@@ -226,7 +226,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       <button
                         disabled={!selectedAnalyticsBatch || fetchingInsights}
                         onClick={() => handleFetchBatchInsights(false)}
-                        className="px-6 py-3 bg-brand-primary text-slate-950 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2 disabled:opacity-30"
+                        className="px-6 py-3 bg-brand-primary text-[var(--color-surface-dim)] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2 disabled:opacity-30"
                       >
                         {fetchingInsights ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
                         Sync Intel
@@ -310,9 +310,9 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                       {(Array.isArray(batchIntel?.insights) ? batchIntel.insights : []).map((insight: any, idx: number) => (
                         <div key={idx} className="p-6 bg-[var(--color-surface-container)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] hover:border-brand-primary/30 transition-all relative overflow-hidden group">
                           <div className="flex items-center justify-between mb-4">
-                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter ${insight.impact === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-                              insight.impact === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                                'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter ${insight.impact === 'High' ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20' :
+                              insight.impact === 'Medium' ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20' :
+                                'bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20'
                               }`}>
                               {insight.impact} Impact
                             </span>
@@ -334,18 +334,18 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                   )}
                 </div>
 
-                <div className="p-8 bg-purple-500/5 border border-purple-500/20 rounded-[3rem] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[100px] -mr-32 -mt-32" />
+                <div className="p-8 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/20 rounded-[3rem] relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-primary-container)]/10 blur-[100px] -mr-32 -mt-32" />
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-6">
                     <div>
                       <h3 className="text-xl font-black text-[var(--color-on-surface)]">Global Organization Intelligence</h3>
-                      <p className="text-[10px] text-purple-400 font-black uppercase tracking-[0.3em] mt-1">Cross-Sector Neural Synthesis</p>
+                      <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">Cross-Sector Neural Synthesis</p>
                     </div>
                     <div className="flex items-center gap-4">
                       <button
                         disabled={fetchingGlobal}
                         onClick={() => handleFetchGlobalInsights(false)}
-                        className="px-6 py-3 bg-purple-600 text-[var(--color-on-surface)] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-500 transition-all shadow-lg shadow-purple-600/20 flex items-center gap-2 disabled:opacity-30"
+                        className="px-6 py-3 bg-[var(--color-brand-primary-container)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--color-brand-primary-container)] transition-all shadow-lg shadow-[var(--color-brand-primary)]/20 flex items-center gap-2 disabled:opacity-30"
                       >
                         {fetchingGlobal ? <Loader2 size={14} className="animate-spin" /> : <Brain size={14} />}
                         Sync Global Intel
@@ -365,7 +365,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mb-8 p-8 bg-purple-500/5 border border-purple-500/10 rounded-[2.5rem] italic text-sm text-[var(--color-on-surface-variant)] leading-relaxed border-l-4 border-l-purple-500"
+                      className="mb-8 p-8 bg-[var(--color-brand-primary-container)]/5 border border-[var(--color-brand-primary)]/10 rounded-[2.5rem] italic text-sm text-[var(--color-on-surface-variant)] leading-relaxed border-l-4 border-l-[var(--color-brand-primary)]"
                     >
                       "{globalSummary}"
                     </motion.div>
@@ -374,9 +374,9 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                   {globalMetrics?.metrics && (
                     <div className="mb-10 space-y-8">
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-8 rounded-[2.5rem] relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                        <div className="absolute inset-0 bg-[var(--color-brand-primary-container)]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                         <div className="lg:col-span-5">
-                          <p className="text-[10px] font-black text-purple-400 uppercase tracking-[0.2em] mb-6">Global Performance Fingerprint</p>
+                          <p className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-[0.2em] mb-6">Global Performance Fingerprint</p>
                           <div className="grid grid-cols-2 gap-4">
                             {[
                               { m: globalMetrics.metrics.m02_overall_accuracy, icon: <Target size={14} /> },
@@ -386,9 +386,9 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                               { m: globalMetrics.metrics.m26_talent_density, icon: <Trophy size={14} /> },
                               { m: globalMetrics.metrics.m29_risk_profile, icon: <Shield size={14} /> }
                             ].filter(x => x.m).map((item, idx) => (
-                              <div key={idx} className="bg-[var(--color-surface-dim)]/60 p-4 rounded-2xl border border-[var(--color-outline-variant)] hover:border-purple-500/30 transition-all text-left">
+                              <div key={idx} className="bg-[var(--color-surface-dim)]/60 p-4 rounded-2xl border border-[var(--color-outline-variant)] hover:border-[var(--color-brand-primary)]/30 transition-all text-left">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <span className="text-purple-400/60">{item.icon}</span>
+                                  <span className="text-[var(--color-brand-primary)]/60">{item.icon}</span>
                                   <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest truncate">{item.m.label}</p>
                                 </div>
                                 <p className="text-xl font-black text-[var(--color-on-surface)]">{item.m.value}</p>
@@ -398,7 +398,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                         </div>
                         <div className="lg:col-span-7 h-80 relative">
                           <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                            <Brain size={200} className="text-purple-500 animate-pulse" />
+                            <Brain size={200} className="text-[var(--color-brand-primary)] animate-pulse" />
                           </div>
                           <ResponsiveContainer width="100%" height="100%">
                             <RadarChart cx="50%" cy="50%" outerRadius="80%" data={[
@@ -419,7 +419,7 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
 
 
                       <div className="bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] p-8 rounded-3xl">
-                        <h4 className="text-[10px] font-black text-purple-400 uppercase tracking-[0.2em] mb-6">Cross-Organization Metric Matrix (30 Vectors)</h4>
+                        <h4 className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-[0.2em] mb-6">Cross-Organization Metric Matrix (30 Vectors)</h4>
                         <PerformanceMetricGrid metrics={globalMetrics.metrics} />
                       </div>
                     </div>
@@ -433,22 +433,22 @@ export default function AnalyticsTab({ ctx }: { ctx: AdminTabCtx }) {
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.05 }}
-                          className="p-6 bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-[2.5rem] hover:border-purple-500/30 transition-all relative overflow-hidden group shadow-xl hover:shadow-purple-500/5"
+                          className="p-6 bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] rounded-[2.5rem] hover:border-[var(--color-brand-primary)]/30 transition-all relative overflow-hidden group shadow-xl hover:shadow-[var(--color-brand-primary)]/5"
                         >
-                          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-purple-500/10 transition-all" />
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-brand-primary-container)]/5 blur-3xl -mr-16 -mt-16 group-hover:bg-[var(--color-brand-primary-container)]/10 transition-all" />
                           <div className="flex items-center justify-between mb-4 relative z-10">
-                            <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-tighter shadow-sm border ${insight.impact === 'High' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
-                              insight.impact === 'Medium' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                                'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                            <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-tighter shadow-sm border ${insight.impact === 'High' ? 'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border-[var(--color-danger)]/20' :
+                              insight.impact === 'Medium' ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)] border-[var(--color-warning)]/20' :
+                                'bg-[var(--color-success)]/10 text-[var(--color-success)] border-[var(--color-success)]/20'
                               }`}>
                               {insight.impact} Impact
                             </span>
                             <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">{insight.category}</span>
                           </div>
-                          <h4 className="text-sm font-black text-[var(--color-on-surface)] mb-2 group-hover:text-purple-400 transition-colors relative z-10">{insight.dimension}</h4>
+                          <h4 className="text-sm font-black text-[var(--color-on-surface)] mb-2 group-hover:text-[var(--color-brand-primary)] transition-colors relative z-10">{insight.dimension}</h4>
                           <p className="text-[11px] text-[var(--color-on-surface-variant)] leading-relaxed mb-4 relative z-10">{insight.observation}</p>
                           <div className="pt-4 border-t border-[var(--color-outline-variant)] relative z-10">
-                            <p className="text-[9px] font-black text-purple-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <p className="text-[9px] font-black text-[var(--color-brand-primary)] uppercase tracking-widest mb-2 flex items-center gap-2">
                               <Sparkles size={10} /> System Mandate
                             </p>
                             <p className="text-[10px] font-bold text-[var(--color-on-surface)] italic bg-[var(--color-surface-container-high)] p-3 rounded-xl border border-[var(--color-outline-variant)]">{insight.actionable_step}</p>

@@ -53,11 +53,11 @@ const ContactMe = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] text-[var(--color-on-surface)] selection:bg-indigo-500/30 selection:text-indigo-200 font-sans">
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-[var(--color-brand-primary-container)]/30 selection:text-[var(--color-brand-primary)] font-sans">
       {/* Background Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-500/10 blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/10 blur-[120px] animate-pulse" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-brand-primary-container)]/10 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-success)]/10 blur-[120px] animate-pulse" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-16">
@@ -65,7 +65,7 @@ const ContactMe = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[var(--color-brand-primary)] text-xs font-black uppercase tracking-widest mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)] text-xs font-black uppercase tracking-widest mb-6"
           >
             <MessageSquare size={14} />
             Support Center
@@ -76,7 +76,7 @@ const ContactMe = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl font-black text-[var(--color-on-surface)] mb-6 tracking-tight"
           >
-            Connect with <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-emerald-400">StudyBuddy</span>
+            Connect with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-primary-container)] via-blue-400 to-sky-400">StudyBuddy</span>
           </motion.h1>
           
           <motion.p 
@@ -139,7 +139,7 @@ const ContactMe = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g. Jane Doe"
-                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
                   />
                 </div>
                 <div className="space-y-3">
@@ -150,7 +150,7 @@ const ContactMe = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@company.com"
-                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
                   />
                 </div>
               </div>
@@ -164,7 +164,7 @@ const ContactMe = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Short summary"
-                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
+                    className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold"
                   />
                 </div>
                 <div className="space-y-3">
@@ -174,7 +174,7 @@ const ContactMe = () => {
                       name="category"
                       value={formData.category}
                       onChange={handleChange}
-                      className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-bold cursor-pointer"
+                      className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl px-6 py-4 text-[var(--color-on-surface)] appearance-none focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 transition-all font-bold cursor-pointer"
                     >
                       <option>General Inquiry</option>
                       <option>Technical Support</option>
@@ -196,7 +196,7 @@ const ContactMe = () => {
                   onChange={handleChange}
                   rows={5}
                   placeholder="Tell us what's on your mind..."
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-[2rem] px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold resize-none"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-[2rem] px-6 py-4 text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 transition-all placeholder:text-[var(--color-on-surface-variant)] font-bold resize-none"
                 />
               </div>
 
@@ -204,7 +204,7 @@ const ContactMe = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-16 bg-gradient-to-r from-indigo-500 via-blue-600 to-emerald-500 text-[var(--color-on-surface)] font-black text-lg rounded-2xl shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all border-none"
+                  className="w-full h-16 bg-gradient-to-r from-[var(--color-brand-primary-container)] via-blue-600 to-sky-500 text-white font-black text-lg rounded-2xl shadow-xl shadow-[var(--color-brand-primary)]/20 hover:shadow-[var(--color-brand-primary)]/40 transition-all border-none"
                 >
                   {isSubmitting ? (
                     <Loader2 className="animate-spin" size={24} />

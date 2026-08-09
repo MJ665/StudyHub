@@ -129,13 +129,13 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
   if (!data) return <div>No data found</div>;
 
   return (
-    <div id="executive-report" className="min-h-screen bg-white text-slate-900 p-8 md:p-12 print:p-0">
+    <div id="executive-report" className="min-h-screen bg-white text-[var(--color-on-surface-variant)] p-8 md:p-12 print:p-0">
       <div className="max-w-5xl mx-auto">
         {/* ─── Non-Printable Header ─────────────────────────── */}
         <div className="flex items-center justify-between mb-12 print:hidden">
           <button 
             onClick={onBack}
-            className="flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-slate-900 transition-all font-bold"
+            className="flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)] transition-all font-bold"
           >
             <ArrowLeft size={18} /> Back to Insights
           </button>
@@ -144,7 +144,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
               id="btn-export-csv"
               onClick={handleCsvDownload}
               disabled={exportingCsv}
-              className="flex items-center gap-2 bg-slate-100 text-[var(--color-on-surface-variant)] px-5 py-3 rounded-2xl font-bold border border-slate-200 hover:bg-slate-200 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 bg-[var(--color-surface-container-highest)] text-[var(--color-on-surface-variant)] px-5 py-3 rounded-2xl font-bold border border-[var(--color-outline-variant)] hover:bg-[var(--color-surface-container-highest)] active:scale-95 transition-all disabled:opacity-50"
             >
               <Download size={16} /> {exportingCsv ? 'Exporting…' : 'CSV (.csv)'}
             </button>
@@ -152,7 +152,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
               id="btn-export-xlsx"
               onClick={handleXlsxDownload}
               disabled={exportingXlsx}
-              className="flex items-center gap-2 bg-emerald-600 text-[var(--color-on-surface)] px-5 py-3 rounded-2xl font-bold shadow-xl shadow-emerald-600/30 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 bg-[var(--color-success)] text-[var(--color-surface-dim)] px-5 py-3 rounded-2xl font-bold shadow-xl shadow-[var(--color-success)]/30 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
             >
               <Download size={16} /> {exportingXlsx ? 'Exporting…' : 'Excel (.xlsx)'}
             </button>
@@ -160,13 +160,13 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
               id="btn-export-deep"
               onClick={handleDeepDownload}
               disabled={exportingDeep}
-              className="flex items-center gap-2 bg-purple-600 text-[var(--color-on-surface)] px-5 py-3 rounded-2xl font-bold shadow-xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 bg-[var(--color-brand-primary-container)] text-white px-5 py-3 rounded-2xl font-bold shadow-xl shadow-[var(--color-brand-primary)]/30 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
             >
               <Download size={16} /> {exportingDeep ? 'Exporting…' : 'Export Deep'}
             </button>
             <button 
               onClick={() => window.print()}
-              className="flex items-center gap-2 bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] px-6 py-3 rounded-2xl font-bold shadow-xl shadow-indigo-600/30 hover:scale-105 active:scale-95 transition-all"
+              className="flex items-center gap-2 bg-[var(--color-brand-primary-container)] text-white px-6 py-3 rounded-2xl font-bold shadow-xl shadow-[var(--color-brand-primary)]/30 hover:scale-105 active:scale-95 transition-all"
             >
               <Printer size={18} /> Print Executive Summary
             </button>
@@ -174,20 +174,20 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
         </div>
 
         {/* ─── Report Header ────────────────────────────────── */}
-        <div className="border-b-4 border-slate-900 pb-10 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div className="border-b-4 border-[var(--color-outline-variant)] pb-10 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[var(--color-on-surface)] overflow-hidden shrink-0 shadow-lg">
                 <img src="/images/logo.png" alt="StudyBuddy Logo" className="w-full h-full object-cover rounded-xl" />
               </div>
-              <h1 className="text-4xl font-black tracking-tight text-slate-900 uppercase">Executive Intelligence</h1>
+              <h1 className="text-4xl font-black tracking-tight text-[var(--color-on-surface-variant)] uppercase">Executive Intelligence</h1>
             </div>
             <p className="text-xl text-[var(--color-on-surface-variant)] font-medium max-w-2xl leading-relaxed italic">
               {aiSummary || "Synthesizing cross-cohort performance vectors for strategic analysis..."}
             </p>
           </div>
           <div className="text-left md:text-right">
-            <p className="text-sm font-black uppercase tracking-widest text-indigo-600 mb-1">{data.batch_name}</p>
+            <p className="text-sm font-black uppercase tracking-widest text-[var(--color-brand-primary)] mb-1">{data.batch_name}</p>
             <p className="text-xs text-[var(--color-on-surface-variant)] font-bold">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
           </div>
         </div>
@@ -195,13 +195,13 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
         {/* ─── High Level KPIs ──────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <StatCard 
-            icon={<Users className="text-indigo-600" />} 
+            icon={<Users className="text-[var(--color-brand-primary)]" />} 
             label="Active Talent" 
             value={data.total_members} 
             sub={`Across ${data.total_groups} Groups`}
           />
           <StatCard 
-            icon={<Target className="text-emerald-600" />} 
+            icon={<Target className="text-[var(--color-success)]" />} 
             label="Avg Proficiency" 
             value={`${data.average_score}%`} 
             sub="Enterprise Benchmark"
@@ -213,7 +213,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
             sub="Aggregated Learning Units"
           />
           <StatCard 
-            icon={<Zap className="text-amber-600" />} 
+            icon={<Zap className="text-[var(--color-warning)]" />} 
             label="Participation Rate"
             value={
               data.total_members > 0
@@ -227,21 +227,21 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
         {/* ─── Top Performers & Group Insights ──────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
           <section>
-            <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-3 border-b-2 border-slate-100 pb-4">
-              <Award className="text-amber-500" /> TOP TALENT RECOGNITION
+            <h2 className="text-xl font-black text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-3 border-b-2 border-[var(--color-outline-variant)] pb-4">
+              <Award className="text-[var(--color-warning)]" /> TOP TALENT RECOGNITION
             </h2>
             <div className="space-y-4">
               {data.top_performers?.map((p: any, i: number) => (
-                <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                <div key={i} className="flex items-center justify-between p-4 bg-[var(--color-surface-container-highest)] rounded-2xl border border-[var(--color-outline-variant)]">
                   <div className="flex items-center gap-4">
                     <span className="text-xs font-black text-[var(--color-on-surface-variant)] w-6">#{i+1}</span>
                     <div>
-                      <p className="font-bold text-slate-900">{p.full_name}</p>
+                      <p className="font-bold text-[var(--color-on-surface-variant)]">{p.full_name}</p>
                       <p className="text-[10px] uppercase font-black tracking-widest text-[var(--color-on-surface-variant)]">{p.group_name}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-black text-indigo-600">{p.avg_score}%</p>
+                    <p className="text-lg font-black text-[var(--color-brand-primary)]">{p.avg_score}%</p>
                     <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)]">{p.attempt_count ?? '—'} Units</p>
                   </div>
                 </div>
@@ -250,8 +250,8 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
           </section>
 
           <section>
-             <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-3 border-b-2 border-slate-100 pb-4">
-              <TrendingUp className="text-indigo-500" /> GROUP VELOCITY COMPARISON
+             <h2 className="text-xl font-black text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-3 border-b-2 border-[var(--color-outline-variant)] pb-4">
+              <TrendingUp className="text-[var(--color-brand-primary)]" /> GROUP VELOCITY COMPARISON
             </h2>
             <div className="space-y-4">
               {data.group_performance?.map((g: any, i: number) => (
@@ -260,12 +260,12 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
                       <span className="text-[var(--color-on-surface-variant)] uppercase tracking-wider">{g.group_name}</span>
                       <span className="text-[var(--color-on-surface-variant)]">{g.avg_score}% Proficiency</span>
                    </div>
-                   <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                   <div className="h-3 bg-[var(--color-surface-container-highest)] rounded-full overflow-hidden border border-[var(--color-outline-variant)]">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${g.avg_score}%` }}
                         transition={{ duration: 1, delay: i * 0.1 }}
-                        className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full"
+                        className="h-full bg-gradient-to-r from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] rounded-full"
                       />
                    </div>
                 </div>
@@ -281,7 +281,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
           </div>
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-8">
-               <Zap className="text-amber-400" />
+               <Zap className="text-[var(--color-warning)]" />
                <h2 className="text-2xl font-black uppercase tracking-tight">AI Strategic Observations</h2>
             </div>
             
@@ -291,9 +291,9 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
                    <div className="flex justify-between items-start mb-3">
                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-brand-primary)]">{insight.category}</span>
                       <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded ${
-                         insight.impact === 'High' ? 'bg-rose-500/20 text-rose-400' : 
-                         insight.impact === 'Medium' ? 'bg-amber-500/20 text-amber-400' : 
-                         'bg-emerald-500/20 text-emerald-400'
+                         insight.impact === 'High' ? 'bg-[var(--color-danger)]/20 text-[var(--color-danger)]' : 
+                         insight.impact === 'Medium' ? 'bg-[var(--color-warning)]/20 text-[var(--color-warning)]' : 
+                         'bg-[var(--color-success)]/20 text-[var(--color-success)]'
                       }`}>
                          {insight.impact} Impact
                       </span>
@@ -301,7 +301,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
                    <h4 className="text-sm font-black mb-2 text-[var(--color-on-surface)]">{insight.dimension}</h4>
                    <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed mb-4">{insight.observation}</p>
                    <div className="pt-4 border-t border-[var(--color-outline-variant)]">
-                      <p className="text-[9px] font-black text-indigo-300 uppercase mb-1">Recommended Intervention</p>
+                      <p className="text-[9px] font-black text-[var(--color-brand-primary)] uppercase mb-1">Recommended Intervention</p>
                       <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)] italic">{insight.actionable_step}</p>
                    </div>
                 </div>
@@ -313,7 +313,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
         </div>
 
         {/* ─── Footer ───────────────────────────────────────── */}
-        <div className="text-center border-t border-slate-100 pt-12 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)]">
+        <div className="text-center border-t border-[var(--color-outline-variant)] pt-12 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)]">
           Generated via StudyBuddy Enterprise Engine • Data Validated {new Date().toLocaleTimeString()}
         </div>
       </div>
@@ -323,12 +323,12 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
 
 function StatCard({ icon, label, value, sub }: any) {
   return (
-    <div className="p-6 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-md transition-all">
-      <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mb-4">
+    <div className="p-6 bg-white border border-[var(--color-outline-variant)] rounded-3xl shadow-sm hover:shadow-md transition-all">
+      <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-highest)] flex items-center justify-center mb-4">
         {icon}
       </div>
       <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">{label}</p>
-      <p className="text-3xl font-black text-slate-900 mb-1">{value}</p>
+      <p className="text-3xl font-black text-[var(--color-on-surface-variant)] mb-1">{value}</p>
       <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)]">{sub}</p>
     </div>
   );

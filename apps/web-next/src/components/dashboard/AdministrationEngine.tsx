@@ -78,7 +78,7 @@ export default function AdministrationEngine({
         className="h-full bg-[var(--color-surface-container)] border-r border-[var(--color-outline-variant)] flex flex-col z-20"
       >
         <div className="p-6 flex items-center gap-3 border-b border-[var(--color-outline-variant)]">
-          <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-slate-950">
+          <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-[var(--color-surface-dim)]">
             <ShieldCheck size={24} />
           </div>
           {isSidebarOpen && (
@@ -203,9 +203,9 @@ function NavItem({
       onClick={onClick}
       className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all group ${
         active 
-          ? 'bg-brand-primary text-slate-950 shadow-lg shadow-brand-primary/20' 
+          ? 'bg-brand-primary text-[var(--color-surface-dim)] shadow-lg shadow-brand-primary/20' 
           : variant === 'danger'
-            ? 'text-rose-500 hover:bg-rose-500/10'
+            ? 'text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10'
             : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)]'
       }`}
     >

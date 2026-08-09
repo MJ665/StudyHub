@@ -149,7 +149,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
 
         <button
           onClick={() => setShowCreate(!showCreate)}
-          className="bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 border border-indigo-500/30"
+          className="bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-[var(--color-brand-primary)]/20 active:scale-95 border border-[var(--color-brand-primary)]/30"
         >
           <Plus size={18} />
           <span>Provision Key</span>
@@ -163,9 +163,9 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-gradient-to-r from-indigo-950 to-slate-900 border-2 border-indigo-500/50 rounded-[2.5rem] p-8 mb-10 shadow-2xl relative overflow-hidden"
+            className="bg-gradient-to-r from-[var(--color-brand-primary-container)] to-[var(--color-surface-container)] border-2 border-[var(--color-brand-primary)]/50 rounded-[2.5rem] p-8 mb-10 shadow-2xl relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-indigo-500/10 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[var(--color-brand-primary-container)]/10 rounded-full blur-[80px] pointer-events-none" />
             <h2 className="text-xl font-bold text-[var(--color-on-surface)] mb-2 flex items-center gap-3">
               <Shield className="text-[var(--color-brand-primary)] animate-pulse" size={22} />
               <span>Cryptographic Token Generated</span>
@@ -175,13 +175,13 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
               Any requests utilizing this gateway token must supply this key inside the `X-KT-Key` header.
             </p>
 
-            <div className="flex flex-col md:flex-row items-center gap-4 bg-[var(--color-surface-dim)] p-4 rounded-2xl border border-indigo-500/25">
-              <span className="flex-1 font-mono text-sm text-indigo-300 select-all truncate tracking-wider w-full md:w-auto text-center md:text-left px-2">
+            <div className="flex flex-col md:flex-row items-center gap-4 bg-[var(--color-surface-dim)] p-4 rounded-2xl border border-[var(--color-brand-primary)]/25">
+              <span className="flex-1 font-mono text-sm text-[var(--color-brand-primary)] select-all truncate tracking-wider w-full md:w-auto text-center md:text-left px-2">
                 {newlyCreatedKey}
               </span>
               <button
                 onClick={handleCopy}
-                className="w-full md:w-auto bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-3 px-6 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+                className="w-full md:w-auto bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 px-6 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
               >
                 {copied ? <Check size={16} /> : <Copy size={16} />}
                 <span>{copied ? 'Copied!' : 'Copy Key'}</span>
@@ -205,7 +205,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
           animate={{ opacity: 1, y: 0 }}
           className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 mb-10 shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-[60px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[var(--color-brand-primary-container)]/5 rounded-full blur-[60px] pointer-events-none" />
           <h2 className="text-2xl font-black text-[var(--color-on-surface)] mb-2 flex items-center gap-3">
             <Key className="text-[var(--color-brand-primary)]" size={24} />
             <span>Provision Access Gateway</span>
@@ -229,7 +229,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                       onClick={() => toggleProjectSelection(project.id)}
                       className={`flex items-center gap-3 p-4 rounded-2xl text-left border text-sm transition-all ${
                         isChecked 
-                          ? 'bg-[var(--color-brand-primary-container)]/10 border-indigo-500 text-[var(--color-brand-primary)]' 
+                          ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)] text-[var(--color-brand-primary)]' 
                           : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                       }`}
                     >
@@ -246,7 +246,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
               <div className="col-span-1 md:col-span-3 space-y-1.5">
                 <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Auto-Populate from Directory (Optional)</label>
                 <select
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                   onChange={(e) => {
                     const selectedUserId = e.target.value;
                     if (!selectedUserId) return;
@@ -270,7 +270,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                 <input
                   type="text"
                   placeholder="e.g. Jenkins Pipeline, AI Chat"
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                   value={scopeLabel}
                   onChange={(e) => setScopeLabel(e.target.value)}
                   required
@@ -282,7 +282,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                 <input
                   type="text"
                   placeholder="e.g. John Doe"
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                   value={recipientName}
                   onChange={(e) => setRecipientName(e.target.value)}
                 />
@@ -293,7 +293,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                 <input
                   type="email"
                   placeholder="e.g. john@company.com"
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                   value={recipientEmail}
                   onChange={(e) => setRecipientEmail(e.target.value)}
                 />
@@ -304,7 +304,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Expiration TTL (Days)</label>
                 <select
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                   value={ttlDays}
                   onChange={(e) => setTtlDays(Number(e.target.value))}
                 >
@@ -320,7 +320,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                 <input
                   type="number"
                   placeholder="e.g. 100"
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm"
                   value={maxUses}
                   onChange={(e) => setMaxUses(Number(e.target.value))}
                 />
@@ -332,7 +332,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
               <textarea
                 placeholder="Enter justification reasons or security notes for issuing this key..."
                 rows={2}
-                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-[var(--color-on-surface)] text-sm resize-none"
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-[var(--color-on-surface)] text-sm resize-none"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />
@@ -351,11 +351,11 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
               </button>
             </div>
 
-            <div className="flex gap-3 pt-4 border-t border-slate-850">
+            <div className="flex gap-3 pt-4 border-t border-[var(--color-outline-variant)]">
               <button
                 type="submit"
                 disabled={generating}
-                className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 text-sm"
+                className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:bg-[var(--color-surface-container-high)] text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-[var(--color-brand-primary)]/25 flex items-center justify-center gap-2 text-sm"
               >
                 {generating ? <Loader2 className="animate-spin" size={18} /> : 'Generate Cryptographic Key'}
               </button>
@@ -374,7 +374,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
       {/* Keys list */}
       {loading ? (
         <div className="h-[300px] flex items-center justify-center">
-          <Loader2 className="animate-spin text-indigo-500" size={32} />
+          <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} />
         </div>
       ) : (
         <div className="space-y-4">
@@ -385,14 +385,14 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
               <div 
                 key={k.id}
                 className={`bg-[var(--color-surface-container)]/40 border rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all ${
-                  k.is_active ? 'border-slate-850' : 'border-rose-950 bg-rose-950/5'
+                  k.is_active ? 'border-[var(--color-outline-variant)]' : 'border-[var(--color-danger)] bg-[var(--color-danger)]/5'
                 }`}
               >
                 <div className="space-y-2 flex-1">
                   <div className="flex items-center gap-3">
                     <span className="font-bold text-[var(--color-on-surface)] text-base">{k.scope_label || 'Unnamed Access Token'}</span>
                     {!k.is_active && (
-                      <span className="text-[9px] font-black uppercase tracking-widest bg-rose-900/30 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded">
+                      <span className="text-[9px] font-black uppercase tracking-widest bg-[var(--color-danger)]/30 text-[var(--color-danger)] border border-[var(--color-danger)]/20 px-2 py-0.5 rounded">
                         Revoked
                       </span>
                     )}
@@ -425,7 +425,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                   {k.is_active ? (
                     <button
                       onClick={() => handleRevokeKey(k.id)}
-                      className="bg-[var(--color-surface-dim)] border border-rose-950 text-rose-400 hover:bg-rose-950/20 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2"
+                      className="bg-[var(--color-surface-dim)] border border-[var(--color-danger)] text-[var(--color-danger)] hover:bg-[var(--color-danger)]/20 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2"
                     >
                       <Trash2 size={12} />
                       Revoke
@@ -438,7 +438,7 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
             ))}
 
             {keys.length === 0 && (
-              <div className="bg-[var(--color-surface-container)]/10 border border-slate-850 rounded-2xl p-12 text-center">
+              <div className="bg-[var(--color-surface-container)]/10 border border-[var(--color-outline-variant)] rounded-2xl p-12 text-center">
                 <ShieldAlert className="mx-auto text-[var(--color-on-surface-variant)] mb-3" size={32} />
                 <p className="text-[var(--color-on-surface-variant)] font-bold">No Active Tokens Provisioned</p>
                 <p className="text-xs text-[var(--color-on-surface-variant)] mt-1">Generate a secure cryptographic API key to enable Jenkins, CLI or AI assistant tasks.</p>

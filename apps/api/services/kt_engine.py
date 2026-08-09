@@ -44,16 +44,40 @@ _META_RE = re.compile(
     r"your\s+(capabilities|purpose)|what\s+should\s+i\s+ask|how\s+to\s+use)\b",
     re.IGNORECASE,
 )
+# Small-talk / social — must not be refused. e.g. "how are you", "what's up".
+_SOCIAL_RE = re.compile(
+    r"\b(how\s+are\s+(you|u)|how\s*'?s?\s+it\s+going|how\s+do\s+you\s+do|"
+    r"how\s+have\s+you\s+been|hope\s+you('?re| are)|are\s+you\s+(ok|okay|there|good)|"
+    r"what'?s?\s+up|how\s+r\s+u|nice\s+to\s+meet|good\s+to\s+see)\b",
+    re.IGNORECASE,
+)
+# "What do you know / what can you access" — answered with a DATA-backed overview
+# of the caller's accessible projects + document counts (handled in kt_langraph).
+_OVERVIEW_RE = re.compile(
+    r"\b(what\s+(context|knowledge|docs?|documents?|projects?|companies|data|info(rmation)?)\s+"
+    r"(do\s+(you|i)\s+(have|know)|can\s+(you|i)\s+(access|see|read)|is\s+available|are\s+(there|available))|"
+    r"what\s+do\s+you\s+know|what\s+can\s+you\s+access|give\s+me\s+your\s+(complete\s+|full\s+)?context|"
+    r"which\s+(projects?|documents?|companies)\s+(can\s+i|do\s+i|are)|"
+    r"list\s+(your\s+|the\s+|my\s+)?(docs?|documents?|projects?)|"
+    r"what('?s| is)\s+in\s+(your|the)\s+knowledge)\b",
+    re.IGNORECASE,
+)
 
 
 def classify_conversational(query: str) -> Optional[str]:
-    """Return 'greeting' or 'meta' for small-talk/meta queries that should be
-    answered conversationally (no RAG grounding needed); None for real questions."""
+    """Return an intent for queries that should NOT hit grounded retrieval:
+    'overview' (data-backed access summary), 'greeting', 'social', or 'meta';
+    None for real knowledge questions."""
     q = (query or "").strip()
     if not q:
         return None
+    # Overview is data-backed, so check it first (it also reads like a question).
+    if _OVERVIEW_RE.search(q) and len(q.split()) <= 16:
+        return "overview"
     if _GREETING_RE.match(q):
         return "greeting"
+    if _SOCIAL_RE.search(q) and len(q.split()) <= 12:
+        return "social"
     # Keep meta detection tight so real knowledge questions are never intercepted.
     if _META_RE.search(q) and len(q.split()) <= 14:
         return "meta"
@@ -61,7 +85,8 @@ def classify_conversational(query: str) -> Optional[str]:
 
 
 def conversational_reply(kind: str) -> str:
-    """Friendly, non-refusal reply for greeting/meta queries."""
+    """Friendly, non-refusal reply for greeting/social/meta queries.
+    ('overview' is answered with live data in kt_langraph, not here.)"""
     if kind == "greeting":
         return (
             "Hi! 👋 I'm your Knowledge Transfer assistant. I answer questions grounded "
@@ -69,13 +94,47 @@ def conversational_reply(kind: str) -> str:
             "how a system works, why a decision was made, or how to do a task — and I "
             "cite my sources. What would you like to know?"
         )
+    if kind == "social":
+        return (
+            "I'm doing well — thanks for asking! 😊 I'm your Knowledge Transfer "
+            "assistant, here to answer questions from your projects' approved knowledge. "
+            "Ask me anything about a system, process, or decision, or say "
+            '"what do you know?" and I\'ll show you what I can access.'
+        )
     return (
         "I'm your Knowledge Transfer assistant. I draw on the approved knowledge "
         "documents in the projects you can access, and I always cite my sources. Ask me "
         "about a specific system, process, or decision — for example, "
-        '"How does the auth migration work?" (If a project has no approved documents yet, '
-        "I won't have anything to draw from there.)"
+        '"How does the auth migration work?" You can also ask "what do you know?" to see '
+        "which projects and documents I can draw from."
     )
+
+
+async def classify_intent_llm(query: str) -> str:
+    """Cheap LLM fallback intent classifier, used ONLY when grounded retrieval
+    found nothing — so we can still respond gracefully to social/meta/overview
+    questions the regexes missed instead of a flat refusal. Returns one of:
+    'social' | 'meta' | 'overview' | 'knowledge'. Fails safe to 'knowledge'."""
+    q = (query or "").strip()
+    if not q:
+        return "knowledge"
+    prompt = (
+        "Classify the user's message into exactly one category and reply with ONLY "
+        "that word:\n"
+        "- social: small talk / greetings / feelings (e.g. 'how are you', 'thanks').\n"
+        "- meta: asking what this assistant is or how to use it.\n"
+        "- overview: asking what knowledge/documents/projects it has or can access.\n"
+        "- knowledge: a real question expecting an answer from documents.\n\n"
+        f"Message: {q!r}\nCategory:"
+    )
+    try:
+        raw = (await gemini.generate(prompt)).strip().lower()
+    except Exception:  # noqa: BLE001 — never let classification break the reply
+        return "knowledge"
+    for kind in ("overview", "social", "meta", "knowledge"):
+        if kind in raw:
+            return kind
+    return "knowledge"
 
 # ── Knowledge access policy ──────────────────────────────────────────────────
 # Sensitivity vocabulary (see /kt/registry/sensitivities): low | medium | high.

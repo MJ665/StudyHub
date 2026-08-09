@@ -53,14 +53,14 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
 
            {/* Unified inbox: KT documents awaiting this mentor's review */}
            {ktInbox.length > 0 && (
-             <div className="bg-surface-container p-6 rounded-3xl border border-amber-500/20">
+             <div className="bg-surface-container p-6 rounded-3xl border border-[var(--color-warning)]/20">
                <div className="flex items-center justify-between mb-4">
-                 <p className="text-xs font-black uppercase text-amber-400">
+                 <p className="text-xs font-black uppercase text-[var(--color-warning)]">
                    Knowledge Docs Awaiting Review ({ktInbox.length})
                  </p>
                  <a
                    href="/kt"
-                   className="text-xs font-bold text-[var(--color-brand-primary)] hover:text-indigo-300"
+                   className="text-xs font-bold text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)]"
                  >
                    Open KT Workspace →
                  </a>
@@ -70,7 +70,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                    <a
                      key={d.id}
                      href="/kt"
-                     className="flex items-center justify-between p-3 rounded-xl bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] hover:border-amber-500/30 transition-all"
+                     className="flex items-center justify-between p-3 rounded-xl bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] hover:border-[var(--color-warning)]/30 transition-all"
                    >
                      <div>
                        <p className="text-sm font-bold text-[var(--color-on-surface)]">{d.title}</p>
@@ -93,7 +93,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                  <p className="text-xs font-black uppercase text-[var(--color-on-surface-variant)] mb-2">Participation</p>
                  <div className="flex items-end gap-3">
                     <p className="text-3xl font-black text-[var(--color-on-surface)]">{groupStats?.participation_rate || 0}%</p>
-                    <span className="text-emerald-400 text-xs font-bold mb-1">Live</span>
+                    <span className="text-[var(--color-success)] text-xs font-bold mb-1">Live</span>
                  </div>
               </div>
               <div className="bg-surface-container p-6 rounded-3xl border border-surface-bright">
@@ -110,8 +110,8 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
               <div className="bg-surface-container p-6 rounded-3xl border border-surface-bright">
                  <p className="text-xs font-black uppercase text-[var(--color-on-surface-variant)] mb-2">Pending Reviews</p>
                  <div className="flex items-end gap-3">
-                    <p className="text-3xl font-black text-rose-400">{recentAttempts.length}</p>
-                    <span className="text-rose-400/60 text-xs font-bold mb-1">Action Required</span>
+                    <p className="text-3xl font-black text-[var(--color-danger)]">{recentAttempts.length}</p>
+                    <span className="text-[var(--color-danger)]/60 text-xs font-bold mb-1">Action Required</span>
                  </div>
               </div>
            </div>
@@ -147,7 +147,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                    recentAttempts.map(attempt => (
                      <div key={`${attempt.type}-${attempt.id}`} className="p-6 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
                         <div className="flex items-center gap-4">
-                           <div className="w-10 h-10 rounded-full bg-[var(--color-surface-container-high)] flex items-center justify-center text-sm font-bold text-[var(--color-brand-primary)] border border-indigo-500/20 overflow-hidden">
+                           <div className="w-10 h-10 rounded-full bg-[var(--color-surface-container-high)] flex items-center justify-center text-sm font-bold text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20 overflow-hidden">
                               {attempt.user_avatar ? (
                                 <img src={attempt.user_avatar} alt="" className="w-full h-full object-cover" />
                               ) : (
@@ -157,7 +157,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                            <div>
                               <p className="text-sm font-bold text-[var(--color-on-surface)] leading-none mb-1">{attempt.user_name ?? "Unknown User"}</p>
                               <div className="flex items-center gap-3 text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">
-                                 <span className={`px-2 py-0.5 rounded ${attempt.type === 'coding' ? 'bg-amber-500/10 text-amber-400' : 'bg-blue-500/10 text-blue-400'}`}>
+                                 <span className={`px-2 py-0.5 rounded ${attempt.type === 'coding' ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]' : 'bg-blue-500/10 text-blue-400'}`}>
                                    {attempt.type}
                                  </span>
                                  <span className="flex items-center gap-1"><BookOpen size={10} /> {attempt.title ?? "Untitled"}</span>
@@ -190,14 +190,14 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                                     toast('error', 'Verification failed');
                                   }
                                 }}
-                                className="p-2.5 bg-emerald-600/10 text-emerald-500 hover:bg-emerald-600 hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-emerald-500/20"
+                                className="p-2.5 bg-[var(--color-success)]/10 text-[var(--color-success)] hover:bg-[var(--color-success)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-success)]/20"
                                 title="Mark as Verified"
                               >
                                  <CheckCircle2 size={16} />
                               </button>
                               <button 
                                 onClick={() => setShowReviewModal(attempt)}
-                                className="p-2.5 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)] hover:border-slate-500"
+                                className="p-2.5 bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-[var(--color-outline-variant)] hover:border-[var(--color-outline-variant)]"
                                 title="Manual Override / Feedback"
                               >
                                  <Plus size={16} />
@@ -207,7 +207,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                                   setSelectedStudent({ id: attempt.user_id, full_name: attempt.user_name });
                                   setShowAtlasModal(true);
                                 }}
-                                className="p-2.5 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-container)] hover:text-[var(--color-on-surface)] rounded-xl transition-all border border-indigo-500/20"
+                                className="p-2.5 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-container)] hover:text-white rounded-xl transition-all border border-[var(--color-brand-primary)]/20"
                                 title="Sync AI Intel"
                               >
                                  <TrendingUp size={16} />
@@ -223,7 +223,7 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
            {/* Topics for attention */}
             <div className="bg-surface-container rounded-3xl border border-surface-bright p-8">
               <div className="flex items-center gap-3 mb-8">
-                 <PieChartIcon size={20} className="text-amber-400" />
+                 <PieChartIcon size={20} className="text-[var(--color-warning)]" />
                  <h3 className="text-lg font-black text-[var(--color-on-surface)]">Curriculum Insights</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -235,14 +235,14 @@ export default function MentorOverviewTab({ ctx }: { ctx: MentorCtx }) {
                             <div>
                                <p className="text-xs font-bold text-[var(--color-on-surface)]">{t.topic}</p>
                                <p className={`text-[10px] font-black uppercase tracking-widest mt-0.5 ${
-                                 t.accuracy < 60 ? 'text-rose-400' : 'text-amber-400'
+                                 t.accuracy < 60 ? 'text-[var(--color-danger)]' : 'text-[var(--color-warning)]'
                                }`}>{t.status}</p>
                             </div>
                             <div className="text-right">
                                <p className="text-sm font-black text-[var(--color-on-surface)]">{t.accuracy}%</p>
                                <div className="w-16 h-1 bg-[var(--color-surface-container-high)] rounded-full mt-1 overflow-hidden">
                                   <div className={`h-full ${
-                                    t.accuracy < 60 ? 'bg-rose-500' : 'bg-amber-500'
+                                    t.accuracy < 60 ? 'bg-[var(--color-danger)]' : 'bg-[var(--color-warning)]'
                                   }`} style={{ width: `${t.accuracy}%` }} />
                                </div>
                             </div>

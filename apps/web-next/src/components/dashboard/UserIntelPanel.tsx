@@ -113,18 +113,18 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
     { id: 'atlas', label: 'Growth Atlas', icon: Map },
   ];
 
-  const riskColor = metrics.m29_risk?.value?.includes('High') ? 'text-rose-400' : 
-                    metrics.m29_risk?.value?.includes('Medium') ? 'text-amber-400' : 'text-emerald-400';
+  const riskColor = metrics.m29_risk?.value?.includes('High') ? 'text-[var(--color-danger)]' : 
+                    metrics.m29_risk?.value?.includes('Medium') ? 'text-[var(--color-warning)]' : 'text-[var(--color-success)]';
 
   if (loading && !intel) {
     return (
       <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-md flex items-center justify-center z-[100]">
         <div className="flex flex-col items-center gap-6">
           <div className="relative">
-            <Loader2 size={48} className="text-indigo-500 animate-spin" />
-            <div className="absolute inset-0 blur-xl bg-indigo-500/20 animate-pulse" />
+            <Loader2 size={48} className="text-[var(--color-brand-primary)] animate-spin" />
+            <div className="absolute inset-0 blur-xl bg-[var(--color-brand-primary-container)]/20 animate-pulse" />
           </div>
-          <p className="text-indigo-300 font-black tracking-widest text-xs uppercase animate-pulse">Synchronizing Intelligence...</p>
+          <p className="text-[var(--color-brand-primary)] font-black tracking-widest text-xs uppercase animate-pulse">Synchronizing Intelligence...</p>
         </div>
       </div>
     );
@@ -148,14 +148,14 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-5">
               <div className="relative group">
-                <div className="w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center overflow-hidden group-hover:border-indigo-500/50 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-[var(--color-brand-primary-container)]/20 border border-[var(--color-brand-primary)]/30 flex items-center justify-center overflow-hidden group-hover:border-[var(--color-brand-primary)]/50 transition-all">
                   {user.profile_photo_url ? (
                     <img src={user.profile_photo_url} className="w-full h-full object-cover" alt="" />
                   ) : (
                     <span className="text-2xl font-black text-[var(--color-brand-primary)]">{user.full_name?.charAt(0)}</span>
                   )}
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-2 border-slate-900 rounded-full" />
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[var(--color-success)] border-2 border-[var(--color-outline-variant)] rounded-full" />
               </div>
               
               <div>
@@ -199,7 +199,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   onClick={() => setActiveSection(sec.id as any)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border ${
                     isActive 
-                      ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] border-indigo-500 shadow-lg shadow-indigo-500/20' 
+                      ? 'bg-[var(--color-brand-primary-container)] text-white border-[var(--color-brand-primary)] shadow-lg shadow-[var(--color-brand-primary)]/20' 
                       : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border-transparent hover:text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-bright)]'
                   }`}
                 >
@@ -215,10 +215,10 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
         <div className="px-8 py-4 bg-[var(--color-brand-primary-container)]/5 border-b border-[var(--color-outline-variant)] flex items-center justify-between shrink-0">
           <p className="text-[10px] font-black text-[var(--color-brand-primary)] uppercase tracking-[0.2em]">Administrative Controls</p>
           <div className="flex items-center gap-3">
-            <button onClick={() => setShowIntervention(true)} className="flex items-center gap-2 px-4 py-1.5 bg-rose-600/10 hover:bg-rose-600 text-rose-400 hover:text-[var(--color-on-surface)] border border-rose-600/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">
+            <button onClick={() => setShowIntervention(true)} className="flex items-center gap-2 px-4 py-1.5 bg-[var(--color-danger)]/10 hover:bg-[var(--color-danger)] text-[var(--color-danger)] hover:text-[var(--color-on-surface)] border border-[var(--color-danger)]/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">
               <Shield size={12} /> Intervene
             </button>
-            <button onClick={() => onViewPremium?.(user.custom_slug || user.id.toString())} className="flex items-center gap-2 px-4 py-1.5 bg-[var(--color-brand-primary-container)]/10 hover:bg-[var(--color-brand-primary-container)] text-[var(--color-brand-primary)] hover:text-[var(--color-on-surface)] border border-indigo-600/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">
+            <button onClick={() => onViewPremium?.(user.custom_slug || user.id.toString())} className="flex items-center gap-2 px-4 py-1.5 bg-[var(--color-brand-primary-container)]/10 hover:bg-[var(--color-brand-primary-container)] text-[var(--color-brand-primary)] hover:text-white border border-[var(--color-brand-primary)]/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">
               <ExternalLink size={12} /> Full Profile
             </button>
           </div>
@@ -248,10 +248,10 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   
                   <div className="col-span-3 grid grid-cols-2 gap-3">
                     {[
-                      { label: 'Overall Accuracy', value: metrics.m02_overall_accuracy?.value, icon: Target, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-                      { label: 'Engagement Profile', value: metrics.m28_engagement?.value, icon: Zap, color: 'text-[var(--color-brand-primary)]', bg: 'bg-indigo-500/10' },
-                      { label: 'Learning Trajectory', value: metrics.m17b_velocity_label?.value, icon: TrendingUp, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-                      { label: 'Group Percentile', value: metrics.m26_percentile?.value, icon: Trophy, color: 'text-amber-400', bg: 'bg-amber-500/10' },
+                      { label: 'Overall Accuracy', value: metrics.m02_overall_accuracy?.value, icon: Target, color: 'text-[var(--color-success)]', bg: 'bg-[var(--color-success)]/10' },
+                      { label: 'Engagement Profile', value: metrics.m28_engagement?.value, icon: Zap, color: 'text-[var(--color-brand-primary)]', bg: 'bg-[var(--color-brand-primary-container)]/10' },
+                      { label: 'Learning Trajectory', value: metrics.m17b_velocity_label?.value, icon: TrendingUp, color: 'text-[var(--color-brand-primary)]', bg: 'bg-[var(--color-brand-primary-container)]/10' },
+                      { label: 'Group Percentile', value: metrics.m26_percentile?.value, icon: Trophy, color: 'text-[var(--color-warning)]', bg: 'bg-[var(--color-warning)]/10' },
                     ].map((s, i) => (
                       <div key={i} className={`${s.bg} border border-[var(--color-outline-variant)] rounded-2xl p-4 flex flex-col justify-between`}>
                         <div className="flex items-center gap-2">
@@ -272,7 +272,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                         <Activity size={16} className="text-[var(--color-brand-primary)]" />
                         <h4 className="text-xs font-black text-[var(--color-on-surface)] uppercase tracking-[0.2em]">Scientific Consistency Analysis</h4>
                       </div>
-                      <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20">
+                      <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20">
                         Method #15 (CV)
                       </span>
                     </div>
@@ -286,7 +286,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
 
                       <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Status / Profile</p>
-                        <p className="text-sm font-black text-emerald-400 mt-1 uppercase tracking-wider truncate">{consistency.consistency_status || 'N/A'}</p>
+                        <p className="text-sm font-black text-[var(--color-success)] mt-1 uppercase tracking-wider truncate">{consistency.consistency_status || 'N/A'}</p>
                         <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-wider">Stability Grade</p>
                       </div>
 
@@ -298,7 +298,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
 
                       <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Standard Deviation</p>
-                        <p className="text-xl font-black text-purple-400 mt-1">{(consistency.standard_deviation || 0).toFixed(2)}</p>
+                        <p className="text-xl font-black text-[var(--color-brand-primary)] mt-1">{(consistency.standard_deviation || 0).toFixed(2)}</p>
                         <p className="text-[8px] font-black text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-wider">Performance Spread</p>
                       </div>
                     </div>
@@ -320,8 +320,8 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     {Object.values(metrics).map((m: any, i: number) => {
-                      const typeColor = m.type === 'quantitative' ? 'text-[var(--color-brand-primary)]' : m.type === 'qualitative' ? 'text-purple-400' : 'text-amber-400';
-                      const bgColor = m.type === 'quantitative' ? 'bg-indigo-500/5' : m.type === 'qualitative' ? 'bg-purple-500/5' : 'bg-amber-500/5';
+                      const typeColor = m.type === 'quantitative' ? 'text-[var(--color-brand-primary)]' : m.type === 'qualitative' ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-warning)]';
+                      const bgColor = m.type === 'quantitative' ? 'bg-[var(--color-brand-primary-container)]/5' : m.type === 'qualitative' ? 'bg-[var(--color-brand-primary-container)]/5' : 'bg-[var(--color-warning)]/5';
                       return (
                         <div key={i} className={`${bgColor} border border-[var(--color-outline-variant)] rounded-2xl p-4 hover:border-[var(--color-outline-variant)] transition-all group`}>
                           <div className="flex items-center gap-2 mb-1.5">
@@ -342,17 +342,17 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
               <motion.div key="topics" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-8">
                 <div className="grid grid-cols-2 gap-4">
                   {charts.best_topic && (
-                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-6">
-                      <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-2">🏆 Peak Mastery</p>
+                    <div className="bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-3xl p-6">
+                      <p className="text-[10px] font-black text-[var(--color-success)] uppercase tracking-widest mb-2">🏆 Peak Mastery</p>
                       <p className="text-[var(--color-on-surface)] font-black text-lg">{charts.best_topic.topic}</p>
-                      <p className="text-3xl font-black text-emerald-400 mt-1">{charts.best_topic.avg_accuracy}%</p>
+                      <p className="text-3xl font-black text-[var(--color-success)] mt-1">{charts.best_topic.avg_accuracy}%</p>
                     </div>
                   )}
                   {charts.worst_topic && (
-                    <div className="bg-rose-500/10 border border-rose-500/20 rounded-3xl p-6">
-                      <p className="text-[10px] font-black text-rose-400 uppercase tracking-widest mb-2">⚠️ Critical Gap</p>
+                    <div className="bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 rounded-3xl p-6">
+                      <p className="text-[10px] font-black text-[var(--color-danger)] uppercase tracking-widest mb-2">⚠️ Critical Gap</p>
                       <p className="text-[var(--color-on-surface)] font-black text-lg">{charts.worst_topic.topic}</p>
-                      <p className="text-3xl font-black text-rose-400 mt-1">{charts.worst_topic.avg_accuracy}%</p>
+                      <p className="text-3xl font-black text-[var(--color-danger)] mt-1">{charts.worst_topic.avg_accuracy}%</p>
                     </div>
                   )}
                 </div>
@@ -383,7 +383,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                 <div className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-8">
                   <div className="flex items-center justify-between mb-8">
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Cognitive Engagement Velocity</p>
-                    <div className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black text-[var(--color-brand-primary)]">
+                    <div className="px-3 py-1 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-full text-[10px] font-black text-[var(--color-brand-primary)]">
                       STREAK ACTIVE: {metrics.m07_streak?.value}
                     </div>
                   </div>
@@ -420,15 +420,15 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                     <p className="text-[var(--color-on-surface-variant)] text-sm font-black uppercase tracking-widest animate-pulse">Synthesizing Narrative...</p>
                   </div>
                 ) : aiSummary ? (
-                  <div className="bg-gradient-to-br from-indigo-900/20 to-slate-900/20 border border-indigo-500/20 rounded-[2.5rem] p-8">
+                  <div className="bg-gradient-to-br from-[var(--color-brand-primary-container)]/20 to-[var(--color-surface-container)]/20 border border-[var(--color-brand-primary)]/20 rounded-[2.5rem] p-8">
                     <div className="flex items-center gap-3 mb-8">
                       <Sparkles className="text-[var(--color-brand-primary)]" size={24} />
                       <h3 className="text-lg font-black text-[var(--color-on-surface)] uppercase tracking-tight">Gemini Intelligence Report</h3>
                     </div>
                     <div className="space-y-6">
                       {aiSummary.split('\n').filter(Boolean).map((line, i) => (
-                        <div key={i} className="flex gap-4 p-5 bg-[var(--color-surface-container-high)] rounded-2xl border border-[var(--color-outline-variant)] hover:border-indigo-500/30 transition-all">
-                          <ChevronRight size={16} className="text-indigo-500 shrink-0 mt-1" />
+                        <div key={i} className="flex gap-4 p-5 bg-[var(--color-surface-container-high)] rounded-2xl border border-[var(--color-outline-variant)] hover:border-[var(--color-brand-primary)]/30 transition-all">
+                          <ChevronRight size={16} className="text-[var(--color-brand-primary)] shrink-0 mt-1" />
                           <p className="text-[var(--color-on-surface-variant)] leading-relaxed text-sm font-medium" 
                              dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<span class="text-[var(--color-on-surface)] font-black">$1</span>') }} />
                         </div>
@@ -440,14 +440,14 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-32 gap-8 text-center">
-                    <div className="w-24 h-24 bg-indigo-500/10 border border-indigo-500/20 rounded-[3rem] flex items-center justify-center">
+                    <div className="w-24 h-24 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-[3rem] flex items-center justify-center">
                       <Brain size={48} className="text-[var(--color-brand-primary)]" />
                     </div>
                     <div>
                       <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 uppercase tracking-tight">Cognitive Engine Offline</h3>
                       <p className="text-[var(--color-on-surface-variant)] text-sm max-w-xs mx-auto leading-relaxed">Synthesize the 30-dimension matrix into a strategic natural language coaching narrative.</p>
                     </div>
-                    <button onClick={() => generateAISummary()} className="px-10 py-5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-[2rem] font-black uppercase tracking-widest flex items-center gap-3 shadow-2xl shadow-indigo-500/40 transition-all">
+                    <button onClick={() => generateAISummary()} className="px-10 py-5 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-[2rem] font-black uppercase tracking-widest flex items-center gap-3 shadow-2xl shadow-[var(--color-brand-primary)]/40 transition-all">
                       <Sparkles size={20} /> Generate AI Report
                     </button>
                   </div>
@@ -460,24 +460,24 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
               <motion.div key="atlas" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-6">
                 {atlasLoading ? (
                   <div className="flex flex-col items-center justify-center py-32 gap-6">
-                    <Loader2 size={48} className="text-emerald-500 animate-spin" />
+                    <Loader2 size={48} className="text-[var(--color-success)] animate-spin" />
                     <p className="text-[var(--color-on-surface-variant)] text-sm font-black uppercase tracking-widest animate-pulse">Mapping Pedagogy...</p>
                   </div>
                 ) : atlas ? (
                   <div className="space-y-4">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-sm font-black text-[var(--color-on-surface)] uppercase tracking-widest flex items-center gap-3">
-                        <Map size={18} className="text-emerald-400" /> Strategic Growth Map
+                        <Map size={18} className="text-[var(--color-success)]" /> Strategic Growth Map
                       </h3>
-                      <button onClick={() => fetchGrowthAtlas(true)} className="text-[10px] font-black text-[var(--color-on-surface-variant)] hover:text-emerald-400 flex items-center gap-2 uppercase tracking-widest transition-all">
+                      <button onClick={() => fetchGrowthAtlas(true)} className="text-[10px] font-black text-[var(--color-on-surface-variant)] hover:text-[var(--color-success)] flex items-center gap-2 uppercase tracking-widest transition-all">
                         <RefreshCw size={12} /> Sync
                       </button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {atlas.map((point, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-2xl p-5 hover:border-emerald-500/30 transition-all group">
+                        <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-2xl p-5 hover:border-[var(--color-success)]/30 transition-all group">
                           <div className="flex items-start gap-4">
-                            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                            <div className="w-8 h-8 rounded-xl bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 flex items-center justify-center shrink-0 group-hover:bg-[var(--color-success)] group-hover:text-[var(--color-on-surface-variant)] transition-all">
                               <span className="text-xs font-black">{i + 1}</span>
                             </div>
                             <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed font-medium pt-1">
@@ -490,14 +490,14 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-32 gap-8 text-center">
-                    <div className="w-24 h-24 bg-emerald-500/10 border border-emerald-500/20 rounded-[3rem] flex items-center justify-center">
-                      <Map size={48} className="text-emerald-400" />
+                    <div className="w-24 h-24 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-[3rem] flex items-center justify-center">
+                      <Map size={48} className="text-[var(--color-success)]" />
                     </div>
                     <div>
                       <h3 className="text-xl font-black text-[var(--color-on-surface)] mb-2 uppercase tracking-tight">Growth Map Unavailable</h3>
                       <p className="text-[var(--color-on-surface-variant)] text-sm max-w-xs mx-auto leading-relaxed">Map the learner's 30-point performance trajectory to identify strategic opportunities.</p>
                     </div>
-                    <button onClick={() => fetchGrowthAtlas()} className="px-10 py-5 bg-emerald-600 hover:bg-emerald-500 text-[var(--color-on-surface)] rounded-[2rem] font-black uppercase tracking-widest flex items-center gap-3 shadow-2xl shadow-emerald-500/40 transition-all">
+                    <button onClick={() => fetchGrowthAtlas()} className="px-10 py-5 bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)] rounded-[2rem] font-black uppercase tracking-widest flex items-center gap-3 shadow-2xl shadow-[var(--color-success)]/40 transition-all">
                       <Sparkles size={20} /> Generate Growth Atlas
                     </button>
                   </div>

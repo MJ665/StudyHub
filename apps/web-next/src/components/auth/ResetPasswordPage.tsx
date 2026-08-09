@@ -78,7 +78,7 @@ export default function ResetPasswordPage({
               placeholder="000000"
               value={otp}
               onChange={e => setOtp(e.target.value)}
-              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 text-center text-2xl font-black tracking-[0.5em] text-[var(--color-on-surface)] outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 text-center text-2xl font-black tracking-[0.5em] text-[var(--color-on-surface)] outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/30 transition-all"
             />
           </div>
 
@@ -94,7 +94,7 @@ export default function ResetPasswordPage({
                   placeholder="••••••••"
                   value={newPassword}
                   onChange={e => setNewPassword(e.target.value)}
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/30 transition-all"
                 />
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function ResetPasswordPage({
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
-                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                  className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl p-5 pl-14 text-[var(--color-on-surface)] font-bold outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/30 transition-all"
                 />
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function ResetPasswordPage({
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-indigo-600/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+            className="w-full bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-[var(--color-brand-primary)]/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
           >
             {loading ? <Loader2 className="animate-spin" /> : <>Finalize Update <Check size={18} /></>}
           </button>

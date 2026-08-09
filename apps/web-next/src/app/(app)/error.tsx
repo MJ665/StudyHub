@@ -26,7 +26,7 @@ export default function AppAreaError({
         <div className="flex gap-3">
           <button
             onClick={reset}
-            className="flex-1 py-3 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-bold transition-all"
+            className="flex-1 py-3 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-bold transition-all"
           >
             Try again
           </button>

@@ -45,34 +45,34 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800"
+        className="relative w-full max-w-lg bg-white dark:bg-[var(--color-surface-dim)] rounded-3xl shadow-2xl overflow-hidden border border-[var(--color-outline-variant)] dark:border-[var(--color-outline-variant)]"
       >
         {/* Header decoration */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 opacity-10 dark:opacity-20" />
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-[var(--color-brand-primary-container)] via-[var(--color-brand-secondary)] to-pink-500 opacity-10 dark:opacity-20" />
         
         <div className="p-8 relative">
           <div className="flex justify-between items-start mb-6">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/40 rounded-2xl text-indigo-600 dark:text-[var(--color-brand-primary)]">
+              <div className="p-2.5 bg-[var(--color-brand-primary-container)] dark:bg-[var(--color-brand-primary-container)]/40 rounded-2xl text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">
                 <Sparkles className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-xl font-black text-gray-900 dark:text-[var(--color-on-surface)]">Daily Challenge</h2>
+                <h2 className="text-xl font-black text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface)]">Daily Challenge</h2>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <span className="text-xs font-semibold px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 rounded-full">
+                  <span className="text-xs font-semibold px-2 py-0.5 bg-[var(--color-surface-container-highest)] dark:bg-[var(--color-surface-container)] text-[var(--color-on-surface-variant)] rounded-full">
                     {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                    question.difficulty === 'Hard' ? 'bg-red-100 text-red-600' : 
-                    question.difficulty === 'Medium' ? 'bg-amber-100 text-amber-600' : 'bg-green-100 text-green-600'
+                    question.difficulty === 'Hard' ? 'bg-[var(--color-danger)] text-[var(--color-danger)]' : 
+                    question.difficulty === 'Medium' ? 'bg-[var(--color-warning)] text-[var(--color-warning)]' : 'bg-[var(--color-success)] text-[var(--color-success)]'
                   }`}>
                     {question.difficulty}
                   </span>
                 </div>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
-              <XCircle className="w-6 h-6 text-gray-400" />
+            <button onClick={onClose} className="p-2 hover:bg-[var(--color-surface-container-highest)] dark:hover:bg-[var(--color-surface-container)] rounded-full transition-colors">
+              <XCircle className="w-6 h-6 text-[var(--color-on-surface-variant)]" />
             </button>
           </div>
 
@@ -84,8 +84,8 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
               >
-                <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl mb-6 border border-gray-100 dark:border-gray-800">
-                   <p className="text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
+                <div className="bg-[var(--color-surface-container-highest)] dark:bg-[var(--color-surface-container)]/50 p-6 rounded-2xl mb-6 border border-[var(--color-outline-variant)] dark:border-[var(--color-outline-variant)]">
+                   <p className="text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface)] leading-relaxed font-medium">
                      {question.question}
                    </p>
                 </div>
@@ -97,17 +97,17 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                       onClick={() => setSelectedOption(opt)}
                       className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group relative overflow-hidden ${
                         selectedOption === opt 
-                          ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' 
-                          : 'border-gray-100 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700'
+                          ? 'border-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/50 dark:bg-[var(--color-brand-primary-container)]/20' 
+                          : 'border-[var(--color-outline-variant)] dark:border-[var(--color-outline-variant)] hover:border-[var(--color-brand-primary)] dark:hover:border-[var(--color-brand-primary)]'
                       }`}
                     >
                       <div className="flex items-center gap-3 relative z-10">
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
-                          selectedOption === opt ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+                          selectedOption === opt ? 'bg-[var(--color-brand-primary-container)] text-white' : 'bg-[var(--color-surface-container-highest)] dark:bg-[var(--color-surface-container)] text-[var(--color-on-surface-variant)]'
                         }`}>
                           {String.fromCharCode(65 + idx)}
                         </div>
-                        <span className={`text-sm ${selectedOption === opt ? 'text-indigo-900 dark:text-indigo-100 font-semibold' : 'text-gray-600 dark:text-gray-400'}`}>
+                        <span className={`text-sm ${selectedOption === opt ? 'text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] font-semibold' : 'text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface-variant)]'}`}>
                           {opt}
                         </span>
                       </div>
@@ -119,7 +119,7 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                   <button
                     onClick={handleSubmit}
                     disabled={!selectedOption || isSubmitting}
-                    className="w-full py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-700 disabled:bg-gray-300 dark:disabled:bg-gray-800 text-[var(--color-on-surface)] rounded-2xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:bg-[var(--color-surface-container-highest)] dark:disabled:bg-[var(--color-surface-container)] text-white rounded-2xl font-bold shadow-lg shadow-[var(--color-brand-primary)] dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? 'Verifying...' : (
                       <>
@@ -138,34 +138,34 @@ export default function DailyChallengeModal({ challenge, onClose, onSuccess }: a
                 className="text-center py-6"
               >
                 <div className="flex justify-center mb-6">
-                  <div className={`p-6 rounded-full ${result.score > 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                  <div className={`p-6 rounded-full ${result.score > 0 ? 'bg-[var(--color-success)] text-[var(--color-success)]' : 'bg-[var(--color-danger)] text-[var(--color-danger)]'}`}>
                     {result.score > 0 ? <Trophy className="w-16 h-16" /> : <BrainCircuit className="w-16 h-16" />}
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-black text-gray-900 dark:text-[var(--color-on-surface)] mb-2">
+                <h3 className="text-2xl font-black text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface)] mb-2">
                   {result.score > 0 ? 'Outstanding!' : 'Not quite right'}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 mb-8">
+                <p className="text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface-variant)] mb-8">
                   {result.score > 0 
                     ? "You've mastered today's challenge and earned your daily points." 
                     : "Try again tomorrow! Review the topic in your study banks."}
                 </p>
 
-                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 flex justify-around mb-8 border border-gray-100 dark:border-gray-800">
+                <div className="bg-[var(--color-surface-container-highest)] dark:bg-[var(--color-surface-container)]/50 rounded-2xl p-4 flex justify-around mb-8 border border-[var(--color-outline-variant)] dark:border-[var(--color-outline-variant)]">
                   <div className="text-center">
-                    <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Score</p>
-                    <p className="text-xl font-black text-gray-900 dark:text-[var(--color-on-surface)]">{result.score}/1</p>
+                    <p className="text-[10px] uppercase font-bold text-[var(--color-on-surface-variant)] mb-1">Score</p>
+                    <p className="text-xl font-black text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface)]">{result.score}/1</p>
                   </div>
-                  <div className="text-center border-l border-gray-200 dark:border-gray-700 pl-8">
-                    <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Time</p>
-                    <p className="text-xl font-black text-gray-900 dark:text-[var(--color-on-surface)]">{result.time_taken || 0}s</p>
+                  <div className="text-center border-l border-[var(--color-outline-variant)] dark:border-[var(--color-outline-variant)] pl-8">
+                    <p className="text-[10px] uppercase font-bold text-[var(--color-on-surface-variant)] mb-1">Time</p>
+                    <p className="text-xl font-black text-[var(--color-on-surface-variant)] dark:text-[var(--color-on-surface)]">{result.time_taken || 0}s</p>
                   </div>
                 </div>
 
                 <button
                   onClick={onClose}
-                  className="w-full py-4 bg-gray-900 dark:bg-white text-[var(--color-on-surface)] dark:text-gray-900 rounded-2xl font-bold transition-all active:scale-[0.98]"
+                  className="w-full py-4 bg-[var(--color-surface-dim)] dark:bg-white text-[var(--color-on-surface)] dark:text-[var(--color-on-surface-variant)] rounded-2xl font-bold transition-all active:scale-[0.98]"
                 >
                   Return to Dashboard
                 </button>

@@ -4,7 +4,7 @@ import React from 'react';
 import { Palette } from 'lucide-react';
 import { THEME_REGISTRY, useTheme } from './ThemeProvider';
 
-/** Compact theme picker (Classic / Warm Dark / Warm Light), token-styled so it
+/** Compact theme picker (Navy Light / Navy Dark / Classic), token-styled so it
  *  looks right in every theme. */
 export default function ThemeSwitcher({ compact = false }: { compact?: boolean }) {
   const { theme, setTheme } = useTheme();
@@ -27,7 +27,7 @@ export default function ThemeSwitcher({ compact = false }: { compact?: boolean }
             }`}
             title={t.label}
           >
-            {compact ? t.label.replace('Warm ', '') : t.label}
+            {compact ? t.label.replace('Navy ', '') : t.label}
           </button>
         ))}
       </div>

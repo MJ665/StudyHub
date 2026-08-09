@@ -53,14 +53,14 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-indigo-950/80 to-purple-950/80 border border-indigo-500/30 rounded-3xl p-6 relative overflow-hidden"
+      className="bg-gradient-to-br from-[var(--color-brand-primary-container)]/80 to-[var(--color-brand-primary)]/80 border border-[var(--color-brand-primary)]/30 rounded-3xl p-6 relative overflow-hidden"
     >
       {/* Glow */}
-      <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-48 h-48 bg-[var(--color-brand-primary-container)]/10 blur-3xl rounded-full pointer-events-none" />
 
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-indigo-500/20 rounded-xl flex items-center justify-center">
+          <div className="w-8 h-8 bg-[var(--color-brand-primary-container)]/20 rounded-xl flex items-center justify-center">
             <Sparkles size={16} className="text-[var(--color-brand-primary)]" />
           </div>
           <span className="text-xs font-black uppercase tracking-widest text-[var(--color-brand-primary)]">AI Recommendation</span>
@@ -77,7 +77,7 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
       {data.recommendation ? (
         <>
           <div className="flex items-start gap-3 mb-4">
-            <div className="w-10 h-10 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center shrink-0 mt-0.5">
+            <div className="w-10 h-10 bg-[var(--color-brand-primary-container)]/20 border border-[var(--color-brand-primary)]/30 rounded-2xl flex items-center justify-center shrink-0 mt-0.5">
               <Target size={18} className="text-[var(--color-brand-primary)]" />
             </div>
             <div>
@@ -88,36 +88,36 @@ export default function AINextTopicWidget({ groupId }: { groupId?: number }) {
         </>
       ) : (
         <div className="flex items-center gap-3 mb-4">
-          <Lightbulb size={20} className="text-amber-400 shrink-0" />
+          <Lightbulb size={20} className="text-[var(--color-warning)] shrink-0" />
           <p className="text-[var(--color-on-surface-variant)] text-sm">{data.reason}</p>
         </div>
       )}
 
       {/* Topic Breakdown */}
       {(data.weak_topics.length > 0 || data.strong_topics.length > 0) && (
-        <div className="mt-4 pt-4 border-t border-indigo-500/20 grid grid-cols-2 gap-3">
+        <div className="mt-4 pt-4 border-t border-[var(--color-brand-primary)]/20 grid grid-cols-2 gap-3">
           {data.weak_topics.length > 0 && (
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-rose-400 mb-2 flex items-center gap-1">
+              <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-danger)] mb-2 flex items-center gap-1">
                 <TrendingDown size={10} /> Needs Work
               </p>
               {data.weak_topics.map(t => (
                 <div key={t.topic} className="flex justify-between items-center mb-1">
                   <span className="text-xs text-[var(--color-on-surface-variant)] truncate max-w-[100px]">{t.topic}</span>
-                  <span className="text-xs font-bold text-rose-400 shrink-0 ml-1">{t.avg_accuracy}%</span>
+                  <span className="text-xs font-bold text-[var(--color-danger)] shrink-0 ml-1">{t.avg_accuracy}%</span>
                 </div>
               ))}
             </div>
           )}
           {data.strong_topics.length > 0 && (
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-2 flex items-center gap-1">
+              <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-success)] mb-2 flex items-center gap-1">
                 <TrendingUp size={10} /> Strong Areas
               </p>
               {data.strong_topics.map(t => (
                 <div key={t.topic} className="flex justify-between items-center mb-1">
                   <span className="text-xs text-[var(--color-on-surface-variant)] truncate max-w-[100px]">{t.topic}</span>
-                  <span className="text-xs font-bold text-emerald-400 shrink-0 ml-1">{t.avg_accuracy}%</span>
+                  <span className="text-xs font-bold text-[var(--color-success)] shrink-0 ml-1">{t.avg_accuracy}%</span>
                 </div>
               ))}
             </div>

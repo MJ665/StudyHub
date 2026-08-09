@@ -63,9 +63,9 @@ export default function KTGate({ projectId, projectName, onUnlock, onCancel }: K
         animate={{ opacity: 1, y: 0 }}
         className="bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center backdrop-blur-xl max-w-lg w-full shadow-2xl relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-[250px] h-[250px] bg-indigo-500/5 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[250px] h-[250px] bg-[var(--color-brand-primary-container)]/5 rounded-full blur-[80px] pointer-events-none" />
         
-        <div className="w-20 h-20 rounded-3xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 mb-8">
+        <div className="w-20 h-20 rounded-3xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center border border-[var(--color-brand-primary)]/20 mb-8">
           <Shield size={40} className="text-[var(--color-brand-primary)]" />
         </div>
         
@@ -83,7 +83,7 @@ export default function KTGate({ projectId, projectName, onUnlock, onCancel }: K
             <input 
               type="password"
               placeholder="Enter Access Key (sh_kt_...)"
-              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-xs text-[var(--color-on-surface)]"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 focus:border-[var(--color-brand-primary)] transition-all font-mono text-xs text-[var(--color-on-surface)]"
               value={accessKey}
               onChange={(e) => setAccessKey(e.target.value)}
               required
@@ -93,7 +93,7 @@ export default function KTGate({ projectId, projectName, onUnlock, onCancel }: K
           <button 
             type="submit"
             disabled={!accessKey.trim() || verifying}
-            className="w-full bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:bg-[var(--color-surface-container-high)] text-[var(--color-on-surface)] py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm"
+            className="w-full bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:bg-[var(--color-surface-container-high)] text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-[var(--color-brand-primary)]/20 flex items-center justify-center gap-2 text-sm"
           >
             {verifying ? (
               <Loader2 className="animate-spin" size={18} />

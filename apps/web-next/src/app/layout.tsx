@@ -6,7 +6,7 @@ import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import './globals.css';
 import 'katex/dist/katex.min.css';
 
-const DEFAULT_THEME = process.env.NEXT_PUBLIC_DEFAULT_THEME || 'classic';
+const DEFAULT_THEME = process.env.NEXT_PUBLIC_DEFAULT_THEME || 'navy-light';
 
 export const metadata: Metadata = {
   title: 'StudyBuddy — AI Assessment Platform',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0c1324',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -37,7 +37,7 @@ export default function RootLayout({
         {/* No-flash theme: set data-theme before paint from stored pref / env default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('sb-theme')||'${DEFAULT_THEME}';if(t&&t!=='classic')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('sb-theme')||'${DEFAULT_THEME}';if(t&&t!=='navy-light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
           }}
         />
         {/* Google Fonts — Inter */}

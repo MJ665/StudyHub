@@ -72,7 +72,7 @@ export function BottomNav({ currentView, onChangeView, user, onLogout }: BottomN
             className="absolute bottom-0 inset-x-0 max-h-[70vh] overflow-y-auto rounded-t-3xl bg-[var(--color-surface-container-low)] border-t border-[var(--color-surface-bright)] p-4 pb-24"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-10 h-1 bg-slate-600 rounded-full mx-auto mb-4" />
+            <div className="w-10 h-1 bg-[var(--color-surface-container-high)] rounded-full mx-auto mb-4" />
             <div className="grid grid-cols-3 gap-3">
               {more.map((item) => (
                 <button
@@ -87,7 +87,7 @@ export function BottomNav({ currentView, onChangeView, user, onLogout }: BottomN
               {onLogout && (
                 <button
                   onClick={() => { setMoreOpen(false); onLogout(); }}
-                  className="flex flex-col items-center gap-1.5 p-3 rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-300"
+                  className="flex flex-col items-center gap-1.5 p-3 rounded-2xl border border-[var(--color-danger)]/20 bg-[var(--color-danger)]/10 text-[var(--color-danger)]"
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>logout</span>
                   <span className="text-[11px] font-semibold text-center leading-tight">Log out</span>

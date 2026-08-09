@@ -56,7 +56,7 @@ export default function WizardStep0({ ctx }: { ctx: WizardCtx }) {
                     <input 
                       type="text" 
                       placeholder="e.g. Migration to Temporal IO for Ingestion"
-                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-3xl font-black tracking-tight text-[var(--color-on-surface)] placeholder:text-slate-800 transition-all"
+                      className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[2rem] p-8 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 text-3xl font-black tracking-tight text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] transition-all"
                       value={formData.title}
                       onChange={e => setFormData({...formData, title: e.target.value})}
                     />
@@ -68,7 +68,7 @@ export default function WizardStep0({ ctx }: { ctx: WizardCtx }) {
                         <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)]">Target Project</label>
                         <button 
                           onClick={() => setIsNewProject(!isNewProject)}
-                          className="text-[10px] font-bold text-[var(--color-brand-primary)] hover:text-indigo-300 flex items-center gap-1"
+                          className="text-[10px] font-bold text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] flex items-center gap-1"
                         >
                           {isNewProject ? <X size={12} /> : <Plus size={12} />}
                           {isNewProject ? 'Cancel' : 'Add New'}
@@ -78,13 +78,13 @@ export default function WizardStep0({ ctx }: { ctx: WizardCtx }) {
                         <input 
                           type="text"
                           placeholder="Project Name..."
-                          className="w-full bg-[var(--color-surface-dim)]/50 border border-indigo-500/30 rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-[var(--color-on-surface)]"
+                          className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-brand-primary)]/30 rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-lg text-[var(--color-on-surface)]"
                           value={newProjectName}
                           onChange={e => setNewProjectName(e.target.value)}
                         />
                       ) : (
                         <select 
-                          className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
+                          className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-lg text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
                           value={formData.project_id}
                           onChange={e => setFormData({...formData, project_id: e.target.value})}
                         >
@@ -97,7 +97,7 @@ export default function WizardStep0({ ctx }: { ctx: WizardCtx }) {
                     <div className="space-y-3">
                       <label className="text-xs font-black uppercase tracking-[0.25em] text-[var(--color-on-surface-variant)] ml-1">Document Type</label>
                       <select 
-                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
+                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-lg text-[var(--color-on-surface-variant)] appearance-none cursor-pointer"
                         value={formData.doc_type}
                         onChange={e => setFormData({...formData, doc_type: e.target.value})}
                       >
@@ -114,7 +114,7 @@ export default function WizardStep0({ ctx }: { ctx: WizardCtx }) {
                       <input 
                         type="text" 
                         placeholder="e.g. FinBank Ltd"
-                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-[var(--color-on-surface)] placeholder:text-slate-800"
+                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-lg text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                         value={formData.client_name}
                         onChange={e => setFormData({...formData, client_name: e.target.value})}
                       />
@@ -124,7 +124,7 @@ export default function WizardStep0({ ctx }: { ctx: WizardCtx }) {
                       <input 
                         type="text" 
                         placeholder="e.g. Backend Platform"
-                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-bold text-lg text-[var(--color-on-surface)] placeholder:text-slate-800"
+                        className="w-full bg-[var(--color-surface-dim)]/50 border border-[var(--color-outline-variant)] rounded-[1.5rem] p-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)]/50 font-bold text-lg text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]"
                         value={formData.department}
                         onChange={e => setFormData({...formData, department: e.target.value})}
                       />

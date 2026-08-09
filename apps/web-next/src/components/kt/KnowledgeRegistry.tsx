@@ -144,7 +144,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
           <input 
             type="text"
             placeholder="Search projects..."
-            className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-xs font-medium focus:border-indigo-500 transition-all outline-none text-[var(--color-on-surface)]"
+            className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl text-xs font-medium focus:border-[var(--color-brand-primary)] transition-all outline-none text-[var(--color-on-surface)]"
             value={projectSearch}
             onChange={(e) => setProjectSearch(e.target.value)}
           />
@@ -157,13 +157,13 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
               onClick={() => selectProject(p as any)}
               className={`w-full p-4 rounded-2xl flex items-center justify-between group transition-all border ${
                 selectedProject?.id === p.id 
-                ? 'bg-indigo-500/10 border-indigo-500/30 text-[var(--color-brand-primary)]' 
+                ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)]' 
                 : 'bg-[var(--color-surface-container)]/50 border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${
-                  selectedProject?.id === p.id ? 'bg-indigo-500/20 border-indigo-500/30' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)]'
+                  selectedProject?.id === p.id ? 'bg-[var(--color-brand-primary-container)]/20 border-[var(--color-brand-primary)]/30' : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)]'
                 }`}>
                   <BookOpen size={14} />
                 </div>
@@ -189,7 +189,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
             {onCreateDocument && (
               <button 
                 onClick={onCreateDocument}
-                className="bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 text-xs"
+                className="bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-[var(--color-brand-primary)]/20 active:scale-95 text-xs"
               >
                 <Plus size={16} /> Create Doc
               </button>
@@ -207,7 +207,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
             <input 
               type="text"
               placeholder="Search documents by title, type, or tags..."
-              className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-dim)]/60 border border-[var(--color-outline-variant)]/80 rounded-xl text-xs font-medium focus:border-indigo-500 transition-all outline-none text-[var(--color-on-surface)]"
+              className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-dim)]/60 border border-[var(--color-outline-variant)]/80 rounded-xl text-xs font-medium focus:border-[var(--color-brand-primary)] transition-all outline-none text-[var(--color-on-surface)]"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -220,7 +220,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                 onClick={() => selectSprint(null)}
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border ${
                   selectedSprint === null
-                  ? 'bg-indigo-500/10 border-indigo-500/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
+                  ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
                   : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)]/60 text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                 }`}
               >
@@ -232,7 +232,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                   onClick={() => selectSprint(sprint)}
                   className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border whitespace-nowrap ${
                     selectedSprint === sprint
-                    ? 'bg-indigo-500/10 border-indigo-500/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
+                    ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
                     : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)]/60 text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                   }`}
                 >
@@ -246,7 +246,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
         <div className="flex-1 overflow-y-auto p-8 space-y-6 custom-scrollbar">
           {loading ? (
             <div className="h-full flex items-center justify-center">
-              <Loader2 className="animate-spin text-indigo-500" size={32} />
+              <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} />
             </div>
           ) : docs.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] text-center">
@@ -267,20 +267,20 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl hover:border-indigo-500/50 transition-all relative overflow-hidden"
+                className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl hover:border-[var(--color-brand-primary)]/50 transition-all relative overflow-hidden"
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-indigo-500/20">
+                    <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20">
                       <FileText size={20} />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-0.5 bg-indigo-500/10 text-[var(--color-brand-primary)] text-[9px] font-black rounded border border-indigo-500/20 uppercase">
+                        <span className="px-2 py-0.5 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[9px] font-black rounded border border-[var(--color-brand-primary)]/20 uppercase">
                           {doc.doc_type}
                         </span>
                         {doc.sprint && (
-                          <span className="px-2 py-0.5 bg-indigo-950 text-indigo-300 text-[9px] font-black rounded border border-indigo-900 uppercase">
+                          <span className="px-2 py-0.5 bg-[var(--color-brand-primary-container)] text-[var(--color-brand-primary)] text-[9px] font-black rounded border border-[var(--color-brand-primary)] uppercase">
                             {doc.sprint}
                           </span>
                         )}
@@ -306,7 +306,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                     </button>
                     <button 
                       onClick={() => handleEndorse(doc.id)}
-                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:bg-amber-500/10 hover:text-amber-500 transition-all border border-[var(--color-outline-variant)]/50 font-bold text-xs"
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] hover:bg-[var(--color-warning)]/10 hover:text-[var(--color-warning)] transition-all border border-[var(--color-outline-variant)]/50 font-bold text-xs"
                     >
                       <Star size={16} /> 
                       {doc.endorsement_count || 0} Endorsements
@@ -326,7 +326,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                         {doc.co_author_names.map((name, idx) => (
                           <div 
                             key={idx} 
-                            className="inline-block h-6 w-6 rounded-full ring-2 ring-slate-900 bg-indigo-500/20 flex items-center justify-center text-[8px] font-black text-[var(--color-brand-primary)] border border-indigo-500/30"
+                            className="inline-block h-6 w-6 rounded-full ring-2 ring-[var(--color-outline-variant)] bg-[var(--color-brand-primary-container)]/20 flex items-center justify-center text-[8px] font-black text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30"
                             title={`${name} (${doc.co_author_emails?.[idx] || ''})`}
                           >
                             {name.charAt(0)}

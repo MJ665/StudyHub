@@ -176,7 +176,7 @@ export default function KTViewport({ user }: KTViewportProps) {
     return (
       <div className="flex-1 flex items-center justify-center p-6">
         <div className="max-w-md w-full rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 text-center">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-4">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 flex items-center justify-center mb-4">
             <KeyRound className="text-[var(--color-brand-primary)]" size={26} />
           </div>
           <h2 className="text-xl font-black text-[var(--color-on-surface)] mb-2">Access key required</h2>
@@ -189,13 +189,13 @@ export default function KTViewport({ user }: KTViewportProps) {
             onChange={(e) => setKeyInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && redeem()}
             placeholder="sh_kt_…"
-            className="w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-3 py-2.5 text-sm font-mono text-[var(--color-on-surface)] mb-3 focus:outline-none focus:border-indigo-500"
+            className="w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-3 py-2.5 text-sm font-mono text-[var(--color-on-surface)] mb-3 focus:outline-none focus:border-[var(--color-brand-primary)]"
           />
-          {gateError && <p className="text-rose-400 text-xs mb-3">{gateError}</p>}
+          {gateError && <p className="text-[var(--color-danger)] text-xs mb-3">{gateError}</p>}
           <button
             onClick={redeem}
             disabled={redeeming || !keyInput.trim()}
-            className="w-full rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 py-2.5 font-bold text-sm text-[var(--color-on-surface)]"
+            className="w-full rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:opacity-50 py-2.5 font-bold text-sm text-white"
           >
             {redeeming ? 'Verifying…' : 'Unlock knowledge'}
           </button>

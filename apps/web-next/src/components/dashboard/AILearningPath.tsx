@@ -96,9 +96,9 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
   };
 
   const levelColors = {
-    Beginner: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    Intermediate: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-    Advanced: 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+    Beginner: 'bg-[var(--color-success)]/10 text-[var(--color-success)] border-[var(--color-success)]/20',
+    Intermediate: 'bg-[var(--color-warning)]/10 text-[var(--color-warning)] border-[var(--color-warning)]/20',
+    Advanced: 'bg-[var(--color-danger)]/10 text-[var(--color-danger)] border-[var(--color-danger)]/20'
   };
 
   return (
@@ -112,8 +112,8 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[var(--color-outline-variant)] shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-purple-500/20 rounded-2xl flex items-center justify-center">
-              <Map size={20} className="text-purple-400" />
+            <div className="w-10 h-10 bg-[var(--color-brand-primary-container)]/20 rounded-2xl flex items-center justify-center">
+              <Map size={20} className="text-[var(--color-brand-primary)]" />
             </div>
             <div>
               <h2 className="text-[var(--color-on-surface)] font-bold text-lg">AI Learning Path</h2>
@@ -124,7 +124,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
             {view === 'form' && (
               <button 
                 onClick={fetchSaved}
-                className="text-xs font-bold text-purple-400 hover:text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20"
+                className="text-xs font-bold text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10 px-3 py-1.5 rounded-xl border border-[var(--color-brand-primary)]/20"
               >
                 Saved Paths
               </button>
@@ -141,7 +141,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Your Saved Roadmaps</p>
-                <button onClick={() => setView('form')} className="text-xs font-bold text-purple-400">Create New</button>
+                <button onClick={() => setView('form')} className="text-xs font-bold text-[var(--color-brand-primary)]">Create New</button>
               </div>
               <div className="space-y-3">
                 {savedPaths.map((p, i) => (
@@ -151,7 +151,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                     className="w-full p-4 bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)]/50 rounded-2xl hover:bg-[var(--color-surface-container-high)] transition-all text-left group"
                   >
                     <div className="flex items-center justify-between">
-                      <p className="text-[var(--color-on-surface)] font-bold text-sm group-hover:text-purple-400 transition-colors">{p.topic}</p>
+                      <p className="text-[var(--color-on-surface)] font-bold text-sm group-hover:text-[var(--color-brand-primary)] transition-colors">{p.topic}</p>
                       <ChevronRight size={14} className="text-[var(--color-on-surface-variant)]" />
                     </div>
                     <p className="text-[10px] text-[var(--color-on-surface-variant)] mt-1 uppercase tracking-tighter">
@@ -173,7 +173,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                   onChange={e => setGoal(e.target.value)}
                   placeholder="e.g. Master React and TypeScript for full-stack development..."
                   rows={3}
-                  className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl px-4 py-3 text-[var(--color-on-surface)] placeholder-slate-600 focus:outline-none focus:border-purple-500 transition-colors text-sm resize-none"
+                  className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl px-4 py-3 text-[var(--color-on-surface)] placeholder-[var(--color-on-surface-variant)] focus:outline-none focus:border-[var(--color-brand-primary)] transition-colors text-sm resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -186,8 +186,8 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                         onClick={() => setLevel(l)}
                         className={`w-full py-2 px-3 rounded-xl text-xs font-bold border text-left transition-all ${
                           level === l
-                            ? (levelColors as any)[l] || 'bg-indigo-500/10 text-[var(--color-brand-primary)] border-indigo-500/20'
-                            : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-slate-600'
+                            ? (levelColors as any)[l] || 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border-[var(--color-brand-primary)]/20'
+                            : 'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                         }`}
                       >
                         {l}
@@ -203,7 +203,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                     onChange={e => setHours(Math.max(1, Math.min(40, parseInt(e.target.value) || 5)))}
                     min={1}
                     max={40}
-                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-[var(--color-on-surface)] text-2xl font-black text-center focus:outline-none focus:border-purple-500 transition-colors"
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-[var(--color-on-surface)] text-2xl font-black text-center focus:outline-none focus:border-[var(--color-brand-primary)] transition-colors"
                   />
                   <p className="text-xs text-[var(--color-on-surface-variant)] text-center mt-1">hours per week</p>
                 </div>
@@ -212,7 +212,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
               <button
                 onClick={handleGenerate}
                 disabled={loading || !goal.trim()}
-                className="w-full py-3.5 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-[var(--color-on-surface)] rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-purple-500/20"
+                className="w-full py-3.5 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-[var(--color-brand-primary)]/20"
               >
                 {loading ? (
                   <><Loader2 size={18} className="animate-spin" /> Crafting your path...</>
@@ -228,23 +228,23 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
             {view === 'result' && path && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
                 {/* Summary */}
-                <div className="bg-purple-950/60 border border-purple-500/30 rounded-2xl p-5">
+                <div className="bg-[var(--color-brand-primary-container)]/60 border border-[var(--color-brand-primary)]/30 rounded-2xl p-5">
                   <div className="flex justify-between items-start mb-1">
                     <h3 className="text-[var(--color-on-surface)] font-bold text-lg leading-tight">{path.goal}</h3>
-                    <button onClick={() => setView('form')} className="text-[10px] uppercase font-bold text-purple-400 shrink-0 border border-purple-500/20 px-2 py-0.5 rounded">New</button>
+                    <button onClick={() => setView('form')} className="text-[10px] uppercase font-bold text-[var(--color-brand-primary)] shrink-0 border border-[var(--color-brand-primary)]/20 px-2 py-0.5 rounded">New</button>
                   </div>
                   <div className="flex gap-4 mt-3">
                     <div className="flex items-center gap-1.5 text-xs text-[var(--color-on-surface-variant)]">
-                      <Clock size={12} className="text-purple-400" />
+                      <Clock size={12} className="text-[var(--color-brand-primary)]" />
                       {path.estimated_weeks} weeks
                     </div>
                     <div className="flex items-center gap-1.5 text-xs text-[var(--color-on-surface-variant)]">
-                      <Target size={12} className="text-purple-400" />
+                      <Target size={12} className="text-[var(--color-brand-primary)]" />
                       {path.phases?.length || 0} phases
                     </div>
                   </div>
                   <p className="text-xs text-[var(--color-on-surface-variant)] mt-3 italic leading-relaxed">
-                    <span className="text-purple-400 font-bold not-italic">Success: </span>
+                    <span className="text-[var(--color-brand-primary)] font-bold not-italic">Success: </span>
                     {path.success_metric}
                   </p>
                 </div>
@@ -265,8 +265,8 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                         className="w-full flex items-center justify-between p-4 text-left"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-7 h-7 bg-purple-500/20 rounded-lg flex items-center justify-center shrink-0">
-                            <span className="text-xs font-black text-purple-400">{idx + 1}</span>
+                          <div className="w-7 h-7 bg-[var(--color-brand-primary-container)]/20 rounded-lg flex items-center justify-center shrink-0">
+                            <span className="text-xs font-black text-[var(--color-brand-primary)]">{idx + 1}</span>
                           </div>
                           <div>
                             <p className="text-[var(--color-on-surface)] font-bold text-sm">{phase.title}</p>
@@ -291,7 +291,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                               <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1.5">Topics</p>
                               <div className="flex flex-wrap gap-1.5">
                                 {phase.topics.map((t, ti) => (
-                                  <span key={ti} className="px-2 py-1 bg-indigo-500/10 text-[var(--color-brand-primary)] border border-indigo-500/20 rounded-lg text-xs font-medium">{t}</span>
+                                  <span key={ti} className="px-2 py-1 bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20 rounded-lg text-xs font-medium">{t}</span>
                                 ))}
                               </div>
                             </div>
@@ -300,14 +300,14 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                               <ul className="space-y-1">
                                 {phase.activities.map((a, ai) => (
                                   <li key={ai} className="flex items-start gap-2 text-xs text-[var(--color-on-surface-variant)]">
-                                    <CheckCircle2 size={10} className="text-emerald-400 mt-0.5 shrink-0" />
+                                    <CheckCircle2 size={10} className="text-[var(--color-success)] mt-0.5 shrink-0" />
                                     {a}
                                   </li>
                                 ))}
                               </ul>
                             </div>
-                            <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3">
-                              <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-1">Milestone</p>
+                            <div className="bg-[var(--color-success)]/5 border border-[var(--color-success)]/20 rounded-xl p-3">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-success)] mb-1">Milestone</p>
                               <p className="text-xs text-[var(--color-on-surface-variant)]">{phase.milestone}</p>
                             </div>
                           </motion.div>
@@ -324,7 +324,7 @@ export default function AILearningPath({ onClose }: AILearningPathProps) {
                     <ul className="space-y-1.5">
                       {path.resources.map((r, ri) => (
                         <li key={ri} className="flex items-center gap-2 text-sm text-[var(--color-on-surface-variant)]">
-                          <BookOpen size={12} className="text-purple-400 shrink-0" />
+                          <BookOpen size={12} className="text-[var(--color-brand-primary)] shrink-0" />
                           {r}
                         </li>
                       ))}

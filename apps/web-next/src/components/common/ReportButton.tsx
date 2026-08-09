@@ -58,7 +58,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={className || 'inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-on-surface-variant)] hover:text-rose-400 transition-colors'}
+        className={className || 'inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] transition-colors'}
       >
         <Flag size={14} /> {label}
       </button>
@@ -73,7 +73,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
             className="w-full max-w-md bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-2xl p-6 shadow-2xl"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2 text-rose-400">
+              <div className="flex items-center gap-2 text-[var(--color-danger)]">
                 <Flag size={16} />
                 <span className="font-black uppercase tracking-widest text-[10px]">Report Content</span>
               </div>
@@ -86,7 +86,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
             <select
               value={issueType}
               onChange={(e) => setIssueType(e.target.value)}
-              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-rose-500/50"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-4 outline-none focus:ring-1 focus:ring-[var(--color-danger)]/50"
             >
               {ISSUE_TYPES.map((t) => (
                 <option key={t.value} value={t.value}>{t.label}</option>
@@ -99,7 +99,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
               placeholder="What's wrong with this content?"
-              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-rose-500/50 resize-none"
+              className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-[var(--color-danger)]/50 resize-none"
             />
 
             <div className="flex justify-end gap-2">
@@ -107,7 +107,7 @@ export default function ReportButton({ kind, targetId, label = 'Report', classNa
               <button
                 disabled={submitting || !description.trim()}
                 onClick={submit}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-[var(--color-on-surface)] text-xs font-bold disabled:opacity-50 inline-flex items-center gap-2"
+                className="px-4 py-2 rounded-xl bg-[var(--color-danger)] hover:bg-[var(--color-danger)] text-[var(--color-on-surface)] text-xs font-bold disabled:opacity-50 inline-flex items-center gap-2"
               >
                 {submitting ? <Loader2 size={14} className="animate-spin" /> : <Flag size={14} />} Submit report
               </button>

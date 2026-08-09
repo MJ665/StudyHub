@@ -107,14 +107,14 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                           <p className="text-[10px] text-[var(--color-on-surface-variant)] font-mono">{new Date(a.attempted_at).toLocaleDateString()}</p>
                         </div>
                         <div className="text-right">
-                          <div className={`font-black text-sm ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-rose-400'}`}>
+                          <div className={`font-black text-sm ${pct >= 80 ? 'text-[var(--color-success)]' : pct >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-danger)]'}`}>
                             {pct}%
                           </div>
                           <div className="text-[10px] text-[var(--color-on-surface-variant)]">{a.score}/{a.total}</div>
                         </div>
                         <div className="w-20">
                           <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full">
-                            <div className={`h-full rounded-full ${pct >= 80 ? 'bg-emerald-500' : pct >= 60 ? 'bg-indigo-500' : 'bg-rose-500'}`}
+                            <div className={`h-full rounded-full ${pct >= 80 ? 'bg-[var(--color-success)]' : pct >= 60 ? 'bg-[var(--color-brand-primary-container)]' : 'bg-[var(--color-danger)]'}`}
                               style={{ width: `${pct}%` }} />
                           </div>
                         </div>
@@ -131,7 +131,7 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
               {isOwnProfile && examAttempts.length > 0 && (
                 <div className="p-6 bg-[var(--color-surface-container)]/60 rounded-3xl border border-[var(--color-outline-variant)]">
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-5 flex items-center gap-2">
-                    <ScrollText size={14} className="text-emerald-400" /> Exam Results
+                    <ScrollText size={14} className="text-[var(--color-success)]" /> Exam Results
                   </h3>
                   <div className="space-y-2">
                     {examAttempts.slice(0, 15).map((a: any, i: number) => {
@@ -146,16 +146,16 @@ export default function PerformanceTab({ ctx }: { ctx: ProfileTabCtx }) {
                               {a.flags ? ` · ${a.flags} flag${a.flags === 1 ? '' : 's'}` : ''}
                             </p>
                           </div>
-                          <span className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-widest ${a.passed ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+                          <span className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-widest ${a.passed ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' : 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]'}`}>
                             {a.passed ? 'Pass' : 'Fail'}
                           </span>
                           <div className="text-right">
-                            <div className={`font-black text-sm ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-rose-400'}`}>{pct}%</div>
+                            <div className={`font-black text-sm ${pct >= 80 ? 'text-[var(--color-success)]' : pct >= 60 ? 'text-[var(--color-brand-primary)]' : 'text-[var(--color-danger)]'}`}>{pct}%</div>
                             <div className="text-[10px] text-[var(--color-on-surface-variant)]">{a.score}/{a.total}</div>
                           </div>
                           <div className="w-20">
                             <div className="h-1.5 bg-[var(--color-surface-container-high)] rounded-full">
-                              <div className={`h-full rounded-full ${pct >= 80 ? 'bg-emerald-500' : pct >= 60 ? 'bg-indigo-500' : 'bg-rose-500'}`} style={{ width: `${pct}%` }} />
+                              <div className={`h-full rounded-full ${pct >= 80 ? 'bg-[var(--color-success)]' : pct >= 60 ? 'bg-[var(--color-brand-primary-container)]' : 'bg-[var(--color-danger)]'}`} style={{ width: `${pct}%` }} />
                             </div>
                           </div>
                         </div>

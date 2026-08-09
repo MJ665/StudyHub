@@ -167,14 +167,14 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
         
         <div className="mt-6 flex items-center justify-between">
            <p className="text-xs text-[var(--color-on-surface-variant)] font-medium max-w-sm">
-              Your learning curve is showing a <span className="text-emerald-400 font-bold">positive slope</span>. Consistency remains the primary lever for exponential mastery.
+              Your learning curve is showing a <span className="text-[var(--color-success)] font-bold">positive slope</span>. Consistency remains the primary lever for exponential mastery.
            </p>
            <div className="flex items-center gap-4">
               <div className="flex flex-col items-end">
                  <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency</span>
                  <span className="text-lg font-black text-[var(--color-on-surface)]">{(consistency_index || 0).toFixed(0)}%</span>
               </div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--color-success)]/10 flex items-center justify-center text-[var(--color-success)] border border-[var(--color-success)]/20">
                  <ShieldCheck size={24} />
               </div>
            </div>
@@ -183,7 +183,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
 
       {/* ── RIGHT: COMPETENCY RADAR ─────────────────────────────── */}
       <div className="bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] p-8 flex flex-col group">
-         <div className="flex items-center gap-2 text-purple-400 mb-6">
+         <div className="flex items-center gap-2 text-[var(--color-brand-primary)] mb-6">
             <Layers size={16} />
             <span className="text-[10px] font-black uppercase tracking-[0.3em]">Competency Matrix</span>
          </div>
@@ -210,7 +210,7 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
           </div>
          
          <div className="mt-8 pt-6 border-t border-[var(--color-outline-variant)] flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)]">
                <Target size={20} />
             </div>
             <div>
@@ -225,9 +225,9 @@ export default function ExecutiveGrowthAtlas({ userId }: ExecutiveGrowthAtlasPro
 
 function MetricMiniCard({ icon, label, value, color }: any) {
    const colors: any = {
-      indigo: 'text-[var(--color-brand-primary)] bg-indigo-500/10 border-indigo-500/20',
-      purple: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
-      emerald: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+      indigo: 'text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/20',
+      purple: 'text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/20',
+      emerald: 'text-[var(--color-success)] bg-[var(--color-success)]/10 border-[var(--color-success)]/20',
    };
    
    return (

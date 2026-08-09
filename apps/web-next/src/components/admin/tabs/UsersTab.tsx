@@ -202,7 +202,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         <button
                           disabled={bulkProcessing}
                           onClick={() => handleBulkAction('activate')}
-                          className="px-4 py-2 bg-emerald-500/10 text-emerald-400 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
+                          className="px-4 py-2 bg-[var(--color-success)]/10 text-[var(--color-success)] text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-[var(--color-success)] hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
                         >
                           {bulkProcessing ? <Loader2 size={12} className="animate-spin" /> : <Check size={12} />}
                           Activate
@@ -210,7 +210,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                         <button
                           disabled={bulkProcessing}
                           onClick={() => handleBulkAction('deactivate')}
-                          className="px-4 py-2 bg-amber-500/10 text-amber-400 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-amber-500 hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
+                          className="px-4 py-2 bg-[var(--color-warning)]/10 text-[var(--color-warning)] text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-[var(--color-warning)] hover:text-[var(--color-on-surface)] transition-all flex items-center gap-2"
                         >
                           {bulkProcessing ? <Loader2 size={12} className="animate-spin" /> : <X size={12} />}
                           Deactivate
@@ -359,9 +359,9 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                             </div>
                           </td>
                           <td className="px-8 py-6">
-                            <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${u.role === 'LDAdmin' ? 'bg-rose-500/10 border-rose-500/20 text-rose-400' :
-                              u.role === 'Mentor' ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
-                                'bg-indigo-500/10 border-indigo-500/20 text-[var(--color-brand-primary)]'
+                            <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${u.role === 'LDAdmin' ? 'bg-[var(--color-danger)]/10 border-[var(--color-danger)]/20 text-[var(--color-danger)]' :
+                              u.role === 'Mentor' ? 'bg-[var(--color-warning)]/10 border-[var(--color-warning)]/20 text-[var(--color-warning)]' :
+                                'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)]'
                               }`}>
                               {u.role}
                             </span>
@@ -391,21 +391,21 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                                   // Scroll to the tool if on mobile/small screen, though sidebar is usually visible
                                   document.getElementById('role-override-tool')?.scrollIntoView({ behavior: 'smooth' });
                                 }}
-                                className="px-4 py-2 rounded-lg bg-indigo-500/10 text-[var(--color-brand-primary)] text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-500 hover:text-[var(--color-on-surface)] border border-indigo-500/20"
+                                className="px-4 py-2 rounded-lg bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-[var(--color-brand-primary-container)] hover:text-white border border-[var(--color-brand-primary)]/20"
                               >
                                 Promote
                               </button>
                               {user?.role === 'LDAdmin' && (
                                 <button
                                   onClick={() => handleEmergencyReset(u)}
-                                  className="px-4 py-2 rounded-lg bg-rose-500/10 text-rose-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-500 hover:text-[var(--color-on-surface)] border border-rose-500/20"
+                                  className="px-4 py-2 rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-[var(--color-danger)] hover:text-[var(--color-on-surface)] border border-[var(--color-danger)]/20"
                                 >
                                   Reset Pass
                                 </button>
                               )}
                               <button
                                 onClick={() => setSelectedUserDetails(u)}
-                                className="px-4 py-2 rounded-lg bg-surface-bright/10 text-brand-primary text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-primary hover:text-slate-950"
+                                className="px-4 py-2 rounded-lg bg-surface-bright/10 text-brand-primary text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-primary hover:text-[var(--color-surface-dim)]"
                               >
                                 Sync Intel
                               </button>
@@ -421,7 +421,7 @@ export default function UsersTab({ ctx }: { ctx: AdminTabCtx }) {
                                       toast('error', err.message || 'Failed to delete user');
                                     }
                                   }}
-                                  className="px-4 py-2 rounded-lg bg-rose-600/10 text-rose-400 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-600 hover:text-[var(--color-on-surface)] border border-rose-600/20"
+                                  className="px-4 py-2 rounded-lg bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all hover:bg-[var(--color-danger)] hover:text-[var(--color-on-surface)] border border-[var(--color-danger)]/20"
                                 >
                                   Delete
                                 </button>

@@ -178,7 +178,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                 <button
                   key={b.id}
                   onClick={() => { setLoading(true); setBank(b); }}
-                  className="text-left p-4 rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] hover:border-indigo-500/50 hover:bg-[var(--color-surface-container-high)]/60 transition-all"
+                  className="text-left p-4 rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] hover:border-[var(--color-brand-primary)]/50 hover:bg-[var(--color-surface-container-high)]/60 transition-all"
                 >
                   <p className="font-bold text-[var(--color-on-surface)] truncate">{b.name}</p>
                   <p className="text-[11px] text-[var(--color-on-surface-variant)] mt-1 truncate">{b.course_name || 'Bank'} · {b.difficulty || 'Mixed'}</p>
@@ -212,7 +212,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
           <ChevronRight size={12} />
           <span className="text-[var(--color-on-surface-variant)]">{bank.name}</span>
           <ChevronRight size={12} />
-          <span className="text-indigo-500">Leaderboard</span>
+          <span className="text-[var(--color-brand-primary)]">Leaderboard</span>
         </div>
         <button onClick={onBack} className="flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] mb-8 transition-colors" aria-label="Back to dashboard">
           <ChevronLeft size={20} /> Back to Dashboard
@@ -241,7 +241,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                   <button
                     onClick={() => handleExportCSV('deep')}
                     disabled={exportLoading['deep']}
-                    className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-indigo-500/30 px-4 py-2 rounded-xl text-xs font-bold transition-colors w-full shadow-lg shadow-indigo-500/10 disabled:opacity-50"
+                    className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30 px-4 py-2 rounded-xl text-xs font-bold transition-colors w-full shadow-lg shadow-[var(--color-brand-primary)]/10 disabled:opacity-50"
                   >
                     {exportLoading['deep'] ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />} Deep Export
                   </button>
@@ -267,7 +267,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                 <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-1">
                   Top Score
                 </p>
-                <p className="text-3xl font-black text-emerald-400">
+                <p className="text-3xl font-black text-[var(--color-success)]">
                   {leaderboard[0]?.score ?? '–'}/{leaderboard[0]?.total ?? '–'}
                 </p>
               </div>
@@ -275,7 +275,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                 <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold mb-1">
                   Completion
                 </p>
-                <p className="text-3xl font-black text-amber-400">
+                <p className="text-3xl font-black text-[var(--color-warning)]">
                   {stats.total > 0 ? `${Math.round((leaderboard.length / Math.max(stats.total, 1)) * 100)}%` : '–'}
                 </p>
               </div>
@@ -290,7 +290,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 aria-label="Search students"
-                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl pl-12 pr-4 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl pl-12 pr-4 py-3 text-sm text-[var(--color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-primary)] transition-all"
               />
               {loading && <Loader2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-brand-primary)] animate-spin" />}
             </div>
@@ -309,10 +309,10 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                   <th className="px-6 py-4 font-bold text-center">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-[var(--color-outline-variant)]">
                 {leaderboard.map((attempt: any, idx: number) => (
                   <React.Fragment key={attempt.id}>
-                    <tr className={`hover:bg-[var(--color-surface-container-high)]/30 transition-colors ${attempt.user_name === user.full_name ? 'bg-indigo-500/5' : ''} ${attempt.is_reviewed ? 'border-l-2 border-l-emerald-500/50' : ''}`}>
+                    <tr className={`hover:bg-[var(--color-surface-container-high)]/30 transition-colors ${attempt.user_name === user.full_name ? 'bg-[var(--color-brand-primary-container)]/5' : ''} ${attempt.is_reviewed ? 'border-l-2 border-l-[var(--color-success)]/50' : ''}`}>
                       <td className="px-6 py-5">
                         {idx < 3 ? (
                           <span className="text-2xl">{medals[idx]}</span>
@@ -333,8 +333,8 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                             </div>
                           )}
                           {attempt.user_name}
-                          {attempt.user_name === user.full_name && <span className="text-[10px] bg-indigo-500 text-[var(--color-on-surface)] px-2 py-0.5 rounded-full uppercase">You</span>}
-                          {attempt.is_anonymous && <span className="text-[10px] bg-purple-500/20 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-full uppercase">Anon</span>}
+                          {attempt.user_name === user.full_name && <span className="text-[10px] bg-[var(--color-brand-primary-container)] text-white px-2 py-0.5 rounded-full uppercase">You</span>}
+                          {attempt.is_anonymous && <span className="text-[10px] bg-[var(--color-brand-primary-container)]/20 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20 px-2 py-0.5 rounded-full uppercase">Anon</span>}
                         </div>
                       </td>
                       <td className="px-6 py-5">
@@ -355,7 +355,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                             onClick={() => handleMarkReviewed(attempt.id, attempt.is_reviewed)}
                             disabled={reviewLoading[attempt.id]}
                             aria-label={attempt.is_reviewed ? 'Unmark as reviewed' : 'Mark as reviewed'}
-                            className={`p-2 rounded-xl transition-all ${attempt.is_reviewed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
+                            className={`p-2 rounded-xl transition-all ${attempt.is_reviewed ? 'bg-[var(--color-success)]/20 text-[var(--color-success)] border border-[var(--color-success)]/30' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] hover:text-[var(--color-on-surface-variant)]'}`}
                           >
                             {reviewLoading[attempt.id] ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
                           </button>
@@ -365,7 +365,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                         <button
                           onClick={() => setExpandedAttempt(expandedAttempt === idx ? null : idx)}
                           aria-expanded={expandedAttempt === idx}
-                          className="text-[var(--color-brand-primary)] hover:text-indigo-300 bg-indigo-400/10 hover:bg-indigo-400/20 px-4 py-1.5 rounded-lg text-xs uppercase tracking-widest font-bold transition-colors"
+                          className="text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-container)]/10 hover:bg-[var(--color-brand-primary-container)]/20 px-4 py-1.5 rounded-lg text-xs uppercase tracking-widest font-bold transition-colors"
                         >
                           {expandedAttempt === idx ? 'Hide' : 'Review'}
                         </button>
@@ -391,7 +391,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                 const key = `${attempt.id}-${item.question_id}`;
                                 const aiData = aiResponses[key];
                                 return (
-                                  <div key={item.question_id} className={`p-6 rounded-2xl border ${item.is_correct ? 'bg-emerald-900/10 border-emerald-500/20' : 'bg-rose-900/10 border-rose-500/20'}`}>
+                                  <div key={item.question_id} className={`p-6 rounded-2xl border ${item.is_correct ? 'bg-[var(--color-success)]/10 border-[var(--color-success)]/20' : 'bg-[var(--color-danger)]/10 border-[var(--color-danger)]/20'}`}>
                                     {/* SECTION F: Inline code rendering in peer review */}
                                     <h4 className="text-base text-[var(--color-on-surface)] mb-4 font-bold leading-relaxed">
                                       {renderQuestionText(item.question_text)}
@@ -399,20 +399,20 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                                       <div className="bg-[var(--color-surface-container)]/50 p-4 rounded-xl border border-[var(--color-outline-variant)]">
                                         <p className="text-xs text-[var(--color-on-surface-variant)] uppercase tracking-wider font-bold mb-2">Their Answer</p>
-                                        <div className={`text-base font-bold ${item.is_correct ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                        <div className={`text-base font-bold ${item.is_correct ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
                                           {renderQuestionText(item.user_answer || 'Skipped')}
                                         </div>
                                       </div>
                                       <div className="bg-[var(--color-surface-container)]/50 p-4 rounded-xl border border-[var(--color-outline-variant)]">
                                         <p className="text-xs text-[var(--color-on-surface-variant)] uppercase tracking-wider font-bold mb-2">Correct Answer</p>
-                                        <div className="text-base font-bold text-emerald-400">
+                                        <div className="text-base font-bold text-[var(--color-success)]">
                                           {renderQuestionText(item.correct_answer)}
                                         </div>
                                       </div>
                                     </div>
 
                                     {item.note && (
-                                      <div className="bg-indigo-900/10 border border-indigo-500/20 p-4 rounded-xl mb-4">
+                                      <div className="bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 p-4 rounded-xl mb-4">
                                         <p className="text-xs text-[var(--color-brand-primary)] uppercase tracking-wider font-bold mb-2 flex items-center gap-2"><BookOpen size={14} /> Peer's Notes</p>
                                         <p className="text-sm text-[var(--color-on-surface-variant)] italic">"{item.note}"</p>
                                       </div>
@@ -424,7 +424,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                         <input
                                           type="text"
                                           placeholder="Ask AI about this answer (e.g., 'Why is my logic wrong?')"
-                                          className="flex-1 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                          className="flex-1 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] focus:ring-2 focus:ring-[var(--color-brand-primary)] focus:outline-none"
                                           value={aiQueries[key] || ''}
                                           onChange={e => setAiQueries(prev => ({ ...prev, [key]: e.target.value }))}
                                           onKeyDown={e => e.key === 'Enter' && handleAskAI(attempt.id, item.question_id)}
@@ -434,7 +434,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                           onClick={() => handleAskAI(attempt.id, item.question_id)}
                                           disabled={aiLoading[key]}
                                           aria-label="Ask StudyBuddy AI"
-                                          className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 border border-purple-500/30 px-6 py-2 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all"
+                                          className="bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30 px-6 py-2 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all"
                                         >
                                           {aiLoading[key] ? <Loader2 size={16} className="animate-spin" /> : <BrainCircuit size={16} />}
                                           Ask StudyBuddy AI
@@ -448,23 +448,23 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                             animate={{ opacity: 1, y: 0 }}
                                             className={`mt-4 p-4 rounded-xl border ${
                                               aiData.is_out_of_context
-                                                ? 'bg-amber-900/10 border-amber-500/30'
+                                                ? 'bg-[var(--color-warning)]/10 border-[var(--color-warning)]/30'
                                                 : aiData.from_cache
-                                                ? 'bg-[var(--color-surface-container)] border-emerald-500/20'
-                                                : 'bg-[var(--color-surface-container)] border-purple-500/30'
+                                                ? 'bg-[var(--color-surface-container)] border-[var(--color-success)]/20'
+                                                : 'bg-[var(--color-surface-container)] border-[var(--color-brand-primary)]/30'
                                             }`}
                                           >
                                             <div className="flex items-center gap-2 mb-2 text-xs uppercase tracking-wider font-bold">
                                               {aiData.is_out_of_context ? (
-                                                <><AlertCircle size={14} className="text-amber-400" /><span className="text-amber-400">Out of Context</span></>
+                                                <><AlertCircle size={14} className="text-[var(--color-warning)]" /><span className="text-[var(--color-warning)]">Out of Context</span></>
                                               ) : (
-                                                <><BrainCircuit size={14} className="text-purple-400" />
-                                                <span className="text-purple-400">StudyBuddy AI Analysis</span>
-                                                {aiData.from_cache && <span className="text-emerald-500 ml-2">(Cached)</span>}</>
+                                                <><BrainCircuit size={14} className="text-[var(--color-brand-primary)]" />
+                                                <span className="text-[var(--color-brand-primary)]">StudyBuddy AI Analysis</span>
+                                                {aiData.from_cache && <span className="text-[var(--color-success)] ml-2">(Cached)</span>}</>
                                               )}
                                             </div>
                                             {aiData.is_out_of_context ? (
-                                              <p className="text-sm text-amber-300/80">This question is outside the context of the quiz question. Please ask something related to the quiz topic.</p>
+                                              <p className="text-sm text-[var(--color-warning)]/80">This question is outside the context of the quiz question. Please ask something related to the quiz topic.</p>
                                             ) : (
                                               <p className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed whitespace-pre-wrap">{aiData.response}</p>
                                             )}

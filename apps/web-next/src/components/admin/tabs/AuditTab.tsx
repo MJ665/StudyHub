@@ -197,13 +197,13 @@ export default function AuditTab({ ctx }: { ctx: AdminTabCtx }) {
                       <div className="flex bg-[var(--color-surface-container)] p-1 rounded-xl border border-[var(--color-outline-variant)]">
                         <button
                           onClick={() => setAuditSubTab('Audit')}
-                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Audit' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Audit' ? 'bg-[var(--color-brand-primary-container)] text-white' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                         >
                           Actions
                         </button>
                         <button
                           onClick={() => setAuditSubTab('Email')}
-                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Email' ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
+                          className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${auditSubTab === 'Email' ? 'bg-[var(--color-brand-primary-container)] text-white' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]'}`}
                         >
                           Mail Logs
                         </button>
@@ -216,7 +216,7 @@ export default function AuditTab({ ctx }: { ctx: AdminTabCtx }) {
                       >
                         <Download size={16} /> Download Global Activity
                       </button>
-                      <div className="p-3 bg-indigo-500/10 rounded-2xl text-[var(--color-brand-primary)]">
+                      <div className="p-3 bg-[var(--color-brand-primary-container)]/10 rounded-2xl text-[var(--color-brand-primary)]">
                         <Clock size={20} />
                       </div>
                     </div>

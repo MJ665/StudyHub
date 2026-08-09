@@ -1,32 +1,33 @@
 'use client';
 
 /**
- * Tri-theme system: Classic (the original cool lavender/teal — the default),
- * Warm Dark, and Warm Light (warm minimalism). Themes swap CSS-variable values
- * via a `data-theme` attribute on <html> (see globals.css). Resolution order:
- *   per-user preference (localStorage) → NEXT_PUBLIC_DEFAULT_THEME → Classic.
+ * Tri-theme system: Navy Light (white + navy blue — the default), Navy Dark
+ * (deep navy-black), and Classic (the original cool lavender/teal). Themes swap
+ * CSS-variable values via a `data-theme` attribute on <html> (see globals.css).
+ * Resolution order:
+ *   per-user preference (localStorage) → NEXT_PUBLIC_DEFAULT_THEME → Navy Light.
  * Registry-driven so adding a theme later is a one-line change.
  */
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Theme = 'classic' | 'warm-dark' | 'warm-light';
+export type Theme = 'navy-light' | 'navy-dark' | 'classic';
 
 export const THEME_REGISTRY: { id: Theme; label: string }[] = [
+  { id: 'navy-light', label: 'Navy Light' },
+  { id: 'navy-dark', label: 'Navy Dark' },
   { id: 'classic', label: 'Classic' },
-  { id: 'warm-dark', label: 'Warm Dark' },
-  { id: 'warm-light', label: 'Warm Light' },
 ];
 
 const THEME_IDS = THEME_REGISTRY.map((t) => t.id);
-const ENV_DEFAULT = (process.env.NEXT_PUBLIC_DEFAULT_THEME as Theme) || 'classic';
+const ENV_DEFAULT = (process.env.NEXT_PUBLIC_DEFAULT_THEME as Theme) || 'navy-light';
 const STORAGE_KEY = 'sb-theme';
 
 // Native shell colors per theme (mirror globals.css --color-surface-dim) so the
 // Expo WebView wrapper can match its status bar + background to the web theme.
 const NATIVE_SHELL: Record<Theme, { bg: string; dark: boolean }> = {
+  'navy-light': { bg: '#ffffff', dark: false },
+  'navy-dark': { bg: '#0b1220', dark: true },
   classic: { bg: '#0c1324', dark: true },
-  'warm-dark': { bg: '#14100c', dark: true },
-  'warm-light': { bg: '#faf7f1', dark: false },
 };
 
 function postThemeToNative(t: Theme) {
@@ -41,7 +42,7 @@ function postThemeToNative(t: Theme) {
 function applyTheme(t: Theme) {
   if (typeof document === 'undefined') return;
   const el = document.documentElement;
-  if (t === 'classic') el.removeAttribute('data-theme');
+  if (t === 'navy-light') el.removeAttribute('data-theme');
   else el.setAttribute('data-theme', t);
   postThemeToNative(t); // keep the mobile shell in sync when inside the WebView
 }

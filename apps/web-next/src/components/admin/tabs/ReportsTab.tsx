@@ -190,9 +190,9 @@ export default function ReportsTab({ ctx }: { ctx: AdminTabCtx }) {
                 <div className="flex justify-between items-center mb-8">
                   <div>
                     <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Content Quality Audit</h3>
-                    <p className="text-[10px] text-rose-400 font-black uppercase tracking-[0.3em] mt-1">Question Reporting & Remediation</p>
+                    <p className="text-[10px] text-[var(--color-danger)] font-black uppercase tracking-[0.3em] mt-1">Question Reporting & Remediation</p>
                   </div>
-                  <div className="p-3 bg-rose-500/10 rounded-2xl text-rose-400">
+                  <div className="p-3 bg-[var(--color-danger)]/10 rounded-2xl text-[var(--color-danger)]">
                     <ShieldAlert size={20} />
                   </div>
                 </div>

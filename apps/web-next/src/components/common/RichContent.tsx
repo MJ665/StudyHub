@@ -68,7 +68,7 @@ export default function RichContent({ content, format = 'text', mediaUrls, codeL
       )}
 
       {hasText && format === 'code' && (
-        <pre className="overflow-x-auto rounded-lg bg-slate-950/80 border border-white/10 p-3 text-xs">
+        <pre className="overflow-x-auto rounded-lg bg-[var(--color-surface-dim)]/80 border border-white/10 p-3 text-xs">
           <code className={codeLanguage ? `language-${codeLanguage}` : undefined}>{content}</code>
         </pre>
       )}

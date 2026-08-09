@@ -69,7 +69,7 @@ export default function LoginPage() {
             <span className="text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-wider">
               Work email
             </span>
-            <div className="mt-2 flex items-center gap-3 bg-[var(--color-surface-container-high)]/60 border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 focus-within:border-indigo-500">
+            <div className="mt-2 flex items-center gap-3 bg-[var(--color-surface-container-high)]/60 border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 focus-within:border-[var(--color-brand-primary)]">
               <Mail size={18} className="text-[var(--color-on-surface-variant)]" />
               <input
                 type="email"
@@ -86,7 +86,7 @@ export default function LoginPage() {
             <span className="text-xs font-bold text-[var(--color-on-surface-variant)] uppercase tracking-wider">
               Password
             </span>
-            <div className="mt-2 flex items-center gap-3 bg-[var(--color-surface-container-high)]/60 border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 focus-within:border-indigo-500">
+            <div className="mt-2 flex items-center gap-3 bg-[var(--color-surface-container-high)]/60 border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 focus-within:border-[var(--color-brand-primary)]">
               <KeyRound size={18} className="text-[var(--color-on-surface-variant)]" />
               <input
                 type="password"
@@ -100,7 +100,7 @@ export default function LoginPage() {
           </label>
 
           {error && (
-            <p className="text-sm text-rose-400 bg-rose-900/20 border border-rose-500/20 rounded-xl px-4 py-3">
+            <p className="text-sm text-[var(--color-danger)] bg-[var(--color-danger)]/20 border border-[var(--color-danger)]/20 rounded-xl px-4 py-3">
               {error}
             </p>
           )}
@@ -108,7 +108,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 disabled:opacity-50 text-[var(--color-on-surface)] py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/30"
+            className="w-full flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] disabled:opacity-50 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/30"
           >
             {busy && <Loader2 size={18} className="animate-spin" />}
             Sign in

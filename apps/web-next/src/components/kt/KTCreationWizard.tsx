@@ -374,7 +374,7 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
         {/* ─── Wizard Header ─── */}
         <div className="p-10 border-b border-[var(--color-outline-variant)] flex justify-between items-center bg-[var(--color-surface-container)]/50">
           <div className="flex items-center gap-6">
-            <div className="w-16 h-16 rounded-[2rem] bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 shadow-inner">
+            <div className="w-16 h-16 rounded-[2rem] bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center border border-[var(--color-brand-primary)]/20 shadow-inner">
               <Sparkles size={32} className="text-[var(--color-brand-primary)]" />
             </div>
             <div>
@@ -397,7 +397,7 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
             <div 
               key={step.id}
               className={`flex-1 transition-all duration-1000 ease-out ${
-                i <= currentStep ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-[0_0_20px_rgba(99,102,241,0.6)]' : 'bg-transparent'
+                i <= currentStep ? 'bg-gradient-brand shadow-[0_0_20px_rgba(37,99,235,0.5)]' : 'bg-transparent'
               }`}
             />
           ))}
@@ -452,14 +452,14 @@ export default function KTCreationWizard({ user, projectId, onClose, onComplete 
               <button 
                 onClick={handleFinalize}
                 disabled={isSaving}
-                className="px-12 py-5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-[var(--color-on-surface)] rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-emerald-500/30 active:scale-95 ring-2 ring-emerald-500/20 disabled:opacity-50"
+                className="px-12 py-5 bg-gradient-brand hover:opacity-90 text-white rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-[var(--color-brand-primary)]/30 active:scale-95 ring-2 ring-[var(--color-brand-primary)]/20 disabled:opacity-50"
               >
                 {isSaving ? 'FINALIZING...' : 'FINALIZE & SUBMIT'} <CheckCircle2 size={22} />
               </button>
             ) : (
               <button 
                 onClick={next}
-                className="px-12 py-5 bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 text-[var(--color-on-surface)] rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-indigo-500/30 active:scale-95 ring-2 ring-indigo-500/20"
+                className="px-12 py-5 bg-gradient-brand hover:opacity-90 text-white rounded-[1.5rem] font-black text-sm flex items-center gap-3 transition-all shadow-2xl shadow-[var(--color-brand-primary)]/30 active:scale-95 ring-2 ring-[var(--color-brand-primary)]/20"
               >
                 CONTINUE <ChevronRight size={22} />
               </button>

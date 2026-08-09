@@ -69,7 +69,9 @@ export default function WebAppScreen() {
   const [errored, setErrored] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
   // Native shell colors, kept in sync with the web theme via the THEME bridge.
-  const [shellBg, setShellBg] = useState('#0c1324');   // Classic default
+  // Launch as deep navy (brand, logo-safe); flips to the user's theme once the
+  // WebView reports it (Navy Light → white, Navy Dark → navy, Classic → #0c1324).
+  const [shellBg, setShellBg] = useState('#0b1220');
   const [shellDark, setShellDark] = useState(true);
 
   // Never leave the native splash stuck: once we decide to show the offline/error
@@ -255,6 +257,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0c1324',
+    backgroundColor: '#0b1220',
   },
 });

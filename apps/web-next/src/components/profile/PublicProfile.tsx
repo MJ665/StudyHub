@@ -114,9 +114,9 @@ export default function PublicProfile({
   if (loading) return (
     <div className="flex-1 flex items-center justify-center bg-[var(--color-surface-dim)]">
       <div className="relative">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-indigo-500 border-r-2 border-r-transparent" />
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-[var(--color-brand-primary)] border-r-2 border-r-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
-            <BrainCircuit size={24} className="text-indigo-500 animate-pulse" />
+            <BrainCircuit size={24} className="text-[var(--color-brand-primary)] animate-pulse" />
         </div>
       </div>
     </div>
@@ -159,8 +159,8 @@ export default function PublicProfile({
     <div className="flex-1 overflow-y-auto bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] scroll-smooth">
       {/* ─── Hero Section ────────────────────────────────────────── */}
       <div className="relative">
-        <div className="h-72 bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-950 border-b border-[var(--color-outline-variant)] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(99,102,241,0.15),transparent_70%)]" />
+        <div className="h-72 bg-gradient-hero border-b border-[var(--color-outline-variant)] relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(37,99,235,0.12),transparent_70%)]" />
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
           
           <div className="absolute top-6 left-8 flex gap-4">
@@ -182,16 +182,16 @@ export default function PublicProfile({
         <div className="px-10 -mt-24 max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row items-end gap-8 mb-12">
             <div className="relative group">
-              <div className="w-48 h-48 rounded-[3rem] bg-[var(--color-surface-container-high)] border-[6px] border-slate-950 overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02]">
+              <div className="w-48 h-48 rounded-[3rem] bg-[var(--color-surface-container-high)] border-[6px] border-[var(--color-outline-variant)] overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02]">
                 {profile.profile_photo_url ? (
                   <img src={profile.profile_photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-[var(--color-on-surface)] text-6xl font-black">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-brand text-white text-6xl font-black">
                     {initials}
                   </div>
                 )}
               </div>
-              <div className="absolute -bottom-2 -right-2 bg-indigo-500 text-[var(--color-on-surface)] p-3 rounded-2xl shadow-xl border-[4px] border-slate-950">
+              <div className="absolute -bottom-2 -right-2 bg-[var(--color-brand-primary-container)] text-white p-3 rounded-2xl shadow-xl border-[4px] border-[var(--color-outline-variant)]">
                 <ShieldCheck size={24} />
               </div>
             </div>
@@ -200,14 +200,14 @@ export default function PublicProfile({
               <div className="flex items-center gap-4 mb-4 flex-wrap">
                 <h1 className="text-5xl font-black text-[var(--color-on-surface)] tracking-tight">{profile.full_name}</h1>
                 <div className="flex items-center gap-2">
-                    <span className="px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">
+                    <span className="px-4 py-1.5 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">
                     {profile.role}
                     </span>
                     <span className="px-4 py-1.5 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                     {profile.hierarchy?.organization || 'Registry Organization'}
                     </span>
                     {profile.streak_count > 0 && (
-                    <span className="flex items-center gap-1.5 px-4 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-amber-400">
+                    <span className="flex items-center gap-1.5 px-4 py-1.5 bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-warning)]">
                         <Flame size={14} /> {profile.streak_count}d STREAK
                     </span>
                     )}
@@ -274,7 +274,7 @@ export default function PublicProfile({
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                   activeTab === tab.id 
-                  ? 'bg-[var(--color-brand-primary-container)] text-[var(--color-on-surface)] shadow-xl shadow-indigo-600/20 border border-indigo-500/50' 
+                  ? 'bg-[var(--color-brand-primary-container)] text-white shadow-xl shadow-[var(--color-brand-primary)]/20 border border-[var(--color-brand-primary)]/50' 
                   : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
                 }`}
               >
@@ -299,7 +299,7 @@ export default function PublicProfile({
                     {/* Bio Section */}
                     {profile.bio && (
                       <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] relative overflow-hidden group">
-                        <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-[var(--color-brand-primary-container)]" />
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
                           <User size={14} className="text-[var(--color-brand-primary)]" /> OPERATOR BIOGRAPHY
                         </h3>
@@ -342,8 +342,8 @@ export default function PublicProfile({
                         <div className="flex flex-wrap gap-3">
                           {(profile.expertise_json?.skills || []).map((s: string, i: number) => (
                             <div key={i} className="group relative">
-                                <div className="absolute inset-0 bg-indigo-500/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <span className="relative px-4 py-2.5 bg-indigo-500/10 border border-indigo-500/20 text-[var(--color-brand-primary)] rounded-xl text-xs font-black uppercase tracking-wider block">
+                                <div className="absolute inset-0 bg-[var(--color-brand-primary-container)]/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <span className="relative px-4 py-2.5 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)] rounded-xl text-xs font-black uppercase tracking-wider block">
                                     {s}
                                 </span>
                             </div>
@@ -353,13 +353,13 @@ export default function PublicProfile({
                         <div className="mt-12 pt-12 border-t border-[var(--color-outline-variant)]">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency Rating</span>
-                                <span className="text-xs font-black text-emerald-400 uppercase">{metrics.m18b_consistency_label?.value || 'Stable'}</span>
+                                <span className="text-xs font-black text-[var(--color-success)] uppercase">{metrics.m18b_consistency_label?.value || 'Stable'}</span>
                             </div>
                             <div className="h-2 bg-[var(--color-surface-container-high)] rounded-full overflow-hidden">
                                 <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${metrics.m18_consistency?.raw || 70}%` }}
-                                    className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400" 
+                                    className="h-full bg-[var(--color-success)]"
                                 />
                             </div>
                         </div>
@@ -390,7 +390,7 @@ export default function PublicProfile({
                         sub={`Ranked amongst peers`}
                      />
                      
-                     <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
+                     <div className="p-8 bg-[var(--color-surface-container)] rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
                            <Layers size={14} className="text-[var(--color-brand-primary)]" /> TACTICAL HIERARCHY
                         </h3>
@@ -414,15 +414,15 @@ export default function PublicProfile({
                         </div>
                      </div>
 
-                     <div className="p-8 bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
+                     <div className="p-8 bg-[var(--color-surface-container)] rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 flex items-center gap-2">
-                           <Activity size={14} className="text-emerald-400" /> STATUS SUMMARY
+                           <Activity size={14} className="text-[var(--color-success)]" /> STATUS SUMMARY
                         </h3>
                         <div className="space-y-5">
                            <div className="flex items-center justify-between">
                               <span className="text-xs text-[var(--color-on-surface-variant)] font-bold">Registry Status</span>
-                              <span className="flex items-center gap-1.5 text-xs font-black text-emerald-400">
-                                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> ACTIVE
+                              <span className="flex items-center gap-1.5 text-xs font-black text-[var(--color-success)]">
+                                 <div className="w-2 h-2 rounded-full bg-[var(--color-success)] animate-pulse" /> ACTIVE
                               </span>
                            </div>
                            <div className="flex items-center justify-between">
@@ -444,7 +444,7 @@ export default function PublicProfile({
                 <div className="space-y-8">
                    <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
-                        <Activity size={14} className="text-fuchsia-400" /> ANNUAL ENGAGEMENT REGISTRY
+                        <Activity size={14} className="text-[var(--color-brand-primary)]" /> ANNUAL ENGAGEMENT REGISTRY
                       </h3>
                       <ActivityHeatmap userId={profile.id} initialData={profile.heatmap} />
                    </div>
@@ -474,7 +474,7 @@ export default function PublicProfile({
 
                    <div className="p-10 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)]">
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-8 flex items-center gap-2">
-                        <Zap size={14} className="text-amber-400" /> TOPIC BREADTH & MASTERY
+                        <Zap size={14} className="text-[var(--color-warning)]" /> TOPIC BREADTH & MASTERY
                       </h3>
                       <div className="space-y-6">
                         {(charts.topic_mastery || []).slice(0, 5).map((t: any, i: number) => (
@@ -483,9 +483,9 @@ export default function PublicProfile({
                                  <span className="text-xs font-black text-[var(--color-on-surface)] uppercase tracking-wider">{t.topic}</span>
                                  <div className="flex items-center gap-3">
                                     <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                                       t.mastery === 'Expert' ? 'bg-emerald-500/10 text-emerald-400' :
-                                       t.mastery === 'Proficient' ? 'bg-indigo-500/10 text-[var(--color-brand-primary)]' :
-                                       'bg-slate-500/10 text-[var(--color-on-surface-variant)]'
+                                       t.mastery === 'Expert' ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' :
+                                       t.mastery === 'Proficient' ? 'bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)]' :
+                                       'bg-[var(--color-surface-container-high)]/10 text-[var(--color-on-surface-variant)]'
                                     }`}>
                                        {t.mastery}
                                     </span>
@@ -496,7 +496,7 @@ export default function PublicProfile({
                                  <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${t.avg_accuracy}%` }}
-                                    className="h-full bg-indigo-500"
+                                    className="h-full bg-[var(--color-brand-primary-container)]"
                                  />
                               </div>
                            </div>
@@ -515,10 +515,10 @@ export default function PublicProfile({
                 <div className="max-w-4xl mx-auto space-y-8">
                    <div className="p-12 bg-[var(--color-surface-container)]/60 rounded-[3rem] border border-[var(--color-outline-variant)] relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-12 opacity-5">
-                         <Map size={180} className="text-indigo-500" />
+                         <Map size={180} className="text-[var(--color-brand-primary)]" />
                       </div>
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-10 flex items-center gap-2">
-                         <Sparkles size={14} className="text-violet-400" /> AI GROWTH NARRATIVE
+                         <Sparkles size={14} className="text-[var(--color-brand-primary)]" /> AI GROWTH NARRATIVE
                       </h3>
                       <div className="space-y-12 relative z-10">
                         {atlas.map((point: string, i: number) => (
@@ -529,7 +529,7 @@ export default function PublicProfile({
                               transition={{ delay: i * 0.1 }}
                               className="flex gap-8 group"
                            >
-                              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[var(--color-brand-primary)] font-black shrink-0 group-hover:bg-[var(--color-brand-primary-container)] group-hover:text-[var(--color-on-surface)] transition-all">
+                              <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 flex items-center justify-center text-[var(--color-brand-primary)] font-black shrink-0 group-hover:bg-[var(--color-brand-primary-container)] group-hover:text-white transition-all">
                                  {i + 1}
                               </div>
                               <div className="pt-2">
@@ -539,7 +539,7 @@ export default function PublicProfile({
                         ))}
                         {atlas.length === 0 && (
                            <div className="text-center py-20">
-                              <BrainCircuit size={48} className="text-slate-800 mx-auto mb-6" />
+                              <BrainCircuit size={48} className="text-[var(--color-on-surface-variant)] mx-auto mb-6" />
                               <p className="text-[var(--color-on-surface-variant)] italic">The AI growth model is currently processing this operator's vectors.</p>
                            </div>
                         )}
@@ -581,13 +581,13 @@ export default function PublicProfile({
 
                    <div className="space-y-6">
                       <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] flex items-center gap-2">
-                        <Cpu size={14} className="text-violet-400" /> CODING LAB SESSIONS
+                        <Cpu size={14} className="text-[var(--color-brand-primary)]" /> CODING LAB SESSIONS
                       </h3>
                       <div className="space-y-4">
                          {(registry.coding_attempts || []).slice(0, 10).map((a: any) => (
                             <div key={a.id} className="p-5 bg-[var(--color-surface-container)]/40 rounded-2xl border border-[var(--color-outline-variant)] flex items-center justify-between hover:bg-[var(--color-surface-container)]/60 transition-colors">
                                <div className="flex items-center gap-4">
-                                  <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-violet-400">
+                                  <div className="w-10 h-10 rounded-xl bg-[var(--color-surface-container-high)] flex items-center justify-center text-[var(--color-brand-primary)]">
                                      <Zap size={20} />
                                   </div>
                                   <div>
@@ -596,7 +596,7 @@ export default function PublicProfile({
                                   </div>
                                </div>
                                <div className="text-right">
-                                  <div className="text-lg font-black text-violet-400">{a.score}%</div>
+                                  <div className="text-lg font-black text-[var(--color-brand-primary)]">{a.score}%</div>
                                   <div className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">AI Audit Score</div>
                                </div>
                             </div>
@@ -630,16 +630,16 @@ export default function PublicProfile({
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
                                 placeholder="Provide a professional assessment or drop a word of encouragement..."
-                                className="w-full bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-8 text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] focus:outline-none focus:border-indigo-500/50 transition-all resize-none h-40 text-lg"
+                                className="w-full bg-[var(--color-surface-container-high)]/40 border border-[var(--color-outline-variant)] rounded-3xl p-8 text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)] focus:outline-none focus:border-[var(--color-brand-primary)]/50 transition-all resize-none h-40 text-lg"
                               />
-                              <div className="absolute inset-0 bg-indigo-500/5 rounded-3xl opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
+                              <div className="absolute inset-0 bg-[var(--color-brand-primary-container)]/5 rounded-3xl opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
                             </div>
                             <div className="flex items-center justify-between">
                                <p className="text-xs text-[var(--color-on-surface-variant)] font-bold uppercase tracking-widest">Signed interaction via secure registry</p>
                                <button 
                                 onClick={handlePostComment}
                                 disabled={submitting || !comment.trim()}
-                                className="flex items-center gap-3 px-8 py-4 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-2xl font-black shadow-2xl shadow-indigo-600/30 transition-all disabled:opacity-50 hover:scale-[1.02] active:scale-95"
+                                className="flex items-center gap-3 px-8 py-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-2xl font-black shadow-2xl shadow-[var(--color-brand-primary)]/30 transition-all disabled:opacity-50 hover:scale-[1.02] active:scale-95"
                                >
                                 {submitting ? <RefreshCw size={20} className="animate-spin" /> : <Send size={20} />}
                                 POST ENDORSEMENT
@@ -651,7 +651,7 @@ export default function PublicProfile({
                              <AlertCircle size={40} className="text-[var(--color-on-surface-variant)] mx-auto mb-4" />
                              <h4 className="text-lg font-black text-[var(--color-on-surface)] mb-2">AUTHENTICATION GATED</h4>
                              <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm mx-auto">Only verified members of the StudyBuddy registry can drop professional endorsements.</p>
-                             <button onClick={onLoginClick} className="px-10 py-4 bg-white text-slate-950 rounded-2xl font-black text-sm hover:bg-indigo-400 transition-all">
+                             <button onClick={onLoginClick} className="px-10 py-4 bg-white text-[var(--color-on-surface-variant)] rounded-2xl font-black text-sm hover:bg-[var(--color-brand-primary-container)] transition-all">
                                 LOGIN TO SYSTEM
                              </button>
                           </div>
@@ -670,7 +670,7 @@ export default function PublicProfile({
                                {c.author.profile_photo_url ? (
                                  <img src={c.author.profile_photo_url} className="w-full h-full object-cover" />
                                ) : (
-                                 <div className="w-full h-full flex items-center justify-center bg-indigo-900/30 text-[var(--color-brand-primary)] text-xl font-black uppercase">
+                                 <div className="w-full h-full flex items-center justify-center bg-[var(--color-brand-primary-container)]/30 text-[var(--color-brand-primary)] text-xl font-black uppercase">
                                    {c.author.full_name[0]}
                                  </div>
                                )}
@@ -690,7 +690,7 @@ export default function PublicProfile({
                          ))}
                          {(!profile.comments || profile.comments.length === 0) && (
                             <div className="text-center py-24 border-4 border-dashed border-[var(--color-outline-variant)] rounded-[3rem]">
-                               <MessageSquare size={48} className="text-slate-800 mx-auto mb-6" />
+                               <MessageSquare size={48} className="text-[var(--color-on-surface-variant)] mx-auto mb-6" />
                                <p className="text-[var(--color-on-surface-variant)] font-bold italic">This profile hasn't received any professional endorsements yet.</p>
                             </div>
                          )}

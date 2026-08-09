@@ -303,7 +303,7 @@ export default function UserProfile({
 
   if (loading) return (
     <div className="flex-1 flex items-center justify-center bg-[var(--color-surface-dim)]">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-indigo-500" />
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[var(--color-brand-primary)]" />
     </div>
   );
 
@@ -343,7 +343,7 @@ export default function UserProfile({
     <div className="flex-1 overflow-y-auto bg-[var(--color-surface-dim)]">
       {/* ─── Hero Banner ───────────────────────────────────────────── */}
       <div className="relative">
-        <div className="h-52 bg-gradient-to-r from-violet-950/60 via-indigo-900/30 to-slate-950 relative overflow-hidden">
+        <div className="h-52 bg-gradient-to-r from-[var(--color-brand-primary-container)]/60 via-[var(--color-brand-secondary)]/30 to-[var(--color-surface-dim)] relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(99,102,241,0.2),transparent_60%)]" />
           <button onClick={onBack}
             className="absolute top-6 left-8 flex items-center gap-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors text-sm font-bold"
@@ -359,11 +359,11 @@ export default function UserProfile({
         <div className="px-10 -mt-16 flex items-end justify-between flex-wrap gap-4">
           <div className="flex items-end gap-6">
             <div className="relative flex-shrink-0 cursor-pointer group" onClick={() => isOwnProfile && document.getElementById('photo-upload')?.click()}>
-              <div className="w-32 h-32 rounded-3xl bg-[var(--color-surface-container-high)] border-4 border-slate-950 overflow-hidden shadow-2xl relative">
+              <div className="w-32 h-32 rounded-3xl bg-[var(--color-surface-container-high)] border-4 border-[var(--color-outline-variant)] overflow-hidden shadow-2xl relative">
                 {profile.profile_photo_url ? (
                   <img src={profile.profile_photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-[var(--color-on-surface)] text-4xl font-black">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] text-white text-4xl font-black">
                     {initials}
                   </div>
                 )}
@@ -375,7 +375,7 @@ export default function UserProfile({
               </div>
               <input type="file" id="photo-upload" className="hidden" accept="image/*" onChange={handlePhotoUpload} />
               {profile.role === 'LDAdmin' && (
-                <div className="absolute -top-2 -right-2 bg-indigo-500 text-[var(--color-on-surface)] p-1.5 rounded-xl shadow-lg">
+                <div className="absolute -top-2 -right-2 bg-[var(--color-brand-primary-container)] text-white p-1.5 rounded-xl shadow-lg">
                   <ShieldCheck size={16} />
                 </div>
               )}
@@ -385,14 +385,14 @@ export default function UserProfile({
               <h1 className="text-3xl font-black text-[var(--color-on-surface)] flex items-center gap-3 flex-wrap">
                 {profile.full_name}
                 <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${
-                  profile.role === 'LDAdmin' ? 'bg-violet-500/20 border-violet-500/40 text-violet-300' :
-                  profile.role === 'Mentor' ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' :
+                  profile.role === 'LDAdmin' ? 'bg-[var(--color-brand-primary-container)]/20 border-[var(--color-brand-primary)]/40 text-[var(--color-brand-primary)]' :
+                  profile.role === 'Mentor' ? 'bg-[var(--color-success)]/20 border-[var(--color-success)]/40 text-[var(--color-success)]' :
                   'bg-[var(--color-surface-container-high)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'
                 }`}>
                   {profile.role}
                 </span>
                 {streak > 0 && (
-                  <span className="flex items-center gap-1 text-amber-400 text-sm font-black">
+                  <span className="flex items-center gap-1 text-[var(--color-warning)] text-sm font-black">
                     <Flame size={16} /> {streak}d streak
                   </span>
                 )}
@@ -404,7 +404,7 @@ export default function UserProfile({
               {isOwnProfile && (
                 <div className="flex items-center gap-3 bg-[var(--color-surface-container)]/50 p-2 mt-4 rounded-xl border border-[var(--color-outline-variant)] w-fit">
                   <span className="text-[var(--color-on-surface-variant)] text-xs font-medium pl-2">Public Link:</span>
-                  <code className="text-amber-400 bg-amber-400/10 px-2 py-1 rounded-md text-xs select-all">
+                  <code className="text-[var(--color-warning)] bg-[var(--color-warning)]/10 px-2 py-1 rounded-md text-xs select-all">
                     {typeof window !== 'undefined' ? `${window.location.origin}/profile/${profile.id}` : `http://localhost:3000/profile/${profile.id}`}
                   </code>
                   <button 
@@ -439,7 +439,7 @@ export default function UserProfile({
             )}
             {profile.leetcode_url && (
               <a href={normalizeExternalUrl(profile.leetcode_url)} target="_blank" rel="noopener"
-                className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-amber-600/20 text-[var(--color-on-surface-variant)] hover:text-amber-400 rounded-xl border border-[var(--color-outline-variant)] transition-all" title="LeetCode">
+                className="p-2.5 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-warning)]/20 text-[var(--color-on-surface-variant)] hover:text-[var(--color-warning)] rounded-xl border border-[var(--color-outline-variant)] transition-all" title="LeetCode">
                 <Code2 size={18} />
               </a>
             )}
@@ -450,7 +450,7 @@ export default function UserProfile({
               </a>
             )}
             <button onClick={() => handleSyncIntel()}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm shadow-lg shadow-indigo-600/20 transition-all">
+              className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-black text-sm shadow-lg shadow-[var(--color-brand-primary)]/20 transition-all">
               <RefreshCcw size={15} className={generatingAtlas ? 'animate-spin' : ''} />
               SYNC INTEL
             </button>
@@ -479,7 +479,7 @@ export default function UserProfile({
                 />
               ) : (
                 <a href={profile.intro_video_url} target="_blank" rel="noopener"
-                  className="flex items-center justify-center h-full gap-3 text-[var(--color-brand-primary)] hover:text-indigo-300 transition-colors font-bold">
+                  className="flex items-center justify-center h-full gap-3 text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] transition-colors font-bold">
                   <ExternalLink size={20} /> Watch Intro Video
                 </a>
               )}
@@ -554,7 +554,7 @@ export default function UserProfile({
                 <Field label="Full Name" icon={<User size={14} />}>
                   <input value={editState.full_name}
                     onChange={e => setEditState(prev => prev ? { ...prev, full_name: e.target.value } : prev)}
-                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                 </Field>
 
                 {/* Photo URL */}
@@ -562,7 +562,7 @@ export default function UserProfile({
                   <input value={editState.profile_photo_url}
                     onChange={e => setEditState(prev => prev ? { ...prev, profile_photo_url: e.target.value } : prev)}
                     placeholder="https://example.com/photo.jpg"
-                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                 </Field>
 
                 {/* Intro video */}
@@ -570,7 +570,7 @@ export default function UserProfile({
                   <input value={editState.intro_video_url}
                     onChange={e => setEditState(prev => prev ? { ...prev, intro_video_url: e.target.value } : prev)}
                     placeholder="https://youtube.com/watch?v=..."
-                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                    className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                 </Field>
 
                 {/* Social links */}
@@ -579,25 +579,25 @@ export default function UserProfile({
                     <input value={editState.linkedin_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, linkedin_url: e.target.value } : prev)}
                       placeholder="https://linkedin.com/in/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                   </Field>
                   <Field label="GitHub" icon={<Github size={14} />}>
                     <input value={editState.github_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, github_url: e.target.value } : prev)}
                       placeholder="https://github.com/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                   </Field>
                   <Field label="LeetCode" icon={<Code2 size={14} />}>
                     <input value={editState.leetcode_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, leetcode_url: e.target.value } : prev)}
                       placeholder="https://leetcode.com/u/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                   </Field>
                   <Field label="Codolio" icon={<Globe size={14} />}>
                     <input value={editState.codolio_url}
                       onChange={e => setEditState(prev => prev ? { ...prev, codolio_url: e.target.value } : prev)}
                       placeholder="https://codolio.com/..."
-                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="w-full bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-3 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                   </Field>
                 </div>
 
@@ -609,9 +609,9 @@ export default function UserProfile({
                   <div className="flex flex-wrap gap-2 mb-3">
                     {editState.expertise_json.skills.map(skill => (
                       <span key={skill}
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 rounded-xl text-sm font-bold">
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] rounded-xl text-sm font-bold">
                         {skill}
-                        <button onClick={() => removeSkill(skill)} className="text-indigo-500 hover:text-[var(--color-on-surface)] transition-colors">
+                        <button onClick={() => removeSkill(skill)} className="text-[var(--color-brand-primary)] hover:text-[var(--color-on-surface)] transition-colors">
                           <X size={12} />
                         </button>
                       </span>
@@ -622,9 +622,9 @@ export default function UserProfile({
                       onChange={e => setNewSkill(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); } }}
                       placeholder="Add skill (press Enter)"
-                      className="flex-1 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-on-surface)] focus:border-indigo-500 outline-none transition-colors" />
+                      className="flex-1 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-on-surface)] focus:border-[var(--color-brand-primary)] outline-none transition-colors" />
                     <button onClick={addSkill}
-                      className="px-4 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all">
+                      className="px-4 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-black text-sm transition-all">
                       <Plus size={16} />
                     </button>
                   </div>
@@ -637,7 +637,7 @@ export default function UserProfile({
                   Cancel
                 </button>
                 <button onClick={handleSave} disabled={saving}
-                  className="flex items-center gap-2 px-6 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-indigo-500 text-[var(--color-on-surface)] rounded-xl font-black text-sm transition-all disabled:opacity-50">
+                  className="flex items-center gap-2 px-6 py-2.5 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl font-black text-sm transition-all disabled:opacity-50">
                   {saving ? <RefreshCcw size={14} className="animate-spin" /> : <Save size={14} />}
                   {saving ? 'Saving...' : 'Save Profile'}
                 </button>

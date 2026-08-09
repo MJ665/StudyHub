@@ -82,9 +82,9 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
   const getIcon = (type: string) => {
     switch (type) {
       case 'new_assignment': return <ClipboardList className="text-[var(--color-brand-primary)]" size={20} />;
-      case 'performance_report': return <Sparkles className="text-purple-400" size={20} />;
-      case 'streak_milestone': return <Trophy className="text-amber-400" size={20} />;
-      case 'quiz_graded': return <CheckCircle2 className="text-emerald-400" size={20} />;
+      case 'performance_report': return <Sparkles className="text-[var(--color-brand-primary)]" size={20} />;
+      case 'streak_milestone': return <Trophy className="text-[var(--color-warning)]" size={20} />;
+      case 'quiz_graded': return <CheckCircle2 className="text-[var(--color-success)]" size={20} />;
       default: return <Info className="text-[var(--color-on-surface-variant)]" size={20} />;
     }
   };
@@ -96,7 +96,7 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div>
             <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
-              <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-[var(--color-brand-primary)]">
+              <div className="p-3 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-2xl text-[var(--color-brand-primary)]">
                 <BellRing size={32} />
               </div>
               Intelligence Alerts
@@ -116,12 +116,12 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
-            <Loader2 className="animate-spin text-indigo-500" size={48} />
+            <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={48} />
             <p className="text-[var(--color-on-surface-variant)] font-black uppercase tracking-widest text-xs">Accessing Communication Channel...</p>
           </div>
         ) : notifications.length === 0 ? (
           <div className="py-32 text-center bg-[var(--color-surface-container)]/20 rounded-[3rem] border border-dashed border-[var(--color-outline-variant)]">
-            <Bell size={64} className="mx-auto text-slate-800 mb-6" />
+            <Bell size={64} className="mx-auto text-[var(--color-on-surface-variant)] mb-6" />
             <h3 className="text-2xl font-black text-[var(--color-on-surface)] mb-2">Silence Detected</h3>
             <p className="text-[var(--color-on-surface-variant)] font-medium">No intelligence alerts are currently queued for your profile.</p>
           </div>
@@ -136,13 +136,13 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ delay: idx * 0.03 }}
-                  className={`group relative bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${notif.is_read ? 'border-[var(--color-outline-variant)]' : 'border-indigo-500/20'} rounded-[2rem] p-6 flex gap-6 items-start hover:bg-[var(--color-surface-container)]/60 transition-all cursor-pointer`}
+                  className={`group relative bg-[var(--color-surface-container)]/40 backdrop-blur-xl border ${notif.is_read ? 'border-[var(--color-outline-variant)]' : 'border-[var(--color-brand-primary)]/20'} rounded-[2rem] p-6 flex gap-6 items-start hover:bg-[var(--color-surface-container)]/60 transition-all cursor-pointer`}
                   onClick={() => {
                     if (!notif.is_read) markRead(notif.id);
                     if (notif.link_type && notif.link_id) onNavigate(notif.link_type, notif.link_id);
                   }}
                 >
-                  <div className={`p-4 rounded-2xl ${notif.is_read ? 'bg-[var(--color-surface-dim)]' : 'bg-indigo-500/10 shadow-[0_0_20px_rgba(99,102,241,0.1)]'} transition-all`}>
+                  <div className={`p-4 rounded-2xl ${notif.is_read ? 'bg-[var(--color-surface-dim)]' : 'bg-[var(--color-brand-primary-container)]/10 shadow-[0_0_20px_rgba(99,102,241,0.1)]'} transition-all`}>
                      {getIcon(notif.notification_type)}
                   </div>
 
@@ -154,7 +154,7 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
                     <p className="text-xs text-[var(--color-on-surface-variant)] font-medium leading-relaxed line-clamp-2 mb-3">{notif.body}</p>
                     
                     <div className="flex items-center gap-4">
-                       {!notif.is_read && <span className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]" />}
+                       {!notif.is_read && <span className="w-2 h-2 rounded-full bg-[var(--color-brand-primary-container)] shadow-[0_0_8px_rgba(99,102,241,0.5)]" />}
                        <span className="text-[10px] text-[var(--color-on-surface-variant)] font-bold uppercase tracking-[0.15em]">{new Date(notif.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
@@ -162,11 +162,11 @@ export default function NotificationsView({ user, onBack, onNavigate }: Notifica
                   <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                      <button 
                        onClick={(e) => { e.stopPropagation(); deleteNotif(notif.id); }}
-                       className="p-2 hover:bg-rose-500/10 text-[var(--color-on-surface-variant)] hover:text-rose-500 rounded-lg transition-all"
+                       className="p-2 hover:bg-[var(--color-danger)]/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)] rounded-lg transition-all"
                      >
                         <Trash2 size={16} />
                      </button>
-                     <button className="p-2 hover:bg-indigo-500/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] rounded-lg transition-all">
+                     <button className="p-2 hover:bg-[var(--color-brand-primary-container)]/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-brand-primary)] rounded-lg transition-all">
                         <ChevronRight size={16} />
                      </button>
                   </div>

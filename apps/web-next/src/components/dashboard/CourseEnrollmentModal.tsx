@@ -81,7 +81,7 @@ export default function CourseEnrollmentModal({ onClose, onEnrolled }: any) {
   return (
     <div className="fixed inset-0 bg-[var(--color-surface-dim)]/80 backdrop-blur-sm z-[110] flex items-center justify-center p-6">
       <div className="bg-surface-container border border-surface-bright rounded-[2.5rem] w-full max-w-lg shadow-2xl p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 opacity-[0.05] blur-3xl -mr-20 -mt-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-primary-container)] opacity-[0.05] blur-3xl -mr-20 -mt-20 pointer-events-none" />
         
         <div className="flex justify-between items-center mb-8 relative">
           <div>
@@ -98,14 +98,14 @@ export default function CourseEnrollmentModal({ onClose, onEnrolled }: any) {
             <button 
               type="button"
               onClick={() => { setTargetType('Group'); setTargetId(''); }}
-              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Group' ? 'bg-brand-primary text-slate-950' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
+              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Group' ? 'bg-brand-primary text-[var(--color-surface-dim)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
             >
               Target Group
             </button>
             <button 
               type="button"
               onClick={() => { setTargetType('Vertical'); setTargetId(''); }}
-              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Vertical' ? 'bg-indigo-500 text-[var(--color-on-surface)]' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
+              className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${targetType === 'Vertical' ? 'bg-[var(--color-brand-primary-container)] text-white' : 'bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]'}`}
             >
               Target Vertical
             </button>
@@ -135,7 +135,7 @@ export default function CourseEnrollmentModal({ onClose, onEnrolled }: any) {
             </div>
           </div>
 
-          <div className="p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex gap-3">
+          <div className="p-4 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-2xl flex gap-3">
             <AlertCircle className="text-[var(--color-brand-primary)] shrink-0" size={18} />
             <p className="text-[10px] text-[var(--color-brand-primary)]/80 font-bold leading-relaxed">
               Enrolling these nodes will grant immediate synchronization access to all constituent members and mentors.

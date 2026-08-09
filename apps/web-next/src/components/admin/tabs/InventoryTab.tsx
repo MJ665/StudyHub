@@ -193,7 +193,7 @@ export default function InventoryTab({ ctx }: { ctx: AdminTabCtx }) {
                       <h3 className="text-2xl font-black text-[var(--color-on-surface)]">Registry Oversight</h3>
                       <p className="text-[10px] text-[var(--color-brand-primary)] font-black uppercase tracking-[0.3em] mt-1">Global Question & Challenge Inventory</p>
                     </div>
-                    <div className="p-3 bg-indigo-500/10 rounded-2xl text-[var(--color-brand-primary)]">
+                    <div className="p-3 bg-[var(--color-brand-primary-container)]/10 rounded-2xl text-[var(--color-brand-primary)]">
                       <Database size={20} />
                     </div>
                   </div>
