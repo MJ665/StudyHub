@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
         </p>
       </section>
 
-      <section>
+      <section id="account-deletion">
         <h2>5. Your Rights &amp; Account Deletion</h2>
         <p>
           You can delete your account and associated personal data at any time from the app:

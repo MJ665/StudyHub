@@ -22,6 +22,7 @@ import * as Sentry from '@sentry/react-native';
 
 import { OfflineScreen } from '@/components/OfflineScreen';
 import { registerDeviceWithBackend, registerForPushToken } from '@/lib/push';
+import { loadShell, saveShell } from '@/lib/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -81,6 +82,18 @@ export default function WebAppScreen() {
     if (!online || errored) SplashScreen.hideAsync().catch(() => {});
   }, [online, errored]);
 
+  // ── Restore the last web theme's shell colors before first paint ──
+  // The web default is Navy Light (white); persisting the last THEME payload and
+  // restoring it here means a returning user never sees the deep-navy→white flash.
+  useEffect(() => {
+    loadShell().then((s) => {
+      if (s) {
+        setShellBg(s.bg);
+        setShellDark(s.dark);
+      }
+    });
+  }, []);
+
   // ── Connectivity ──
   useEffect(() => {
     const unsub = NetInfo.addEventListener((s) => setOnline(!!s.isConnected));
@@ -133,8 +146,11 @@ export default function WebAppScreen() {
       // Web theme bridge: match the native shell (status bar + background) to
       // the theme the user picked inside the WebView (Classic/Warm-Dark/Light).
       if (msg?.type === 'THEME' && typeof msg.bg === 'string') {
+        const dark = msg.dark !== false;
         setShellBg(msg.bg);
-        setShellDark(msg.dark !== false);
+        setShellDark(dark);
+        // Cache so the next launch restores this theme and avoids a boot flash.
+        saveShell({ bg: msg.bg, dark });
       }
     } catch (err) {
       // Non-JSON bridge messages are expected; record as a breadcrumb only.
@@ -183,7 +199,9 @@ export default function WebAppScreen() {
 
   return (
     <View style={[styles.fill, { paddingTop: insets.top, backgroundColor: shellBg }]}>
-      <StatusBar style={shellDark ? 'light' : 'dark'} backgroundColor={shellBg} />
+      {/* Edge-to-edge is default in SDK 57 — StatusBar no longer takes a
+          backgroundColor; the parent View's shellBg shows through the bar. */}
+      <StatusBar style={shellDark ? 'light' : 'dark'} />
       <ScrollView
         contentContainerStyle={styles.fill}
         // ScrollView only exists to host pull-to-refresh; the WebView owns scroll.
@@ -254,7 +272,11 @@ function safeHost(url: string): string | null {
 const styles = StyleSheet.create({
   fill: { flex: 1 },
   loader: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#0b1220',

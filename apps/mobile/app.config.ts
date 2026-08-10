@@ -10,7 +10,15 @@ import type { ExpoConfig } from 'expo/config';
  *   GOOGLE_SERVICES_JSON — path to the Firebase google-services.json (for FCM)
  *   EAS_PROJECT_ID       — your EAS project id (from `eas init`)
  */
-const WEB_URL = process.env.EXPO_PUBLIC_WEB_URL ?? 'https://REPLACE_ME.studybuddy.app';
+const WEB_URL = process.env.EXPO_PUBLIC_WEB_URL ?? 'https://studybuddy.mj665.in';
+// Host used for Android App Links (https deep links open the app, not the browser).
+const WEB_HOST = (() => {
+  try {
+    return new URL(WEB_URL).host;
+  } catch {
+    return 'studybuddy.mj665.in';
+  }
+})();
 
 const config: ExpoConfig = {
   name: 'StudyBuddy',
@@ -19,7 +27,9 @@ const config: ExpoConfig = {
   orientation: 'portrait',
   icon: './assets/icon.png',
   scheme: 'studybuddy',
-  userInterfaceStyle: 'dark',
+  // 'automatic' so native chrome matches the web theme (default is now Navy
+  // Light); the shell also mirrors the exact theme via the THEME bridge.
+  userInterfaceStyle: 'automatic',
   backgroundColor: '#0b1220',
   assetBundlePatterns: ['**/*'],
   android: {
@@ -40,6 +50,18 @@ const config: ExpoConfig = {
     // Firebase config for FCM push. Owner drops google-services.json here (or
     // points GOOGLE_SERVICES_JSON at an EAS secret file).
     googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? './google-services.json',
+    // Android App Links: https://studybuddy.mj665.in/* opens the app directly
+    // (notification + shared links). Requires /.well-known/assetlinks.json on the
+    // web domain carrying the Play App Signing SHA-256 fingerprint before Android
+    // will auto-verify. The studybuddy:// scheme (above) remains for custom links.
+    intentFilters: [
+      {
+        action: 'VIEW',
+        autoVerify: true,
+        data: [{ scheme: 'https', host: WEB_HOST }],
+        category: ['BROWSABLE', 'DEFAULT'],
+      },
+    ],
   },
   plugins: [
     'expo-router',
@@ -56,7 +78,7 @@ const config: ExpoConfig = {
       'expo-notifications',
       {
         icon: './assets/notification-icon.png',
-        color: '#8083ff',
+        color: '#3b82f6', // brand blue (matches the new navy palette accent)
       },
     ],
     // Sentry — native crash handling + JS errors + source-map upload on EAS builds.

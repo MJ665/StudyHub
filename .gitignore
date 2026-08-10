@@ -9,10 +9,11 @@ node_modules/
 .pnp.*
 
 # ── Env & secrets ────────────────────────────────────────────────────────────
-# Ignore ALL env files (they hold secrets), EXCEPT the safe root template.
+# Ignore ALL env files (they hold secrets), EXCEPT *.example templates at any depth.
 .env
 .env.*
-!/.env.example
+!.env.example
+!**/.env.example
 # Real credential files (their *.example placeholders stay tracked)
 apps/mobile/google-services.json
 apps/mobile/play-service-account.json

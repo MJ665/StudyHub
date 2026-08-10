@@ -15,10 +15,12 @@ Sentry.init({
 });
 if (SENTRY_DSN) Sentry.setTag('component', 'mobile');
 
-// Foreground notifications show a banner.
+// Foreground notifications show a banner. (SDK 53+ replaced shouldShowAlert with
+// the explicit shouldShowBanner + shouldShowList.)
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
   }),
@@ -27,11 +29,13 @@ Notifications.setNotificationHandler({
 function RootLayout() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="light" backgroundColor="#0c1324" />
+      {/* Transient launch bar (navy shell); index.tsx sets the themed one. Edge-
+          to-edge is default in SDK 57, so StatusBar no longer takes backgroundColor. */}
+      <StatusBar style="light" />
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: '#0c1324' },
+          contentStyle: { backgroundColor: '#0b1220' },
         }}
       />
     </SafeAreaProvider>

@@ -16,6 +16,8 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
   path.resolve(workspaceRoot, 'node_modules'),
 ];
-config.resolver.disableHierarchicalLookup = true;
+// (SDK 57's expo/metro-config resolves monorepos with watchFolders +
+// nodeModulesPaths alone; hierarchical lookup is left enabled as the safe
+// fallback — no disableHierarchicalLookup override.)
 
 module.exports = config;
