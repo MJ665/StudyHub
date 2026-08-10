@@ -176,7 +176,7 @@ Play generates your app's signing fingerprint only after the first upload.
 
 - **Build fails** → run `npx expo-doctor` in `apps/mobile` and fix what it lists,
   then rebuild.
-- **"Package name already exists"** in Play → the app id `com.studybuddy.app` is
+- **"Package name already exists"** in Play → the app id `in.mj665.studybuddy` is
   taken by another Console; change `android.package` in `app.config.ts`, rebuild.
 - **Push notifications don't arrive** → `google-services.json` is missing or from
   the wrong Firebase project. Re-download it and rebuild.
