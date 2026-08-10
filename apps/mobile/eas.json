@@ -14,7 +14,8 @@
       "android": { "buildType": "apk" },
       "env": {
         "EXPO_PUBLIC_WEB_URL": "https://studybuddy.mj665.in",
-        "EXPO_PUBLIC_ENTRY_PATH": "/dashboard"
+        "EXPO_PUBLIC_ENTRY_PATH": "/dashboard",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     },
     "production": {
@@ -22,7 +23,8 @@
       "android": { "buildType": "app-bundle" },
       "env": {
         "EXPO_PUBLIC_WEB_URL": "https://studybuddy.mj665.in",
-        "EXPO_PUBLIC_ENTRY_PATH": "/dashboard"
+        "EXPO_PUBLIC_ENTRY_PATH": "/dashboard",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     }
   },

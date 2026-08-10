@@ -38,7 +38,7 @@ const config = {
   assetBundlePatterns: ['**/*'],
   android: {
     package: 'com.studybuddy.app',
-    versionCode: 1,
+    // versionCode is managed remotely by EAS (eas.json appVersionSource: remote).
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#0b1220',
