@@ -180,7 +180,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
               <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[var(--color-on-surface)] overflow-hidden shrink-0 shadow-lg">
                 <img src="/images/logo.png" alt="StudyBuddy Logo" className="w-full h-full object-cover rounded-xl" />
               </div>
-              <h1 className="text-4xl font-black tracking-tight text-[var(--color-on-surface-variant)] uppercase">Executive Intelligence</h1>
+              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[var(--color-on-surface-variant)] uppercase">Executive Intelligence</h1>
             </div>
             <p className="text-xl text-[var(--color-on-surface-variant)] font-medium max-w-2xl leading-relaxed italic">
               {aiSummary || "Synthesizing cross-cohort performance vectors for strategic analysis..."}

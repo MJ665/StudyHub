@@ -317,7 +317,7 @@ export default function ExamRunnerPage() {
             </>
           ) : (
             <>
-              <div className={`text-5xl font-black mb-2 ${result.passed ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>{result.percent}%</div>
+              <div className={`text-3xl sm:text-5xl font-black mb-2 ${result.passed ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>{result.percent}%</div>
               <div className="text-xl font-bold mb-4">{result.passed ? 'Passed' : 'Not passed'}</div>
               <div className="text-[var(--color-on-surface-variant)] text-sm">Score {result.score}/{result.total} · status {result.status} · {result.flags} integrity flag(s)</div>
               {result.passed && (
@@ -398,7 +398,7 @@ export default function ExamRunnerPage() {
       {fullscreenLost && phase === 'running' && !result && (
         <div className="fixed inset-0 z-50 bg-[var(--color-surface-dim)]/95 flex items-center justify-center p-6">
           <div className="max-w-sm text-center">
-            <div className="text-4xl mb-3">🖥️</div>
+            <div className="text-2xl sm:text-4xl mb-3">🖥️</div>
             <h2 className="text-xl font-black mb-2">Return to fullscreen to continue</h2>
             <p className="text-[var(--color-on-surface-variant)] text-sm mb-5">This exam must run in fullscreen. Leaving it has been flagged for the proctor.</p>
             <button

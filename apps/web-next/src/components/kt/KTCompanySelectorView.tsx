@@ -86,7 +86,7 @@ export default function KTCompanySelectorView({ user }: KTCompanySelectorViewPro
             <Sparkles size={16} />
             <span className="text-xs font-black uppercase tracking-widest">Knowledge Hub</span>
           </div>
-          <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Select Knowledge Base</h1>
+          <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Select Knowledge Base</h1>
           <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
             Choose a corporate domain workspace to explore technical projects, run graph queries, and verify knowledge coverage.
           </p>

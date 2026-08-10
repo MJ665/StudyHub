@@ -103,6 +103,10 @@
 }
 
 @layer base {
+  /* Hide scrollbars on horizontal chip/tab rows (still scrollable by swipe). */
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
   /* Theme-aware gradient helpers (values swap per [data-theme]). */
   .bg-gradient-brand { background-image: var(--gradient-brand); }
   .bg-gradient-hero { background-image: var(--gradient-hero); }

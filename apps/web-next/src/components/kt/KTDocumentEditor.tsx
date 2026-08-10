@@ -67,16 +67,16 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
   return (
     <div className="flex flex-col gap-6 w-full">
       {/* Edit header bar */}
-      <div className="flex items-center justify-between p-4 bg-[var(--color-warning)]/20 border border-[var(--color-warning)]/30 rounded-2xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-[var(--color-warning)]/20 border border-[var(--color-warning)]/30 rounded-2xl">
         <div className="flex items-center gap-3">
           <Edit3 size={16} className="text-[var(--color-warning)]" />
           <span className="text-[var(--color-warning)] font-bold text-sm">Editing Mode</span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <input
             type="text"
             placeholder="Change summary (e.g. Fixed deployment steps)..."
-            className="bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] w-72 focus:outline-none focus:ring-2 focus:ring-[var(--color-warning)]/50"
+            className="bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl px-4 py-2 text-sm text-[var(--color-on-surface)] w-full sm:w-72 focus:outline-none focus:ring-2 focus:ring-[var(--color-warning)]/50"
             value={formData.change_summary}
             onChange={e => setFormData({...formData, change_summary: e.target.value})}
           />
@@ -135,7 +135,7 @@ export default function KTDocumentEditor({ doc, onSave, onCancel }: { doc: any, 
       </div>
       
       {/* Structured fields edit */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label className="text-xs font-black uppercase tracking-wider text-[var(--color-on-surface-variant)] mb-2 block">Problem Statement</label>
           <textarea

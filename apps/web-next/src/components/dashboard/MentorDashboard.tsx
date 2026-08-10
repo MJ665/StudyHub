@@ -166,7 +166,7 @@ export default function MentorDashboard({
             <UserCheck size={20} />
             <span className="font-black uppercase tracking-[0.2em] text-xs">Mentor Command Center</span>
           </div>
-          <h1 className="text-4xl font-black text-[var(--color-on-surface)]">Mentorship Hub</h1>
+          <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">Mentorship Hub</h1>
         </div>
         
         <div className="flex gap-4">

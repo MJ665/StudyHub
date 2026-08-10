@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { BottomNav } from './BottomNav';
+import MobileTopBar from './MobileTopBar';
 import { PoweredByStudyBuddy } from '../common/Branding';
 
 interface AppLayoutProps {
@@ -36,12 +37,16 @@ export function AppLayout({ children, currentView, onChangeView, onLogout, user,
 
   return (
     <div className="flex h-screen print:h-auto bg-[var(--color-surface-dim)] overflow-hidden print:overflow-visible font-sans text-[var(--color-surface-dim)] selection:bg-[var(--color-brand-primary)]/30">
-      {/* ── Branding top bar (mobile + tablet, below lg) ── */}
+      {/* ── Mobile/tablet top bar (below lg): brings sidebar-only widgets
+             (accuracy, theme, notifications, AI tools, tracks, profile) to mobile ── */}
       {showSidebar && user && (
-        <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 flex items-center gap-3 px-4 bg-[var(--color-surface-container-low)] border-b border-[var(--color-surface-bright)] print:hidden">
-          <img src="/images/logo.png" alt="" className="w-7 h-7 rounded-lg object-cover" />
-          <span className="text-base font-black text-[var(--color-on-surface)]">StudyBuddy</span>
-        </header>
+        <MobileTopBar
+          user={user}
+          onChangeView={onChangeView}
+          onLogout={onLogout}
+          onOpenAIPath={onOpenAIPath}
+          onOpenAIQuiz={onOpenAIQuiz}
+        />
       )}
 
       {/* ── Sidebar: desktop only (lg+); mobile/tablet use the bottom nav ── */}

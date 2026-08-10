@@ -204,9 +204,9 @@ export function UserDetailsModal({ user, onClose }: { user: any; onClose: () => 
       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-surface-container border border-surface-bright p-10 rounded-[4rem] w-full max-w-2xl shadow-2xl relative my-auto">
         <div className="flex justify-between items-start mb-10">
           <div className="flex items-center gap-6">
-            <div className="w-24 h-24 rounded-[2.5rem] bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary text-4xl font-black shadow-lg shadow-brand-primary/5">{user.full_name?.[0] || 'U'}</div>
+            <div className="w-24 h-24 rounded-[2.5rem] bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary text-2xl sm:text-4xl font-black shadow-lg shadow-brand-primary/5">{user.full_name?.[0] || 'U'}</div>
             <div>
-              <h3 className="text-4xl font-black text-[var(--color-on-surface)] mb-2">{user.full_name}</h3>
+              <h3 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] mb-2">{user.full_name}</h3>
               <div className="flex gap-2">
                 <span className="px-3 py-1 rounded-lg bg-[var(--color-brand-primary-container)]/10 text-[var(--color-brand-primary)] text-[10px] font-black uppercase tracking-widest border border-[var(--color-brand-primary)]/20">Access: {user.role}</span>
                 <span className="px-3 py-1 rounded-lg bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] text-[10px] font-black uppercase tracking-widest border border-[var(--color-outline-variant)]">GID: #{user.group_id}</span>

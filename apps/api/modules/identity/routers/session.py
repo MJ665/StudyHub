@@ -794,10 +794,8 @@ def sso_callback(code: str, state: str, db: Session = Depends(get_db)):
     db.commit()
 
     # Redirect back to frontend dashboard with tokens (Usually set as HttpOnly cookies or query params)
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
-    return RedirectResponse(
-        url=f"{frontend_url}/auth/callback?access_token={access_token}&refresh_token={refresh_token}"
-    )
+    from config import settings
+    frontend_url = settings.FRONTEND_URL
     return RedirectResponse(
         url=f"{frontend_url}/auth/callback?access_token={access_token}&refresh_token={refresh_token}"
     )

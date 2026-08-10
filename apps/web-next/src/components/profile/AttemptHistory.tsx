@@ -115,7 +115,7 @@ export default function AttemptHistory({ user, onBack }: AttemptHistoryProps) {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div>
-            <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
+            <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
               <div className="p-3 bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 rounded-2xl text-[var(--color-warning)]">
                 <History size={32} />
               </div>

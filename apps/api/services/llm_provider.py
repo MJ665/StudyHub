@@ -49,7 +49,7 @@ def get_chat_llm(
                 timeout=60,
                 max_retries=2,
                 default_headers={
-                    "HTTP-Referer": "https://studybuddy.mj665.in",
+                    "HTTP-Referer": settings.OPENROUTER_REFERER,
                     "X-Title": "StudyBuddy",
                 },
             )
@@ -98,7 +98,7 @@ def get_openrouter_async_client():
             api_key=settings.OPENROUTER_API_KEY,
             base_url=settings.OPENROUTER_BASE_URL,
             default_headers={
-                "HTTP-Referer": "https://studybuddy.mj665.in",
+                "HTTP-Referer": settings.OPENROUTER_REFERER,
                 "X-Title": "StudyBuddy",
             },
         )

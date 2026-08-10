@@ -46,6 +46,7 @@ export default function KTChatView() {
   const [internalAuth, setInternalAuth] = useState(false);
   const [booting, setBooting] = useState(true);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [sessionsOpen, setSessionsOpen] = useState(false); // mobile sessions drawer
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -258,8 +259,34 @@ export default function KTChatView() {
               <span className="text-[9px] font-black uppercase text-[var(--color-success)] tracking-wider">Grounded in approved knowledge</span>
             </div>
           </div>
-          <button onClick={startNewChat} className="md:hidden p-2 rounded-lg bg-[var(--color-brand-primary-container)] text-white"><Plus size={16} /></button>
+          <div className="md:hidden flex items-center gap-2">
+            <button onClick={() => setSessionsOpen(true)} className="p-2 rounded-lg bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]" aria-label="Chat history"><MessageSquare size={16} /></button>
+            <button onClick={startNewChat} className="p-2 rounded-lg bg-[var(--color-brand-primary-container)] text-white" aria-label="New chat"><Plus size={16} /></button>
+          </div>
         </div>
+
+        {/* MOBILE: sessions drawer (desktop uses the left sidebar) */}
+        {sessionsOpen && (
+          <div className="md:hidden fixed inset-0 z-[70]" onClick={() => setSessionsOpen(false)}>
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            <div className="absolute top-0 left-0 h-full w-[80%] max-w-xs overflow-y-auto bg-[var(--color-surface-container-low)] border-r border-[var(--color-surface-bright)] p-3" onClick={(e) => e.stopPropagation()}>
+              <button onClick={() => { startNewChat(); setSessionsOpen(false); }} className="w-full flex items-center justify-center gap-2 py-2.5 mb-3 rounded-xl bg-[var(--color-brand-primary-container)] text-white text-xs font-bold">
+                <Plus size={15} /> New chat
+              </button>
+              {sessions.length === 0 && <p className="text-[11px] text-[var(--color-on-surface-variant)] px-2 py-4">No chats yet.</p>}
+              <div className="space-y-1">
+                {sessions.map(s => (
+                  <div key={s.session_id} className={`group flex items-center gap-1 rounded-lg px-2 py-2 cursor-pointer ${s.session_id === sessionId ? 'bg-[var(--color-surface-container-high)]/80' : 'hover:bg-[var(--color-surface-container)]'}`} onClick={() => { openSession(s.session_id); setSessionsOpen(false); }}>
+                    <MessageSquare size={13} className="text-[var(--color-on-surface-variant)] shrink-0" />
+                    <span className="flex-1 truncate text-xs text-[var(--color-on-surface-variant)]">{s.title || 'New chat'}</span>
+                    <button onClick={(e) => { e.stopPropagation(); renameSession(s.session_id, s.title); }} className="p-1 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><Pencil size={12} /></button>
+                    <button onClick={(e) => { e.stopPropagation(); deleteSession(s.session_id); }} className="p-1 text-[var(--color-on-surface-variant)] hover:text-[var(--color-danger)]"><Trash2 size={12} /></button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 custom-scrollbar">
           {booting && <div className="h-full flex items-center justify-center"><Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} /></div>}

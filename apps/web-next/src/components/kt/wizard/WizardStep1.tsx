@@ -47,7 +47,7 @@ export default function WizardStep1({ ctx }: { ctx: WizardCtx }) {
 <>
                 <div className="space-y-12 max-w-3xl mx-auto">
                    <div className="space-y-4 text-center mb-12">
-                     <h3 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tighter">People & Time</h3>
+                     <h3 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tighter">People & Time</h3>
                      <p className="text-[var(--color-on-surface-variant)] font-medium text-lg">Knowledge is temporal. Defining when it was created and who verified it is crucial.</p>
                   </div>
 

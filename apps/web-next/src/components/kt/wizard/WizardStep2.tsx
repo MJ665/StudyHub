@@ -47,7 +47,7 @@ export default function WizardStep2({ ctx }: { ctx: WizardCtx }) {
 <>
                 <div className="space-y-12 max-w-3xl mx-auto">
                    <div className="space-y-4 text-center mb-12">
-                     <h3 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tighter">Technicals & Intelligence</h3>
+                     <h3 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tighter">Technicals & Intelligence</h3>
                      <p className="text-[var(--color-on-surface-variant)] font-medium text-lg">Tag the specific stack and access levels to ensure safe, precise retrieval.</p>
                   </div>
                   

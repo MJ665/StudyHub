@@ -92,7 +92,7 @@ export default function AssignmentsView({ user, onStartQuiz, onStartCoding, onBa
                 <ArrowLeft size={20} />
              </button>
              <div>
-               <h1 className="text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
+               <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight flex items-center gap-4">
                  <div className="p-3 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-2xl text-[var(--color-brand-primary)]">
                    <ClipboardList size={32} />
                  </div>

@@ -34,6 +34,7 @@ import AnalyticsTab from '../admin/tabs/AnalyticsTab';
 import ReportsTab from '../admin/tabs/ReportsTab';
 import InventoryTab from '../admin/tabs/InventoryTab';
 import TelemetryTab from '../admin/tabs/TelemetryTab';
+import ResponsiveTabs from '../ui/ResponsiveTabs';
 import IntegrityTab from '../admin/tabs/IntegrityTab';
 import HierarchyTab from '../admin/tabs/HierarchyTab';
 import UsersTab from '../admin/tabs/UsersTab';
@@ -544,7 +545,7 @@ export default function LDAdminDashboard({
               {isOpsView ? 'Operations Protocol' : 'L&D Executive Protocol'}
             </span>
           </div>
-          <h1 className="text-4xl font-black text-[var(--color-on-surface)]">
+          <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">
             {isOpsView ? 'Ops Center' : 'Administration'}
           </h1>
         </div>
@@ -657,18 +658,12 @@ export default function LDAdminDashboard({
         <div className="lg:col-span-2 space-y-10">
           {/* Tabs & Global Search (Section 13) */}
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
-            <div className="flex bg-surface-container p-1 rounded-2xl w-fit border border-surface-bright flex-wrap">
-              {['Hierarchy', 'Users', 'Curriculum', 'Coding', 'Inventory', 'Audit', 'Analytics', 'Reports', 'Integrity', 'Telemetry'].map((tab: any) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab as any)}
-                  className={`px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-brand-primary text-[var(--color-surface-dim)] shadow-lg' : 'text-on-surface-variant hover:text-[var(--color-on-surface)]'
-                    }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+            <ResponsiveTabs
+              className="w-full md:w-auto"
+              tabs={['Hierarchy', 'Users', 'Curriculum', 'Coding', 'Inventory', 'Audit', 'Analytics', 'Reports', 'Integrity', 'Telemetry'].map((t) => ({ id: t, label: t }))}
+              active={activeTab}
+              onChange={(id) => setActiveTab(id as any)}
+            />
 
             {(activeTab === 'Hierarchy' || activeTab === 'Users') && (
               <div className="relative w-full md:w-80">

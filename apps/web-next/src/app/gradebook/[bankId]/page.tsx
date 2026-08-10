@@ -80,13 +80,13 @@ export default function GradebookPage() {
         {loading ? (
           <div className="text-[var(--color-on-surface-variant)]">Loading…</div>
         ) : tab === 'grades' ? (
-          <div className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] overflow-hidden">
-            <div className="grid grid-cols-4 gap-2 px-4 py-3 text-xs uppercase tracking-widest text-[var(--color-on-surface-variant)] border-b border-[var(--color-outline-variant)]">
+          <div className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] overflow-x-auto">
+            <div className="grid grid-cols-4 gap-2 px-4 py-3 text-xs uppercase tracking-widest text-[var(--color-on-surface-variant)] border-b border-[var(--color-outline-variant)] min-w-[480px]">
               <span className="col-span-2">Learner</span><span>Best</span><span>Attempts</span>
             </div>
             {grades.length === 0 && <div className="p-4 text-[var(--color-on-surface-variant)] text-sm">No attempts yet.</div>}
             {grades.map((g) => (
-              <div key={g.user_id} className="grid grid-cols-4 gap-2 px-4 py-2.5 border-b border-[var(--color-outline-variant)]/50 text-sm">
+              <div key={g.user_id} className="grid grid-cols-4 gap-2 px-4 py-2.5 border-b border-[var(--color-outline-variant)]/50 text-sm min-w-[480px]">
                 <span className="col-span-2 truncate">{g.user_name || `User ${g.user_id}`}</span>
                 <span className={g.best_pct >= 40 ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}>{g.best_pct}% ({g.best_score}/{g.best_total})</span>
                 <span className="text-[var(--color-on-surface-variant)]">{g.attempts}</span>
@@ -94,13 +94,13 @@ export default function GradebookPage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] overflow-hidden">
-            <div className="grid grid-cols-6 gap-2 px-4 py-3 text-xs uppercase tracking-widest text-[var(--color-on-surface-variant)] border-b border-[var(--color-outline-variant)]">
+          <div className="rounded-xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] overflow-x-auto">
+            <div className="grid grid-cols-6 gap-2 px-4 py-3 text-xs uppercase tracking-widest text-[var(--color-on-surface-variant)] border-b border-[var(--color-outline-variant)] min-w-[600px]">
               <span className="col-span-3">Question</span><span>Difficulty</span><span>Discrim.</span><span>Flag</span>
             </div>
             {items.length === 0 && <div className="p-4 text-[var(--color-on-surface-variant)] text-sm">Not enough data for item analysis.</div>}
             {items.map((it) => (
-              <div key={it.question_id} className="grid grid-cols-6 gap-2 px-4 py-2.5 border-b border-[var(--color-outline-variant)]/50 text-sm">
+              <div key={it.question_id} className="grid grid-cols-6 gap-2 px-4 py-2.5 border-b border-[var(--color-outline-variant)]/50 text-sm min-w-[600px]">
                 <span className="col-span-3 truncate text-[var(--color-on-surface-variant)]">{it.question || `Q${it.question_id}`}</span>
                 <span className="text-[var(--color-on-surface-variant)]">{(it.difficulty * 100).toFixed(0)}%</span>
                 <span className="text-[var(--color-on-surface-variant)]">{it.discrimination.toFixed(2)}</span>

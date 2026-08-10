@@ -473,9 +473,9 @@ export default function CodeEditor({ question, onFinish }: any) {
                 <div className="space-y-2">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Judicial Verdict</span>
                   <div className="text-sm text-[var(--color-on-surface-variant)] leading-relaxed bg-[var(--color-surface-dim)] p-6 rounded-[1.5rem] border border-[var(--color-outline-variant)] font-medium italic relative">
-                    <span className="absolute top-4 left-4 text-[var(--color-brand-primary)]/20 text-4xl font-serif">"</span>
+                    <span className="absolute top-4 left-4 text-[var(--color-brand-primary)]/20 text-2xl sm:text-4xl font-serif">"</span>
                     <p className="relative z-10">{evalResult.feedback}</p>
-                    <span className="absolute bottom-2 right-4 text-[var(--color-brand-primary)]/20 text-4xl font-serif">"</span>
+                    <span className="absolute bottom-2 right-4 text-[var(--color-brand-primary)]/20 text-2xl sm:text-4xl font-serif">"</span>
                   </div>
                 </div>
 

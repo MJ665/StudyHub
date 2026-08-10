@@ -60,7 +60,7 @@ export default function AssessmentResultPage() {
           />
 
           <div
-            className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl font-black border-4 ${
+            className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl sm:text-4xl font-black border-4 ${
               accuracy >= 70
                 ? 'border-[var(--color-success)] bg-[var(--color-success)]/20 text-[var(--color-success)]'
                 : accuracy >= 40

@@ -96,7 +96,7 @@ export default function KTAnalyticsView() {
           <TrendingUp size={16} />
           <span className="text-xs font-black uppercase tracking-widest">Executive Dashboard</span>
         </div>
-        <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Analytics & Intelligence</h1>
+        <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Analytics & Intelligence</h1>
         <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
           Track knowledge base health, document ingestion velocity, and structural coverage gaps for {selectedCompany?.name || 'All Organizations'}.
         </p>

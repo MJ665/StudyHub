@@ -103,7 +103,7 @@ export default function KTProjectsView({ user }: KTProjectsViewProps) {
             <Sparkles size={16} />
             <span className="text-xs font-black uppercase tracking-widest">{selectedCompany?.name} Space</span>
           </div>
-          <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Technical Projects</h1>
+          <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Technical Projects</h1>
           <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
             Inspect project coverage scopes, engineering knowledge graphs, and tech stack configurations for {selectedCompany?.name}.
           </p>

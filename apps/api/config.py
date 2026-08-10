@@ -79,6 +79,8 @@ class Settings(BaseSettings):
     PRIMARY_AI_MODEL: str = "gemini-2.5-flash"
     SECONDARY_AI_MODEL: str = "gemini-2.5-flash"
     FAST_AI_MODEL: str = "gemini-2.5-flash"
+    # Embeddings stay on Gemini (OpenRouter has no free embedding model).
+    GEMINI_EMBED_MODEL: str = "gemini-embedding-001"
     # ── AI chat/completion provider ─────────────────────────────────────────
     # Chat/completion can run on OpenRouter (free models, no Gemini credit)
     # while EMBEDDINGS stay on Gemini (OpenRouter has no free embedding model).
@@ -86,10 +88,17 @@ class Settings(BaseSettings):
     OPENROUTER_API_KEY: Optional[str] = None
     OPENROUTER_BASE_URL: str = "https://openrouter.ai/api/v1"
     OPENROUTER_MODEL: str = "nvidia/nemotron-3-ultra-550b-a55b:free"
+    # OpenRouter attribution header (shown on their dashboard). Not a secret.
+    OPENROUTER_REFERER: str = "https://studybuddy.mj665.in"
     APP_VERSION: str = "3.1.0"
     ALLOWED_ORIGINS: List[str] = []
     ENFORCE_HTTPS: bool = False
+    # Public web app URL — used to build links in emails/certificates. Env-driven
+    # (safe dev default); set FRONTEND_URL in production.
+    FRONTEND_URL: str = "https://studybuddy.mj665.in"
     RESEND_FROM_EMAIL: str = "StudyBuddy L&D <noreply@email.mj665.in>"
+    # Security/system notifications sender (password resets, alerts).
+    SECURITY_FROM_EMAIL: str = "StudyBuddy Security <security@email.mj665.in>"
     # Where public contact-form submissions are delivered (configurable).
     CONTACT_EMAIL: str = "contact.hackathonmj@gmail.com"
 

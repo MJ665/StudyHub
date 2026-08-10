@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import ApiService from '../../services/ApiService';
 import { useToast } from '../ui/Toast';
 import ActivityHeatmap from '../common/ActivityHeatmap';
+import ResponsiveTabs from '../ui/ResponsiveTabs';
 import { normalizeExternalUrl } from '../../lib/url';
 
 type TabId = 'STRATEGIC' | 'ANALYTICS' | 'REGISTRY' | 'ATLAS' | 'COMMUNITY';
@@ -186,7 +187,7 @@ export default function PublicProfile({
                 {profile.profile_photo_url ? (
                   <img src={profile.profile_photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-brand text-white text-6xl font-black">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-brand text-white text-2xl sm:text-4xl sm:text-6xl font-black">
                     {initials}
                   </div>
                 )}
@@ -198,7 +199,7 @@ export default function PublicProfile({
 
             <div className="flex-1 pb-4">
               <div className="flex items-center gap-4 mb-4 flex-wrap">
-                <h1 className="text-5xl font-black text-[var(--color-on-surface)] tracking-tight">{profile.full_name}</h1>
+                <h1 className="text-3xl sm:text-5xl font-black text-[var(--color-on-surface)] tracking-tight">{profile.full_name}</h1>
                 <div className="flex items-center gap-2">
                     <span className="px-4 py-1.5 bg-[var(--color-brand-primary-container)]/10 border border-[var(--color-brand-primary)]/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">
                     {profile.role}
@@ -261,27 +262,19 @@ export default function PublicProfile({
           })()}
 
           {/* ─── Navigation Tabs ────────────────────────────────────── */}
-          <div className="flex gap-1 p-1.5 bg-[var(--color-surface-container)]/60 rounded-2xl border border-[var(--color-outline-variant)] w-fit mb-10 overflow-x-auto">
-            {([
+          <ResponsiveTabs
+            className="mb-10"
+            mobileMode="dropdown"
+            active={activeTab}
+            onChange={(id) => setActiveTab(id as TabId)}
+            tabs={[
               { id: 'STRATEGIC', label: 'STRATEGIC OVERVIEW', icon: <Target size={14} /> },
               { id: 'ANALYTICS', label: 'DEEP ANALYTICS', icon: <BarChart3 size={14} /> },
               { id: 'ATLAS', label: 'GROWTH ATLAS', icon: <Map size={14} /> },
               { id: 'REGISTRY', label: 'ACTIVITY REGISTRY', icon: <ScrollText size={14} /> },
               { id: 'COMMUNITY', label: 'COMMUNITY', icon: <MessageSquare size={14} /> },
-            ] as { id: TabId; label: string; icon: any }[]).map(tab => (
-              <button 
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
-                  activeTab === tab.id 
-                  ? 'bg-[var(--color-brand-primary-container)] text-white shadow-xl shadow-[var(--color-brand-primary)]/20 border border-[var(--color-brand-primary)]/50' 
-                  : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
-                }`}
-              >
-                {tab.icon} {tab.label}
-              </button>
-            ))}
-          </div>
+            ]}
+          />
 
           <AnimatePresence mode="wait">
             <motion.div

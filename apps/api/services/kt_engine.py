@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Constants
 GEMINI_MODEL = settings.PRIMARY_AI_MODEL  # "gemini-2.5-flash"
 # Verified working embedding model via ListModels API (text-embedding-004 returns 404 on v1beta)
-GEMINI_EMBED_MODEL = "gemini-embedding-001"  # 3072 dims, supports RETRIEVAL_DOCUMENT/QUERY
+GEMINI_EMBED_MODEL = settings.GEMINI_EMBED_MODEL  # 3072 dims, RETRIEVAL_DOCUMENT/QUERY
 HMAC_SECRET = settings.HMAC_KEY_SECRET
 
 RAG_SYSTEM_PROMPT = """You are a highly capable AI assistant for an enterprise study hub.

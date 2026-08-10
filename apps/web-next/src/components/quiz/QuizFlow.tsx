@@ -90,6 +90,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
   // Modal State
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
+  const [navOpen, setNavOpen] = useState(false); // mobile question-navigator sheet
 
   const currentQ = questions[currentIdx];
   const answeredCount = Object.keys(answers).length;
@@ -242,6 +243,55 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
           className="h-full bg-gradient-brand"
         />
       </div>
+
+      {/* MOBILE: question navigator trigger (desktop uses the left sidebar) */}
+      <div className="lg:hidden flex items-center justify-between px-4 py-2 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]">
+        <span className="text-xs font-bold text-[var(--color-on-surface-variant)]">Question {currentIdx + 1} of {questions.length}</span>
+        <button
+          onClick={() => setNavOpen(true)}
+          className="text-xs font-black text-brand-primary flex items-center gap-1"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>grid_view</span>
+          Jump ({answeredCount}/{questions.length})
+        </button>
+      </div>
+
+      {/* MOBILE: question navigator sheet */}
+      {navOpen && (
+        <div className="lg:hidden fixed inset-0 z-[70]" onClick={() => setNavOpen(false)}>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div
+            className="absolute bottom-0 inset-x-0 max-h-[70vh] overflow-y-auto rounded-t-3xl bg-[var(--color-surface-container-low)] border-t border-[var(--color-surface-bright)] p-4 pb-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-10 h-1 bg-[var(--color-surface-container-high)] rounded-full mx-auto mb-4" />
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--color-on-surface-variant)]">Navigator</h3>
+              <span className="text-[10px] font-black text-brand-primary">{answeredCount}/{questions.length}</span>
+            </div>
+            <div className="grid grid-cols-6 gap-2.5">
+              {questions.map((_: any, i: number) => (
+                <button
+                  key={i}
+                  onClick={() => { setDirection(i > currentIdx ? 1 : -1); setCurrentIdx(i); setNavOpen(false); }}
+                  className={`h-11 rounded-xl text-[10px] font-black transition-all flex items-center justify-center relative border ${
+                    i === currentIdx
+                      ? 'bg-brand-primary border-brand-primary text-[var(--color-surface-dim)] shadow-lg z-10'
+                      : answers[i]
+                        ? 'bg-brand-primary/5 border-brand-primary/20 text-brand-primary'
+                        : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)]'
+                  }`}
+                >
+                  {i + 1}
+                  {bookmarks.includes(questions[i]?.id) && (
+                    <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[var(--color-warning)] rounded-full border-2 border-[var(--color-surface-container-low)]" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto w-full px-4 md:px-6 py-6 md:py-10 flex-1 flex gap-8">
         {/* LEFT SIDEBAR: Question Navigation */}

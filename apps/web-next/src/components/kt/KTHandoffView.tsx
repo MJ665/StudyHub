@@ -170,7 +170,7 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
           <Sparkles size={16} />
           <span className="text-xs font-black uppercase tracking-widest">Team Transition Engine</span>
         </div>
-        <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Knowledge Sharing & Handoff</h1>
+        <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Knowledge Sharing & Handoff</h1>
         <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
           Coordinate seamless conceptual knowledge transition between outgoing leaders and incoming engineers. 
           Audit structural knowledge gaps and assign peer mentorship.

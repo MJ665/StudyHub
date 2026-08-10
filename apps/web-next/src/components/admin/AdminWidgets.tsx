@@ -38,7 +38,7 @@ export function StatCard({ icon, label, value, trend, color }: any) {
     <div className={`p-8 rounded-[2.5rem] border ${colors[color]} shadow-xl flex items-center justify-between`}>
       <div>
         <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 mb-2">{label}</p>
-        <p className="text-4xl font-black text-[var(--color-on-surface)]">{value}</p>
+        <p className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">{value}</p>
       </div>
       <div className="flex flex-col items-end gap-3">
         <div className="p-4 bg-[var(--color-surface-dim)]/40 rounded-2xl border border-[var(--color-outline-variant)]">{icon}</div>

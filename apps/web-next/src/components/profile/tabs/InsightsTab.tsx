@@ -70,7 +70,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     </div>
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Weighted Proficiency</p>
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl font-black text-[var(--color-on-surface)]">{weightedProficiency}%</span>
+                      <span className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">{weightedProficiency}%</span>
                       <span className="text-[10px] font-bold text-[var(--color-brand-primary)] mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Blend Index <Sparkles size={10} />
                       </span>
@@ -86,7 +86,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     </div>
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Consistency Index</p>
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl font-black text-[var(--color-on-surface)]">{(consistencyIndex || 0).toFixed(0)}</span>
+                      <span className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">{(consistencyIndex || 0).toFixed(0)}</span>
                       <span className="text-[10px] font-bold text-[var(--color-success)] mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Stability <ShieldCheck size={10} />
                       </span>
@@ -102,7 +102,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                     </div>
                     <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Learning Velocity</p>
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl font-black text-[var(--color-on-surface)]">{((learningVelocity || 0) * 10).toFixed(1)}</span>
+                      <span className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">{((learningVelocity || 0) * 10).toFixed(1)}</span>
                       <span className="text-[10px] font-bold text-[var(--color-brand-primary)] mb-1.5 uppercase tracking-widest flex items-center gap-1">
                          Units/Day <Zap size={10} />
                       </span>
@@ -279,7 +279,7 @@ export default function InsightsTab({ ctx }: { ctx: ProfileTabCtx }) {
                   <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-3 flex items-center gap-2">
                     <Trophy size={14} className="text-[var(--color-warning)]" /> Group Rank
                   </h3>
-                  <div className="text-4xl font-black text-[var(--color-on-surface)] mb-1">
+                  <div className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] mb-1">
                     #{registry?.group_rank ?? '—'}
                   </div>
                   <div className="text-xs text-[var(--color-on-surface-variant)]">of {registry?.group_size ?? '—'} members</div>

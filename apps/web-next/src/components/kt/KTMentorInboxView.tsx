@@ -204,7 +204,7 @@ export default function KTMentorInboxView() {
           <Sparkles size={16} />
           <span className="text-xs font-black uppercase tracking-widest">Verification Desk</span>
         </div>
-        <h1 className="text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Mentor Inbox Review</h1>
+        <h1 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)] tracking-tight">Mentor Inbox Review</h1>
         <p className="text-[var(--color-on-surface-variant)] text-sm mt-1 max-w-xl">
           Approve pending engineering spec uploads, audit coverage levels, and ingestion sequences.
         </p>

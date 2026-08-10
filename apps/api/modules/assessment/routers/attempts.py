@@ -611,7 +611,8 @@ def generate_certificate(
 
     from services.certificate_service import verification_code
 
-    base = os.getenv("FRONTEND_URL", "https://studybuddy.mj665.in").rstrip("/")
+    from config import settings
+    base = settings.FRONTEND_URL.rstrip("/")
     absolute_cert_url = f"{base}{certificate_path}"
 
     return {

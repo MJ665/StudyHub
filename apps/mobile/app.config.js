@@ -1,26 +1,30 @@
-import type { ExpoConfig } from 'expo/config';
+// @ts-check
 
 /**
  * StudyBuddy Android wrapper — a thin Expo shell that renders the deployed web
  * app (apps/web-next) in a WebView. The web app is the single master codebase;
  * anything pushed there reflects here instantly.
  *
- * Everything env-driven so nothing is hardcoded before hosting exists:
+ * Plain JS (not app.config.ts) on purpose: Expo's TypeScript config loader can
+ * fail with "Cannot read properties of undefined (reading 'CommonJS')" in this
+ * monorepo; a .js config is read directly with no TS transpiler.
+ *
+ * Env-driven:
  *   EXPO_PUBLIC_WEB_URL  — the deployed web app URL the WebView loads
  *   GOOGLE_SERVICES_JSON — path to the Firebase google-services.json (for FCM)
- *   EAS_PROJECT_ID       — your EAS project id (from `eas init`)
+ *   EAS_PROJECT_ID       — EAS project id (defaults to the linked project below)
  */
 const WEB_URL = process.env.EXPO_PUBLIC_WEB_URL ?? 'https://studybuddy.mj665.in';
 // Host used for Android App Links (https deep links open the app, not the browser).
-const WEB_HOST = (() => {
-  try {
-    return new URL(WEB_URL).host;
-  } catch {
-    return 'studybuddy.mj665.in';
-  }
-})();
+let WEB_HOST = 'studybuddy.mj665.in';
+try {
+  WEB_HOST = new URL(WEB_URL).host;
+} catch (e) {
+  WEB_HOST = 'studybuddy.mj665.in';
+}
 
-const config: ExpoConfig = {
+/** @type {import('expo/config').ExpoConfig} */
+const config = {
   name: 'StudyBuddy',
   slug: 'studybuddy',
   version: '1.0.0',
@@ -43,7 +47,7 @@ const config: ExpoConfig = {
       'INTERNET',
       'POST_NOTIFICATIONS',
       'CAMERA',
-      'RECORD_AUDIO',        // proctored-exam webcam capture (getUserMedia)
+      'RECORD_AUDIO', // proctored-exam webcam capture (getUserMedia)
       'READ_MEDIA_IMAGES',
       'READ_MEDIA_VIDEO',
     ],
@@ -97,8 +101,9 @@ const config: ExpoConfig = {
     // marketing home ("/"). Default /dashboard is auth-gated → /login if needed.
     entryPath: process.env.EXPO_PUBLIC_ENTRY_PATH ?? '/dashboard',
     sentryDsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-    eas: { projectId: process.env.EAS_PROJECT_ID ?? 'REPLACE_WITH_EAS_PROJECT_ID' },
+    // Linked EAS project (public id, safe to commit). Override with EAS_PROJECT_ID.
+    eas: { projectId: process.env.EAS_PROJECT_ID ?? '597715a5-bedb-47a0-8f74-76d03715cb7c' },
   },
 };
 
-export default config;
+module.exports = config;

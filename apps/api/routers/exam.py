@@ -303,7 +303,8 @@ def _notify_exam_recipients(
     if not users:
         return 0
 
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000").rstrip("/")
+    from config import settings
+    frontend_url = settings.FRONTEND_URL.rstrip("/")
     portal_url = f"{frontend_url}/exam/{exam.id}"
     window_label = _format_exam_window(exam)
     instructions = (exam.settings or {}).get("instructions") or None
@@ -1136,7 +1137,8 @@ def exam_certificate(
     _exp = int(_time.time()) + CERT_TOKEN_TTL_SECONDS
     _tok = _certificate_token(attempt_id, _exp)
     path = f"/api/exams/attempts/{attempt_id}/certificate/download?exp={_exp}&token={_tok}"
-    base = os.getenv("FRONTEND_URL", "https://studybuddy.mj665.in").rstrip("/")
+    from config import settings
+    base = settings.FRONTEND_URL.rstrip("/")
     return {
         "success": True,
         "certificate_url": path,

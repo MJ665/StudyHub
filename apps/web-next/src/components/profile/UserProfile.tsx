@@ -20,6 +20,7 @@ import { normalizeExternalUrl } from '../../lib/url';
 import ExecutiveGrowthAtlas from '../dashboard/ExecutiveGrowthAtlas';
 import { Activity, Camera, Save, Copy } from 'lucide-react';
 import { KPICard, Field } from './tabs/shared';
+import ResponsiveTabs from '../ui/ResponsiveTabs';
 import InsightsTab from './tabs/InsightsTab';
 import PerformanceTab from './tabs/PerformanceTab';
 import SkillsTab from './tabs/SkillsTab';
@@ -363,7 +364,7 @@ export default function UserProfile({
                 {profile.profile_photo_url ? (
                   <img src={profile.profile_photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] text-white text-4xl font-black">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--color-brand-primary-container)] to-[var(--color-brand-primary)] text-white text-2xl sm:text-4xl font-black">
                     {initials}
                   </div>
                 )}
@@ -490,25 +491,19 @@ export default function UserProfile({
 
       {/* ─── Tabs ─────────────────────────────────────────────────── */}
       <div className="px-10 pt-8">
-        <div className="flex gap-1 p-1 bg-[var(--color-surface-container)]/60 rounded-2xl border border-[var(--color-outline-variant)] w-fit overflow-x-auto mb-8">
-          {([
+        <ResponsiveTabs
+          className="mb-8"
+          active={activeTab}
+          onChange={(id) => setActiveTab(id as TabId)}
+          tabs={[
             { id: 'INSIGHTS', label: 'Insights', icon: <BrainCircuit size={14} /> },
             { id: 'PERFORMANCE', label: 'Performance', icon: <BarChart3 size={14} /> },
             { id: 'SKILLS', label: 'Skills & Expertise', icon: <Layers size={14} /> },
             { id: 'GROWTH', label: 'AI Growth Atlas', icon: <Map size={14} /> },
             { id: 'REGISTRY', label: 'Activity Registry', icon: <ScrollText size={14} /> },
             { id: 'SECURITY', label: 'Security & Access', icon: <ShieldCheck size={14} /> },
-          ] as { id: TabId; label: string; icon: React.ReactNode }[]).map(t => (
-            <button key={t.id} onClick={() => setActiveTab(t.id)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs transition-all whitespace-nowrap ${
-                activeTab === t.id
-                  ? 'bg-[var(--color-surface-container-high)] text-[var(--color-brand-primary)] shadow-xl border border-[var(--color-outline-variant)]'
-                  : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface-variant)]'
-              }`}>
-              {t.icon} {t.label}
-            </button>
-          ))}
-        </div>
+          ]}
+        />
 
         <AnimatePresence mode="wait">
           {/* ── INSIGHTS TAB ──────────────────────────────────────── */}

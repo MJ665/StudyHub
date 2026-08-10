@@ -277,7 +277,7 @@ export default function UserIntelPanel({ userId, onClose, onViewPremium }: UserI
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                       <div className="bg-[var(--color-surface-container-high)] rounded-2xl p-4 flex flex-col justify-between">
                         <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest">Consistency Index</p>
                         <p className="text-xl font-black text-[var(--color-brand-primary)] mt-1">{(consistency.consistency_index || 0).toFixed(2)}%</p>

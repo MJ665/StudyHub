@@ -384,13 +384,13 @@ export function SecurityPulse() {
       <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-brand-primary-container)]/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-[var(--color-brand-primary-container)]/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">30D Governance Velocity</p>
-        <h4 className="text-4xl font-black text-[var(--color-on-surface)]">{stats?.thirty_day_velocity || 0}</h4>
+        <h4 className="text-2xl sm:text-4xl font-black text-[var(--color-on-surface)]">{stats?.thirty_day_velocity || 0}</h4>
         <p className="text-[8px] font-bold text-[var(--color-brand-primary)] uppercase mt-2 tracking-tighter">Total administrative sessions</p>
       </div>
       <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-warning)]/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-[var(--color-warning)]/10 transition-all" />
         <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mb-2">Role Mutations</p>
-        <h4 className="text-4xl font-black text-[var(--color-warning)]">{stats?.role_mutations || 0}</h4>
+        <h4 className="text-2xl sm:text-4xl font-black text-[var(--color-warning)]">{stats?.role_mutations || 0}</h4>
         <p className="text-[8px] font-bold text-[var(--color-warning)]/60 uppercase mt-2 tracking-tighter">System-wide privilege escalations</p>
       </div>
       <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8 rounded-[2rem] relative overflow-hidden group">

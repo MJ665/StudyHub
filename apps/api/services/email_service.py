@@ -5,6 +5,8 @@ from typing import Optional
 
 import resend
 
+from config import settings
+
 logger = logging.getLogger("email_service")
 
 # Initialize Resend
@@ -16,13 +18,14 @@ else:
         "RESEND_EMAILS_API_KEY not found in environment. Emails will not be sent."
     )
 
-FROM_EMAIL = "StudyBuddy L&D <noreply@email.mj665.in>"
-SECURITY_EMAIL = "StudyBuddy Security <security@email.mj665.in>"
+# Sender identities + link base come from config (env-driven, safe dev defaults).
+FROM_EMAIL = settings.RESEND_FROM_EMAIL
+SECURITY_EMAIL = settings.SECURITY_FROM_EMAIL
 
 
 def _frontend_url() -> str:
-    """Base URL for links in emails — the deployed web app. Env-configurable."""
-    return os.getenv("FRONTEND_URL", "https://studybuddy.mj665.in").rstrip("/")
+    """Base URL for links in emails — the deployed web app (config/env-driven)."""
+    return settings.FRONTEND_URL.rstrip("/")
 
 
 def _send(
