@@ -101,8 +101,11 @@ const config = {
     // marketing home ("/"). Default /dashboard is auth-gated → /login if needed.
     entryPath: process.env.EXPO_PUBLIC_ENTRY_PATH ?? '/dashboard',
     sentryDsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-    // Linked EAS project (public id, safe to commit). Override with EAS_PROJECT_ID.
-    eas: { projectId: process.env.EAS_PROJECT_ID ?? '597715a5-bedb-47a0-8f74-76d03715cb7c' },
+    // Linked EAS project. Must be a STATIC literal so EAS tooling can read it
+    // (a value behind process.env is "dynamic" and EAS refuses to link). This id
+    // is a public project identifier tied to the @contact.hackathonmj account —
+    // safe to commit.
+    eas: { projectId: '597715a5-bedb-47a0-8f74-76d03715cb7c' },
   },
 };
 
