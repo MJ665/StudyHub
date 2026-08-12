@@ -132,11 +132,11 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
           setAiLoading(prev => ({ ...prev, [key]: false }));
         }, 2000);
       } catch (err: any) {
-        // Surface 429 StudyBuddy quota errors with a friendly message
+        // Surface 429 GrindBuddy quota errors with a friendly message
         const msg = err.message || '';
         const isQuota = msg.includes('429') || msg.toLowerCase().includes('quota');
         const displayMsg = isQuota
-          ? '⚠️ StudyBuddy API quota exceeded. The free-tier limit has been reached. Please try again in a few minutes or upgrade your API plan.'
+          ? '⚠️ GrindBuddy API quota exceeded. The free-tier limit has been reached. Please try again in a few minutes or upgrade your API plan.'
           : `Error: ${msg}`;
         setAiResponses(prev => ({ ...prev, [key]: { response: displayMsg, is_out_of_context: false } }));
         setAiLoading(prev => ({ ...prev, [key]: false }));
@@ -433,11 +433,11 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                         <button
                                           onClick={() => handleAskAI(attempt.id, item.question_id)}
                                           disabled={aiLoading[key]}
-                                          aria-label="Ask StudyBuddy AI"
+                                          aria-label="Ask GrindBuddy AI"
                                           className="bg-[var(--color-brand-primary-container)]/20 hover:bg-[var(--color-brand-primary-container)]/40 text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30 px-6 py-2 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all"
                                         >
                                           {aiLoading[key] ? <Loader2 size={16} className="animate-spin" /> : <BrainCircuit size={16} />}
-                                          Ask StudyBuddy AI
+                                          Ask GrindBuddy AI
                                         </button>
                                       </div>
 
@@ -459,7 +459,7 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
                                                 <><AlertCircle size={14} className="text-[var(--color-warning)]" /><span className="text-[var(--color-warning)]">Out of Context</span></>
                                               ) : (
                                                 <><BrainCircuit size={14} className="text-[var(--color-brand-primary)]" />
-                                                <span className="text-[var(--color-brand-primary)]">StudyBuddy AI Analysis</span>
+                                                <span className="text-[var(--color-brand-primary)]">GrindBuddy AI Analysis</span>
                                                 {aiData.from_cache && <span className="text-[var(--color-success)] ml-2">(Cached)</span>}</>
                                               )}
                                             </div>

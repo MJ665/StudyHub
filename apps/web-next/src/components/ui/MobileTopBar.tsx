@@ -36,7 +36,7 @@ export default function MobileTopBar({ user, onChangeView, onLogout, onOpenAIPat
     <>
       <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 flex items-center gap-2 px-3 bg-[var(--color-surface-container-low)] border-b border-[var(--color-surface-bright)] print:hidden">
         <img src="/images/logo.png" alt="" className="w-7 h-7 rounded-lg object-cover shrink-0" />
-        <span className="text-sm font-black text-[var(--color-on-surface)] hidden sm:inline">StudyBuddy</span>
+        <span className="text-sm font-black text-[var(--color-on-surface)] hidden sm:inline">GrindBuddy</span>
 
         {/* Accuracy chip */}
         {accuracy != null && (

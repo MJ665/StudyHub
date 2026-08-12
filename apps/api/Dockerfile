@@ -1,4 +1,4 @@
-# StudyBuddy API — long-running container (Railway/Render/Fly/ECS).
+# GrindBuddy API — long-running container (Railway/Render/Fly/ECS).
 # A persistent process is required: APScheduler cron + the durable job worker
 # assume a long-lived runtime (they do NOT work on ephemeral serverless).
 FROM python:3.12-slim AS base

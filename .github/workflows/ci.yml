@@ -1,4 +1,4 @@
-# StudyHub CI — backend tests + frontend build gates.
+# GrindBuddy CI — backend tests + frontend build gates.
 # Ready for when the repo gets a GitHub remote. Live KT E2E is excluded
 # (needs GEMINI_API_KEY + the dev database); run scripts/verify_all.sh
 # locally for the full battery.
@@ -18,13 +18,13 @@ jobs:
       SECRET_KEY: ci-dummy
       GEMINI_API_KEY: dummy
       # Tests need a Postgres with pgvector:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/studyhub_ci?sslmode=disable
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grindbuddy_ci?sslmode=disable
     services:
       postgres:
         image: pgvector/pgvector:pg16
         env:
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: studyhub_ci
+          POSTGRES_DB: grindbuddy_ci
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready --health-interval 5s

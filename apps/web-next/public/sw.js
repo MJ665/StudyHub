@@ -1,10 +1,10 @@
-/* StudyBuddy service worker — hand-written (no build plugin, Next 15 safe).
+/* GrindBuddy service worker — hand-written (no build plugin, Next 15 safe).
  * - Precaches the offline fallback + core icons.
  * - Navigations: network-first, fall back to cache, then to /offline.html.
  * - Static assets (_next/static, icons, images): cache-first (stale-while-revalidate).
  * - API/auth requests are never cached (always network).
  */
-const CACHE = 'studybuddy-v1';
+const CACHE = 'grindbuddy-v1';
 const PRECACHE = ['/offline.html', '/icons/icon-192.png', '/icons/icon-512.png'];
 
 self.addEventListener('install', (event) => {
@@ -72,7 +72,7 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('push', (event) => {
   let data = {};
   try { data = event.data ? event.data.json() : {}; } catch { data = {}; }
-  const title = data.title || 'StudyBuddy';
+  const title = data.title || 'GrindBuddy';
   event.waitUntil(
     self.registration.showNotification(title, {
       body: data.body || '',

@@ -1,5 +1,5 @@
 """
-System Configuration Router — StudyBuddy Enterprise
+System Configuration Router — GrindBuddy Enterprise
 Serves dynamic configuration to the frontend.
 Replaces all hardcoded arrays in React components.
 """

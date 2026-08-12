@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="apps/web-next/public/images/logo.png" alt="StudyBuddy" width="96" height="96" />
+<img src="apps/web-next/public/images/logo.png" alt="GrindBuddy" width="96" height="96" />
 
-# StudyBuddy
+# GrindBuddy
 
 ### Assess your people. Keep the knowledge they carry.
 
@@ -12,7 +12,7 @@ Assessment (quizzes · coding · proctored exams) **+** AI-powered, cited Knowle
 
 `FastAPI` · `Next.js 15` · `Expo` · `PostgreSQL + pgvector` · `Google Gemini` · `Turborepo`
 
-<sub>_Formerly "StudyHub / QuizConnect". Live: web on Vercel, API on Railway, Android via Expo._</sub>
+<sub>_Formerly "GrindBuddy / QuizConnect". Live: web on Vercel, API on Railway, Android via Expo._</sub>
 
 </div>
 
@@ -20,7 +20,7 @@ Assessment (quizzes · coding · proctored exams) **+** AI-powered, cited Knowle
 
 ## Table of contents
 
-- [What is StudyBuddy](#what-is-studybuddy)
+- [What is GrindBuddy](#what-is-grindbuddy)
 - [The problem](#the-problem)
 - [The solution](#the-solution)
 - [Two products](#two-products)
@@ -41,9 +41,9 @@ Assessment (quizzes · coding · proctored exams) **+** AI-powered, cited Knowle
 
 ---
 
-## What is StudyBuddy
+## What is GrindBuddy
 
-StudyBuddy is a **single-enterprise** platform that a services company runs to do two hard things well:
+GrindBuddy is a **single-enterprise** platform that a services company runs to do two hard things well:
 
 1. **Assess and grow its people** — interns, lateral hires, and existing employees kept current with the market — with one assessment engine for MCQ, descriptive, coding (AI-evaluated) and config questions, delivered as practice quizzes, proctored exams, or daily challenges, and analyzed from the individual learner all the way up to the executive.
 2. **Retain the knowledge of people who leave** — through continuous, structured **Knowledge Transfer (KT)**: experts document their work, mentors approve it, and it becomes an **AI chatbot that answers with citations**, grounded only in your approved knowledge. A formal **exit-handoff** workflow captures a departing employee's knowledge before their last day.
@@ -69,7 +69,7 @@ Traditional LMS/assessment tools cover the first gap partially and ignore the se
 
 ## The solution
 
-StudyBuddy puts **assessment** and **knowledge retention** on one platform so the same org structure, identities, permissions and AI power both:
+GrindBuddy puts **assessment** and **knowledge retention** on one platform so the same org structure, identities, permissions and AI power both:
 
 - **One unified assessment engine.** Practice, timed, proctored and daily-challenge modes are *configuration*, not separate codebases. MCQ, descriptive, coding (LLM-evaluated — no execution infra), and JSON/config questions all flow through the same grading loop and durable job queue.
 - **KT that's actually trustworthy.** Documents are **mentor-approved before they're indexed**, chunked and embedded into **Postgres/pgvector**, then served through a streamed, markdown-rich RAG chatbot that cites its sources and reports a confidence score — grounded *only* in approved knowledge.
@@ -138,12 +138,12 @@ KT       expert documents work → mentor reviews & approves → auto chunk+embe
 
 ```
                  ┌──────────────────────────────────────────────────────────┐
-   Browser  ───► │  studybuddy.mj665.in  (Next.js 15 · Vercel)              │
+   Browser  ───► │  grindbuddy.mj665.in  (Next.js 15 · Vercel)              │
    Android  ───► │  Expo WebView → /dashboard   ── same-origin /api proxy ──┐│
                  └──────────────────────────────────────────────────────────┼┘
                                                                              ▼
                  ┌──────────────────────────────────────────────────────────┐
-                 │  studybuddy-api.mj665.in  (FastAPI · Railway/Docker)      │
+                 │  grindbuddy-api.mj665.in  (FastAPI · Railway/Docker)      │
                  │  modular monolith: identity · org · assessment · kt · ai  │
                  │  · reporting · platform   +  durable job queue + crons    │
                  └──┬───────────┬───────────┬───────────┬───────────┬────────┘
@@ -309,5 +309,5 @@ So `/` is the public front door; the installed app opens **straight into the pro
 ---
 
 <div align="center">
-<sub>StudyBuddy · Assess. Retain. Grow. · single-enterprise assessment & AI knowledge transfer.</sub>
+<sub>GrindBuddy · Assess. Retain. Grow. · single-enterprise assessment & AI knowledge transfer.</sub>
 </div>

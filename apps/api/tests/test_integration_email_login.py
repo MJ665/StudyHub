@@ -39,7 +39,7 @@ def seeded_user():
     db.refresh(group)
 
     user = models.User(
-        email=f"email.login.{tag}@studyhub-tests.dev",
+        email=f"email.login.{tag}@grindbuddy-tests.dev",
         full_name="Email LoginTester",
         group_id=group.id,
         # JWT payload builder denies users without tenant attribution.
@@ -97,7 +97,7 @@ class TestEmailLogin:
     def test_unknown_email_same_401_no_account_oracle(self, client):
         r = client.post(
             "/api/auth/login",
-            json={"email": "nobody@studyhub-tests.dev", "password": "whatever"},
+            json={"email": "nobody@grindbuddy-tests.dev", "password": "whatever"},
         )
         assert r.status_code == 401
         assert r.json()["detail"] == "Invalid email or password"
@@ -136,7 +136,7 @@ class TestCredentialIssuance:
         try:
             created = create_user(
                 user=schemas.UserCreate(
-                    email=f"nopw.{uuid.uuid4().hex[:8]}@studyhub-tests.dev",
+                    email=f"nopw.{uuid.uuid4().hex[:8]}@grindbuddy-tests.dev",
                     full_name="No Password Given",
                     group_id=group.id,
                     role="Member",

@@ -75,10 +75,10 @@ export function Sidebar({ currentView, onChangeView, onLogout, user, onOpenAIPat
       <div className="px-6 mb-10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg overflow-hidden shrink-0">
-            <img src="/images/logo.png" alt="StudyBuddy Logo" className="w-full h-full object-cover rounded-xl" />
+            <img src="/images/logo.png" alt="GrindBuddy Logo" className="w-full h-full object-cover rounded-xl" />
           </div>
           <div>
-            <p className="text-lg font-black text-[var(--color-on-surface)] leading-tight">StudyBuddy</p>
+            <p className="text-lg font-black text-[var(--color-on-surface)] leading-tight">GrindBuddy</p>
             <p className="text-[10px] text-[var(--color-on-surface-variant)] uppercase tracking-widest font-bold">AI Assessment</p>
           </div>
         </div>

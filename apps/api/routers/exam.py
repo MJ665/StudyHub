@@ -1168,7 +1168,7 @@ def exam_certificate_download(
         raise HTTPException(403, "Exam certificate is not available for this attempt.")
     user = db.query(models.User).filter(models.User.id == a.user_id).first()
 
-    _brand = "StudyBuddy"
+    _brand = "GrindBuddy"
     try:
         _org = (
             db.query(models.Organization)

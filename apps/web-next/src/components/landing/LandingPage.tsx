@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * StudyBuddy marketing home (server-rendered content, client for animations).
+ * GrindBuddy marketing home (server-rendered content, client for animations).
  * Enterprise / contact-led: CTAs are "Sign in" (/login) and "Request a demo"
  * (/contact-me) — no self-serve signup. Dark premium theme matching the app;
  * responsive down to 390px (no horizontal overflow).
@@ -49,8 +49,8 @@ function Nav() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
         <a href="/" className="flex items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo.png" alt="StudyBuddy" className="h-8 w-8 rounded-lg object-cover" />
-          <span className="text-lg font-black tracking-tight text-white">StudyBuddy</span>
+          <img src="/images/logo.png" alt="GrindBuddy" className="h-8 w-8 rounded-lg object-cover" />
+          <span className="text-lg font-black tracking-tight text-white">GrindBuddy</span>
         </a>
         <div className="hidden items-center gap-7 text-sm font-semibold text-slate-400 md:flex">
           <a href="#products" className="hover:text-white transition-colors">Products</a>
@@ -91,7 +91,7 @@ function Hero() {
 
         <motion.p {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }}
           className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
-          StudyBuddy is the enterprise platform to <strong className="text-slate-200">assess and grow every employee</strong> —
+          GrindBuddy is the enterprise platform to <strong className="text-slate-200">assess and grow every employee</strong> —
           quizzes, coding, proctored exams — and to <strong className="text-slate-200">retain the knowledge of the people who leave</strong>
           {' '}through AI-powered, cited knowledge transfer.
         </motion.p>
@@ -289,8 +289,8 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-10 md:flex-row md:px-8">
         <div className="flex items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo.png" alt="StudyBuddy" className="h-7 w-7 rounded-lg object-cover" />
-          <span className="text-sm font-black text-white">StudyBuddy</span>
+          <img src="/images/logo.png" alt="GrindBuddy" className="h-7 w-7 rounded-lg object-cover" />
+          <span className="text-sm font-black text-white">GrindBuddy</span>
           <span className="text-xs text-slate-600">· Assess. Retain. Grow.</span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-slate-400">
@@ -300,7 +300,7 @@ function Footer() {
           <a href="/terms" className="hover:text-white transition-colors">Terms</a>
         </div>
       </div>
-      <p className="pb-8 text-center text-xs text-slate-600">© {new Date().getFullYear()} StudyBuddy. Enterprise assessment & knowledge transfer.</p>
+      <p className="pb-8 text-center text-xs text-slate-600">© {new Date().getFullYear()} GrindBuddy. Enterprise assessment & knowledge transfer.</p>
     </footer>
   );
 }

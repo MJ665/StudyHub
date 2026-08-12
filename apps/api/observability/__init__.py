@@ -1,4 +1,4 @@
-"""StudyBuddy observability — a vendor-neutral telemetry facade.
+"""GrindBuddy observability — a vendor-neutral telemetry facade.
 
 Sentry today, OpenTelemetry when you want (flip ``TELEMETRY_BACKEND``). The app
 imports ONLY from here — never sentry_sdk / opentelemetry directly — so swapping

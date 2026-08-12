@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     RESEND_API_KEY: Optional[str] = None
 
     # --- KT PLATFORM (KNOWLEDGE TRANSFER) ---
-    HMAC_KEY_SECRET: str = "kt_hmac_access_key_secret_studyhub_2025"
+    HMAC_KEY_SECRET: str = "kt_hmac_access_key_secret_grindbuddy_2025"
     # (Phase 7) NEO4J_* settings removed — the KT store is Postgres/pgvector.
 
     KEY_DEFAULT_TTL_DAYS: int = 90
@@ -89,16 +89,16 @@ class Settings(BaseSettings):
     OPENROUTER_BASE_URL: str = "https://openrouter.ai/api/v1"
     OPENROUTER_MODEL: str = "nvidia/nemotron-3-ultra-550b-a55b:free"
     # OpenRouter attribution header (shown on their dashboard). Not a secret.
-    OPENROUTER_REFERER: str = "https://studybuddy.mj665.in"
+    OPENROUTER_REFERER: str = "https://grindbuddy.mj665.in"
     APP_VERSION: str = "3.1.0"
     ALLOWED_ORIGINS: List[str] = []
     ENFORCE_HTTPS: bool = False
     # Public web app URL — used to build links in emails/certificates. Env-driven
     # (safe dev default); set FRONTEND_URL in production.
-    FRONTEND_URL: str = "https://studybuddy.mj665.in"
-    RESEND_FROM_EMAIL: str = "StudyBuddy L&D <noreply@email.mj665.in>"
+    FRONTEND_URL: str = "https://grindbuddy.mj665.in"
+    RESEND_FROM_EMAIL: str = "GrindBuddy L&D <noreply@email.mj665.in>"
     # Security/system notifications sender (password resets, alerts).
-    SECURITY_FROM_EMAIL: str = "StudyBuddy Security <security@email.mj665.in>"
+    SECURITY_FROM_EMAIL: str = "GrindBuddy Security <security@email.mj665.in>"
     # Where public contact-form submissions are delivered (configurable).
     CONTACT_EMAIL: str = "contact.hackathonmj@gmail.com"
 
@@ -108,7 +108,7 @@ class Settings(BaseSettings):
     TELEMETRY_BACKEND: str = "sentry"  # sentry | otel | none
     SENTRY_DSN: Optional[str] = None
     SENTRY_ENVIRONMENT: Optional[str] = None  # falls back to ENVIRONMENT
-    SENTRY_RELEASE: Optional[str] = None  # e.g. studybuddy-api@3.1.0
+    SENTRY_RELEASE: Optional[str] = None  # e.g. grindbuddy-api@3.1.0
     SENTRY_TRACES_SAMPLE_RATE: float = 0.2  # errors are always 100%; traces sampled for cost
     SENTRY_PROFILES_SAMPLE_RATE: float = 0.2
     SENTRY_SEND_PII: bool = False
@@ -120,7 +120,7 @@ class Settings(BaseSettings):
     # Slow-query metric threshold (ms)
     DB_SLOW_QUERY_MS: int = 500
     # OpenTelemetry (only read when TELEMETRY_BACKEND=otel)
-    OTEL_SERVICE_NAME: str = "studybuddy-api"
+    OTEL_SERVICE_NAME: str = "grindbuddy-api"
     OTEL_EXPORTER_OTLP_ENDPOINT: Optional[str] = None
     OTEL_EXPORTER_OTLP_HEADERS: Optional[str] = None
     OTEL_METRICS_ENABLED: bool = True
@@ -227,7 +227,7 @@ class Settings(BaseSettings):
                 missing.append("ALLOWED_ORIGINS")
             # KT access keys are HMAC-signed; shipping with the well-known
             # dev default would let anyone forge keys.
-            if self.HMAC_KEY_SECRET == "kt_hmac_access_key_secret_studyhub_2025":
+            if self.HMAC_KEY_SECRET == "kt_hmac_access_key_secret_grindbuddy_2025":
                 missing.append("HMAC_KEY_SECRET (must not be the dev default)")
 
             if missing:

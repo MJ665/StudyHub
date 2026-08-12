@@ -1,8 +1,8 @@
-# StudyBuddy API
+# GrindBuddy API
 
-FastAPI backend for StudyBuddy — a **modular monolith** powering the assessment engine, the KT (Knowledge Transfer) RAG platform, identity/RBAC, reporting, and the platform-operator surface.
+FastAPI backend for GrindBuddy — a **modular monolith** powering the assessment engine, the KT (Knowledge Transfer) RAG platform, identity/RBAC, reporting, and the platform-operator surface.
 
-> Part of the [StudyBuddy monorepo](../../README.md). Frontend: [`apps/web-next`](../web-next/README.md) · Mobile: [`apps/mobile`](../mobile/README.md).
+> Part of the [GrindBuddy monorepo](../../README.md). Frontend: [`apps/web-next`](../web-next/README.md) · Mobile: [`apps/mobile`](../mobile/README.md).
 
 - **Python** 3.12 · **FastAPI** 0.111 · **SQLAlchemy** 2 (sync + async) · **Pydantic** 2
 - **Data:** PostgreSQL + **pgvector** (Neon) · Upstash Redis · AWS S3

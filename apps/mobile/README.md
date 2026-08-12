@@ -1,4 +1,4 @@
-# StudyBuddy — Android app (`apps/mobile`)
+# GrindBuddy — Android app (`apps/mobile`)
 
 A **thin Expo React Native shell** that renders the deployed web app (`apps/web-next`)
 in a WebView. The web app is the **single master codebase** — anything pushed there
@@ -123,8 +123,8 @@ eas submit -p android --profile production  # or upload the .aab manually
 ```
 
 Before submitting, in the Play Console:
-- **Privacy policy URL** → `https://studybuddy.mj665.in/privacy`.
-- **Account deletion (Data deletion URL)** → `https://studybuddy.mj665.in/privacy#account-deletion`
+- **Privacy policy URL** → `https://grindbuddy.mj665.in/privacy`.
+- **Account deletion (Data deletion URL)** → `https://grindbuddy.mj665.in/privacy#account-deletion`
   (in-app: My Profile → Security → Delete account, which works inside the WebView).
 - **Data safety form** — declare accurately (the app runs proctored exams that record
   webcam video + microphone audio and lets users upload files, so this is NOT a
@@ -147,7 +147,7 @@ Before submitting, in the Play Console:
   screenshots (capture the navy UI running in the app: dashboard, an exam, KT chat).
 - **Android App Links** → host `apps/web-next/public/.well-known/assetlinks.json` on the
   web domain and paste the **Play App Signing SHA-256** fingerprint into it (from Play
-  Console → Setup → App signing) so `https://studybuddy.mj665.in/*` opens the app.
+  Console → Setup → App signing) so `https://grindbuddy.mj665.in/*` opens the app.
 - **targetSdk 35 + 16 KB page size** → satisfied by the current Expo SDK; confirm via
   the build (`expo-doctor`).
 - Minimum-functionality: push + offline + native nav + splash + deep links satisfy the

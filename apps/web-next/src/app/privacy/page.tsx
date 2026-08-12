@@ -2,8 +2,8 @@ import React from 'react';
 import { DocShell } from '@/components/common/DocShell';
 
 export const metadata = {
-  title: 'Privacy Policy — StudyBuddy',
-  description: 'How StudyBuddy collects, uses, and protects your data, and how to delete your account.',
+  title: 'Privacy Policy — GrindBuddy',
+  description: 'How GrindBuddy collects, uses, and protects your data, and how to delete your account.',
 };
 
 export default function PrivacyPolicy() {
@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
       <section>
         <h2>1. Data We Collect</h2>
         <p>
-          StudyBuddy collects the information you provide to use the platform: your name and work
+          GrindBuddy collects the information you provide to use the platform: your name and work
           email (for authentication), your organization/role, and the content you generate —
           assessment attempts and scores, discussion posts, and any documents you upload to the
           Knowledge Transfer (KT) module. We also collect basic usage and device information

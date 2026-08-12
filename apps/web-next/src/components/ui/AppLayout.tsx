@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { BottomNav } from './BottomNav';
 import MobileTopBar from './MobileTopBar';
-import { PoweredByStudyBuddy } from '../common/Branding';
+import { PoweredByGrindBuddy } from '../common/Branding';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -67,7 +67,7 @@ export function AppLayout({ children, currentView, onChangeView, onLogout, user,
       <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden print:overflow-visible relative custom-scrollbar pt-14 lg:pt-0 pb-16 lg:pb-0">
         {children}
         <div className="pointer-events-none fixed bottom-2 right-3 z-40 print:hidden opacity-50 hidden lg:block">
-          <PoweredByStudyBuddy />
+          <PoweredByGrindBuddy />
         </div>
       </main>
 

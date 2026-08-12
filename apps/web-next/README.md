@@ -1,8 +1,8 @@
-# StudyBuddy Web
+# GrindBuddy Web
 
-The StudyBuddy frontend — **Next.js 15** (App Router), the marketing landing page, the full authenticated product, and an installable **PWA**. The same web app is what the [Android app](../mobile/README.md) renders in a WebView.
+The GrindBuddy frontend — **Next.js 15** (App Router), the marketing landing page, the full authenticated product, and an installable **PWA**. The same web app is what the [Android app](../mobile/README.md) renders in a WebView.
 
-> Part of the [StudyBuddy monorepo](../../README.md). Backend: [`apps/api`](../api/README.md).
+> Part of the [GrindBuddy monorepo](../../README.md). Backend: [`apps/api`](../api/README.md).
 
 - **Next.js 15** · React 18 · **React Query** · **Tailwind v4** · `motion/react` · `lucide-react`
 - Typed API client generated from the backend OpenAPI schema
@@ -46,7 +46,7 @@ lib/                       useMobile, cn, ReactQueryProvider, viewRoutes
 
 ## The `/api` proxy (why there's no CORS)
 
-The browser only ever calls **`/api/*` on the web origin**; `next.config.ts` rewrites that to the real backend (`API_PROXY_ORIGIN`, default `https://studybuddy-api.mj665.in`). This keeps the refresh cookie **first-party** — no cross-site cookies, no CORS setup.
+The browser only ever calls **`/api/*` on the web origin**; `next.config.ts` rewrites that to the real backend (`API_PROXY_ORIGIN`, default `https://grindbuddy-api.mj665.in`). This keeps the refresh cookie **first-party** — no cross-site cookies, no CORS setup.
 
 > **Do NOT set `NEXT_PUBLIC_API_BASE`** — leaving it unset keeps the client on the same-origin `/api` (see `src/services/apiShared.ts`). Setting it would bypass the proxy and break the cookie.
 
@@ -87,7 +87,7 @@ Requires the [backend](../api/README.md) running on `:8000` for API calls. Overr
 Template: [`.env.production.example`](.env.production.example) · Vercel-ready values: `.env.vercel` (gitignored).
 
 ```
-API_PROXY_ORIGIN=https://studybuddy-api.mj665.in    # backend the /api proxy forwards to
+API_PROXY_ORIGIN=https://grindbuddy-api.mj665.in    # backend the /api proxy forwards to
 NEXT_PUBLIC_SENTRY_DSN=...                           # optional; Sentry no-ops if unset
 NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE=0.2
 SENTRY_ORG / SENTRY_PROJECT / SENTRY_AUTH_TOKEN      # build-time source maps

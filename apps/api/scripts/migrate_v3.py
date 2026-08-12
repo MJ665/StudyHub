@@ -412,7 +412,7 @@ def check_and_add_columns():
         conn.execute(
             text("""
             INSERT INTO users (id, email, full_name, group_id, role, is_active, created_at)
-            SELECT 0, 'admin@studyhub.local', 'L&D SuperAdmin', 0, 'LDAdmin', TRUE, now()
+            SELECT 0, 'admin@grindbuddy.local', 'L&D SuperAdmin', 0, 'LDAdmin', TRUE, now()
             WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 0)
         """)
         )

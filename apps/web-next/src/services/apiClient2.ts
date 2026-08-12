@@ -456,7 +456,7 @@ export class ApiClient2 extends ApiClient1 {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `StudyBuddy_Global_Activity_${new Date().toISOString().split('T')[0]}.xlsx`;
+    a.download = `GrindBuddy_Global_Activity_${new Date().toISOString().split('T')[0]}.xlsx`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

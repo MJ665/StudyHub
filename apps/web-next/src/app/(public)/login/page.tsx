@@ -58,7 +58,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-black text-[var(--color-on-surface)]">Welcome back</h1>
-          <p className="text-[var(--color-on-surface-variant)] mt-2">Sign in to your StudyBuddy account</p>
+          <p className="text-[var(--color-on-surface-variant)] mt-2">Sign in to your GrindBuddy account</p>
         </div>
 
         <form

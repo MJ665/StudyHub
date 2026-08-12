@@ -1,11 +1,11 @@
-# 🚀 Launch StudyBuddy on Google Play — simple step-by-step
+# 🚀 Launch GrindBuddy on Google Play — simple step-by-step
 
 This is written for someone new to Expo/EAS. Follow it top to bottom. Copy-paste
 the commands exactly. Anything in **Play Console** is done in your web browser at
 <https://play.google.com/console>.
 
 You already have: an EAS/Expo account, a Firebase project (`google-services.json`),
-a Google Play Console account, and the live web app at <https://studybuddy.mj665.in>.
+a Google Play Console account, and the live web app at <https://grindbuddy.mj665.in>.
 
 ---
 
@@ -59,7 +59,7 @@ eas build -p android --profile production
 ## Part C — Create the app in Play Console (once)
 
 1. Go to <https://play.google.com/console> → **Create app**.
-   - App name: **StudyBuddy**
+   - App name: **GrindBuddy**
    - Default language: English
    - App or game: **App**
    - Free or paid: **Free**
@@ -70,7 +70,7 @@ eas build -p android --profile production
    **Privacy policy**
    - Paste this URL:
      ```
-     https://studybuddy.mj665.in/privacy
+     https://grindbuddy.mj665.in/privacy
      ```
 
    **Data safety** — answer "Yes, this app collects/shares data", then declare
@@ -89,7 +89,7 @@ eas build -p android --profile production
    For every row also tick: **Encrypted in transit = Yes**, and
    **Users can request data deletion = Yes**, with this deletion URL:
    ```
-   https://studybuddy.mj665.in/privacy#account-deletion
+   https://grindbuddy.mj665.in/privacy#account-deletion
    ```
 
    **App access** — some screens need a login. Choose "All functionality requires
@@ -115,7 +115,7 @@ eas build -p android --profile production
 
 Left menu → **Grow → Store presence → Main store listing**:
 
-- **App name:** StudyBuddy
+- **App name:** GrindBuddy
 - **Short description** (max 80 chars):
   ```
   Learn, take proctored exams, and share team knowledge — all in one app.
@@ -154,7 +154,7 @@ Play generates your app's signing fingerprint only after the first upload.
    **SHA-256 certificate fingerprint**.
 2. Paste it into `apps/web-next/public/.well-known/assetlinks.json`, replacing
    `REPLACE_WITH_PLAY_APP_SIGNING_SHA256_FINGERPRINT`, and redeploy the web app.
-3. Now tapping a `https://studybuddy.mj665.in/...` link opens the app. (Everything
+3. Now tapping a `https://grindbuddy.mj665.in/...` link opens the app. (Everything
    else works without this — it's a nice-to-have.)
 
 ---
@@ -176,10 +176,10 @@ Play generates your app's signing fingerprint only after the first upload.
 
 - **Build fails** → run `npx expo-doctor` in `apps/mobile` and fix what it lists,
   then rebuild.
-- **"Package name already exists"** in Play → the app id `in.mj665.studybuddy` is
+- **"Package name already exists"** in Play → the app id `in.mj665.GrindBuddy` is
   taken by another Console; change `android.package` in `app.config.ts`, rebuild.
 - **Push notifications don't arrive** → `google-services.json` is missing or from
   the wrong Firebase project. Re-download it and rebuild.
 - **Camera is black in an exam** → make sure you allowed the camera/mic permission
-  prompt; if you denied it, enable it in Android Settings → Apps → StudyBuddy →
+  prompt; if you denied it, enable it in Android Settings → Apps → GrindBuddy →
   Permissions.

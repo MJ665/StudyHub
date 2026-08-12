@@ -1,4 +1,4 @@
-# StudyBuddy — Deployment Guide
+# GrindBuddy — Deployment Guide
 
 Plain-English, step-by-step. Follow Part A → B → C → D in order.
 
@@ -10,16 +10,16 @@ You have **two apps** in one repository (a "monorepo"):
 
 | App | Folder | Runs on | Becomes |
 |-----|--------|---------|---------|
-| **Frontend** (the website people see) | `apps/web-next` | **Vercel** | `https://studybuddy.mj665.in` |
-| **Backend** (the API + database brain) | `apps/api` | **Railway** | `https://studybuddy-api.mj665.in` |
+| **Frontend** (the website people see) | `apps/web-next` | **Vercel** | `https://grindbuddy.mj665.in` |
+| **Backend** (the API + database brain) | `apps/api` | **Railway** | `https://grindbuddy-api.mj665.in` |
 
 Plus a **mobile app** (`apps/mobile`) that is just a wrapper showing the website — you deploy it *after* the website is live (separate guide, not needed to go live on web).
 
 **How they talk to each other (important, and already wired for you):**
-The browser only ever calls `https://studybuddy.mj665.in/api/...`. Vercel secretly forwards those `/api` calls to your Railway backend. This "same-origin proxy" is why login works without any messy cross-site cookie/CORS problems. You don't have to do anything special — `next.config.ts` already does it.
+The browser only ever calls `https://grindbuddy.mj665.in/api/...`. Vercel secretly forwards those `/api` calls to your Railway backend. This "same-origin proxy" is why login works without any messy cross-site cookie/CORS problems. You don't have to do anything special — `next.config.ts` already does it.
 
 ```
- Browser ──► studybuddy.mj665.in ──(/api/*)──► studybuddy-api.mj665.in ──► Neon Postgres
+ Browser ──► grindbuddy.mj665.in ──(/api/*)──► grindbuddy-api.mj665.in ──► Neon Postgres
              (Vercel · frontend)   proxy         (Railway · backend)         (your database)
 ```
 
@@ -72,8 +72,8 @@ LD_ADMIN_PASSWORD=Contact@123
 SEED_ORG_NAME=Sigmoid HQ
 SEED_ORG_SLUG=sigmoid-hq
 
-ALLOWED_ORIGINS=["https://studybuddy.mj665.in"]
-FRONTEND_URL=https://studybuddy.mj665.in
+ALLOWED_ORIGINS=["https://grindbuddy.mj665.in"]
+FRONTEND_URL=https://grindbuddy.mj665.in
 
 GEMINI_API_KEY=<your key>
 RESEND_EMAILS_API_KEY=<your key>
@@ -100,16 +100,16 @@ You already have most values locally. Copy them over, then apply these **3 delta
 | Var | Your local `.env` now | Set to (production) | Why |
 |-----|-----------------------|---------------------|-----|
 | `DEBUG` | `TRUE` (and a duplicate `False`) | **`false`** | `DEBUG=true` leaks verbose errors and only allows `localhost` in CORS. Remove the duplicate line too. |
-| `ALLOWED_ORIGINS` | *(missing)* | **`["https://studybuddy.mj665.in"]`** | Required once `DEBUG=false`; whitelists your web domain. |
-| `FRONTEND_URL` | *(missing)* | **`https://studybuddy.mj665.in`** | Builds exam-invite email links + notification deep-links (`…/exam/{id}`). |
+| `ALLOWED_ORIGINS` | *(missing)* | **`["https://grindbuddy.mj665.in"]`** | Required once `DEBUG=false`; whitelists your web domain. |
+| `FRONTEND_URL` | *(missing)* | **`https://grindbuddy.mj665.in`** | Builds exam-invite email links + notification deep-links (`…/exam/{id}`). |
 
 Everything else from your local `.env` carries over as-is (`DATABASE_URL`, `GEMINI_API_KEY`, `AWS_*`, `AWS_S3_BUCKET`, `UPSTASH_*`, `RESEND_*`, `JWT_SECRET_KEY`, `HMAC_KEY_SECRET`, the `*_ADMIN_*` seed vars). You can also drop the unused `NEO4J_*` lines — the KT store is Postgres/pgvector now.
 
 ### A3. Deploy + custom domain
 1. Railway builds and deploys automatically. Watch **Deployments → Logs** until you see `Application startup complete`.
-2. In **Settings → Networking → Custom Domain**, add `studybuddy-api.mj665.in`.
+2. In **Settings → Networking → Custom Domain**, add `grindbuddy-api.mj665.in`.
 3. Railway shows you a **CNAME target** (like `xxxx.up.railway.app`). Add it to your DNS (see Part D).
-4. Test: open `https://studybuddy-api.mj665.in/health` — you should see a small JSON "ok".
+4. Test: open `https://grindbuddy-api.mj665.in/health` — you should see a small JSON "ok".
 
 ---
 
@@ -123,14 +123,14 @@ Everything else from your local `.env` carries over as-is (`DATABASE_URL`, `GEMI
    - Leave Build/Output commands as default.
 
 ### B2. Environment variables (only one, and it's optional)
-- `API_PROXY_ORIGIN = https://studybuddy-api.mj665.in`
+- `API_PROXY_ORIGIN = https://grindbuddy-api.mj665.in`
   (Optional — the code already defaults to this. Set it only if the backend URL differs.)
 - **Do NOT add `NEXT_PUBLIC_API_BASE`.** Leaving it unset is what makes the same-origin proxy work.
 
 ### B3. Deploy + custom domain
 1. Click **Deploy**. Wait for the build to finish (it builds the 35 routes).
-2. **Settings → Domains** → add `studybuddy.mj665.in`. Vercel shows a CNAME/A record for DNS (see Part D).
-3. Open `https://studybuddy.mj665.in` → the login page should load.
+2. **Settings → Domains** → add `grindbuddy.mj665.in`. Vercel shows a CNAME/A record for DNS (see Part D).
+3. Open `https://grindbuddy.mj665.in` → the login page should load.
 
 ---
 
@@ -142,7 +142,7 @@ You asked for these to live in env, be changeable by you, and be seeded into the
   `APP_ADMIN_EMAIL/PASSWORD` and `LD_ADMIN_EMAIL/PASSWORD` and **creates the accounts if missing, or updates their password/role to match** if they already exist.
 - Because your database already has these two users, the seed will simply **enforce the passwords you set in Railway**.
 
-So after deploy you can log in at `https://studybuddy.mj665.in` with **whatever you set** in these env vars:
+So after deploy you can log in at `https://grindbuddy.mj665.in` with **whatever you set** in these env vars:
 
 | Role | Email (env var) | Password (env var) |
 |------|-----------------|--------------------|
@@ -163,8 +163,8 @@ In your `mj665.in` DNS provider, add the two records the platforms gave you:
 
 | Type | Name (host) | Value | From |
 |------|-------------|-------|------|
-| CNAME | `studybuddy-api` | `<the target Railway showed>` | Railway custom domain |
-| CNAME | `studybuddy` | `cname.vercel-dns.com` (or the exact value Vercel showed) | Vercel domain |
+| CNAME | `grindbuddy-api` | `<the target Railway showed>` | Railway custom domain |
+| CNAME | `grindbuddy` | `cname.vercel-dns.com` (or the exact value Vercel showed) | Vercel domain |
 
 DNS can take a few minutes to a couple of hours. Both platforms auto-issue HTTPS certificates once DNS resolves.
 
@@ -180,10 +180,10 @@ Errors, traces, logs, and metrics from **all three apps** (api, web, mobile) flo
    - Railway (backend): `SENTRY_DSN=<dsn>` + `TELEMETRY_BACKEND=sentry` + `SENTRY_ENVIRONMENT=production`.
    - Vercel (web): `NEXT_PUBLIC_SENTRY_DSN=<dsn>`.
    - EAS (mobile): `EXPO_PUBLIC_SENTRY_DSN=<dsn>`.
-3. For **source maps** (readable stack traces), set the build-time token in each platform: `SENTRY_ORG=meet-w7`, `SENTRY_PROJECT=studybuddy`, `SENTRY_AUTH_TOKEN=<your sntrys_… token>`.
+3. For **source maps** (readable stack traces), set the build-time token in each platform: `SENTRY_ORG=meet-w7`, `SENTRY_PROJECT=grindbuddy`, `SENTRY_AUTH_TOKEN=<your sntrys_… token>`.
 4. **Slack:** in Sentry → Settings → Integrations → **Slack** → install & add it to a channel (e.g. `#alerts`). Then run the alert-rule script:
    ```bash
-   export SENTRY_AUTH_TOKEN=sntrys_...  SENTRY_ORG=meet-w7  SENTRY_PROJECT=studybuddy  SLACK_CHANNEL='#alerts'
+   export SENTRY_AUTH_TOKEN=sntrys_...  SENTRY_ORG=meet-w7  SENTRY_PROJECT=grindbuddy  SLACK_CHANNEL='#alerts'
    python scripts/setup_sentry.py       # creates error-volume / new-issue / regression / crash rules → Slack
    ```
 5. **Direct critical alerts:** create a Slack **Incoming Webhook** and set `SLACK_WEBHOOK_URL=<url>` on Railway. The backend posts terminal job failures, scheduler-task failures, and unhandled 500s straight to it.
@@ -210,12 +210,12 @@ Errors are captured 100%; traces/profiles/replay are **sampled** (defaults 20% t
 
 ## PART E — Final verification (once both are live)
 
-1. `https://studybuddy-api.mj665.in/health` → JSON ok (backend alive).
-2. `https://studybuddy.mj665.in` → login page loads.
+1. `https://grindbuddy-api.mj665.in/health` → JSON ok (backend alive).
+2. `https://grindbuddy.mj665.in` → login page loads.
 3. Log in as the L&D Admin → dashboard loads (this proves the frontend→backend proxy + database all work end-to-end).
 4. Open on your phone browser at 390px width → no sideways scrolling (mobile responsive).
 5. Publish a test exam with your own email as a recipient → you get the invite email with a working link (proves Resend + `FRONTEND_URL`).
-6. **Observability**: after setting the Sentry DSN, hit `https://studybuddy-api.mj665.in/sentry-debug` isn't wired — instead trigger any real error (or use Sentry's "Send test event" in the project onboarding). Confirm the event appears in Sentry and an alert lands in your Slack `#alerts` channel.
+6. **Observability**: after setting the Sentry DSN, hit `https://grindbuddy-api.mj665.in/sentry-debug` isn't wired — instead trigger any real error (or use Sentry's "Send test event" in the project onboarding). Confirm the event appears in Sentry and an alert lands in your Slack `#alerts` channel.
 
 ---
 
@@ -232,5 +232,5 @@ I've written all the config files. These steps require **your** accounts/keys, s
 ### Please tell me / confirm, so I can finish anything else:
 - Do you have an **S3 bucket + AWS keys** ready? (Required for the backend to boot — KT/resource uploads use it.) If not, I can relax that requirement so it boots without S3.
 - Is your **Redis** Upstash (REST url+token) or a `redis://` URL? Either works — just want to document the right one.
-- Should I also finish the **mobile app** deploy (Expo/EAS build to an Android `.aab` for the Play Store) now, or after the website is live? (It needs `EXPO_PUBLIC_WEB_URL=https://studybuddy.mj665.in` + a Firebase `google-services.json` from you.)
+- Should I also finish the **mobile app** deploy (Expo/EAS build to an Android `.aab` for the Play Store) now, or after the website is live? (It needs `EXPO_PUBLIC_WEB_URL=https://grindbuddy.mj665.in` + a Firebase `google-services.json` from you.)
 - Do you want a **GitHub Actions** workflow so every push auto-deploys, or are Vercel/Railway's built-in GitHub auto-deploys enough? (They're enough for most people.)

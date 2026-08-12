@@ -20,8 +20,8 @@ export function DocShell({
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 md:px-8">
           <a href="/" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/logo.png" alt="StudyBuddy" className="h-7 w-7 rounded-lg object-cover" />
-            <span className="text-base font-black text-[var(--color-on-surface)]">StudyBuddy</span>
+            <img src="/images/logo.png" alt="GrindBuddy" className="h-7 w-7 rounded-lg object-cover" />
+            <span className="text-base font-black text-[var(--color-on-surface)]">GrindBuddy</span>
           </a>
           <div className="flex items-center gap-5 text-sm font-semibold text-[var(--color-on-surface-variant)]">
             <a href="/" className="hover:text-[var(--color-on-surface)] transition-colors">Home</a>
@@ -40,7 +40,7 @@ export function DocShell({
 
       <footer className="border-t border-[var(--color-outline-variant)]">
         <p className="mx-auto max-w-3xl px-5 py-8 text-center text-xs text-[var(--color-on-surface-variant)] md:px-8">
-          © {new Date().getFullYear()} StudyBuddy · <a href="/privacy" className="hover:text-[var(--color-on-surface-variant)]">Privacy</a> · <a href="/terms" className="hover:text-[var(--color-on-surface-variant)]">Terms</a> · <a href="/contact-me" className="hover:text-[var(--color-on-surface-variant)]">Contact</a>
+          © {new Date().getFullYear()} GrindBuddy · <a href="/privacy" className="hover:text-[var(--color-on-surface-variant)]">Privacy</a> · <a href="/terms" className="hover:text-[var(--color-on-surface-variant)]">Terms</a> · <a href="/contact-me" className="hover:text-[var(--color-on-surface-variant)]">Contact</a>
         </p>
       </footer>
     </div>

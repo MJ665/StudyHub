@@ -31,7 +31,7 @@ def post_alert(text: str, level: str = "error", **context) -> None:
         return
     emoji = _EMOJI.get(level, "🔵")
     env = settings.ENVIRONMENT
-    lines = [f"{emoji} *StudyBuddy · {level.upper()}* _(env: {env})_", text]
+    lines = [f"{emoji} *GrindBuddy · {level.upper()}* _(env: {env})_", text]
     for k, v in context.items():
         lines.append(f"• *{k}*: `{v}`")
     payload = {"text": "\n".join(lines)}

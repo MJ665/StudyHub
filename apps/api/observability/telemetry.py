@@ -62,7 +62,7 @@ def _init_sentry() -> None:
     from sentry_sdk.integrations.starlette import StarletteIntegration
 
     env = settings.SENTRY_ENVIRONMENT or settings.ENVIRONMENT
-    release = settings.SENTRY_RELEASE or f"studybuddy-api@{settings.APP_VERSION}"
+    release = settings.SENTRY_RELEASE or f"grindbuddy-api@{settings.APP_VERSION}"
     sentry_sdk.init(
         dsn=settings.SENTRY_DSN,
         environment=env,
@@ -175,7 +175,7 @@ def _init_otel(app=None) -> None:
     except Exception as e:
         logger.warning("OTel logging instrumentation skipped: %s", e)
 
-    _otel["tracer"] = trace.get_tracer("studybuddy")
-    _otel["meter"] = otel_metrics.get_meter("studybuddy")
+    _otel["tracer"] = trace.get_tracer("grindbuddy")
+    _otel["meter"] = otel_metrics.get_meter("grindbuddy")
     _otel["instruments"] = {}
     logger.info("✅ OpenTelemetry enabled → %s", endpoint)

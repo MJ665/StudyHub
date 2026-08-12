@@ -155,7 +155,7 @@ export default function CodeEditor({ question, onFinish }: any) {
     const lang = supportedLanguages.find((l: any) => l.id === langId);
     if (lang) {
       setLanguage(lang.id);
-      localStorage.setItem('studyhub_preferred_lang', lang.id);
+      localStorage.setItem('grindbuddy_preferred_lang', lang.id);
     }
   };
 

@@ -309,7 +309,7 @@ export default function ProctorReviewPage() {
           })}
           </div>
         </div>
-        <p className="text-center text-[var(--color-on-surface-variant)] text-xs mt-6">Powered by StudyBuddy</p>
+        <p className="text-center text-[var(--color-on-surface-variant)] text-xs mt-6">Powered by GrindBuddy</p>
       </div>
     </div>
   );

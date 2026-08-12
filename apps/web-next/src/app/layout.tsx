@@ -9,10 +9,10 @@ import 'katex/dist/katex.min.css';
 const DEFAULT_THEME = process.env.NEXT_PUBLIC_DEFAULT_THEME || 'navy-light';
 
 export const metadata: Metadata = {
-  title: 'StudyBuddy — AI Assessment Platform',
-  description: 'StudyBuddy — multi-tenant AI assessment platform for quizzes, coding, exams and knowledge transfer.',
-  applicationName: 'StudyBuddy',
-  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'StudyBuddy' },
+  title: 'GrindBuddy — AI Assessment Platform',
+  description: 'GrindBuddy — multi-tenant AI assessment platform for quizzes, coding, exams and knowledge transfer.',
+  applicationName: 'GrindBuddy',
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'GrindBuddy' },
   icons: {
     icon: '/images/logo.png',
     apple: '/icons/apple-touch-icon.png',

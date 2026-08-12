@@ -30,7 +30,7 @@ const _extra = (Constants.expoConfig?.extra ?? {}) as {
   webUrl?: string;
   entryPath?: string;
 };
-const WEB_URL: string = _extra.webUrl ?? 'https://REPLACE_ME.studybuddy.app';
+const WEB_URL: string = _extra.webUrl ?? 'https://REPLACE_ME.grindbuddy.app';
 const WEB_HOST = safeHost(WEB_URL);
 // The app opens directly into the product, NOT the web marketing home ("/").
 // /dashboard is auth-gated (→ /login if there's no session), so the installed

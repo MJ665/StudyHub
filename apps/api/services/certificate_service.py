@@ -47,7 +47,7 @@ def render_certificate_pdf(
     verification_id: str,
     kind_label: str = "Completion",           # "Completion" | "Achievement"
     achievement_line: str = "has successfully completed the assessment",
-    org_brand: str = "StudyBuddy",
+    org_brand: str = "GrindBuddy",
     signatory_name: str | None = None,
     signatory_title: str | None = None,
     signature_png_bytes: bytes | None = None,
@@ -80,7 +80,7 @@ def render_certificate_pdf(
     # Co-brand line
     c.setFont("Helvetica-Bold", 13)
     c.setFillColorRGB(0.1, 0.1, 0.4)
-    c.drawCentredString(width / 2, height - 130, f"{org_brand}  ×  StudyBuddy")
+    c.drawCentredString(width / 2, height - 130, f"{org_brand}  ×  GrindBuddy")
     c.setFillColorRGB(0, 0, 0)
 
     # Title
@@ -144,7 +144,7 @@ def render_certificate_pdf(
 
     c.setFont("Helvetica-Oblique", 10)
     c.setFillColorRGB(0.4, 0.4, 0.4)
-    c.drawCentredString(width / 2, 30, "Powered by StudyBuddy")
+    c.drawCentredString(width / 2, 30, "Powered by GrindBuddy")
     c.setFillColorRGB(0, 0, 0)
 
     c.showPage()

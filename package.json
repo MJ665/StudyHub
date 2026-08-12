@@ -1,5 +1,5 @@
 {
-  "name": "studyhub-monorepo",
+  "name": "grindbuddy-monorepo",
   "private": true,
   "packageManager": "npm@11.8.0",
   "engines": {

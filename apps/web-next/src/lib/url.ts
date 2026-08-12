@@ -1,7 +1,7 @@
 /**
  * Normalize a user-entered external URL for use in an <a href>.
  * A scheme-less value like "github.com/mj665" is treated by the browser as a
- * RELATIVE path (→ studybuddy.mj665.in/github.com/mj665), so prepend https://
+ * RELATIVE path (→ grindbuddy.mj665.in/github.com/mj665), so prepend https://
  * when no http(s) scheme is present. Returns undefined for empty input.
  */
 export function normalizeExternalUrl(raw?: string | null): string | undefined {

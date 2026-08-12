@@ -3,7 +3,7 @@
 // React Query Client Setup
 // ============================================================
 // Global singleton QueryClient with sensible defaults for the
-// StudyBuddy application. Import this from layout or providers.
+// GrindBuddy application. Import this from layout or providers.
 
 import { QueryClient } from '@tanstack/react-query';
 

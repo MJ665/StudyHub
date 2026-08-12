@@ -1,4 +1,4 @@
-# StudyHubV2 → "StudyHub" — First-Principles Product Redesign Plan
+# GrindBuddy → "GrindBuddy" — First-Principles Product Redesign Plan
 
 ---
 ## 🎓 EXAM PORTAL (Mettl parity) + EMAILS + PROCTORING (2026-08-02 — ✅ COMPLETE)
@@ -20,7 +20,7 @@ Owner wanted the exam portal to work like **Mercer Mettl**, every email working,
 
 Owner + QA tester filed ~22 defects from an end-to-end product traversal. Fixed across 6 phases, one commit per phase (`8dc6a18` → `e40c4c6` + `qa-p3-api` link fix). Locked Q&A: Bug 1 L&D scope = **enterprise-wide (super-org)**; Bug 10 proctoring = **full live face-presence detection**; Bug 16 chatbot = **grounded + friendly + fixed ingestion**.
 
-- **Phase 1 ✅** — Bug1 (CRITICAL) L&D **super-org scoping**: `assert_group/batch/user_in_org` gain an LDAdmin+ branch (target reachable if in caller's super-org), `create_org` stamps `super_organization_id`, `get_orgs`/`get_org_tree` scoped per super-org, orphan orgs backfilled; `create_user` role-aware (LDAdmin+ → `assert_group_in_org`, else same-group). Bug12 inventory Edit/Delete wired in `QuestionManagement` (the component `InventoryTab` renders). Bug3 discussion vote → per-user toggle (`voter_ids` ARRAY, idempotent ALTER). Bug17 emails use `_frontend_url()` (`FRONTEND_URL`, default studybuddy.mj665.in) — only sender `@email.mj665.in` addresses remain. Bug7 `/exams` route group gets its own `ToastProvider` layout (the `/exam/[id]` runner uses inline errors, no provider needed). Bug11 L&D filter: `discovery_users` (the `getUsers` endpoint) scoped to super-org and returns `group/batch/vertical/dept/org_name`; UsersTab dropdowns are data-derived so the exact-match filters resolve.
+- **Phase 1 ✅** — Bug1 (CRITICAL) L&D **super-org scoping**: `assert_group/batch/user_in_org` gain an LDAdmin+ branch (target reachable if in caller's super-org), `create_org` stamps `super_organization_id`, `get_orgs`/`get_org_tree` scoped per super-org, orphan orgs backfilled; `create_user` role-aware (LDAdmin+ → `assert_group_in_org`, else same-group). Bug12 inventory Edit/Delete wired in `QuestionManagement` (the component `InventoryTab` renders). Bug3 discussion vote → per-user toggle (`voter_ids` ARRAY, idempotent ALTER). Bug17 emails use `_frontend_url()` (`FRONTEND_URL`, default grindbuddy.mj665.in) — only sender `@email.mj665.in` addresses remain. Bug7 `/exams` route group gets its own `ToastProvider` layout (the `/exam/[id]` runner uses inline errors, no provider needed). Bug11 L&D filter: `discovery_users` (the `getUsers` endpoint) scoped to super-org and returns `group/batch/vertical/dept/org_name`; UsersTab dropdowns are data-derived so the exact-match filters resolve.
 - **Phase 2 ✅** — Bug2 AttemptHistory shows **real accuracy** (Σscore/Σtotal) not completion_rate. Bug19 banks list returns `total_attempts` (Library counts render). Bug20 **added `POST /code/questions`** (L&D coding wizard was 405; then fixed the id-0 falsy-`or` 500 → explicit-None resolve). Bug22 `/code/evaluate` now calls `update_assignment_completion` (mandatory coding `attempts_used` advances). Bug18 `BankCreationModal` drops Text Format, Load Template emits correct current-schema JSON.
 - **Phase 3 ✅** — Bug16 **friendly KT chatbot**: `classify_conversational`/`conversational_reply` greeting-meta branch wired into BOTH chat paths (`kt_langraph.stream` + `kt_workflows.run_rag_query`) — "hi"/"what can you do" get a warm reply, real questions stay grounded + cited; ingestion pipeline confirmed producing pgvector chunks. Bug6 `ResourceComment` column is `comment` not `content` (POST+GET both 500'd). Bug15 KT chat **persists** active session per-project in localStorage, auto-restores on boot. Bug13/14 verified: PATCH returns full doc (`setDoc` works), submit reaches SUBMITTED → mentor inbox populates; access-key raw key shown in a persistent banner + **email now carries a `{FRONTEND_URL}/kt` portal link**.
 - **Phase 4 ✅** — Bug5 PublicProfile renders `intro_video_url` via `normalizeVideoEmbed` (YouTube/Vimeo/Loom/direct → iframe/`<video>`). Bug4 photo path verified correct end-to-end (presigned S3 → `public_url` → render with initials fallback); non-visibility = S3 bucket public-read config (owner infra), not code.
@@ -203,7 +203,7 @@ Owner Q&A locked: global-unique email · soft-delete users · chat scoped per co
 > - **Browser-proven login flow**: /login → fill email+password → lands on /dashboard (screenshot evidence). Backend log traced the full hydrate/refresh cycle.
 > - **Latent 500 class killed**: 19 async endpoints called sync-only scope helpers (AsyncSession.query crash) across reporting/assessment — all wrapped in db.run_sync / switched to async twin; AST sweep now zero; growth-atlas + heatmap verified 200 live.
 > - Ops: cleaned 36 leaked test orgs from dev DB; freed 3.8GB disk (`.next`, brew, pip caches) after ENOSPC halt; dev servers run via tmux (`dev` session) + background uvicorn.
-> - Dev fixtures: browser.demo@studyhub-tests.dev / S3cure!pass (Member, Sigmoid HQ) for browser QA.
+> - Dev fixtures: browser.demo@grindbuddy-tests.dev / S3cure!pass (Member, Sigmoid HQ) for browser QA.
 
 **Companion technical design (full detail, 1,580 lines):** `/Users/meet/.claude/plans/we-need-to-rethink-indexed-wozniak-agent-a8a439514a0fbb08e.md`
 On approval, both documents should be copied into the repo at `docs/product-plan/` as the north-star.
@@ -212,7 +212,7 @@ On approval, both documents should be copied into the repo at `docs/product-plan
 
 ## 1. Context — why this redesign
 
-StudyHubV2 grew from a group-study quiz app (QuizConnect/StudyBuddy) into an enterprise platform by accretion. Current state (verified by codebase audit, 2026-07-22):
+GrindBuddy grew from a group-study quiz app (QuizConnect/GrindBuddy) into an enterprise platform by accretion. Current state (verified by codebase audit, 2026-07-22):
 
 - **Backend:** 35.5K lines, 24 routers, **314 endpoints**, 60+ entities. 12 god files (`routers/kt.py` = 3,893 lines/70 endpoints; `auth.py` 2,381; `quiz.py` 2,119). Business logic lives in routers; async/sync DB sessions mixed; `system.py` legacy shadowed by `system_config.py`; 3 overlapping KT engines (`kt_engine`, `kt_langraph`, `kt_workflows`).
 - **Frontend:** 28.3K lines. Next.js 15 App Router **in name only** — the real app is a state-machine SPA in `app/page.tsx` (16 virtual views + 9 KT sub-views, no URLs, no deep links, broken back button). God components: `LDAdminDashboard.tsx` **2,978 lines** (10 tabs), `UserProfile` 1,228, `KTCreationWizard` 984. `ApiService.ts`: 1,721 lines, 258 methods, all `Promise<any>`. Two design systems (Tailwind v4 + styled-jsx).
@@ -334,7 +334,7 @@ shared/        exceptions, middleware, permissions decorators, validators, const
 ```
 **Rules:** routers = HTTP only (validate → call service → return schema). Services own business logic, take `AsyncSession` via DI. **One async DB pattern** — sync sessions removed. Modules may import `shared/` and other modules' *services* only (no cross-module model imports except via service APIs). Errors via typed exceptions → global handlers.
 
-**What dies:** Neo4j (13 files), `kt_langraph.py`/`kt_workflows.py`/most of `kt_engine.py` (replaced by `ingestion_service` + `rag_service`), `system.py`, root junk (`fix_kt.py`, `temp*`, dumps, `StudyBuddy.zip`, error logs → archive or delete), duplicate `RichText`, legacy localStorage token path.
+**What dies:** Neo4j (13 files), `kt_langraph.py`/`kt_workflows.py`/most of `kt_engine.py` (replaced by `ingestion_service` + `rag_service`), `system.py`, root junk (`fix_kt.py`, `temp*`, dumps, `GrindBuddy.zip`, error logs → archive or delete), duplicate `RichText`, legacy localStorage token path.
 
 ## 9. Frontend page flow (rebuild — owner-approved)
 

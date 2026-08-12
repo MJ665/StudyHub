@@ -9,7 +9,7 @@ import { withSentryConfig } from '@sentry/nextjs';
  *
  * The backend origin is configurable via `API_PROXY_ORIGIN`:
  *   - local dev  → http://127.0.0.1:8000
- *   - production → https://studybuddy-api.mj665.in  (override in Vercel env)
+ *   - production → https://grindbuddy-api.mj665.in  (override in Vercel env)
  *
  * Because of this proxy, do NOT set NEXT_PUBLIC_API_BASE in Vercel — the client
  * must keep calling the same-origin `/api` (see src/services/apiShared.ts).
@@ -18,7 +18,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const API_PROXY_ORIGIN = (
   process.env.API_PROXY_ORIGIN ||
-  (isDev ? 'http://127.0.0.1:8000' : 'https://studybuddy-api.mj665.in')
+  (isDev ? 'http://127.0.0.1:8000' : 'https://grindbuddy-api.mj665.in')
 ).replace(/\/$/, '');
 
 const nextConfig: NextConfig = {
@@ -38,7 +38,7 @@ export default withSentryConfig(nextConfig, {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
-  // EU-region org (studybuddy is on de.sentry.io) — source-map upload must target it.
+  // EU-region org (grindbuddy is on de.sentry.io) — source-map upload must target it.
   sentryUrl: process.env.SENTRY_URL || 'https://de.sentry.io',
   silent: !process.env.CI,
   widenClientFileUpload: true,

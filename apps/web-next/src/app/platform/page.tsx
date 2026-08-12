@@ -82,7 +82,7 @@ export default function PlatformAdminPage() {
         <header className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-black tracking-tight">Platform Admin</h1>
-            <p className="text-[var(--color-on-surface-variant)] text-sm">Powered by StudyBuddy — org governance &amp; AI cost</p>
+            <p className="text-[var(--color-on-surface-variant)] text-sm">Powered by GrindBuddy — org governance &amp; AI cost</p>
           </div>
           <button onClick={load} className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">Refresh</button>
         </header>

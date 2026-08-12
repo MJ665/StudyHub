@@ -1,4 +1,4 @@
-# StudyHubV2 Target Architecture & Migration Plan
+# GrindBuddy Target Architecture & Migration Plan
 
 **Status:** FINAL ARCHITECTURE DESIGN  
 **Date:** 2026-07-22  
@@ -9,7 +9,7 @@
 
 ## EXECUTIVE SUMMARY
 
-StudyHubV2 is a 35.5K-line backend + 28.3K-line frontend monolith with a broken KT ingestion pipeline and severely fragmented frontend routing. This plan restructures it into a clean, maintainable modular monolith (backend) + proper App Router SPA (frontend) while keeping the system running through phased incremental migration.
+GrindBuddy is a 35.5K-line backend + 28.3K-line frontend monolith with a broken KT ingestion pipeline and severely fragmented frontend routing. This plan restructures it into a clean, maintainable modular monolith (backend) + proper App Router SPA (frontend) while keeping the system running through phased incremental migration.
 
 **Key Wins:**
 - Kill 12 god files (kt.py: 3,893→~600 lines, LDAdminDashboard: 2,977→<500 each)

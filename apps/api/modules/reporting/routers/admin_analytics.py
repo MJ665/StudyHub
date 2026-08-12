@@ -114,7 +114,7 @@ def export_global_activity(
         output,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={
-            "Content-Disposition": f"attachment; filename=StudyBuddy_GlobalActivity_{datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d')}.xlsx"
+            "Content-Disposition": f"attachment; filename=GrindBuddy_GlobalActivity_{datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d')}.xlsx"
         },
     )
 
@@ -403,8 +403,8 @@ def email_health(
             try:
                 ok = email_service._send(
                     to,
-                    "StudyBuddy email health check",
-                    "<p>Your StudyBuddy transactional email is working. ✅</p>",
+                    "GrindBuddy email health check",
+                    "<p>Your GrindBuddy transactional email is working. ✅</p>",
                     email_type="SYSTEM",
                 )
                 result["test_sent"] = bool(ok)
@@ -432,7 +432,7 @@ def alerts_test(current_user: dict = Depends(require_ldadmin)):
         result["error"] = "SLACK_WEBHOOK_URL is not set."
         return result
     text = (
-        f"🔵 *StudyBuddy · TEST* _(env: {settings.ENVIRONMENT})_\n"
+        f"🔵 *GrindBuddy · TEST* _(env: {settings.ENVIRONMENT})_\n"
         f"Test alert triggered from /admin/alerts/test by "
         f"{current_user.get('full_name') or current_user.get('sub')}."
     )

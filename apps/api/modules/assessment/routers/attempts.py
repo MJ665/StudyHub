@@ -649,8 +649,8 @@ def download_certificate(
     bank = db.query(models.QuestionBank).filter(models.QuestionBank.id == attempt.bank_id).first()
     user = db.query(models.User).filter(models.User.id == attempt.user_id).first()
 
-    # White-label brand (Org × StudyBuddy) + the single org signatory.
-    _brand = "StudyBuddy"
+    # White-label brand (Org × GrindBuddy) + the single org signatory.
+    _brand = "GrindBuddy"
     _super_id = None
     try:
         _grp = db.query(models.Group).filter(models.Group.id == user.group_id).first() if user else None

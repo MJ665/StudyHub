@@ -45,7 +45,7 @@ export default function OnboardPage() {
     setBusy(true); setErr(null);
     try {
       await ApiService.orgSignup({ org_name: orgName, contact_name: contactName, contact_email: contactEmail });
-      setMsg('Request received! You will get an onboarding email once a StudyBuddy admin approves your organization.');
+      setMsg('Request received! You will get an onboarding email once a GrindBuddy admin approves your organization.');
     } catch (e2: unknown) {
       setErr(e2 instanceof Error ? e2.message : 'Signup failed');
     } finally { setBusy(false); }
@@ -70,7 +70,7 @@ export default function OnboardPage() {
     <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="text-[var(--color-success)] font-black text-2xl">StudyBuddy</div>
+          <div className="text-[var(--color-success)] font-black text-2xl">GrindBuddy</div>
           <div className="text-[var(--color-on-surface-variant)] text-sm">Multi-tenant AI assessment platform</div>
         </div>
 
@@ -91,7 +91,7 @@ export default function OnboardPage() {
               <div><label className={label}>Org logo URL (optional)</label><input className={input} value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} /></div>
               <div><label className={label}>Admin signature URL (optional)</label><input className={input} value={signatureUrl} onChange={(e) => setSignatureUrl(e.target.value)} /></div>
               <button disabled={busy} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-2.5 font-bold disabled:opacity-50">{busy ? 'Completing…' : 'Complete onboarding'}</button>
-              <p className="text-center text-[var(--color-on-surface-variant)] text-xs">Powered by StudyBuddy</p>
+              <p className="text-center text-[var(--color-on-surface-variant)] text-xs">Powered by GrindBuddy</p>
             </form>
           ) : (
             <div className="rounded-xl bg-[var(--color-danger)]/10 text-[var(--color-danger)] p-6 text-center">{err || 'Invalid or expired onboarding link.'}</div>
@@ -105,7 +105,7 @@ export default function OnboardPage() {
             <div><label className={label}>Your name</label><input className={input} value={contactName} onChange={(e) => setContactName(e.target.value)} required minLength={2} /></div>
             <div><label className={label}>Your email</label><input type="email" className={input} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} required /></div>
             <button disabled={busy} className="w-full rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] py-2.5 font-bold disabled:opacity-50">{busy ? 'Submitting…' : 'Request access'}</button>
-            <p className="text-center text-[var(--color-on-surface-variant)] text-xs">A StudyBuddy admin will review and email you an onboarding link.</p>
+            <p className="text-center text-[var(--color-on-surface-variant)] text-xs">A GrindBuddy admin will review and email you an onboarding link.</p>
           </form>
         )}
       </div>

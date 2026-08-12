@@ -34,7 +34,7 @@ def _ensure_system_group_and_user(db) -> None:
         db.add(
             models.User(
                 id=0,
-                email="system@studyhub.ai",
+                email="system@grindbuddy.ai",
                 full_name="System Admin",
                 group_id=0,
                 role="LDAdmin",

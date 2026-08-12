@@ -27,7 +27,7 @@ export function OfflineScreen({ onRetry }: { onRetry: () => void }) {
           marginBottom: 24,
         }}
       >
-        StudyBuddy needs a connection to load. Check your network and try again.
+        GrindBuddy needs a connection to load. Check your network and try again.
       </Text>
       <Pressable
         onPress={onRetry}

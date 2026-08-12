@@ -105,12 +105,12 @@ def approve_organization(
         if org.contact_email:
             email_service._send(
                 org.contact_email,
-                "Your StudyBuddy workspace is approved 🎉",
+                "Your GrindBuddy workspace is approved 🎉",
                 f"<p>Hi {org.contact_name or 'there'},</p>"
-                f"<p>Your organization <b>{org.name}</b> has been approved on StudyBuddy.</p>"
+                f"<p>Your organization <b>{org.name}</b> has been approved on GrindBuddy.</p>"
                 f'<p><a href="{onboard_url}">Click here to finish onboarding</a> — '
                 f"you'll set up your L&amp;D Admin account, upload your logo and signature.</p>"
-                f"<p>— Powered by StudyBuddy</p>",
+                f"<p>— Powered by GrindBuddy</p>",
             )
     except Exception:
         pass  # email failure must not block approval; link is returned below

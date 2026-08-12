@@ -50,7 +50,7 @@ def get_chat_llm(
                 max_retries=2,
                 default_headers={
                     "HTTP-Referer": settings.OPENROUTER_REFERER,
-                    "X-Title": "StudyBuddy",
+                    "X-Title": "GrindBuddy",
                 },
             )
         except Exception as e:  # noqa: BLE001
@@ -99,7 +99,7 @@ def get_openrouter_async_client():
             base_url=settings.OPENROUTER_BASE_URL,
             default_headers={
                 "HTTP-Referer": settings.OPENROUTER_REFERER,
-                "X-Title": "StudyBuddy",
+                "X-Title": "GrindBuddy",
             },
         )
     except Exception as e:  # noqa: BLE001

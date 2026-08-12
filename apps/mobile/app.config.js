@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * StudyBuddy Android wrapper — a thin Expo shell that renders the deployed web
+ * GrindBuddy Android wrapper — a thin Expo shell that renders the deployed web
  * app (apps/web-next) in a WebView. The web app is the single master codebase;
  * anything pushed there reflects here instantly.
  *
@@ -14,30 +14,30 @@
  *   GOOGLE_SERVICES_JSON — path to the Firebase google-services.json (for FCM)
  *   EAS_PROJECT_ID       — EAS project id (defaults to the linked project below)
  */
-const WEB_URL = process.env.EXPO_PUBLIC_WEB_URL ?? 'https://studybuddy.mj665.in';
+const WEB_URL = process.env.EXPO_PUBLIC_WEB_URL ?? 'https://grindbuddy.mj665.in';
 // Host used for Android App Links (https deep links open the app, not the browser).
-let WEB_HOST = 'studybuddy.mj665.in';
+let WEB_HOST = 'grindbuddy.mj665.in';
 try {
   WEB_HOST = new URL(WEB_URL).host;
 } catch (e) {
-  WEB_HOST = 'studybuddy.mj665.in';
+  WEB_HOST = 'grindbuddy.mj665.in';
 }
 
 /** @type {import('expo/config').ExpoConfig} */
 const config = {
-  name: 'StudyBuddy',
-  slug: 'studybuddy',
+  name: 'GrindBuddy',
+  slug: 'grindbuddy',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/icon.png',
-  scheme: 'studybuddy',
+  scheme: 'grindbuddy',
   // 'automatic' so native chrome matches the web theme (default is now Navy
   // Light); the shell also mirrors the exact theme via the THEME bridge.
   userInterfaceStyle: 'automatic',
   backgroundColor: '#0b1220',
   assetBundlePatterns: ['**/*'],
   android: {
-    package: 'in.mj665.studybuddy',
+    package: 'in.mj665.GrindBuddy',
     // versionCode is managed remotely by EAS (eas.json appVersionSource: remote).
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -54,10 +54,10 @@ const config = {
     // Firebase config for FCM push. Owner drops google-services.json here (or
     // points GOOGLE_SERVICES_JSON at an EAS secret file).
     googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? './google-services.json',
-    // Android App Links: https://studybuddy.mj665.in/* opens the app directly
+    // Android App Links: https://grindbuddy.mj665.in/* opens the app directly
     // (notification + shared links). Requires /.well-known/assetlinks.json on the
     // web domain carrying the Play App Signing SHA-256 fingerprint before Android
-    // will auto-verify. The studybuddy:// scheme (above) remains for custom links.
+    // will auto-verify. The grindbuddy:// scheme (above) remains for custom links.
     intentFilters: [
       {
         action: 'VIEW',
@@ -91,7 +91,7 @@ const config = {
       '@sentry/react-native/expo',
       {
         organization: process.env.SENTRY_ORG ?? 'meet-w7',
-        project: process.env.SENTRY_PROJECT ?? 'studybuddy',
+        project: process.env.SENTRY_PROJECT ?? 'grindbuddy',
       },
     ],
   ],

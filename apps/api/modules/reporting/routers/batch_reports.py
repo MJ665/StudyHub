@@ -458,7 +458,7 @@ async def export_batch_report(
     ws1 = wb.active  # type: ignore
     assert ws1 is not None
     ws1.title = "Executive Insights"
-    ws1.append(["GO-LIVE STRATEGIC ANALYSIS", "", "STUDYHUB V3 L&D ECOSYSTEM"])
+    ws1.append(["GO-LIVE STRATEGIC ANALYSIS", "", "GRINDBUDDY V3 L&D ECOSYSTEM"])
     ws1.append(
         [
             f"Batch: {batch.name}",
@@ -593,7 +593,7 @@ async def export_batch_report(
         output,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={
-            "Content-Disposition": f"attachment; filename=StudyBuddy_Batch_{batch_id}_Report.xlsx"
+            "Content-Disposition": f"attachment; filename=GrindBuddy_Batch_{batch_id}_Report.xlsx"
         },
     )
 
@@ -672,6 +672,6 @@ def export_batch_csv(
         iter([output.getvalue().encode()]),
         media_type="text/csv",
         headers={
-            "Content-Disposition": f"attachment; filename=StudyBuddy_Batch_{batch_id}.csv"
+            "Content-Disposition": f"attachment; filename=GrindBuddy_Batch_{batch_id}.csv"
         },
     )

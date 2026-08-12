@@ -1,5 +1,5 @@
 """
-AI Feature Router — StudyBuddy Enterprise
+AI Feature Router — GrindBuddy Enterprise
 Exposes AI-powered endpoints:
   - POST /ai/review         → Answer review with Gemini (existing)
   - POST /ai/smart-quiz     → Generate quiz questions from topic with Gemini

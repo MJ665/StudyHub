@@ -178,7 +178,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[var(--color-on-surface)] overflow-hidden shrink-0 shadow-lg">
-                <img src="/images/logo.png" alt="StudyBuddy Logo" className="w-full h-full object-cover rounded-xl" />
+                <img src="/images/logo.png" alt="GrindBuddy Logo" className="w-full h-full object-cover rounded-xl" />
               </div>
               <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[var(--color-on-surface-variant)] uppercase">Executive Intelligence</h1>
             </div>
@@ -314,7 +314,7 @@ export default function ExecutiveReport({ batchId, onBack }: { batchId: number, 
 
         {/* ─── Footer ───────────────────────────────────────── */}
         <div className="text-center border-t border-[var(--color-outline-variant)] pt-12 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-on-surface-variant)]">
-          Generated via StudyBuddy Enterprise Engine • Data Validated {new Date().toLocaleTimeString()}
+          Generated via GrindBuddy Enterprise Engine • Data Validated {new Date().toLocaleTimeString()}
         </div>
       </div>
     </div>

@@ -217,7 +217,7 @@ export default function PublicProfile({
               <div className="flex flex-wrap items-center gap-6 text-[var(--color-on-surface-variant)] text-sm font-bold">
                 <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Mail size={16} className="text-[var(--color-brand-primary)]" /> {profile.email}</span>
                 <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Building2 size={16} className="text-[var(--color-brand-primary)]" /> {profile.hierarchy?.department || 'Operations'}</span>
-                <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Globe size={16} className="text-[var(--color-brand-primary)]" /> studybuddy.mj665.in/profile/{profile.custom_slug || emailPrefix}</span>
+                <span className="flex items-center gap-2 bg-[var(--color-surface-container-high)] px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)]"><Globe size={16} className="text-[var(--color-brand-primary)]" /> grindbuddy.mj665.in/profile/{profile.custom_slug || emailPrefix}</span>
               </div>
             </div>
 
@@ -643,7 +643,7 @@ export default function PublicProfile({
                           <div className="text-center py-10 bg-[var(--color-surface-container-high)]/20 rounded-3xl border border-dashed border-[var(--color-outline-variant)]">
                              <AlertCircle size={40} className="text-[var(--color-on-surface-variant)] mx-auto mb-4" />
                              <h4 className="text-lg font-black text-[var(--color-on-surface)] mb-2">AUTHENTICATION GATED</h4>
-                             <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm mx-auto">Only verified members of the StudyBuddy registry can drop professional endorsements.</p>
+                             <p className="text-[var(--color-on-surface-variant)] mb-8 max-w-sm mx-auto">Only verified members of the GrindBuddy registry can drop professional endorsements.</p>
                              <button onClick={onLoginClick} className="px-10 py-4 bg-white text-[var(--color-on-surface-variant)] rounded-2xl font-black text-sm hover:bg-[var(--color-brand-primary-container)] transition-all">
                                 LOGIN TO SYSTEM
                              </button>

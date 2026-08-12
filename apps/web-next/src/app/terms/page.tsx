@@ -2,8 +2,8 @@ import React from 'react';
 import { DocShell } from '@/components/common/DocShell';
 
 export const metadata = {
-  title: 'Terms & Conditions — StudyBuddy',
-  description: 'The terms governing use of the StudyBuddy assessment & knowledge-transfer platform.',
+  title: 'Terms & Conditions — GrindBuddy',
+  description: 'The terms governing use of the GrindBuddy assessment & knowledge-transfer platform.',
 };
 
 export default function TermsAndConditions() {
@@ -12,7 +12,7 @@ export default function TermsAndConditions() {
       <section>
         <h2>1. AI Accuracy Disclaimer</h2>
         <p>
-          StudyBuddy uses AI (large language models) for question generation, evaluation of coding
+          GrindBuddy uses AI (large language models) for question generation, evaluation of coding
           and descriptive answers, and knowledge explanations. AI can make mistakes. The platform
           makes no warranty that AI-generated content is fully accurate, and users should verify
           critical material. AI-graded results may be reviewed by a mentor or administrator.
@@ -22,7 +22,7 @@ export default function TermsAndConditions() {
       <section>
         <h2>2. Your Content &amp; Intellectual Property</h2>
         <p>
-          By uploading documents to the Knowledge Transfer (KT) module, you grant StudyBuddy a
+          By uploading documents to the Knowledge Transfer (KT) module, you grant GrindBuddy a
           license to process, embed, and store that content so it can be served back to your
           organization through the platform&apos;s AI features. You retain ownership of your
           content. You are responsible for ensuring you have the right to upload it and that you do

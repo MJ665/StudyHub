@@ -356,7 +356,7 @@ export default function ExamRunnerPage() {
       <div className="min-h-screen bg-[var(--color-surface-dim)] text-[var(--color-on-surface)] flex items-center justify-center p-6">
         <div className="max-w-lg w-full rounded-2xl bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] p-8">
           <h1 className="text-2xl font-black mb-1">{paper.title}</h1>
-          <p className="text-[var(--color-on-surface-variant)] text-sm mb-5">Proctored exam · Powered by StudyBuddy</p>
+          <p className="text-[var(--color-on-surface-variant)] text-sm mb-5">Proctored exam · Powered by GrindBuddy</p>
 
           <div className="grid grid-cols-2 gap-3 text-sm mb-5">
             <div className="rounded-lg bg-[var(--color-surface-container-high)]/60 p-3"><div className="text-[var(--color-on-surface-variant)] text-[11px] uppercase tracking-widest">Questions</div><div className="font-bold">{paper.questions.length}</div></div>
@@ -462,7 +462,7 @@ export default function ExamRunnerPage() {
             )}
           </>
         )}
-        <p className="text-center text-[var(--color-on-surface-variant)] text-xs mt-4">Powered by StudyBuddy</p>
+        <p className="text-center text-[var(--color-on-surface-variant)] text-xs mt-4">Powered by GrindBuddy</p>
       </div>
     </div>
   );

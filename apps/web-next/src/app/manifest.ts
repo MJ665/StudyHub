@@ -2,13 +2,13 @@ import type { MetadataRoute } from 'next';
 
 /**
  * PWA web app manifest (Next 15 metadata route → served at /manifest.webmanifest,
- * auto-linked from <head>). Makes StudyBuddy installable ("Add to Home Screen" /
+ * auto-linked from <head>). Makes GrindBuddy installable ("Add to Home Screen" /
  * Chrome install) and gives the Android WebView wrapper a real app identity.
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'StudyBuddy — AI Assessment Platform',
-    short_name: 'StudyBuddy',
+    name: 'GrindBuddy — AI Assessment Platform',
+    short_name: 'GrindBuddy',
     description:
       'AI assessment platform for quizzes, coding, exams and knowledge transfer.',
     start_url: '/dashboard',

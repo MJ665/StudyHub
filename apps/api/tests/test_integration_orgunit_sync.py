@@ -37,11 +37,11 @@ def tree():
     db.add(group); db.commit(); db.refresh(group)
 
     member = models.User(
-        email=f"member.{tag}@studyhub-tests.dev", full_name="Sync Member",
+        email=f"member.{tag}@grindbuddy-tests.dev", full_name="Sync Member",
         group_id=group.id, organization_id=org.id, role="Member", is_active=True,
     )
     mentor = models.User(
-        email=f"mentor.{tag}@studyhub-tests.dev", full_name="Sync Mentor",
+        email=f"mentor.{tag}@grindbuddy-tests.dev", full_name="Sync Mentor",
         group_id=group.id, organization_id=org.id, role="Mentor", is_active=True,
     )
     db.add_all([member, mentor]); db.commit()

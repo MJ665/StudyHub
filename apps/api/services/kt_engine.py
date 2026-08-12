@@ -22,7 +22,7 @@ GEMINI_MODEL = settings.PRIMARY_AI_MODEL  # "gemini-2.5-flash"
 GEMINI_EMBED_MODEL = settings.GEMINI_EMBED_MODEL  # 3072 dims, RETRIEVAL_DOCUMENT/QUERY
 HMAC_SECRET = settings.HMAC_KEY_SECRET
 
-RAG_SYSTEM_PROMPT = """You are a highly capable AI assistant for an enterprise study hub.
+RAG_SYSTEM_PROMPT = """You are a highly capable AI assistant for an enterprise learning platform.
 Your goal is to provide accurate, concise, and helpful answers based strictly on the provided context.
 If the answer cannot be found in the context, politely state that you don't know."""
 

@@ -239,7 +239,7 @@ export default function ExamsPage() {
         <header className="flex items-center justify-between mb-6 gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-black">Exams</h1>
-            <p className="text-[var(--color-on-surface-variant)] text-sm">Proctored assessments · Powered by StudyBuddy</p>
+            <p className="text-[var(--color-on-surface-variant)] text-sm">Proctored assessments · Powered by GrindBuddy</p>
           </div>
           <div className="flex gap-2">
             <a href="/" className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm">← Portal</a>

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# StudyHub — full verification battery (plan §17). One command, all gates.
+# GrindBuddy — full verification battery (plan §17). One command, all gates.
 # Usage: ./scripts/verify_all.sh   (from repo root; needs apps/api/.venv + npm deps)
 set -uo pipefail
 

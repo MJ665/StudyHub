@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: StudyBuddy Enterprise API
+  title: GrindBuddy Enterprise API
   description: Multi-tenant AI assessment platform — RBAC, quiz/coding/exam, KT knowledge graph, white-label.
   version: 3.1.0
 paths:

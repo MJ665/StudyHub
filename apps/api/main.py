@@ -49,7 +49,7 @@ logging.basicConfig(
     stream=sys.stdout,
     force=True,
 )
-logger = logging.getLogger("studyhub")
+logger = logging.getLogger("grindbuddy")
 
 import models  # noqa: E402
 from config import settings  # noqa: E402
@@ -85,7 +85,7 @@ logging_config.setup()  # re-applies env-driven LOG_LEVEL/LOG_FORMAT over the bo
 
 # Create the FastAPI app
 app = FastAPI(
-    title="StudyBuddy Enterprise API",
+    title="GrindBuddy Enterprise API",
     description="Multi-tenant AI assessment platform — RBAC, quiz/coding/exam, KT knowledge graph, white-label.",
     version=settings.APP_VERSION,
     redirect_slashes=False,
@@ -260,7 +260,7 @@ scheduler = AsyncIOScheduler(timezone=datetime.timezone.utc)
 @app.on_event("startup")
 async def on_startup():
     """Enterprise-grade auto-provisioning protocol."""
-    logger.info("🚀 Initiating StudyBuddy V3 Auto-Provisioning Sequence...")
+    logger.info("🚀 Initiating GrindBuddy V3 Auto-Provisioning Sequence...")
 
     try:
         from startup_validator import validate_infrastructure

@@ -12,20 +12,20 @@ import AuthedRedirect from '@/components/landing/AuthedRedirect';
 import LandingPage from '@/components/landing/LandingPage';
 
 export const metadata: Metadata = {
-  title: 'StudyBuddy — Enterprise Assessment & Knowledge Transfer',
+  title: 'GrindBuddy — Enterprise Assessment & Knowledge Transfer',
   description:
-    'StudyBuddy is the single platform to assess and grow every employee (quizzes, coding, proctored exams) and to retain the knowledge of the people who leave, through AI-powered, cited knowledge transfer.',
+    'GrindBuddy is the single platform to assess and grow every employee (quizzes, coding, proctored exams) and to retain the knowledge of the people who leave, through AI-powered, cited knowledge transfer.',
   openGraph: {
-    title: 'StudyBuddy — Assess. Retain. Grow.',
+    title: 'GrindBuddy — Assess. Retain. Grow.',
     description:
       'Assess your people. Keep the knowledge they carry. One enterprise platform for assessment + AI knowledge transfer.',
-    siteName: 'StudyBuddy',
+    siteName: 'GrindBuddy',
     type: 'website',
     images: [{ url: '/images/logo.png' }],
   },
   twitter: {
     card: 'summary',
-    title: 'StudyBuddy — Assess. Retain. Grow.',
+    title: 'GrindBuddy — Assess. Retain. Grow.',
     description: 'Enterprise assessment + AI knowledge transfer, in one platform.',
   },
 };

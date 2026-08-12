@@ -156,7 +156,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
           <Menu size={22} />
         </button>
         <Award className="text-[var(--color-brand-primary)]" size={20} />
-        <span className="text-base font-black text-[var(--color-on-surface)]">StudyBuddy KT</span>
+        <span className="text-base font-black text-[var(--color-on-surface)]">GrindBuddy KT</span>
         {notificationsCount > 0 && (
           <span className="ml-auto w-5 h-5 rounded-full bg-[var(--color-brand-primary-container)] text-[10px] font-bold flex items-center justify-center text-white">{notificationsCount}</span>
         )}
@@ -192,7 +192,7 @@ export default function KTNavShell({ user, onBack, children }: KTNavShellProps) 
               <Award className="text-[var(--color-on-surface)]" size={20} />
             </div>
             <div>
-              <h1 className="text-lg font-black bg-gradient-to-r from-[var(--color-on-surface)] to-[var(--color-on-surface-variant)] bg-clip-text text-transparent tracking-tight">StudyBuddy KT</h1>
+              <h1 className="text-lg font-black bg-gradient-to-r from-[var(--color-on-surface)] to-[var(--color-on-surface-variant)] bg-clip-text text-transparent tracking-tight">GrindBuddy KT</h1>
               <p className="text-[10px] font-bold text-[var(--color-on-surface-variant)] uppercase tracking-widest">Enterprise Intel</p>
             </div>
           </div>

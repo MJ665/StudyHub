@@ -5,7 +5,7 @@ connected Slack in Sentry (Settings → Integrations → Slack → Add to a chan
 Usage:
     export SENTRY_AUTH_TOKEN=sntrys_...        # the org token from `sentry-cli login`
     export SENTRY_ORG=meet-w7
-    export SENTRY_PROJECT=studybuddy
+    export SENTRY_PROJECT=grindbuddy
     export SLACK_CHANNEL='#alerts'             # the channel Slack was added to
     python scripts/setup_sentry.py
 
@@ -27,7 +27,7 @@ import urllib.request
 BASE = os.environ.get("SENTRY_BASE_URL", "https://de.sentry.io").rstrip("/") + "/api/0"
 TOKEN = os.environ.get("SENTRY_AUTH_TOKEN")
 ORG = os.environ.get("SENTRY_ORG", "meet-w7")
-PROJECT = os.environ.get("SENTRY_PROJECT", "studybuddy")
+PROJECT = os.environ.get("SENTRY_PROJECT", "grindbuddy")
 CHANNEL = os.environ.get("SLACK_CHANNEL", "#alerts")
 
 
@@ -64,7 +64,7 @@ def _slack_action(integration_id: str):
 
 RULES = [
     {
-        "name": "StudyBuddy — High error volume",
+        "name": "GrindBuddy — High error volume",
         "frequency": 60,
         "conditions": [
             {"id": "sentry.rules.conditions.event_frequency.EventFrequencyCondition",
@@ -72,21 +72,21 @@ RULES = [
         ],
     },
     {
-        "name": "StudyBuddy — New issue",
+        "name": "GrindBuddy — New issue",
         "frequency": 30,
         "conditions": [
             {"id": "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"}
         ],
     },
     {
-        "name": "StudyBuddy — Regression",
+        "name": "GrindBuddy — Regression",
         "frequency": 30,
         "conditions": [
             {"id": "sentry.rules.conditions.regression_event.RegressionEventCondition"}
         ],
     },
     {
-        "name": "StudyBuddy — Crash / fatal",
+        "name": "GrindBuddy — Crash / fatal",
         "frequency": 30,
         "conditions": [
             {"id": "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"}

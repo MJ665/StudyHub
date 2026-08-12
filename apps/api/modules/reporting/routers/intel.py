@@ -1,5 +1,5 @@
 """
-User Intelligence Router — StudyBuddy Enterprise
+User Intelligence Router — GrindBuddy Enterprise
 Provides 30 intelligence dimensions per user:
   GET /intel/user/{user_id}          → Full 30-metric intelligence panel
   GET /intel/user/{user_id}/ai-summary → AI-generated natural language narrative
