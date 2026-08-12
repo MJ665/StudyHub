@@ -470,10 +470,18 @@ def send_access_key(
     expires_at: Optional[datetime] = None,
 ) -> bool:
     project_list = "".join([f"<li>{p}</li>" for p in projects])
+    # expires_at arrives as a datetime when called in-process, but as an ISO
+    # string when driven by the durable job queue (JSONB round-trip). Accept both.
+    expiry_display = ""
+    if isinstance(expires_at, str):
+        try:
+            expiry_display = datetime.fromisoformat(expires_at).strftime("%Y-%m-%d %H:%M")
+        except ValueError:
+            expiry_display = expires_at
+    elif expires_at is not None:
+        expiry_display = expires_at.strftime("%Y-%m-%d %H:%M")
     expiry_str = (
-        f"<p><strong>Expires:</strong> {expires_at.strftime('%Y-%m-%d %H:%M')}</p>"
-        if expires_at
-        else ""
+        f"<p><strong>Expires:</strong> {expiry_display}</p>" if expiry_display else ""
     )
     html = f"""
     <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #e2e8f0;border-radius:12px;">

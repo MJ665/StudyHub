@@ -327,13 +327,19 @@ async def list_chat_sessions(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(verify_token),
     company_id: Optional[str] = Query(None),
+    project_id: Optional[str] = Query(None),
 ):
     """The caller's persisted chat threads (ChatGPT-style history), newest first.
-    Optionally filtered to one company. Ownership: the caller's own sessions."""
+    Optionally filtered to one company and/or project. Ownership: the caller's own
+    sessions. Filtering by ``project_id`` keeps each project's chats isolated
+    (Claude-style projects) so switching projects never shows the wrong threads."""
     uid = int(current_user["sub"])
     q = select(KTChatSession).where(KTChatSession.user_id == uid)
     if company_id:
         q = q.where(KTChatSession.resolved_company_id == company_id)
+    if project_id:
+        # session belongs to this project if its locked retrieval scope includes it
+        q = q.where(KTChatSession.resolved_project_ids.contains([project_id]))
     q = q.order_by(
         KTChatSession.last_message_at.desc().nullslast(),
         KTChatSession.created_at.desc(),

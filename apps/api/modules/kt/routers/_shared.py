@@ -111,16 +111,27 @@ def _require_role(user: dict, *allowed_roles: str):
         raise HTTPException(403, "Insufficient role")
 
 
+# PlatformAdmin sits at the TOP of the hierarchy
+# (PlatformAdmin > LDAdmin > Mentor/GroupAdmin > Member) and must satisfy every
+# "*_plus" gate — omitting it wrongly locked Platform Admins out of KT.
 def _require_mentor_plus(user: dict):
-    _require_role(user, "Mentor", "GroupAdmin", "LDAdmin", "Owner")
+    _require_role(user, "PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner")
 
 
 def _require_group_admin_plus(user: dict):
-    _require_role(user, "GroupAdmin", "LDAdmin", "Owner")
+    _require_role(user, "PlatformAdmin", "GroupAdmin", "LDAdmin", "Owner")
 
 
 def _require_ld_admin_plus(user: dict):
-    _require_role(user, "LDAdmin", "Owner")
+    _require_role(user, "PlatformAdmin", "LDAdmin", "Owner")
+
+
+def _can_self_approve(user: dict) -> bool:
+    """L&D / Platform Admin (and Owner) may approve their OWN documents.
+    Mentors may approve others' work but NOT self-approve — their doc must be
+    reviewed by a different mentor or an L&D/Platform admin (segregation of duty).
+    """
+    return user.get("role") in ("PlatformAdmin", "LDAdmin", "Owner")
 
 
 async def _require_project_access(

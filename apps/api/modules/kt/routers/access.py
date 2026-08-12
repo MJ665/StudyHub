@@ -38,8 +38,10 @@ async def redeem_key(
         raise HTTPException(401, "Access key revoked or invalid")
     if key.expires_at and key.expires_at < datetime.now(timezone.utc):
         raise HTTPException(401, "Access key expired")
-    if key.organization_id != org_id:
-        raise HTTPException(403, "This access key belongs to another organization.")
+    # KT is intentionally flat/flexible across orgs: a valid, unexpired key
+    # grants exactly the scope it encodes to ANY authenticated redeemer,
+    # regardless of their org. (Org is a quiz-app boundary, not a KT wall.)
+    # The key itself is the access-control unit — see redemption audit below.
     if key.max_uses and key.use_count >= key.max_uses:
         raise HTTPException(401, "Access key exhausted (max uses reached).")
 
@@ -234,7 +236,7 @@ async def generate_key(
         await enqueue_job(
             db,
             JOB_EMAIL,
-            {"method": "send_access_key", "args": [body.recipient_email, body.recipient_name or "Team Member", raw_key, body.scope_label or "Project Knowledge Base", proj_names, expires_at]},
+            {"method": "send_access_key", "args": [body.recipient_email, body.recipient_name or "Team Member", raw_key, body.scope_label or "Project Knowledge Base", proj_names, expires_at.isoformat()]},
         )
 
     return {
