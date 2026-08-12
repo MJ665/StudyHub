@@ -354,6 +354,97 @@ async def graph_counts(
     return {"total_episodes": int(episodes or 0), "total_entities": len(entities)}
 
 
+async def get_node_detail(db: AsyncSession, node_id: str) -> Dict:
+    """Get detailed information about a node: connected relationships, source documents, and confidence.
+
+    Returns a dict with:
+    - relationships: List of {relation, neighbor_label, neighbor_type, edge_type}
+    - source_documents: List of {id, title, doc_type} documents where this entity appears
+    - confidence: Confidence score (0-100) based on mention frequency
+    """
+    relationships: List[Dict] = []
+    source_documents: List[Dict] = []
+    confidence = 50  # Default confidence if no mentions
+
+    # Handle extracted entity nodes ("entity:{norm_name}")
+    if node_id.startswith("entity:"):
+        norm = node_id.split("entity:", 1)[1]
+
+        # Get edges where this entity is source or target
+        rel_rows = (
+            await db.execute(
+                select(KTGraphEdge)
+                .where(or_(KTGraphEdge.norm_source == norm, KTGraphEdge.norm_target == norm))
+                .limit(50)
+            )
+        ).scalars().all()
+
+        for edge in rel_rows:
+            if edge.norm_source == norm:
+                relationships.append({
+                    "relation": edge.relation,
+                    "neighbor_label": edge.target_name,
+                    "neighbor_type": "entity",
+                    "edge_type": edge.relation,
+                })
+            else:
+                relationships.append({
+                    "relation": edge.relation,
+                    "neighbor_label": edge.source_name,
+                    "neighbor_type": "entity",
+                    "edge_type": edge.relation,
+                })
+
+        # Get source documents for this entity
+        doc_rows = (
+            await db.execute(
+                select(KTGraphNode).where(KTGraphNode.norm_name == norm)
+            )
+        ).scalars().all()
+
+        seen_docs: set = set()
+        for node in doc_rows:
+            if node.document_id not in seen_docs:
+                doc = await db.get(KTDocument, node.document_id)
+                if doc:
+                    seen_docs.add(node.document_id)
+                    source_documents.append({
+                        "id": doc.id,
+                        "title": doc.title or "Untitled",
+                        "doc_type": doc.doc_type or "document",
+                    })
+
+        # Confidence based on number of mentions and relationships
+        mention_count = len(doc_rows)
+        relationship_count = len(rel_rows)
+        confidence = min(100, 40 + (mention_count * 10) + (relationship_count * 5))
+
+    # Handle document nodes
+    else:
+        doc = await db.get(KTDocument, node_id)
+        if doc:
+            # Get entities mentioned in this document
+            for tag in _doc_tags(doc):
+                relationships.append({
+                    "relation": "MENTIONS",
+                    "neighbor_label": tag,
+                    "neighbor_type": "entity",
+                    "edge_type": "MENTIONS",
+                })
+            source_documents.append({
+                "id": doc.id,
+                "title": doc.title or "Untitled",
+                "doc_type": doc.doc_type or "document",
+            })
+            confidence = 90  # Documents have high confidence
+
+    return {
+        "relationships": relationships,
+        "source_documents": source_documents,
+        "confidence": confidence,
+    }
+
+
 async def related_documents(db: AsyncSession, doc: KTDocument, limit: int = 10) -> List[Dict]:
     """Neighbors for the access-key document view: same project + shared tags.
     (Replaces neo4j.traverse_neighborhood, which never existed — the old call
