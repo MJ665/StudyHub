@@ -381,6 +381,10 @@ async def update_document(
     if not await _can_edit_doc(doc, current_user):
         raise HTTPException(403, "Not authorized to edit this document")
 
+    # Track if body_markdown changed for re-ingestion later
+    body_markdown_changed = body.body_markdown and body.body_markdown != doc.body_markdown
+    original_doc_status = doc.status
+
     # Re-validate co_author_ids if changed
     if body.co_author_ids is not None:
         from models import Department, Group
@@ -459,6 +463,21 @@ async def update_document(
         resource_id=doc_id,
     )
     await db.commit()
+
+    # Trigger re-ingestion if body changed and doc was already in knowledge graph
+    if body_markdown_changed and original_doc_status in [DocStatusEnum.APPROVED, DocStatusEnum.INGESTED]:
+        from modules.kt.services.ingestion_service import purge_chunks
+        await purge_chunks(db, doc_id)
+        job = KTIngestionJob(
+            document_id=doc_id,
+            triggered_by_id=uid,
+            is_re_ingestion=True,
+            status=IngestionStatusEnum.PENDING,
+        )
+        db.add(job)
+        await enqueue_job(db, JOB_KT_INGEST, {"document_id": str(doc.id)})
+        await db.commit()
+
     doc_out = KTDocumentOut.model_validate(doc)
     doc_out.can_edit = True
     return doc_out

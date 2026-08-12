@@ -59,6 +59,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [projectSearch, setProjectSearch] = useState('');
+  const [selectedDocType, setSelectedDocType] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -125,15 +126,27 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
   );
 
   const filteredDocs = docs.filter(doc => {
-    const matchesSearch = search === '' || 
+    const matchesSearch = search === '' ||
       doc.title.toLowerCase().includes(search.toLowerCase()) ||
       doc.doc_type.toLowerCase().includes(search.toLowerCase()) ||
       (doc.tags && doc.tags.some(tag => tag.toLowerCase().includes(search.toLowerCase())));
-      
+
     const matchesSprint = !selectedSprint || doc.sprint === selectedSprint;
-    
-    return matchesSearch && matchesSprint;
+    const matchesDocType = !selectedDocType || doc.doc_type === selectedDocType;
+
+    return matchesSearch && matchesSprint && matchesDocType;
   });
+
+  // Group documents by doc_type for taxonomy display
+  const docsByType = filteredDocs.reduce((acc: { [key: string]: Document[] }, doc) => {
+    if (!acc[doc.doc_type]) {
+      acc[doc.doc_type] = [];
+    }
+    acc[doc.doc_type].push(doc);
+    return acc;
+  }, {});
+
+  const sortedDocTypes = Object.keys(docsByType).sort();
 
   return (
     <div className="grid grid-cols-12 gap-8 h-full">
@@ -200,11 +213,11 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
           </div>
         </div>
 
-        {/* Document Search & Sprint Pills */}
+        {/* Document Search & Filters */}
         <div className="px-8 py-4 bg-[var(--color-surface-container)]/20 border-b border-[var(--color-outline-variant)]/80 flex flex-col gap-4">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-on-surface-variant)]" size={16} />
-            <input 
+            <input
               type="text"
               placeholder="Search documents by title, type, or tags..."
               className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface-dim)]/60 border border-[var(--color-outline-variant)]/80 rounded-xl text-xs font-medium focus:border-[var(--color-brand-primary)] transition-all outline-none text-[var(--color-on-surface)]"
@@ -212,6 +225,36 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+
+          {/* Category Filter */}
+          {sortedDocTypes.length > 0 && (
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+              <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mr-2 whitespace-nowrap">Categories:</span>
+              <button
+                onClick={() => setSelectedDocType(null)}
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border whitespace-nowrap ${
+                  selectedDocType === null
+                  ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
+                  : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)]/60 text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
+                }`}
+              >
+                All ({filteredDocs.length})
+              </button>
+              {sortedDocTypes.map((docType) => (
+                <button
+                  key={docType}
+                  onClick={() => setSelectedDocType(docType)}
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border whitespace-nowrap ${
+                    selectedDocType === docType
+                    ? 'bg-[var(--color-brand-primary-container)]/10 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] shadow-[0_0_15px_rgba(99,102,241,0.1)]'
+                    : 'bg-[var(--color-surface-container)] border-[var(--color-outline-variant)]/60 text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
+                  }`}
+                >
+                  {docType} ({docsByType[docType].length})
+                </button>
+              ))}
+            </div>
+          )}
 
           {sprintList.length > 0 && (
             <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
@@ -243,7 +286,7 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
           )}
         </div>
 
-        <div className="flex-1 overflow-y-auto p-8 space-y-6 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
           {loading ? (
             <div className="h-full flex items-center justify-center">
               <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={32} />
@@ -258,17 +301,36 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
             <div className="h-full flex flex-col items-center justify-center text-[var(--color-on-surface-variant)] text-center">
               <FileText size={48} className="mb-4 opacity-10" />
               <p className="text-sm font-bold uppercase tracking-widest">No matching documents</p>
-              <p className="text-xs mt-2">Adjust your search or sprint filters.</p>
+              <p className="text-xs mt-2">Adjust your search, category, or sprint filters.</p>
             </div>
           ) : (
-            filteredDocs.map((doc, i) => (
-              <motion.div
-                key={doc.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl hover:border-[var(--color-brand-primary)]/50 transition-all relative overflow-hidden"
-              >
+            sortedDocTypes.map((docType) => (
+              <div key={docType} className="space-y-4">
+                {/* Category Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex-1 h-px bg-gradient-to-r from-[var(--color-brand-primary)]/50 to-transparent" />
+                  <div className="flex items-center gap-3 px-4 py-2 bg-[var(--color-brand-primary-container)]/10 rounded-2xl border border-[var(--color-brand-primary)]/20">
+                    <div className="w-3 h-3 rounded-full bg-[var(--color-brand-primary)]" />
+                    <h4 className="text-[11px] font-black uppercase tracking-widest text-[var(--color-brand-primary)]">
+                      {docType}
+                    </h4>
+                    <span className="text-[10px] font-bold text-[var(--color-brand-primary)] opacity-70">
+                      {docsByType[docType].length}
+                    </span>
+                  </div>
+                  <div className="flex-1 h-px bg-gradient-to-l from-[var(--color-brand-primary)]/50 to-transparent" />
+                </div>
+
+                {/* Documents in this category */}
+                <div className="space-y-4">
+                  {docsByType[docType].map((doc, i) => (
+                    <motion.div
+                      key={doc.id}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.03 }}
+                      className="group p-6 bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl hover:border-[var(--color-brand-primary)]/50 transition-all relative overflow-hidden"
+                    >
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-primary-container)]/10 flex items-center justify-center text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/20">
@@ -312,44 +374,47 @@ const KnowledgeRegistry = ({ onViewHistory, onViewDocument, onCreateDocument, ac
                       {doc.endorsement_count || 0} Endorsements
                     </button>
                   </div>
-                </div>
-
-                <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
-                  <div className="flex items-center gap-2">
-                    <User size={12} className="text-[var(--color-brand-primary)]" />
-                    <span>Contributor: {doc.author_name || doc.author_id}</span>
-                  </div>
-                  
-                  {doc.co_author_names && doc.co_author_names.length > 0 && (
-                    <div className="flex items-center gap-3 border-l border-[var(--color-outline-variant)] pl-6">
-                      <div className="flex -space-x-3 overflow-hidden">
-                        {doc.co_author_names.map((name, idx) => (
-                          <div 
-                            key={idx} 
-                            className="inline-block h-6 w-6 rounded-full ring-2 ring-[var(--color-outline-variant)] bg-[var(--color-brand-primary-container)]/20 flex items-center justify-center text-[8px] font-black text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30"
-                            title={`${name} (${doc.co_author_emails?.[idx] || ''})`}
-                          >
-                            {name.charAt(0)}
-                          </div>
-                        ))}
                       </div>
-                      <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold lowercase">
-                        + {doc.co_author_names.length} Co-authors
-                      </span>
-                    </div>
-                  )}
 
-                  <div className="flex items-center gap-2">
-                    <Calendar size={12} className="text-[var(--color-brand-primary)]" />
-                    <span>{format(new Date(doc.created_at), 'MMM dd, yyyy')}</span>
-                  </div>
-                  <div className="flex items-center gap-2 ml-auto">
-                    {doc.tags?.slice(0, 3).map(tag => (
-                      <span key={tag} className="text-[var(--color-on-surface-variant)]">#{tag}</span>
-                    ))}
-                  </div>
+                      <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+                        <div className="flex items-center gap-2">
+                          <User size={12} className="text-[var(--color-brand-primary)]" />
+                          <span>Contributor: {doc.author_name || doc.author_id}</span>
+                        </div>
+
+                        {doc.co_author_names && doc.co_author_names.length > 0 && (
+                          <div className="flex items-center gap-3 border-l border-[var(--color-outline-variant)] pl-6">
+                            <div className="flex -space-x-3 overflow-hidden">
+                              {doc.co_author_names.map((name, idx) => (
+                                <div
+                                  key={idx}
+                                  className="inline-block h-6 w-6 rounded-full ring-2 ring-[var(--color-outline-variant)] bg-[var(--color-brand-primary-container)]/20 flex items-center justify-center text-[8px] font-black text-[var(--color-brand-primary)] border border-[var(--color-brand-primary)]/30"
+                                  title={`${name} (${doc.co_author_emails?.[idx] || ''})`}
+                                >
+                                  {name.charAt(0)}
+                                </div>
+                              ))}
+                            </div>
+                            <span className="text-[9px] text-[var(--color-on-surface-variant)] font-bold lowercase">
+                              + {doc.co_author_names.length} Co-authors
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="flex items-center gap-2">
+                          <Calendar size={12} className="text-[var(--color-brand-primary)]" />
+                          <span>{format(new Date(doc.created_at), 'MMM dd, yyyy')}</span>
+                        </div>
+                        <div className="flex items-center gap-2 ml-auto">
+                          {doc.tags?.slice(0, 3).map(tag => (
+                            <span key={tag} className="text-[var(--color-on-surface-variant)]">#{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-              </motion.div>
+              </div>
             ))
           )}
         </div>
