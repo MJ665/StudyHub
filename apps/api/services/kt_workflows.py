@@ -144,13 +144,34 @@ async def run_rag_query(
     )
 
     if not raw_chunks:
-        return {
-            "answer": "I don't have enough project context to answer this query.",
-            "sources": [],
-            "confidence": 0.0,
-            "was_answered": False,
-            "latency_ms": int((time.time() - start) * 1000),
-        }
+        # Degrade gracefully instead of dead-ending. When vector search is empty
+        # (no matches OR embeddings unavailable — Gemini quota/403), traverse the
+        # Postgres knowledge graph — the SAME fallback the streaming path uses
+        # (kt_langraph). This is the sole retrieval path when embeddings are down,
+        # so the assistant is never a dead end.
+        try:
+            from modules.kt.services.graph_rag import graph_context
+
+            gctx = await graph_context(query, company_id, project_ids)
+        except Exception as e:  # noqa: BLE001 — graph fallback is best-effort
+            logger.warning("KT graph fallback skipped: %s", e)
+            gctx = None
+
+        if gctx:
+            gctx.setdefault("doc_title", "Knowledge Graph")
+            raw_chunks = [gctx]
+        else:
+            return {
+                "answer": (
+                    "I couldn't find this in the approved knowledge for your "
+                    "projects yet. Try rephrasing, or ask the knowledge owner to "
+                    "add and approve a document that covers it."
+                ),
+                "sources": [],
+                "confidence": 0.0,
+                "was_answered": False,
+                "latency_ms": int((time.time() - start) * 1000),
+            }
 
     chunks = await rerank_llm(query, raw_chunks, top_n=8)
 
