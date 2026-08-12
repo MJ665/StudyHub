@@ -283,19 +283,18 @@ class TestAccessKeyGeneration:
 class TestKeyRedeem:
     """KT-3: Key redemption respects scope (org mismatch)."""
 
-    @pytest.mark.xfail(reason="KT-3: Key redemption endpoint integration needs verification")
     def test_redeem_valid_key_grants_scope(self, client, seeded_kt_env):
-        """POST /kt/keys/redeem with valid key returns 200 and session scope.
+        """POST /kt/keys/redeem with a valid key returns 200 and grants scope.
 
-        NOTE: The /kt/keys/redeem endpoint currently returns 401 "Not authenticated"
-        even with valid keys. This may be a known issue in the API or the test setup
-        may need adjustment. Marked xfail for now.
+        redeem_key REQUIRES an authenticated user (it enrolls the caller as a
+        KTProjectMember for the key's projects), and the payload field is
+        `raw_key`. A valid key must NOT be rejected for org mismatch (KT-3).
         """
         mentor = seeded_kt_env["mentor"]
         company = seeded_kt_env["company"]
         project = seeded_kt_env["project"]
 
-        # Generate a key
+        # Generate a key as the mentor
         headers = _get_auth_headers(mentor, client)
         gen_r = client.post(
             "/api/kt/keys/generate",
@@ -309,16 +308,18 @@ class TestKeyRedeem:
         assert gen_r.status_code == 200
         raw_key = gen_r.json()["raw_key"]
 
-        # Redeem it (no auth needed for key-based access)
+        # Redeem as an authenticated user (correct field name: raw_key).
         redeem_r = client.post(
             "/api/kt/keys/redeem",
-            json={"key": raw_key},
+            json={"raw_key": raw_key},
+            headers=headers,
         )
 
         assert redeem_r.status_code == 200, redeem_r.text
         body = redeem_r.json()
-        assert "session_id" in body or "message" in body
-        # The session should include the project in its scope
+        # KT-3: valid key grants its project scope (no cross-org 403).
+        granted = body.get("granted_project_ids") or body.get("project_ids") or []
+        assert project.id in granted, body
 
     def test_redeem_expired_key_returns_401(self, client, seeded_kt_env):
         """POST /kt/keys/redeem with an expired key returns 401."""
