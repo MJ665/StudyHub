@@ -30,7 +30,7 @@ async def create_document(
         )
     except HTTPException:
         # If no scoped role, allow Mentor+ at global level to create in any project
-        if user_role not in ["Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        if user_role not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
             raise
 
     # Verify user can access the company this project belongs to
@@ -225,7 +225,7 @@ async def list_documents(
         q = select(KTDocument).where(KTDocument.organization_id == org_id)
 
         # ── RBAC visibility ──────────────────────────────────────────────────
-        if role == "author" or role not in ["Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        if role == "author" or role not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
             # Knowledge CONSUMERS see their own docs (any status) OR approved/
             # ingested docs ONLY in projects they hold an access grant for
             # (redeemed key / kt_project_members) — NOT every approved doc in the
@@ -349,7 +349,7 @@ async def get_document(
         # project they hold a grant for (redeemed key / membership). A public
         # status alone is NOT enough — otherwise any member could open any org
         # document by id.
-        if role not in ["Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        if role not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
             from modules.kt.routers._shared import _resolve_granted_project_ids
 
             is_author = doc.author_id == uid

@@ -51,7 +51,8 @@ async def list_companies(
         from models.kt_model import KTProject
 
         granted_projects = await _resolve_granted_project_ids(
-            int(current_user["sub"]), int(raw_org), db
+            int(current_user["sub"]), int(raw_org), db,
+            role=current_user.get("role"),  # mentors read across their super-org
         )
         if not granted_projects:
             return []  # no key redeemed / no membership → no knowledge visible
