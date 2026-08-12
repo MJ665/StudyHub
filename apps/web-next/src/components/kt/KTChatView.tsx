@@ -65,12 +65,15 @@ export default function KTChatView() {
 
   const refreshSessions = useCallback(async (): Promise<SessionRow[]> => {
     try {
-      const rows = await ApiService.getKTSessions();
+      // Scope the sidebar to the ACTIVE project so each project shows only its
+      // own chats (Claude-style projects) — switching projects never bleeds
+      // another project's threads.
+      const rows = await ApiService.getKTSessions(undefined, selectedProject?.id);
       const list = Array.isArray(rows) ? rows : [];
       setSessions(list);
       return list;
     } catch { return []; }
-  }, []);
+  }, [selectedProject?.id]);
 
   // Boot: JWT users get the multi-session experience. Restore the last active
   // session (or the most recent one) so returning to chat shows the conversation.
