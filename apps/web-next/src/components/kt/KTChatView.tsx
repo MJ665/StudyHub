@@ -26,6 +26,7 @@ interface ChatMsg {
   streaming?: boolean;
   graph?: { nodes: any[]; edges: any[] } | null;
   onboarding?: boolean;
+  reasoningOpen?: boolean;
 }
 interface SessionRow {
   session_id: string;
@@ -213,6 +214,10 @@ export default function KTChatView() {
     toast.success('Feedback recorded');
   };
 
+  const toggleReasoning = (idx: number) => {
+    setMessages(prev => prev.map((m, i) => (i === idx ? { ...m, reasoningOpen: !m.reasoningOpen } : m)));
+  };
+
   // ── Guards ──
   if (!selectedProject) {
     return (
@@ -322,27 +327,60 @@ export default function KTChatView() {
                     <ChatMarkdown content={msg.content} />
                   )}
 
-                  {!isUser && msg.sources && msg.sources.length > 0 && (
+                  {!isUser && (msg.graph?.nodes?.length > 0 || (msg.sources && msg.sources.length > 0)) && (
                     <div className="pt-3 mt-3 border-t border-[var(--color-outline-variant)]/40">
-                      <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Sources</p>
-                      <div className="flex flex-wrap gap-2">
-                        {msg.sources.map((src: any, idx: number) => (
-                          <div key={idx} className="px-2.5 py-1 bg-[var(--color-surface-dim)]/80 border border-[var(--color-outline-variant)] rounded-lg text-[9px] font-bold text-[var(--color-brand-primary)] flex items-center gap-1.5">
-                            <FileText size={10} /><span className="truncate max-w-[160px]">{src.doc_title || src.title || 'Document'}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                      <button
+                        onClick={() => toggleReasoning(i)}
+                        className="w-full flex items-center justify-between py-2 px-2 -mx-2 rounded-lg hover:bg-[var(--color-surface-container)]/30 transition-colors"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] flex items-center gap-1.5">
+                          <Share2 size={11} /> Reasoning trace
+                        </p>
+                        <svg
+                          className={`w-4 h-4 text-[var(--color-on-surface-variant)] transition-transform ${msg.reasoningOpen ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                      </button>
 
-                  {!isUser && msg.graph && (msg.graph.nodes?.length > 0) && (
-                    <div className="pt-3 mt-3 border-t border-[var(--color-outline-variant)]/40">
-                      <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2 flex items-center gap-1.5">
-                        <Share2 size={10} /> Knowledge graph traversed for this answer
-                      </p>
-                      <div className="h-[360px] w-full">
-                        <KTGraphCanvas nodes={msg.graph.nodes} edges={msg.graph.edges} className="h-full w-full" />
-                      </div>
+                      {msg.reasoningOpen && (
+                        <div className="mt-3 space-y-3">
+                          {msg.graph && msg.graph.nodes?.length > 0 && (
+                            <div>
+                              <p className="text-[8px] font-bold uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2 opacity-70">Knowledge graph</p>
+                              <div className="h-[280px] w-full border border-[var(--color-outline-variant)]/50 rounded-lg overflow-hidden bg-[var(--color-surface-dim)]/50">
+                                <KTGraphCanvas nodes={msg.graph.nodes} edges={msg.graph.edges} className="h-full w-full" />
+                              </div>
+                            </div>
+                          )}
+
+                          {msg.sources && msg.sources.length > 0 && (
+                            <div>
+                              <p className="text-[8px] font-bold uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2 opacity-70">
+                                Sources ({msg.sources.length})
+                              </p>
+                              <div className="space-y-1.5">
+                                {msg.sources.map((src: any, idx: number) => (
+                                  <div key={idx} className="px-2.5 py-1.5 bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)]/50 rounded-lg text-[9px] text-[var(--color-on-surface-variant)] flex items-start gap-2">
+                                    <FileText size={11} className="shrink-0 mt-0.5 text-[var(--color-brand-primary)]" />
+                                    <div className="flex-1 min-w-0">
+                                      <div className="font-bold text-[var(--color-brand-primary)] truncate">{src.doc_title || src.title || 'Document'}</div>
+                                      {src.chunk_id && <div className="text-[8px] opacity-60 truncate">ID: {src.chunk_id}</div>}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {!msg.graph?.nodes?.length && !msg.sources?.length && (
+                            <p className="text-[9px] text-[var(--color-on-surface-variant)] italic opacity-60">No reasoning data available</p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
 
