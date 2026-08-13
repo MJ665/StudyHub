@@ -554,9 +554,22 @@ def start_exam(
         if invite is None and not on_recipient_list and not is_owner and not is_platform_admin(current_user):
             raise HTTPException(403, "You are not on the candidate list for this exam.")
     else:
-        # Open exam: anyone in the exam's super-org.
+        # Not targeted: NOT open to everyone by default (invite-only product rule).
+        # Only staff (L&D / Platform Admin / Mentor / GroupAdmin) may take an
+        # untargeted exam, UNLESS the creator explicitly opened it to the whole
+        # org via settings.open_to_org. This stops arbitrary learners from taking
+        # an exam that was never scoped to them.
         if not _in_super_org(exam, current_user, db):
             raise HTTPException(404, "Exam not found or not published")
+        open_to_org = bool((exam.settings or {}).get("open_to_org"))
+        is_staff = current_user.get("role") in (
+            "LDAdmin", "Owner", "PlatformAdmin", "Mentor", "GroupAdmin",
+        )
+        if not open_to_org and not (is_owner or is_platform_admin(current_user) or is_staff):
+            raise HTTPException(
+                403,
+                "This exam is invite-only. Ask an L&D or Platform admin to invite you.",
+            )
 
     # Scheduling window (Mettl-style). NULL bounds = always open.
     now = _now()
