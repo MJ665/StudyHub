@@ -169,6 +169,14 @@ class QuestionResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+    @model_validator(mode="after")
+    def _sign_media_urls(self):
+        """Sign S3 media URLs for private bucket access. Non-S3 URLs pass through."""
+        if self.media_urls:
+            from services.s3_service import sign_media_url
+            self.media_urls = [sign_media_url(url) or url for url in self.media_urls]
+        return self
+
 
 class AttemptSubmit(BaseModel):
     bank_id: int
@@ -373,6 +381,14 @@ class UserResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+    @model_validator(mode="after")
+    def _sign_profile_photo_url(self):
+        """Sign S3 profile photo URL for private bucket access. Non-S3 URLs pass through."""
+        if self.profile_photo_url:
+            from services.s3_service import sign_media_url
+            self.profile_photo_url = sign_media_url(self.profile_photo_url) or self.profile_photo_url
+        return self
+
 
 class OrganizationCreate(BaseModel):
     name: str
@@ -494,3 +510,11 @@ class ProfileCommentResponse(BaseModel):
     author_initials: str
     author_email_prefix: str
     author_photo_url: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _sign_author_photo_url(self):
+        """Sign S3 author photo URL for private bucket access. Non-S3 URLs pass through."""
+        if self.author_photo_url:
+            from services.s3_service import sign_media_url
+            self.author_photo_url = sign_media_url(self.author_photo_url) or self.author_photo_url
+        return self

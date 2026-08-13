@@ -334,16 +334,20 @@ def get_leaderboard(
         if _uids
         else {}
     )
+    from services.s3_service import sign_media_url
     serialized = []
     for a in attempts:
         user = _users.get(a.user_id)
+        user_photo = user.profile_photo_url if user else None
+        # Sign S3 URLs for private bucket access; non-S3 URLs pass through
+        user_photo = sign_media_url(user_photo) or user_photo if user_photo else None
         serialized.append(
             {
                 "id": a.id,
                 "user_id": a.user_id,
                 "user_name": a.user_name,
                 "user_slug": user.custom_slug if user else None,
-                "user_photo": user.profile_photo_url if user else None,
+                "user_photo": user_photo,
                 "score": a.score,
                 "total": a.total,
                 "time_taken": a.time_taken,

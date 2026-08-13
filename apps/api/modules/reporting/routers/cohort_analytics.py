@@ -656,13 +656,17 @@ async def get_group_leaderboard(
         # Weighted Overall (50/30/20 split — quiz/coding/assignment)
         overall = round((quiz_acc * 0.5) + (code_acc * 0.3) + (asgn_pct * 0.2), 1)
 
+        # Sign S3 profile photo URL for private bucket access; non-S3 URLs pass through
+        from services.s3_service import sign_media_url
+        profile_photo = sign_media_url(user.profile_photo_url) or user.profile_photo_url if user.profile_photo_url else None
+
         leaderboard.append(
             {
                 "user_id": user.id,
                 "custom_slug": user.custom_slug,
                 "full_name": user.full_name,
                 "email": user.email,
-                "profile_photo_url": user.profile_photo_url,
+                "profile_photo_url": profile_photo,
                 "quiz_accuracy": quiz_acc,
                 "coding_accuracy": code_acc,
                 "overall_score": overall,

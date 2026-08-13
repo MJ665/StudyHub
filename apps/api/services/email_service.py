@@ -37,7 +37,12 @@ def _send(
     email_type: str = "SYSTEM",
     reply_to: Optional[str] = None,
 ) -> bool:
-    """Low-level send helper. Returns True on success."""
+    """Low-level send helper. Returns True on success, raises on transient failures.
+
+    Transient errors (Resend API timeouts, connection errors) are raised so the durable
+    job queue can retry. Configuration errors (missing API key in production) also raise.
+    Only dev/staging without a key returns False (graceful degradation).
+    """
     if not api_key:
         # Email now runs through the DURABLE job queue, so raising here makes every
         # message retry 5x and land in `failed` — filling the queue with noise in any
@@ -84,9 +89,9 @@ def _send(
         return True
     except Exception as e:
         error_msg = str(e)
-        logger.error(f"Failed to send '{subject}' to {to_email}: {error_msg}")
+        logger.error(f"[EMAIL FAILED] Transient error sending '{subject}' to {to_email}: {error_msg}")
 
-        # Log failure to DB
+        # Log failure to DB so we have a trace, but re-raise so the job queue retries
         try:
             log_entry = models.EmailLog(
                 user_id=user_id,
@@ -98,10 +103,12 @@ def _send(
             )
             db.add(log_entry)
             db.commit()
-        except Exception as e:
-            logger.error(f"Failed to log email failure to database: {e}")
+        except Exception as db_err:
+            logger.error(f"[EMAIL] Failed to log email failure to database: {db_err}")
             db.rollback()
-        return False
+
+        # Re-raise the exception so the durable job queue retries this message
+        raise
     finally:
         db.close()
 
