@@ -19,7 +19,8 @@ from auth_utils import (
     verify_token,
 )
 from database import get_async_db, get_db
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from services.job_handlers import JOB_EMAIL
 from services.job_queue import enqueue_sync
@@ -227,6 +228,7 @@ def _notify_exam_recipients(
 ) -> int:
     """Resolve recipient emails to internal users in the caller's super-org and
     notify each by email (with a direct portal link) + in-app notification.
+    Unregistered (guest) emails receive a signup-and-take-exam link.
 
     Best-effort: an email/push failure never aborts exam creation.
     """
@@ -265,8 +267,6 @@ def _notify_exam_recipients(
         )
         .all()
     )
-    if not candidates:
-        return 0
 
     from auth_utils import (
         is_ld_admin_plus,
@@ -275,33 +275,32 @@ def _notify_exam_recipients(
     )
 
     caller_org = caller_org_id(current_user)
-    if is_platform_admin(current_user):
-        users = candidates
-    elif is_ld_admin_plus(current_user):
-        # LDAdmin+ manages the whole enterprise (super-org), so recipients in any
-        # org of the caller's super-org are reachable — not just the home org.
-        # (Fixes Bug 9: '0 recipients notified' when invitees live in sibling
-        # orgs created under the same enterprise.)
-        from auth_utils import _super_org_of_org, caller_super_org_id
+    registered_users = []
+    if candidates:
+        if is_platform_admin(current_user):
+            registered_users = candidates
+        elif is_ld_admin_plus(current_user):
+            # LDAdmin+ manages the whole enterprise (super-org), so recipients in any
+            # org of the caller's super-org are reachable — not just the home org.
+            # (Fixes Bug 9: '0 recipients notified' when invitees live in sibling
+            # orgs created under the same enterprise.)
+            from auth_utils import _super_org_of_org, caller_super_org_id
 
-        caller_super = caller_super_org_id(current_user, db)
-        users = []
-        for u in candidates:
-            u_org = resolve_user_organization_id(u, db)
-            u_super = _super_org_of_org(u_org, db) if u_org is not None else None
-            if caller_super is not None and u_super == caller_super:
-                users.append(u)
-            elif caller_org is not None and u_org == caller_org:
-                users.append(u)
-    else:
-        users = [
-            u
-            for u in candidates
-            if caller_org is not None
-            and resolve_user_organization_id(u, db) == caller_org
-        ]
-    if not users:
-        return 0
+            caller_super = caller_super_org_id(current_user, db)
+            for u in candidates:
+                u_org = resolve_user_organization_id(u, db)
+                u_super = _super_org_of_org(u_org, db) if u_org is not None else None
+                if caller_super is not None and u_super == caller_super:
+                    registered_users.append(u)
+                elif caller_org is not None and u_org == caller_org:
+                    registered_users.append(u)
+        else:
+            registered_users = [
+                u
+                for u in candidates
+                if caller_org is not None
+                and resolve_user_organization_id(u, db) == caller_org
+            ]
 
     from config import settings
     frontend_url = settings.FRONTEND_URL.rstrip("/")
@@ -319,7 +318,7 @@ def _notify_exam_recipients(
     }
 
     notified = 0
-    for u in users:
+    for u in registered_users:
         # Candidate list (Mettl-style): explicit, trackable access grant.
         email_key = (u.email or "").strip().lower()
         inv = existing_invites.get(email_key)
@@ -381,6 +380,33 @@ def _notify_exam_recipients(
                 )
             except Exception as e:
                 logger.error(f"Failed to enqueue exam invite for {u.email}: {e}")
+
+    # Handle unregistered (guest) email invites: enqueue a signup-and-exam link
+    registered_emails = {(u.email or "").strip().lower() for u in registered_users}
+    for _em in emails:
+        _key = (_em or "").strip().lower()
+        if _key and _key not in registered_emails:
+            # Unregistered email: send signup link that routes to exam
+            try:
+                enqueue_sync(
+                    db,
+                    JOB_EMAIL,
+                    {
+                        "method": "send_exam_invite_to_guest",
+                        "kwargs": {
+                            "to_email": _key,
+                            "exam_id": exam.id,
+                            "exam_title": exam.title,
+                            "signup_url": f"{frontend_url}/signup?exam_id={exam.id}",
+                            "duration_minutes": exam.duration_minutes,
+                            "passing_score": exam.passing_score,
+                            "window_label": window_label,
+                            "instructions": instructions,
+                        },
+                    },
+                )
+            except Exception as e:
+                logger.error(f"Failed to enqueue guest exam invite for {_key}: {e}")
 
     db.commit()
     return notified
@@ -1028,7 +1054,7 @@ def release_exam_results(
 ):
     """Reveal results to the selected candidates. Releasing a PASSING candidate
     (when certificates are enabled) auto-issues their certificate + notifies
-    them. Non-selected candidates stay pending."""
+    them by email. Non-selected candidates stay pending."""
     exam = db.query(models.Exam).filter(models.Exam.id == exam_id).first()
     assert_same_super_org(exam, current_user, db, "Exam")
     attempts = _conductor_attempts(exam_id, body.attempt_ids, db, current_user)
@@ -1049,6 +1075,32 @@ def release_exam_results(
             body=f'Results for "{exam.title}" have been released.',
             link_type="exam", link_id=exam_id,
         ))
+
+        # Fetch user to get email and name for result release email
+        user = db.query(models.User).filter(models.User.id == a.user_id).first()
+        if user and user.email:
+            # Enqueue result release email (for all verdicts)
+            try:
+                enqueue_sync(
+                    db,
+                    JOB_EMAIL,
+                    {
+                        "method": "send_exam_result_released",
+                        "kwargs": {
+                            "to_email": user.email,
+                            "full_name": user.full_name,
+                            "exam_title": exam.title,
+                            "exam_id": exam_id,
+                            "score": a.score,
+                            "total": a.total,
+                            "passing_score": exam.passing_score,
+                            "verdict": verdict,
+                        },
+                    },
+                )
+            except Exception as e:
+                logger.error(f"Failed to enqueue result release email for {user.email}: {e}")
+
         if certs_enabled and verdict == "pass":
             issued += 1
             db.add(models.Notification(
@@ -1391,3 +1443,97 @@ def export_exam_results(
         media_type="text/csv",
         headers={"Content-Disposition": f'attachment; filename="{safe_title}_results.csv"'},
     )
+
+
+# ── Organization Certificate Signature (L&D Admin + PlatformAdmin) ─────────────
+
+
+@router.post("/branding/signature/upload")
+def upload_certificate_signature(
+    file: UploadFile = File(...),
+    signatory_name: str = "",
+    signatory_title: str = "",
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_mentor_or_above),
+):
+    """Upload a signature image for exam certificates (L&D/PlatformAdmin only).
+
+    Stores the PNG/JPG image in S3 and updates OrgBrandingSettings with the
+    signatory name, title, and S3 key. The signature appears on all exam
+    certificates issued to this org's members.
+    """
+    from auth_utils import is_ld_admin_plus, is_platform_admin
+    from services import s3_service
+
+    # Restrict to L&D admin or platform admin
+    if not (is_ld_admin_plus(current_user) or is_platform_admin(current_user)):
+        raise HTTPException(403, "Only L&D admins can upload certificate signatures.")
+
+    # Determine the super-org for this signature
+    super_org_id = caller_super_org_id(current_user, db)
+    if not super_org_id:
+        raise HTTPException(400, "Unable to determine organization for signature upload.")
+
+    # Read and validate file
+    if not file.filename:
+        raise HTTPException(400, "No file provided.")
+
+    # Validate file size (max 5 MB)
+    import io
+    file_content = file.file.read()
+    file.file.seek(0)
+    if len(file_content) > 5 * 1024 * 1024:
+        raise HTTPException(400, "File too large (max 5 MB).")
+
+    # Validate file type
+    ext = (file.filename or "").split(".")[-1].lower()
+    if ext not in ("png", "jpg", "jpeg"):
+        raise HTTPException(400, "Only PNG and JPEG images are supported.")
+
+    content_type = "image/png" if ext == "png" else "image/jpeg"
+
+    # Upload to S3
+    import uuid
+    s3_key = f"org-signatures/{super_org_id}/signature-{uuid.uuid4().hex[:8]}.{ext}"
+    try:
+        s3_service.put_object(s3_key, file_content, content_type)
+    except Exception as e:
+        logger.error(f"Failed to upload signature to S3: {e}")
+        raise HTTPException(500, "Failed to upload signature file.")
+
+    # Update or create OrgBrandingSettings
+    branding = (
+        db.query(models.OrgBrandingSettings)
+        .filter(models.OrgBrandingSettings.super_organization_id == super_org_id)
+        .first()
+    )
+    if branding is None:
+        branding = models.OrgBrandingSettings(
+            super_organization_id=super_org_id,
+            signatory_name=signatory_name or None,
+            signatory_title=signatory_title or None,
+            signature_s3_key=s3_key,
+        )
+        db.add(branding)
+    else:
+        branding.signatory_name = signatory_name or None
+        branding.signatory_title = signatory_title or None
+        branding.signature_s3_key = s3_key
+
+    db.commit()
+    db.refresh(branding)
+
+    from services.audit_service import log_admin_action
+    log_admin_action(
+        db=db, actor_id=int(current_user["sub"]), actor_role=current_user["role"],
+        action="UPLOAD_CERT_SIGNATURE", resource_type="ORG_BRANDING", resource_id=super_org_id,
+        details={"signatory_name": signatory_name, "s3_key": s3_key},
+    )
+
+    return {
+        "success": True,
+        "message": "Certificate signature uploaded successfully.",
+        "signatory_name": branding.signatory_name,
+        "signatory_title": branding.signatory_title,
+        "s3_key": s3_key,
+    }

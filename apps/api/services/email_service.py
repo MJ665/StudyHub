@@ -620,3 +620,101 @@ def send_doc_rejected(
     return _send(
         to_email, f"⚠️ Action Required: {doc_title}", html, email_type="KT_DOC_REJECTED"
     )
+
+
+def send_exam_invite_to_guest(
+    to_email: str,
+    exam_id: int,
+    exam_title: str,
+    signup_url: str,
+    duration_minutes: int,
+    passing_score: int,
+    window_label: str | None = None,
+    instructions: str | None = None,
+) -> bool:
+    """Send exam invitation email to an unregistered (guest) email address.
+    Routes to a signup page that will grant access to the exam."""
+    window_info = f"<p style='color:#475569;margin:8px 0;'><strong>Available:</strong> {window_label}</p>" if window_label else ""
+    instructions_info = f"<p style='color:#475569;margin:8px 0;'><strong>Instructions:</strong> {instructions}</p>" if instructions else ""
+
+    html = f"""
+    <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #e2e8f0;border-radius:12px;">
+      <h2 style="color:#0ea5e9;">Exam Invitation 📋</h2>
+      <p>You have been invited to take a proctored exam:</p>
+      <div style="background:#f0f9ff;padding:16px;border-radius:8px;margin:16px 0;border-left:4px solid #0ea5e9;">
+        <p style="margin:0;font-weight:bold;font-size:16px;">{exam_title}</p>
+        <p style="margin:8px 0 0 0;color:#0c4a6e;">Duration: {duration_minutes} minutes | Passing Score: {passing_score}%</p>
+        {window_info}
+        {instructions_info}
+      </div>
+      <p style="color:#475569;">To take this exam, please sign up or log in to GrindBuddy:</p>
+      <div style="margin:24px 0;text-align:center;">
+        <a href="{signup_url}"
+           style="background:#0ea5e9;color:white;padding:12px 32px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;">
+           Create Account & Take Exam
+        </a>
+      </div>
+      <p style="color:#94a3b8;font-size:13px;">After signing up, you'll have access to this exam and our full learning platform.</p>
+      <hr style="border:0;border-top:1px solid #e2e8f0;margin:16px 0;"/>
+      <p style="text-align:center;color:#cbd5e1;font-size:11px;">GrindBuddy Assessment Platform</p>
+    </div>"""
+    return _send(
+        to_email,
+        f"Exam Invitation: {exam_title}",
+        html,
+        email_type="EXAM_INVITE_GUEST",
+    )
+
+
+def send_exam_result_released(
+    to_email: str,
+    full_name: str,
+    exam_title: str,
+    exam_id: int,
+    score: float | None,
+    total: float | None,
+    passing_score: int,
+    verdict: str,
+) -> bool:
+    """Send exam result release notification email."""
+    score_info = ""
+    if score is not None and total is not None and total > 0:
+        pct = (score / total) * 100
+        score_info = f"<p style='margin:8px 0;'><strong>Your Score:</strong> {score:.1f} / {total:.1f} ({pct:.0f}%)</p>"
+
+    verdict_badge = ""
+    if verdict == "pass":
+        verdict_badge = "<p style='background:#dcfce7;color:#166534;padding:12px;border-radius:6px;font-weight:bold;text-align:center;margin:16px 0;'>✓ PASSED</p>"
+    elif verdict == "fail":
+        verdict_badge = "<p style='background:#fee2e2;color:#991b1b;padding:12px;border-radius:6px;font-weight:bold;text-align:center;margin:16px 0;'>✗ NOT PASSED</p>"
+
+    cert_info = ""
+    if verdict == "pass":
+        cert_info = "<p style='color:#059669;font-weight:bold;margin:16px 0;'>Your certificate is ready to download!</p>"
+
+    html = f"""
+    <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #e2e8f0;border-radius:12px;">
+      <h2 style="color:#1e40af;">Exam Results Released 📊</h2>
+      <p>Hi <strong>{full_name}</strong>,</p>
+      <p>Your results for <strong>{exam_title}</strong> are now available:</p>
+      <div style="background:#f8fafc;padding:16px;border-radius:8px;margin:16px 0;">
+        {score_info}
+        <p style="margin:8px 0;'><strong>Passing Score Required:</strong> {passing_score}%</p>
+      </div>
+      {verdict_badge}
+      {cert_info}
+      <div style="margin:24px 0;text-align:center;">
+        <a href="{_frontend_url()}/exam/{exam_id}"
+           style="background:#1e40af;color:white;padding:12px 32px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;">
+           View Results
+        </a>
+      </div>
+      <hr style="border:0;border-top:1px solid #e2e8f0;margin:16px 0;"/>
+      <p style="text-align:center;color:#cbd5e1;font-size:11px;">GrindBuddy Assessment Platform</p>
+    </div>"""
+    return _send(
+        to_email,
+        f"Exam Results: {exam_title}",
+        html,
+        email_type="EXAM_RESULT_RELEASED",
+    )

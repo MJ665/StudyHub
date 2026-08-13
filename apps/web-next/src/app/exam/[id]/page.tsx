@@ -327,7 +327,13 @@ export default function ExamRunnerPage() {
                       try {
                         const r: any = await ApiService.request(`/exams/attempts/${paper.attempt_id}/certificate`);
                         window.open(r.certificate_url, '_blank');
-                      } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
+                      } catch (e: any) {
+                        const status = e?.status || e?.response?.status;
+                        const message = status === 403
+                          ? 'Certificate available once L&D releases your results'
+                          : e?.message || 'Certificate not available yet.';
+                        alert(message);
+                      }
                     }}
                     className="px-4 py-2 rounded-lg bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-sm font-bold"
                   >Download certificate</button>
@@ -336,7 +342,13 @@ export default function ExamRunnerPage() {
                       try {
                         const r: any = await ApiService.request(`/exams/attempts/${paper.attempt_id}/certificate`);
                         window.open(r.share_url, '_blank');
-                      } catch (e: any) { alert(e?.message || 'Certificate not available yet.'); }
+                      } catch (e: any) {
+                        const status = e?.status || e?.response?.status;
+                        const message = status === 403
+                          ? 'Certificate available once L&D releases your results'
+                          : e?.message || 'Certificate not available yet.';
+                        alert(message);
+                      }
                     }}
                     className="px-4 py-2 rounded-lg bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-sm font-bold"
                   >Share on LinkedIn</button>

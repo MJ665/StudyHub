@@ -1,15 +1,20 @@
 'use client';
 
+import { useState } from 'react';
 import RichContent from '../../common/RichContent';
+import CodeEditor from '../CodeEditor';
 
 export interface QCard {
   id: number;
   question: string;
-  question_type: string; // mcq_single | mcq_multi | true_false | short_answer | essay
+  question_type: string; // mcq_single | mcq_multi | true_false | short_answer | essay | coding | config
   options?: string[];
   content_format?: string; // text | latex | markdown
   media_urls?: string[] | null;
   points?: number;
+  initial_code?: string;
+  language?: string;
+  config_schema?: string; // JSON schema for config type
 }
 
 interface Props {
@@ -25,6 +30,8 @@ const TYPE_ACCENT: Record<string, string> = {
   true_false: 'border-l-teal-500',
   short_answer: 'border-l-[var(--color-warning)]',
   essay: 'border-l-[var(--color-brand-primary)]',
+  coding: 'border-l-[var(--color-success)]',
+  config: 'border-l-[var(--color-brand-primary)]',
 };
 
 const TYPE_LABEL: Record<string, string> = {
@@ -33,20 +40,23 @@ const TYPE_LABEL: Record<string, string> = {
   true_false: 'True / False',
   short_answer: 'Short answer',
   essay: 'Essay',
+  coding: 'Coding',
+  config: 'Configuration',
 };
 
 export default function QuestionCard({ q, index, value, onChange }: Props) {
   const fmt = q.content_format || 'text';
   const isMulti = q.question_type === 'mcq_multi';
+  const [showCodeEditor, setShowCodeEditor] = useState(false);
 
-  // Normalize value: coerce single-element array to string for mcq_single/true_false
+  // Normalize value: coerce single-element array to string for single-choice types
   // This ensures proper radio selection and comparison (value === opt) works correctly.
   let normalizedValue: string | string[];
   if (isMulti) {
     // For mcq_multi, keep it as an array
     normalizedValue = Array.isArray(value) ? value : value ? [value] : [];
   } else {
-    // For mcq_single and true_false, coerce to string
+    // For mcq_single, true_false, short_answer, essay, coding, and config, coerce to string
     if (Array.isArray(value)) {
       normalizedValue = value.length === 1 ? value[0] : '';
     } else {
@@ -121,6 +131,53 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
             );
           })}
         </div>
+      )}
+
+      {q.question_type === 'coding' && (
+        <div className="rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] overflow-hidden">
+          {!showCodeEditor ? (
+            <div className="p-4">
+              <button
+                onClick={() => setShowCodeEditor(true)}
+                className="w-full px-4 py-3 rounded-lg bg-[var(--color-success)] hover:bg-[var(--color-success)] text-white font-bold text-sm"
+              >
+                Open code editor
+              </button>
+              {typeof normalizedValue === 'string' && normalizedValue && (
+                <div className="mt-3 p-3 rounded-lg bg-[var(--color-surface-container)] font-mono text-xs text-[var(--color-on-surface-variant)] max-h-40 overflow-auto whitespace-pre-wrap break-words">
+                  {normalizedValue.substring(0, 200)}
+                  {normalizedValue.length > 200 ? '...' : ''}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="min-h-96">
+              <CodeEditor
+                question={{
+                  ...q,
+                  id: q.id,
+                  title: q.question,
+                  description: q.question,
+                  initial_code: typeof normalizedValue === 'string' ? normalizedValue : q.initial_code || '',
+                  language: q.language || 'python',
+                }}
+                onFinish={(code: string) => {
+                  onChange(code);
+                  setShowCodeEditor(false);
+                }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {q.question_type === 'config' && (
+        <textarea
+          className="w-full rounded-lg bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] px-4 py-3 text-sm min-h-[180px] font-mono focus:outline-none focus:border-[var(--color-brand-primary)]"
+          placeholder="Enter configuration JSON..."
+          value={typeof normalizedValue === 'string' ? normalizedValue : ''}
+          onChange={(e) => onChange(e.target.value)}
+        />
       )}
     </div>
   );
