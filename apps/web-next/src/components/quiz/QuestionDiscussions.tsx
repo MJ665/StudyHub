@@ -211,7 +211,7 @@ export default function QuestionDiscussions({ questionId, onClose }: QuestionDis
             <button
               type="submit"
               disabled={submitting || !comment.trim()}
-              className="absolute bottom-4 right-4 p-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white rounded-xl shadow-xl shadow-[var(--color-brand-primary)]/20 transition-all disabled:opacity-50 disabled:grayscale"
+              className="absolute bottom-4 right-4 p-4 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-[var(--color-surface-bright)] rounded-xl shadow-xl shadow-[var(--color-brand-primary)]/20 transition-all disabled:opacity-50 disabled:grayscale"
             >
               {submitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
             </button>

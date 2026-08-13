@@ -266,11 +266,11 @@ export default function Dashboard({
                   }`}>
                     {dailyChallenge.question?.difficulty}
                   </span>
-                  <button 
+                  <button
                     onClick={() => {
                         onStartDailyChallenge(dailyChallenge);
                     }}
-                    className="bg-white text-[var(--color-brand-primary)] px-6 py-2.5 rounded-xl font-bold hover:bg-[var(--color-brand-primary-container)] transition-colors shadow-xl shadow-white/5"
+                    className="bg-[var(--color-surface-bright)] text-[var(--color-brand-primary)] px-6 py-2.5 rounded-xl font-bold hover:bg-[var(--color-brand-primary-container)] transition-colors shadow-xl shadow-[var(--color-surface-dim)]/10"
                   >
                     Take Challenge
                   </button>
@@ -354,7 +354,7 @@ export default function Dashboard({
                   </div>
                 ) : (
                   bookmarkedQuestions.map((q: any) => (
-                    <motion.div key={q.id} whileHover={{ x: 4 }} className="bg-surface-container border border-surface-bright rounded-3xl p-6 shadow-xl group">
+                    <motion.div key={q.id} whileHover={{ x: 4 }} className="bg-[var(--color-surface-container)] border border-[var(--color-surface-bright)] rounded-3xl p-6 shadow-xl group">
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-3">
                            <div className="w-10 h-10 rounded-xl bg-[var(--color-warning)]/10 flex items-center justify-center text-[var(--color-warning)]">
@@ -480,7 +480,7 @@ export default function Dashboard({
             </button>
             <button 
               onClick={() => setShowBankModal(true)}
-              className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white px-5 py-3 rounded-2xl font-bold shadow-lg shadow-[var(--color-brand-primary)]/30 transition-all active:scale-[0.98] whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-[var(--color-surface-bright)]px-5 py-3 rounded-2xl font-bold shadow-lg shadow-[var(--color-brand-primary)]/30 transition-all active:scale-[0.98] whitespace-nowrap"
             >
               <Plus size={18} /> Create Bank
             </button>
@@ -625,7 +625,7 @@ export default function Dashboard({
                 <div className="mt-auto flex gap-3 z-10">
                   <button
                     onClick={() => setQuizConfigModal(bank)}
-                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl transition-all font-bold text-sm shadow-lg shadow-[var(--color-brand-primary)]/20 active:scale-[0.98]"
+                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-[var(--color-surface-bright)]py-3 rounded-xl transition-all font-bold text-sm shadow-lg shadow-[var(--color-brand-primary)]/20 active:scale-[0.98]"
                   >
                     Start Quiz
                   </button>
@@ -699,7 +699,7 @@ export default function Dashboard({
                   </button>
                   <button
                     onClick={() => onStartQuiz(quizConfigModal, quizMaxQuestions)}
-                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/30"
+                    className="flex-1 bg-[var(--color-brand-primary-container)] hover:bg-[var(--color-brand-primary-container)] text-[var(--color-surface-bright)]py-3 rounded-xl font-bold transition-all shadow-lg shadow-[var(--color-brand-primary)]/30"
                   >
                     Begin
                   </button>
@@ -751,7 +751,7 @@ export default function Dashboard({
           className="p-6 bg-gradient-hero border border-[var(--color-brand-primary)]/30 rounded-3xl cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all group"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-primary-container)] flex items-center justify-center text-white shadow-lg shadow-[var(--color-brand-primary)]/30 group-hover:rotate-12 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-primary-container)] flex items-center justify-center text-[var(--color-surface-bright)]shadow-lg shadow-[var(--color-brand-primary)]/30 group-hover:rotate-12 transition-transform">
               <Users size={20} />
             </div>
             <div>

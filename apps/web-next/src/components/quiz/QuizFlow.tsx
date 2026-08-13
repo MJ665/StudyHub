@@ -301,10 +301,10 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
           <div className="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-[2.5rem] p-8 flex flex-col shadow-2xl">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-[var(--color-brand-primary)] animate-pulse" />
                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--color-on-surface-variant)]">Navigator</h3>
               </div>
-              <span className="text-[10px] font-black text-brand-primary">{answeredCount}/{questions.length}</span>
+              <span className="text-[10px] font-black text-[var(--color-brand-primary)]">{answeredCount}/{questions.length}</span>
             </div>
 
             <div className="grid grid-cols-4 gap-3 overflow-y-auto max-h-[50vh] pr-2 custom-scrollbar">
@@ -314,10 +314,10 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                   onClick={() => { setDirection(i > currentIdx ? 1 : -1); setCurrentIdx(i); }}
                   className={`
                     h-12 rounded-xl text-[10px] font-black transition-all flex items-center justify-center relative border
-                    ${i === currentIdx 
-                      ? 'bg-brand-primary border-brand-primary text-[var(--color-on-surface-variant)] shadow-xl shadow-brand-primary/20 scale-110 z-10' 
-                      : answers[i] 
-                        ? 'bg-brand-primary/5 border-brand-primary/20 text-brand-primary' 
+                    ${i === currentIdx
+                      ? 'bg-[var(--color-brand-primary)] border-[var(--color-brand-primary)] text-white shadow-xl shadow-[var(--color-brand-primary)]/20 scale-110 z-10'
+                      : answers[i]
+                        ? 'bg-[var(--color-brand-primary)]/5 border-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)]'
                         : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)]'}
                   `}
                 >
@@ -335,7 +335,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                 <span>{Math.round((answeredCount / questions.length) * 100)}%</span>
               </div>
               <div className="h-1.5 bg-[var(--color-surface-dim)] rounded-full overflow-hidden">
-                <motion.div animate={{ width: `${(answeredCount / questions.length) * 100}%` }} className="h-full bg-brand-primary" />
+                <motion.div animate={{ width: `${(answeredCount / questions.length) * 100}%` }} className="h-full bg-[var(--color-brand-primary)]" />
               </div>
             </div>
           </div>
