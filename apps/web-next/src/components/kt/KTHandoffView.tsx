@@ -450,20 +450,30 @@ export default function KTHandoffView({ user }: KTHandoffViewProps) {
                       <div className="space-y-2 pt-2 border-t border-[var(--color-outline-variant)]">
                         <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Transition Checklist Tasks</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          {h.checklist.map((item: any, idx: number) => (
+                          {h.checklist.map((item: any, idx: number) => {
+                            // A completed handoff is an immutable record — its
+                            // checklist is read-only. Leaving it clickable caused
+                            // "Handoff is already completed" 400s when users tried
+                            // to (un)check items on a finished handoff.
+                            const locked = h.status === 'completed';
+                            return (
                             <button
                               key={idx}
-                              onClick={() => handleToggleChecklist(h.id, idx, !item.done)}
+                              disabled={locked}
+                              onClick={locked ? undefined : () => handleToggleChecklist(h.id, idx, !item.done)}
                               className={`flex items-center gap-3 p-3 rounded-xl border text-left text-xs transition-all ${
-                                item.done 
-                                  ? 'bg-[var(--color-success)]/20 border-[var(--color-success)]/20 text-[var(--color-success)]' 
+                                locked ? 'cursor-default opacity-90 ' : ''
+                              }${
+                                item.done
+                                  ? 'bg-[var(--color-success)]/20 border-[var(--color-success)]/20 text-[var(--color-success)]'
                                   : 'bg-[var(--color-surface-dim)] border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] hover:border-[var(--color-outline-variant)]'
                               }`}
                             >
                               {item.done ? <CheckSquare size={14} /> : <Square size={14} />}
                               <span className="truncate">{item.item || item.task}</span>
                             </button>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
                     )}

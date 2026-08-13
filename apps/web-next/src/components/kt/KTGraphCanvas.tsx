@@ -6,6 +6,7 @@ export interface GraphNode {
   id: string;
   label: string;
   seed?: boolean;
+  confidence?: number; // Optional confidence score (0-100) to tint node color
 }
 export interface GraphEdge {
   source: string;
@@ -196,7 +197,23 @@ export default function KTGraphCanvas({ nodes, edges, className = '' }: KTGraphC
           const isSel = selected?.toLowerCase() === p.id.toLowerCase();
           const isConn = connected.has(p.id.toLowerCase());
           const dim = selected && !isSel && !isConn;
-          const fill = p.seed ? '#14b8a6' : '#6366f1';
+
+          // Determine fill color: seed nodes are teal, otherwise use confidence-aware tinting
+          let fill = '#6366f1'; // default brand primary
+          if (p.seed) {
+            fill = '#14b8a6'; // teal for query/seed nodes
+          } else if (typeof p.confidence === 'number') {
+            // Tint based on confidence: high confidence = greener, low = more reddish
+            const conf = Math.max(0, Math.min(100, p.confidence));
+            if (conf >= 70) {
+              fill = '#10b981'; // green for high confidence
+            } else if (conf >= 40) {
+              fill = '#f59e0b'; // amber for medium confidence
+            } else {
+              fill = '#ef4444'; // red for low confidence
+            }
+          }
+
           return (
             <g
               key={p.id}
@@ -224,9 +241,16 @@ export default function KTGraphCanvas({ nodes, edges, className = '' }: KTGraphC
           Reset view
         </button>
       </div>
-      <div className="absolute bottom-3 left-3 flex items-center gap-4 text-[10px] text-[var(--color-on-surface-variant)]">
-        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-teal-500" /> Query match</span>
-        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-primary-container)]" /> Related entity</span>
+      <div className="absolute bottom-3 left-3 flex flex-col gap-2 text-[10px] text-[var(--color-on-surface-variant)]">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-teal-500" /> Query match</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-indigo-500" /> Default</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-green-500" /> High conf.</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Med conf.</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500" /> Low conf.</span>
+        </div>
         <span className="hidden sm:inline text-[var(--color-on-surface-variant)]">scroll = zoom · drag = pan · click = focus · dbl-click = zoom in</span>
       </div>
 

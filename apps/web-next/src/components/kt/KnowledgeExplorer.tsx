@@ -26,6 +26,21 @@ interface GraphLink extends d3.SimulationLinkDatum<GraphNode> {
   type: string;
 }
 
+interface NodeDetail {
+  relationships: Array<{
+    relation: string;
+    neighbor_label: string;
+    neighbor_type: string;
+    edge_type: string;
+  }>;
+  source_documents: Array<{
+    id: string;
+    title: string;
+    doc_type: string;
+  }>;
+  confidence: number;
+}
+
 const NODE_CONFIG: Record<string, { radius: number; color: string; strokeColor: string; label: string }> = {
   organization: { radius: 40, color: '#f59e0b', strokeColor: '#d97706', label: 'ORG' },
   company:      { radius: 30, color: '#6366f1', strokeColor: '#4f46e5', label: 'CO' },
@@ -34,6 +49,16 @@ const NODE_CONFIG: Record<string, { radius: number; color: string; strokeColor: 
   document:     { radius: 12, color: '#10b981', strokeColor: '#059669', label: 'DOC' },
   episode:      { radius: 8,  color: '#ec4899', strokeColor: '#db2777', label: 'EP' },
   entity:       { radius: 5,  color: '#f59e0b', strokeColor: '#d97706', label: 'ENT' },
+};
+
+const getConfidenceColor = (confidence: number): { bg: string; text: string; label: string } => {
+  if (confidence >= 70) {
+    return { bg: 'bg-[#10b981]', text: 'text-[#064e3b]', label: 'High' };
+  } else if (confidence >= 40) {
+    return { bg: 'bg-[#f59e0b]', text: 'text-[#78350f]', label: 'Medium' };
+  } else {
+    return { bg: 'bg-[#ef4444]', text: 'text-[#7f1d1d]', label: 'Low' };
+  }
 };
 
 export default function KnowledgeExplorer({ 
@@ -45,16 +70,43 @@ export default function KnowledgeExplorer({
   const simulationRef = useRef<d3.Simulation<GraphNode, GraphLink> | null>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
+  const [selectedNodeDetail, setSelectedNodeDetail] = useState<NodeDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [nodeCount, setNodeCount] = useState(0);
   const [filterTypes, setFilterTypes] = useState<Set<string>>(
     new Set(['organization', 'company', 'project', 'sprint', 'document', 'episode', 'entity'])
   );
-  
+
   const { selectedCompany } = useKTNavStore();
 
 
-  const hopToNode = async () => {
+  // Fetch node detail when node is selected
+  useEffect(() => {
+    const fetchDetail = async () => {
+      if (!selectedNode) {
+        setSelectedNodeDetail(null);
+        return;
+      }
+      setDetailLoading(true);
+      try {
+        const data = await ApiService.getKTGraphNeighborhoodData(selectedNode.id as string, accessKey);
+        setSelectedNodeDetail({
+          relationships: data.relationships || [],
+          source_documents: data.source_documents || [],
+          confidence: data.confidence || 50,
+        });
+      } catch (err) {
+        console.error('Failed to fetch node detail', err);
+        setSelectedNodeDetail(null);
+      } finally {
+        setDetailLoading(false);
+      }
+    };
+    fetchDetail();
+  }, [selectedNode, accessKey]);
+
+  const expandNeighborhood = async () => {
     if (!selectedNode) return;
     setLoading(true);
     try {
@@ -69,7 +121,7 @@ export default function KnowledgeExplorer({
       renderGraph(nodes, links);
       setSelectedNode(null);
     } catch (err) {
-      toast.error('Failed to hop to node neighborhood');
+      toast.error('Failed to expand node neighborhood');
     } finally {
       setLoading(false);
     }
@@ -238,6 +290,12 @@ export default function KnowledgeExplorer({
       .attr('fill', d => NODE_CONFIG[d.type]?.color || '#6366f1')
       .attr('stroke', d => NODE_CONFIG[d.type]?.strokeColor || '#4f46e5')
       .attr('stroke-width', 2)
+      .attr('stroke-opacity', d => {
+        // Subtle confidence-based opacity: project/document nodes are more opaque
+        if (d.type === 'project' || d.type === 'document') return 0.9;
+        if (d.type === 'episode') return 0.7;
+        return 0.5; // entity nodes are more subtle
+      })
       .attr('filter', d => d.depth <= 2 ? 'url(#glow)' : null);
     
     node.filter(d => d.depth <= 4)
@@ -380,14 +438,15 @@ export default function KnowledgeExplorer({
 
       <AnimatePresence>
         {selectedNode && (
-          <motion.div 
+          <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 300, opacity: 0 }}
-            className="absolute top-0 right-0 w-80 h-full bg-[var(--color-surface-container)]/90 backdrop-blur-xl border-l border-[var(--color-outline-variant)] p-8 shadow-2xl z-20 flex flex-col justify-between"
+            className="absolute top-0 right-0 w-80 h-full bg-[var(--color-surface-container)]/90 backdrop-blur-xl border-l border-[var(--color-outline-variant)] shadow-2xl z-20 flex flex-col overflow-hidden"
           >
-            <div>
-              <div className="flex justify-between items-start mb-8">
+            {/* Header */}
+            <div className="flex-shrink-0 p-8 border-b border-[var(--color-outline-variant)]">
+              <div className="flex justify-between items-start mb-6">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center border bg-[var(--color-brand-primary-container)]/20 border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)]">
                   {selectedNode.type === 'document' ? <Layers size={24} /> : <Database size={24} />}
                 </div>
@@ -396,35 +455,89 @@ export default function KnowledgeExplorer({
                 </button>
               </div>
 
-              <h4 className="text-2xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight">{selectedNode.label}</h4>
-              <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-6 bg-[var(--color-surface-container-high)]/40 inline-block px-2 py-0.5 rounded border border-[var(--color-outline-variant)]">
-                {selectedNode.type}
+              <h4 className="text-2xl font-black text-[var(--color-on-surface)] mb-2 tracking-tight line-clamp-2">{selectedNode.label}</h4>
+              <div className="flex gap-2 mb-4">
+                <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] bg-[var(--color-surface-container-high)]/40 inline-block px-2 py-0.5 rounded border border-[var(--color-outline-variant)]">
+                  {selectedNode.type}
+                </p>
+                {selectedNodeDetail && (
+                  <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${getConfidenceColor(selectedNodeDetail.confidence).bg}`}>
+                    <span className="text-xs font-bold">{selectedNodeDetail.confidence}%</span>
+                  </div>
+                )}
+              </div>
+              <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed font-mono break-all">
+                {selectedNode.id}
               </p>
+            </div>
 
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Identity Details</p>
-                  <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed font-semibold">
-                    Node ID: <code className="text-[var(--color-brand-primary)] font-mono text-[10px]">{selectedNode.id}</code>
-                  </p>
-                  <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
-                    This element represents a structured node within the active project knowledge graph.
-                  </p>
-                </div>
+            {/* Content Scroll */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-8 space-y-6">
+                {/* Connected Relationships */}
+                {selectedNodeDetail && selectedNodeDetail.relationships.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Connected Relationships</p>
+                    <div className="space-y-1.5">
+                      {selectedNodeDetail.relationships.slice(0, 8).map((rel, idx) => (
+                        <div key={idx} className="text-xs text-[var(--color-on-surface-variant)] bg-[var(--color-surface-container-high)]/30 px-2.5 py-1.5 rounded border border-[var(--color-outline-variant)]/50">
+                          <span className="font-semibold text-[var(--color-brand-primary)]">{rel.relation}</span>
+                          <span className="mx-1">→</span>
+                          <span className="text-[var(--color-on-surface)]">{rel.neighbor_label}</span>
+                          <span className="text-[9px] text-[var(--color-on-surface-variant)] ml-1">({rel.neighbor_type})</span>
+                        </div>
+                      ))}
+                      {selectedNodeDetail.relationships.length > 8 && (
+                        <p className="text-[9px] text-[var(--color-on-surface-variant)] italic">+{selectedNodeDetail.relationships.length - 8} more</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Source Documents */}
+                {selectedNodeDetail && selectedNodeDetail.source_documents.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Source Documents</p>
+                    <div className="space-y-1.5">
+                      {selectedNodeDetail.source_documents.map((doc) => (
+                        <a
+                          key={doc.id}
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setSelectedNode(null);
+                          }}
+                          className="text-xs text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)]/80 bg-[var(--color-surface-container-high)]/30 px-2.5 py-1.5 rounded border border-[var(--color-outline-variant)]/50 hover:border-[var(--color-brand-primary)]/30 transition-all block truncate"
+                          title={doc.title}
+                        >
+                          <span className="font-semibold">{doc.title}</span>
+                          <span className="text-[9px] text-[var(--color-on-surface-variant)] ml-1">({doc.doc_type})</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {detailLoading && (
+                  <div className="flex items-center justify-center py-4">
+                    <Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={20} />
+                  </div>
+                )}
               </div>
             </div>
 
-            
-            <div className="flex gap-2">
-              <button 
-                onClick={hopToNode}
-                className="flex-1 py-4 bg-[var(--color-warning)] hover:bg-[var(--color-warning)] text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-[var(--color-warning)]/20"
+            {/* Footer Actions */}
+            <div className="flex-shrink-0 p-8 border-t border-[var(--color-outline-variant)] space-y-2">
+              <button
+                onClick={expandNeighborhood}
+                disabled={loading}
+                className="w-full py-3 bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)]/90 disabled:opacity-50 disabled:cursor-not-allowed text-[var(--color-on-primary)] rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-[var(--color-brand-primary)]/20"
               >
-                Hop to Node
+                {loading ? 'Expanding...' : 'Expand Neighbourhood'}
               </button>
-              <button 
+              <button
                 onClick={() => setSelectedNode(null)}
-                className="flex-1 py-4 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest border border-[var(--color-outline-variant)] transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] rounded-2xl font-black text-xs uppercase tracking-widest border border-[var(--color-outline-variant)] transition-all flex items-center justify-center gap-2"
               >
                 Close <Info size={14} />
               </button>

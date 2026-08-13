@@ -291,8 +291,11 @@ export class ApiClient3 extends ApiClient2 {
   }
 
   /** ChatGPT-style multi-session history for the current user (optionally per company). */
-  static async getKTSessions(companyId?: string) {
-    const q = companyId ? `?company_id=${encodeURIComponent(companyId)}` : '';
+  static async getKTSessions(companyId?: string, projectId?: string) {
+    const params = new URLSearchParams();
+    if (companyId) params.set('company_id', companyId);
+    if (projectId) params.set('project_id', projectId);
+    const q = params.toString() ? `?${params.toString()}` : '';
     return this.request(`/kt/chat/sessions${q}`);
   }
 

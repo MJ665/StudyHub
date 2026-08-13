@@ -22,8 +22,18 @@ async def review_document(
     uid = int(current_user["sub"])
     doc = await _get_doc_or_404(doc_id, org_id, db)
 
-    if doc.author_id == uid:
-        raise HTTPException(403, "Self-approval is not permitted.")
+    # Approval policy (confirmed product rule):
+    #   • L&D Admin / Platform Admin / Owner  → may self-approve their own docs.
+    #   • Mentor                              → may approve OTHERS' docs, but a
+    #     mentor's own document must be reviewed by a DIFFERENT mentor or an
+    #     L&D / Platform admin (segregation of duty).
+    #   • Users cannot approve at all (blocked by _require_mentor_plus above).
+    if doc.author_id == uid and not _can_self_approve(current_user):
+        raise HTTPException(
+            403,
+            "Mentors cannot approve their own document. Please route it to "
+            "another mentor or an L&D / Platform admin for review.",
+        )
 
     if doc.status not in [DocStatusEnum.SUBMITTED, DocStatusEnum.UNDER_REVIEW]:
         raise HTTPException(400, "Document not in reviewable state")

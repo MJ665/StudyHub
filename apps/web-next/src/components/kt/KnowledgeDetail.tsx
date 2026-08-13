@@ -62,7 +62,7 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
         const userStr = localStorage.getItem('study_user');
         if (userStr) {
           const userObj = JSON.parse(userStr);
-          if (userObj.role === 'LDAdmin' || userObj.role === 'Mentor') {
+          if (['PlatformAdmin', 'LDAdmin', 'Owner'].includes(userObj.role)) {
             setIsAdmin(true);
           }
         }
@@ -81,6 +81,18 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
     } catch (err: any) {
       console.error(err);
       toast.error(err.message || "Failed to deprecate document");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm("Are you absolutely sure you want to delete this document permanently? This action cannot be undone.")) return;
+    try {
+      await ApiService.request(`/kt/documents/${docId}`, { method: 'DELETE' });
+      toast.success("Document deleted successfully");
+      onBack();
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err.message || "Failed to delete document");
     }
   };
 
@@ -270,13 +282,22 @@ const KnowledgeDetail = ({ docId, onBack, onViewHistory, onEndorse, accessKey }:
               className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)]/50 hover:bg-[var(--color-danger)]/10 hover:text-[var(--color-danger)] transition-all font-bold"
             />
             {isAdmin && (
-              <button 
-                onClick={handleDeprecate}
-                className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20 hover:bg-[var(--color-danger)]/20 transition-all"
-              >
-                <Trash2 size={18} />
-                <span className="font-bold">Deprecate Document</span>
-              </button>
+              <>
+                <button
+                  onClick={handleDeprecate}
+                  className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20 hover:bg-[var(--color-warning)]/20 transition-all"
+                >
+                  <Trash2 size={18} />
+                  <span className="font-bold">Deprecate Document</span>
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="w-full flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/20 hover:bg-[var(--color-danger)]/20 transition-all"
+                >
+                  <Trash2 size={18} />
+                  <span className="font-bold">Delete Document</span>
+                </button>
+              </>
             )}
           </div>
 

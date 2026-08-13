@@ -406,6 +406,13 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                     <div>
                       <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Recipient</p>
                       <p className="text-[var(--color-on-surface-variant)] mt-0.5 truncate max-w-[150px]">{k.recipient_name || 'System Account'}</p>
+                      {k.recipient_email && (
+                        <p className="text-[10px] text-[var(--color-on-surface-variant)]/70 truncate max-w-[150px]">{k.recipient_email}</p>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Project scopes</p>
+                      <p className="text-[var(--color-on-surface-variant)] mt-0.5">{Array.isArray(k.project_ids) && k.project_ids.length > 0 ? `${k.project_ids.length} project${k.project_ids.length > 1 ? 's' : ''}` : '—'}</p>
                     </div>
                     <div>
                       <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Uses remaining</p>
@@ -419,6 +426,13 @@ export default function KTKeysView({ user }: KTKeysViewProps) {
                       </p>
                     </div>
                   </div>
+
+                  {k.notes && (
+                    <div className="mt-3 pt-3 border-t border-[var(--color-outline-variant)]/50">
+                      <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)]">Audit notes</p>
+                      <p className="text-xs text-[var(--color-on-surface-variant)] mt-0.5 leading-relaxed">{k.notes}</p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-2">

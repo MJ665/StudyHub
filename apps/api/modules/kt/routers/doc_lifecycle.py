@@ -30,7 +30,7 @@ async def create_document(
         )
     except HTTPException:
         # If no scoped role, allow Mentor+ at global level to create in any project
-        if user_role not in ["Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        if user_role not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
             raise
 
     # Verify user can access the company this project belongs to
@@ -225,7 +225,7 @@ async def list_documents(
         q = select(KTDocument).where(KTDocument.organization_id == org_id)
 
         # ── RBAC visibility ──────────────────────────────────────────────────
-        if role == "author" or role not in ["Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        if role == "author" or role not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
             # Knowledge CONSUMERS see their own docs (any status) OR approved/
             # ingested docs ONLY in projects they hold an access grant for
             # (redeemed key / kt_project_members) — NOT every approved doc in the
@@ -349,7 +349,7 @@ async def get_document(
         # project they hold a grant for (redeemed key / membership). A public
         # status alone is NOT enough — otherwise any member could open any org
         # document by id.
-        if role not in ["Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        if role not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
             from modules.kt.routers._shared import _resolve_granted_project_ids
 
             is_author = doc.author_id == uid
@@ -380,6 +380,10 @@ async def update_document(
 
     if not await _can_edit_doc(doc, current_user):
         raise HTTPException(403, "Not authorized to edit this document")
+
+    # Track if body_markdown changed for re-ingestion later
+    body_markdown_changed = body.body_markdown and body.body_markdown != doc.body_markdown
+    original_doc_status = doc.status
 
     # Re-validate co_author_ids if changed
     if body.co_author_ids is not None:
@@ -459,6 +463,21 @@ async def update_document(
         resource_id=doc_id,
     )
     await db.commit()
+
+    # Trigger re-ingestion if body changed and doc was already in knowledge graph
+    if body_markdown_changed and original_doc_status in [DocStatusEnum.APPROVED, DocStatusEnum.INGESTED]:
+        from modules.kt.services.ingestion_service import purge_chunks
+        await purge_chunks(db, doc_id)
+        job = KTIngestionJob(
+            document_id=doc_id,
+            triggered_by_id=uid,
+            is_re_ingestion=True,
+            status=IngestionStatusEnum.PENDING,
+        )
+        db.add(job)
+        await enqueue_job(db, JOB_KT_INGEST, {"document_id": str(doc.id)})
+        await db.commit()
+
     doc_out = KTDocumentOut.model_validate(doc)
     doc_out.can_edit = True
     return doc_out

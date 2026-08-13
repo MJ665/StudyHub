@@ -176,17 +176,32 @@ async def _execute(doc_id: str, db: AsyncSession) -> None:
                 )
             )
 
-        if not rows:
-            raise RuntimeError(
-                f"embedding failed for all {len(raw_chunks)} chunks "
-                "(Gemini unavailable or returning empty vectors)"
-            )
+        # Embeddings-down is NOT a hard failure. If every chunk failed to embed
+        # (e.g. Gemini quota/403), we still mark the doc INGESTED in a DEGRADED,
+        # graph-only mode and build the knowledge graph below — so the assistant
+        # keeps answering via graph + lexical retrieval instead of going dark.
+        # (extract_and_store reads the document fields, not the chunk vectors, so
+        # the graph is fully independent of embedding availability.)
+        degraded = not rows
 
         # Re-ingestion: replace previous chunks atomically with the insert.
         await db.execute(
             delete(KTDocumentChunk).where(KTDocumentChunk.document_id == doc.id)
         )
-        db.add_all(rows)
+        if rows:
+            db.add_all(rows)
+
+        if degraded:
+            note = (
+                f"DEGRADED: embeddings unavailable — 0/{len(raw_chunks)} chunks "
+                "embedded. Vector search is offline for this document; graph + "
+                "lexical retrieval remain active. Re-ingest once embeddings recover."
+            )
+        elif failed_embeds:
+            note = f"{failed_embeds} of {len(raw_chunks)} chunks failed to embed"
+        else:
+            note = None
+
         await db.execute(
             update(KTDocument)
             .where(KTDocument.id == doc_id)
@@ -195,16 +210,14 @@ async def _execute(doc_id: str, db: AsyncSession) -> None:
                 status=DocStatusEnum.INGESTED,
                 ingested_at=datetime.datetime.now(datetime.timezone.utc),
                 chunk_count=len(rows),
-                ingestion_error=(
-                    f"{failed_embeds} of {len(raw_chunks)} chunks failed to embed"
-                    if failed_embeds else None
-                ),
+                ingestion_error=note,
             )
         )
         await db.commit()
         logger.info(
-            "pgvector ingestion complete for doc %s: %d chunks (%d embed failures)",
-            doc_id, len(rows), failed_embeds,
+            "pgvector ingestion %s for doc %s: %d/%d chunks embedded",
+            "DEGRADED (graph-only)" if degraded else "complete",
+            doc_id, len(rows), len(raw_chunks),
         )
 
         # GraphRAG (Phase 6): extract entities/relationships into the knowledge

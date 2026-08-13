@@ -341,6 +341,7 @@ class KTKeyOut(BaseModel):
     project_ids: List[str]
     recipient_name: Optional[str] = None
     recipient_email: Optional[str]
+    notes: Optional[str] = None  # audit notes captured in the Access-Gateway wizard (R3)
     expires_at: Optional[datetime]
     use_count: int
     max_uses: Optional[int]

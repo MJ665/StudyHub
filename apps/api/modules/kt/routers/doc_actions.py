@@ -11,7 +11,7 @@ async def deprecate_document(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user_with_db_role),
 ):
-    _require_mentor_plus(current_user)
+    _require_ld_admin_plus(current_user)
     org_id = int(current_user["organization_id"])
     uid = int(current_user["sub"])
     doc = await _get_doc_or_404(doc_id, org_id, db)
@@ -40,19 +40,11 @@ async def delete_document(
 ):
     org_id = int(current_user["organization_id"])
     uid = int(current_user["sub"])
-    _db_user_res = await db.execute(
-        select(User.role).where(User.id == int(current_user["sub"]))
-    )
-    role = _db_user_res.scalar_one_or_none() or current_user.get("role", "Member")
     doc = await _get_doc_or_404(doc_id, org_id, db)
 
-    if doc.author_id != uid and role not in [
-        "Mentor",
-        "GroupAdmin",
-        "LDAdmin",
-        "Owner",
-    ]:
-        raise HTTPException(403, "Not authorized to delete")
+    # Authors can delete their own docs; L&D/Platform Admins can delete any doc
+    if doc.author_id != uid:
+        _require_ld_admin_plus(current_user)
 
     from models.assignment import Assignment
     from models.learning_path import UserLearningPath

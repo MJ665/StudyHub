@@ -74,9 +74,14 @@ async def explore_graph_neighborhood(
         pass
 
     try:
-        from modules.kt.services.graph_service import get_graph_neighborhood
+        from modules.kt.services.graph_service import get_graph_neighborhood, get_node_detail
 
         data = await get_graph_neighborhood(db, node_id)
+        detail = await get_node_detail(db, node_id)
+        # Merge detail into response while preserving existing nodes/edges
+        data["relationships"] = detail.get("relationships", [])
+        data["source_documents"] = detail.get("source_documents", [])
+        data["confidence"] = detail.get("confidence", 50)
         try:
             await redis_client.set(redis_key, json.dumps(data), ex=3600)
         except Exception:

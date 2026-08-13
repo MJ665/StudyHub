@@ -16,10 +16,12 @@ worker started in main.py drains the queue.
 
 import asyncio
 import datetime
+import decimal
 import logging
 import os
 import socket
 import traceback
+import uuid
 from typing import Any, Awaitable, Callable, Dict, Optional
 
 from models.job import BackgroundJob, JobStatus
@@ -55,6 +57,27 @@ def _now() -> datetime.datetime:
     return datetime.datetime.now(datetime.timezone.utc)
 
 
+def _json_safe(value: Any) -> Any:
+    """Recursively coerce a payload into JSON-serializable primitives.
+
+    The queue stores ``payload`` in a JSONB column; a raw ``datetime`` (e.g. an
+    access-key ``expires_at``) makes ``json.dumps`` raise
+    ``TypeError: Object of type datetime is not JSON serializable`` at flush,
+    500-ing the whole request. Sanitizing here fixes it for every enqueue caller.
+    """
+    if isinstance(value, (datetime.datetime, datetime.date, datetime.time)):
+        return value.isoformat()
+    if isinstance(value, decimal.Decimal):
+        return float(value)
+    if isinstance(value, uuid.UUID):
+        return str(value)
+    if isinstance(value, dict):
+        return {str(k): _json_safe(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple, set)):
+        return [_json_safe(v) for v in value]
+    return value
+
+
 def _backoff_seconds(attempt: int) -> int:
     """Exponential backoff, capped. attempt=1 -> 10s, 2 -> 20s, 3 -> 40s ... max 10m."""
     return min(600, 10 * (2 ** max(0, attempt - 1)))
@@ -80,7 +103,7 @@ async def enqueue(
         )
     job = BackgroundJob(
         job_type=job_type,
-        payload=payload or {},
+        payload=_json_safe(payload or {}),
         status=JobStatus.PENDING,
         max_attempts=max_attempts,
         run_after=_now() + datetime.timedelta(seconds=delay_seconds) if delay_seconds else _now(),
@@ -110,7 +133,7 @@ def enqueue_sync(
         )
     job = BackgroundJob(
         job_type=job_type,
-        payload=payload or {},
+        payload=_json_safe(payload or {}),
         status=JobStatus.PENDING,
         max_attempts=max_attempts,
         run_after=_now() + datetime.timedelta(seconds=delay_seconds) if delay_seconds else _now(),

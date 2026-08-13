@@ -3,6 +3,40 @@ import { API_BASE, getBaseUrl, AIResponseEnvelope, SystemConfig, UserMe, Consist
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export class ApiClient0 {
   private static configCache: SystemConfig | null = null;
+  // Single-flight token refresh. The KT dashboard fires many requests in
+  // parallel; when the access token expires they all 401 at once. Without
+  // coalescing, each fires its own /auth/refresh — with refresh-token rotation
+  // the first wins and the rest fail, logging the user out mid-session
+  // (the intermittent KT /notifications & /companies 401s). One shared promise
+  // means every concurrent 401 awaits the SAME refresh.
+  private static refreshPromise: Promise<boolean> | null = null;
+
+  private static refreshOnce(): Promise<boolean> {
+    if (!this.refreshPromise) {
+      this.refreshPromise = (async (): Promise<boolean> => {
+        try {
+          const refreshRes = await fetch(`${getBaseUrl()}/auth/refresh`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+          });
+          if (refreshRes.ok) {
+            const data = await refreshRes.json();
+            if (data.access_token) {
+              localStorage.setItem('study_token', data.access_token);
+              return true;
+            }
+          }
+        } catch (err) {
+          console.error('Silent token rotation failed.', err);
+        }
+        return false;
+      })();
+      // Allow a fresh refresh on the NEXT expiry once this one settles.
+      this.refreshPromise.finally(() => { this.refreshPromise = null; });
+    }
+    return this.refreshPromise;
+  }
   public static getHeaders(contentType: string = 'application/json') {
     const headers: Record<string, string> = {};
     if (contentType) {
@@ -42,26 +76,15 @@ export class ApiClient0 {
       const isAuthEndpoint = /\/auth\/(login|register|forgot-password|reset-password|refresh|superadmin\/login)/.test(endpoint);
 
       if (response.status === 401 && !isRetry && !isAuthEndpoint) {
-        try {
-          const refreshRes = await fetch(`${getBaseUrl()}/auth/refresh`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
-          });
-
-          if (refreshRes.ok) {
-            const data = await refreshRes.json();
-            if (data.access_token) {
-              localStorage.setItem('study_token', data.access_token);
-              options.headers = {
-                ...options.headers,
-                ...this.getHeaders(),
-              };
-              return this.request(endpoint, options, true);
-            }
-          }
-        } catch (err) {
-          console.error("Critical Protocol Failure: Silent rotation aborted.", err);
+        // All concurrent 401s share ONE refresh (single-flight) so a rotated
+        // refresh cookie can't invalidate parallel siblings.
+        const refreshed = await this.refreshOnce();
+        if (refreshed) {
+          options.headers = {
+            ...options.headers,
+            ...this.getHeaders(),
+          };
+          return this.request(endpoint, options, true);
         }
 
         this.logout();

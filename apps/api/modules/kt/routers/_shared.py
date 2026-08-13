@@ -111,16 +111,27 @@ def _require_role(user: dict, *allowed_roles: str):
         raise HTTPException(403, "Insufficient role")
 
 
+# PlatformAdmin sits at the TOP of the hierarchy
+# (PlatformAdmin > LDAdmin > Mentor/GroupAdmin > Member) and must satisfy every
+# "*_plus" gate — omitting it wrongly locked Platform Admins out of KT.
 def _require_mentor_plus(user: dict):
-    _require_role(user, "Mentor", "GroupAdmin", "LDAdmin", "Owner")
+    _require_role(user, "PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner")
 
 
 def _require_group_admin_plus(user: dict):
-    _require_role(user, "GroupAdmin", "LDAdmin", "Owner")
+    _require_role(user, "PlatformAdmin", "GroupAdmin", "LDAdmin", "Owner")
 
 
 def _require_ld_admin_plus(user: dict):
-    _require_role(user, "LDAdmin", "Owner")
+    _require_role(user, "PlatformAdmin", "LDAdmin", "Owner")
+
+
+def _can_self_approve(user: dict) -> bool:
+    """L&D / Platform Admin (and Owner) may approve their OWN documents.
+    Mentors may approve others' work but NOT self-approve — their doc must be
+    reviewed by a different mentor or an L&D/Platform admin (segregation of duty).
+    """
+    return user.get("role") in ("PlatformAdmin", "LDAdmin", "Owner")
 
 
 async def _require_project_access(
@@ -161,33 +172,65 @@ def _normalize_grant_list(value) -> list[str]:
     return [str(v) for v in value]
 
 
+# KT is intentionally flat/flexible (org is a quiz-app boundary, not a KT wall).
+# By product decision, these roles READ all knowledge without a key or per-project
+# membership: Platform Admin & L&D across the whole super-org, Mentors likewise.
+# Regular users/members remain strictly membership/key-scoped (least privilege).
+_KT_BROAD_READ_ROLES = {"PlatformAdmin", "LDAdmin", "Owner", "Mentor", "GroupAdmin"}
+
+
 async def _resolve_granted_project_ids(
     user_id: int,
     org_id: int,
     db: AsyncSession,
     requested: list[str] | None = None,
+    role: str | None = None,
 ) -> list[str]:
     """The single source of truth for which projects a user may RETRIEVE knowledge from.
 
-    Least privilege: membership in `kt_project_members` is the only grant. A global
-    role never confers knowledge access on its own — an LDAdmin who is not a member
-    of a project cannot query that project's knowledge. Project creators are
-    auto-enrolled as "lead" at creation, so this does not lock anyone out of their
-    own projects.
+    Regular users: least privilege — membership in `kt_project_members` is the only
+    grant. Privileged KT roles (`role` in `_KT_BROAD_READ_ROLES`): broad read across
+    their super-org (Platform Admin = global), per the flat KT product model. When
+    `role` is None the behaviour is the historical membership-only path, so existing
+    callers are unaffected until they opt in by passing the caller's role.
 
     `requested` NARROWS the result and can never widen it. Ids outside the grant set
     are dropped silently rather than raising, so a caller cannot use the error to
     probe which project ids exist; the caller raises 403 when the result is empty.
     """
-    rows = await db.execute(
-        select(KTProject.id)
-        .join(KTProjectMember, KTProjectMember.project_id == KTProject.id)
-        .where(
-            KTProjectMember.user_id == user_id,
-            KTProject.organization_id == org_id,
+    if role in _KT_BROAD_READ_ROLES:
+        stmt = select(KTProject.id)
+        if role != "PlatformAdmin":
+            # L&D / Mentor: everything in the same super-org (fall back to org when
+            # the super-org link is not set). Platform Admin is global: no filter.
+            from models.org import Organization
+
+            super_id = await db.scalar(
+                select(Organization.super_organization_id).where(
+                    Organization.id == org_id
+                )
+            )
+            if super_id is not None:
+                stmt = stmt.where(
+                    or_(
+                        KTProject.organization_id == org_id,
+                        KTProject.super_organization_id == super_id,
+                    )
+                )
+            else:
+                stmt = stmt.where(KTProject.organization_id == org_id)
+        rows = await db.execute(stmt)
+        granted = set(rows.scalars().all())
+    else:
+        rows = await db.execute(
+            select(KTProject.id)
+            .join(KTProjectMember, KTProjectMember.project_id == KTProject.id)
+            .where(
+                KTProjectMember.user_id == user_id,
+                KTProject.organization_id == org_id,
+            )
         )
-    )
-    granted = set(rows.scalars().all())
+        granted = set(rows.scalars().all())
     if requested:
         granted &= set(_normalize_grant_list(requested))
     return sorted(granted)
@@ -228,7 +271,7 @@ async def _resolve_retrieval_scope(
     org_id = int(current_user["organization_id"])
     uid = int(current_user["sub"])
     granted = await _resolve_granted_project_ids(
-        uid, org_id, db, requested=requested_project_ids
+        uid, org_id, db, requested=requested_project_ids, role=current_user.get("role")
     )
     if not granted:
         raise HTTPException(
