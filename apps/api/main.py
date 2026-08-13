@@ -272,11 +272,25 @@ async def on_startup():
             raise
 
     # 1. Schema Generation (Standardized for automated deployment)
+    #    pgvector MUST be enabled BEFORE create_all: the KT chunk table has a
+    #    Vector column, and without the extension create_all rolls back EVERY
+    #    table on a fresh database — which then surfaces downstream as the
+    #    misleading "relation \"groups\" does not exist" at ensure_system.
+    #    A fresh Railway/managed Postgres has no provisioning step otherwise,
+    #    so we self-provision here. Idempotent (IF NOT EXISTS + checkfirst).
     try:
+        from sqlalchemy import text as _sql_text
+
+        with engine.begin() as _conn:
+            _conn.execute(_sql_text("CREATE EXTENSION IF NOT EXISTS vector"))
         Base.metadata.create_all(bind=engine)
         logger.info("✅ Database schema provisioned successfully.")
     except Exception as e:
         logger.error(f"❌ Schema provisioning failed: {e}")
+        # Fail loudly in production: proceeding without a schema only produces
+        # confusing 'relation does not exist' crashes in every later handler.
+        if settings.is_production():
+            raise
 
     # 2. Identity Enforcement (ID 0)
     try:
