@@ -38,7 +38,9 @@ const config = {
   assetBundlePatterns: ['**/*'],
   android: {
     package: 'in.mj665.GrindBuddy',
-    // versionCode is managed remotely by EAS (eas.json appVersionSource: remote).
+    // Explicit versionCode for local (expo prebuild + Gradle) builds. Bump this
+    // for each Play Store upload. (EAS cloud builds can still auto-increment.)
+    versionCode: 1,
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#0b1220',

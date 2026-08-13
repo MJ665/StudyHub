@@ -5,7 +5,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
+    "android": "expo run:android",
     "prebuild": "expo prebuild --platform android",
     "build:preview": "eas build -p android --profile preview",
     "build:production": "eas build -p android --profile production",
@@ -38,7 +38,10 @@
   "expo": {
     "install": {
       "//": "react/react-dom pinned to 19.2.4 to match the workspace root so the monorepo hoists a SINGLE copy (a duplicate react breaks RN). One patch ahead of the SDK pin (19.2.3) is harmless.",
-      "exclude": ["react", "react-dom"]
+      "exclude": [
+        "react",
+        "react-dom"
+      ]
     }
   }
 }
