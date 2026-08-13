@@ -202,6 +202,9 @@ async def evaluate_code(
     4. Returns comprehensive AI feedback.
     """
     question = await db.get(CodingQuestion, request.coding_question_id)
+    # FIX #2: Check for None before accessing attributes (explicit 404, not 500)
+    if not question:
+        raise HTTPException(status_code=404, detail="Coding question not found")
     assert_same_super_org(question, current_user, db, "Question")
 
     # ── AI EVALUATION PIPELINE ──────────────────────────────────────────────
@@ -521,14 +524,21 @@ def delete_coding_question(
 ):
     """
     Hard delete a coding question and its related attempts/hints.
+    FIX #5: Governance delete — L&D Admin or creator can delete.
     """
-    if current_user.get("role") not in ["LDAdmin", "Mentor"]:
-        raise HTTPException(
-            status_code=403, detail="Not authorized to delete coding questions"
-        )
-
     question = db.query(CodingQuestion).filter(CodingQuestion.id == question_id).first()
+    if not question:
+        raise HTTPException(status_code=404, detail="Coding question not found")
+
     assert_same_super_org(question, current_user, db, "Question")
+
+    # FIX #5: Permission check: must be L&D admin or creator
+    if current_user.get("role") != "LDAdmin" and question.created_by != int(
+        current_user.get("sub", -1)
+    ):
+        raise HTTPException(
+            status_code=403, detail="Only L&D Admin or question creator can delete"
+        )
 
     # Clean up associated attempts and hints first to satisfy constraints
     db.query(CodingAttempt).filter(
@@ -538,4 +548,20 @@ def delete_coding_question(
 
     db.delete(question)
     db.commit()
+
+    # FIX #5: Log admin action
+    try:
+        from services.audit_service import log_admin_action
+        log_admin_action(
+            db,
+            actor_id=int(current_user.get("sub", 0)),
+            actor_role=current_user.get("role", "Unknown"),
+            action="DELETE_CODING_QUESTION",
+            resource_type="CODING_QUESTION",
+            resource_id=question_id,
+            details={"title": question.title},
+        )
+    except Exception as e:
+        logger.warning(f"Failed to log delete coding question action: {e}")
+
     return {"message": "Coding question deleted successfully", "id": question_id}

@@ -55,8 +55,9 @@ def get_banks(
     if course_id:
         query = query.filter(models.QuestionBank.course_id == course_id)
 
-    # For LDAdmin, return all banks
-    if current_user.get("role") == "LDAdmin":
+    # Staff (L&D / Platform Admin / Owner) see all banks in their org for
+    # governance — including Personal banks — so they can regulate content.
+    if current_user.get("role") in ("LDAdmin", "Owner", "PlatformAdmin"):
         pass  # no additional filter
     else:
         # Get accessible course IDs for this user's group
@@ -92,29 +93,32 @@ def get_banks(
             )
             accessible_course_ids = [c.id for c in courses]
 
-        # Strictly enforce visibility scoping
-        query = query.filter(
-            or_(
-                models.QuestionBank.bank_type == "Official",
-                models.QuestionBank.visibility_scope == "org-public",
+        # Strictly enforce the visibility_scope ladder for NON-staff users.
+        # bank_type (Official/practice) does NOT grant access — it is metadata only.
+        # Ladder: Personal (creator only; staff see it via the bypass above) →
+        # Group (subscriber_groups) → Vertical (accessible courses) → Global (org-public).
+        _visibility_conds = [
+            # Own bank (Personal or any scope the caller created).
+            models.QuestionBank.created_by == int(current_user["sub"]),
+            # Global / org-public.
+            models.QuestionBank.visibility_scope == "org-public",
+            # Vertical: banks for courses the caller's batch/vertical can access.
+            and_(
+                models.QuestionBank.visibility_scope == "vertical",
+                models.QuestionBank.course_id.in_(accessible_course_ids),
+            ),
+        ]
+        _gid = current_user.get("group_id")
+        if _gid is not None:
+            # Group-private: only members of a subscribed group.
+            _visibility_conds.append(
                 and_(
                     models.QuestionBank.visibility_scope == "group-private",
-                    models.QuestionBank.subscriber_groups.contains(
-                        [int(current_user["group_id"])]
-                    ),
-                ),
-                and_(
-                    models.QuestionBank.visibility_scope == "vertical",
-                    models.QuestionBank.course_id.in_(accessible_course_ids),
-                ),
-                (
-                    db.query(models.User.role)
-                    .filter(models.User.id == models.QuestionBank.created_by)
-                    .as_scalar()
-                    == "LDAdmin"
-                ),
-                models.QuestionBank.created_by == int(current_user["sub"]),
+                    models.QuestionBank.subscriber_groups.contains([int(_gid)]),
+                )
             )
+        query = query.filter(
+            or_(*_visibility_conds)
         )
 
     query = query.group_by(models.QuestionBank.id).order_by(
@@ -451,18 +455,75 @@ def get_bank_library(
     db: Session = Depends(get_db),
     current_user: dict = Depends(verify_token),
 ):
-    """List all org-public banks available for cloning."""
+    """List shareable banks available for cloning (enforces visibility ladder).
+
+    FIX #4: Only show banks the user can access per visibility_scope ladder:
+    - Personal (creator+staff only) → NOT in library
+    - Group (subscribers) → in library for subscribers only
+    - Org-public → in library for any user
+    - Global → in library for everyone
+    """
     if current_user.get("role") not in ["GroupAdmin", "Mentor", "LDAdmin", "Admin"]:
         raise HTTPException(
             status_code=403,
             detail="Only admins and mentors can access the bank library",
         )
 
-    query = db.query(models.QuestionBank).filter(models.QuestionBank.is_org_public)
+    # Get accessible course IDs for this user's group (same logic as /banks)
+    user_group = (
+        db.query(models.Group)
+        .filter(models.Group.id == current_user["group_id"])
+        .first()
+    )
+    accessible_course_ids = []
+    if user_group and user_group.batch_id:
+        batch = (
+            db.query(models.Batch)
+            .filter(models.Batch.id == user_group.batch_id)
+            .first()
+        )
+        if batch:
+            vc_list = (
+                db.query(models.VerticalCourse)
+                .filter(models.VerticalCourse.vertical_id == batch.vertical_id)
+                .all()
+            )
+            accessible_course_ids = [vc.course_id for vc in vc_list]
+
+    if not accessible_course_ids:
+        courses = (
+            db.query(models.Course)
+            .join(models.QuestionBank)
+            .filter(models.Course.is_active.is_(True))
+            .distinct()
+            .all()
+        )
+        accessible_course_ids = [c.id for c in courses]
+
+    # FIX #4: Enforce visibility_scope ladder (only shareable banks, not personal)
+    query = db.query(models.QuestionBank).filter(
+        or_(
+            # Org-public banks (not personal)
+            models.QuestionBank.visibility_scope == "org-public",
+            # Group-private banks where user is a subscriber
+            and_(
+                models.QuestionBank.visibility_scope == "group-private",
+                models.QuestionBank.subscriber_groups.contains(
+                    [int(current_user["group_id"])]
+                ),
+            ),
+            # Vertical-scoped banks in user's accessible courses
+            and_(
+                models.QuestionBank.visibility_scope == "vertical",
+                models.QuestionBank.course_id.in_(accessible_course_ids),
+            ),
+        )
+    )
+
     if difficulty:
         query = query.filter(models.QuestionBank.difficulty == difficulty)
 
-    # Defensive cap (rule §12.7): the org-public library grows unbounded.
+    # Defensive cap (rule §12.7): the library grows unbounded.
     # QuestionBank has no created_at column; id is monotonic, so newest-first.
     banks = query.order_by(models.QuestionBank.id.desc()).limit(500).all()
     result = []

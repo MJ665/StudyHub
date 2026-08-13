@@ -47,6 +47,51 @@ async def get_my_detailed_profile(
     }
     return profile_data
 
+@router.get("/progress")
+async def get_my_progress(
+    db: AsyncSession = Depends(get_async_db), current_user: dict = Depends(verify_token)
+):
+    """FIX #6: Retrieve user's progress metrics including attempts, accuracy, and streak.
+
+    Returns:
+    - total_attempts: Total number of quiz attempts
+    - avg_accuracy: Average accuracy across all attempts (percentage)
+    - streak_count: Consecutive days with at least one attempt
+    """
+    user_id = int(current_user["sub"])
+
+    # Query attempts scoped to current user's organization
+    attempts = await db.run_sync(
+        lambda s: s.query(models.Attempt)
+        .filter(
+            models.Attempt.user_id == user_id,
+            models.Attempt.organization_id == current_user.get("organization_id"),
+        )
+        .all()
+    )
+
+    total_attempts = len(attempts)
+
+    # Calculate average accuracy: mean of per-attempt accuracy (correct/total)
+    if attempts:
+        accuracies = [
+            (a.score / a.total * 100.0) if a.total > 0 else 0.0
+            for a in attempts
+        ]
+        avg_accuracy = sum(accuracies) / len(accuracies) if accuracies else 0.0
+    else:
+        avg_accuracy = 0.0
+
+    # Get current streak from user model (updated on each attempt submission)
+    user = await db.get(models.User, user_id)
+    streak = user.streak_count if user else 0
+
+    return {
+        "total_attempts": total_attempts,
+        "avg_accuracy": round(avg_accuracy, 1),
+        "streak_count": streak,
+    }
+
 @router.patch("/profile")
 def update_my_profile(
     req: Dict[str, Any],

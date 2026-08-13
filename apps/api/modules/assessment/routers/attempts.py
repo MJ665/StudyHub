@@ -48,7 +48,7 @@ async def submit_attempt(
     attempt.user_id = int(current_user["sub"])
     user_id = attempt.user_id
 
-    # State Machine Lock Guardrail
+    # State Machine Lock Guardrail (FIX #1: Release lock on success and error)
     from services.redis_service import redis_client
 
     lock_key = f"quiz_submit_lock:{user_id}:{attempt.bank_id}"
@@ -58,132 +58,136 @@ async def submit_attempt(
             status_code=429, detail="A submission is already in progress. Please wait."
         )
 
-    # `check_attempt_eligibility` and `update_assignment_completion` below are shared
-    # SYNC helpers used by other (still-sync) callers. `run_sync` runs them against
-    # this same async connection/transaction, so there is exactly ONE implementation
-    # of the rules — no async twin that can silently drift from the original.
-    eligible, reason = await db.run_sync(
-        lambda sync_db: check_attempt_eligibility(user_id, attempt.bank_id, sync_db)
-    )
-    if not eligible:
-        raise HTTPException(status_code=403, detail=reason)
-
-    _q_rows = await db.execute(
-        select(models.Question).where(models.Question.id.in_(attempt.question_ids))
-    )
-    q_map = {q.id: q for q in _q_rows.scalars().all()}
-
-    # Unified engine: ONE grading loop shared with proctored exams
-    # (modules/assessment/services/attempt_engine.py). Difficulty weighting is
-    # the practice-quiz configuration of that engine.
-    from modules.assessment.services.attempt_engine import grade_answer_set
-
-    graded = await grade_answer_set(
-        q_map,
-        attempt.question_ids,
-        attempt.user_answers,
-        notes=attempt.user_notes,
-        difficulty_weights=DIFFICULTY_WEIGHTS,
-        collect_details=True,
-    )
-    points_list = graded.points_list
-    weights_list = graded.weights_list
-    detailed_answers = graded.detailed_answers
-
-    score_val: float = sum(points_list)
-    total_weight_val: float = sum(weights_list)
-
-    # For leaderboard ranking purposes use integer score based on correct count
-    raw_score = sum(1 for a in detailed_answers if a["is_correct"])
-    total_qs = len(attempt.question_ids)
-
-    # Resolve display name: anonymous or real
-    display_name = "Anonymous" if attempt.is_anonymous else attempt.user_name
-
-    bank = await db.get(models.QuestionBank, attempt.bank_id)
-
-    # Check if this is today's daily challenge
-    is_daily = False
-    from datetime import date
-
     try:
-        group_id = int(current_user.get("group_id", 0))
-        _dc_rows = await db.execute(
-            select(models.DailyChallenge).where(
-                models.DailyChallenge.group_id == group_id,
-                models.DailyChallenge.challenge_date == date.today(),
-            )
+        # `check_attempt_eligibility` and `update_assignment_completion` below are shared
+        # SYNC helpers used by other (still-sync) callers. `run_sync` runs them against
+        # this same async connection/transaction, so there is exactly ONE implementation
+        # of the rules — no async twin that can silently drift from the original.
+        eligible, reason = await db.run_sync(
+            lambda sync_db: check_attempt_eligibility(user_id, attempt.bank_id, sync_db)
         )
-        today_challenge = _dc_rows.scalars().first()
+        if not eligible:
+            raise HTTPException(status_code=403, detail=reason)
 
-        # Mark as daily if it matches the registered challenge question OR if the bank itself is flagged
-        if (
-            today_challenge and today_challenge.question_id in attempt.question_ids
-        ) or (bank and bank.is_daily_challenge):
-            is_daily = True
-    except Exception:
+        _q_rows = await db.execute(
+            select(models.Question).where(models.Question.id.in_(attempt.question_ids))
+        )
+        q_map = {q.id: q for q in _q_rows.scalars().all()}
+
+        # Unified engine: ONE grading loop shared with proctored exams
+        # (modules/assessment/services/attempt_engine.py). Difficulty weighting is
+        # the practice-quiz configuration of that engine.
+        from modules.assessment.services.attempt_engine import grade_answer_set
+
+        graded = await grade_answer_set(
+            q_map,
+            attempt.question_ids,
+            attempt.user_answers,
+            notes=attempt.user_notes,
+            difficulty_weights=DIFFICULTY_WEIGHTS,
+            collect_details=True,
+        )
+        points_list = graded.points_list
+        weights_list = graded.weights_list
+        detailed_answers = graded.detailed_answers
+
+        score_val: float = sum(points_list)
+        total_weight_val: float = sum(weights_list)
+
+        # For leaderboard ranking purposes use integer score based on correct count
+        raw_score = sum(1 for a in detailed_answers if a["is_correct"])
+        total_qs = len(attempt.question_ids)
+
+        # Resolve display name: anonymous or real
+        display_name = "Anonymous" if attempt.is_anonymous else attempt.user_name
+
+        bank = await db.get(models.QuestionBank, attempt.bank_id)
+
+        # Check if this is today's daily challenge
         is_daily = False
+        from datetime import date
 
-    db_attempt = models.Attempt(
-        # Attribute at creation; scoping helpers deny rows with a NULL tenant.
-        organization_id=current_user.get("organization_id"),
-        bank_id=attempt.bank_id,
-        user_name=display_name,
-        user_id=attempt.user_id,
-        score=raw_score,
-        total=total_qs,
-        time_taken=attempt.time_taken,
-        descriptive_answers=detailed_answers,
-        is_anonymous=attempt.is_anonymous,
-        is_daily_challenge=is_daily,
-    )
-    db.add(db_attempt)
+        try:
+            group_id = int(current_user.get("group_id", 0))
+            _dc_rows = await db.execute(
+                select(models.DailyChallenge).where(
+                    models.DailyChallenge.group_id == group_id,
+                    models.DailyChallenge.challenge_date == date.today(),
+                )
+            )
+            today_challenge = _dc_rows.scalars().first()
 
-    # 4.5 FIX: Update last_active_date for streak calculation
-    user = await db.get(models.User, attempt.user_id)
-    if user:
-        user.last_active_date = datetime.now(timezone.utc)
+            # Mark as daily if it matches the registered challenge question OR if the bank itself is flagged
+            if (
+                today_challenge and today_challenge.question_id in attempt.question_ids
+            ) or (bank and bank.is_daily_challenge):
+                is_daily = True
+        except Exception:
+            is_daily = False
 
-    await db.commit()
-    await db.refresh(db_attempt)
-
-    # Proactive Intelligence Cache Invalidation (STRAT-CACHE-SYNC)
-    try:
-        # Invalidate specific user vectors and intelligence summaries
-        await cache_manager.invalidate(f"user_vectors:{attempt.user_id}")
-        await cache_manager.invalidate(f"user_intel:{attempt.user_id}")
-        await cache_manager.invalidate(f"user_atlas:{attempt.user_id}")
-        logger.info(f"Sync: Intelligence cache purged for user {attempt.user_id}")
-    except Exception as e:
-        logger.warning(f"Sync: Cache purge failed: {e}")
-
-    from services.assignment_service import update_assignment_completion
-
-    await db.run_sync(
-        lambda sync_db: update_assignment_completion(
-            db=sync_db,
-            user_id=attempt.user_id,
+        db_attempt = models.Attempt(
+            # Attribute at creation; scoping helpers deny rows with a NULL tenant.
+            organization_id=current_user.get("organization_id"),
             bank_id=attempt.bank_id,
+            user_name=display_name,
+            user_id=attempt.user_id,
             score=raw_score,
             total=total_qs,
+            time_taken=attempt.time_taken,
+            descriptive_answers=detailed_answers,
+            is_anonymous=attempt.is_anonymous,
+            is_daily_challenge=is_daily,
         )
-    )
+        db.add(db_attempt)
 
-    # V: Return immediate breakdown in submit response — no leaderboard fetch needed
-    weighted_score_val = float(score_val)
-    total_weight_val_calc = float(total_weight_val)
-    accuracy_pct_val = float(raw_score / total_qs * 100.0) if total_qs > 0 else 0.0
+        # 4.5 FIX: Update last_active_date for streak calculation
+        user = await db.get(models.User, attempt.user_id)
+        if user:
+            user.last_active_date = datetime.now(timezone.utc)
 
-    result_payload = {
-        "id": int(db_attempt.id),
-        "score": int(raw_score),
-        "total": int(total_qs),
-        "weighted_score": float(int(weighted_score_val * 100 + 0.5) / 100.0),
-        "total_weight": float(int(total_weight_val_calc * 100 + 0.5) / 100.0),
-        "accuracy_pct": float(int(accuracy_pct_val * 10 + 0.5) / 10.0),
-        "breakdown": detailed_answers,
-    }
-    return result_payload
+        await db.commit()
+        await db.refresh(db_attempt)
+
+        # Proactive Intelligence Cache Invalidation (STRAT-CACHE-SYNC)
+        try:
+            # Invalidate specific user vectors and intelligence summaries
+            await cache_manager.invalidate(f"user_vectors:{attempt.user_id}")
+            await cache_manager.invalidate(f"user_intel:{attempt.user_id}")
+            await cache_manager.invalidate(f"user_atlas:{attempt.user_id}")
+            logger.info(f"Sync: Intelligence cache purged for user {attempt.user_id}")
+        except Exception as e:
+            logger.warning(f"Sync: Cache purge failed: {e}")
+
+        from services.assignment_service import update_assignment_completion
+
+        await db.run_sync(
+            lambda sync_db: update_assignment_completion(
+                db=sync_db,
+                user_id=attempt.user_id,
+                bank_id=attempt.bank_id,
+                score=raw_score,
+                total=total_qs,
+            )
+        )
+
+        # V: Return immediate breakdown in submit response — no leaderboard fetch needed
+        weighted_score_val = float(score_val)
+        total_weight_val_calc = float(total_weight_val)
+        accuracy_pct_val = float(raw_score / total_qs * 100.0) if total_qs > 0 else 0.0
+
+        result_payload = {
+            "id": int(db_attempt.id),
+            "score": int(raw_score),
+            "total": int(total_qs),
+            "weighted_score": float(int(weighted_score_val * 100 + 0.5) / 100.0),
+            "total_weight": float(int(total_weight_val_calc * 100 + 0.5) / 100.0),
+            "accuracy_pct": float(int(accuracy_pct_val * 10 + 0.5) / 10.0),
+            "breakdown": detailed_answers,
+        }
+        return result_payload
+    finally:
+        # FIX #1: Release the lock on both success and error
+        await redis_client.delete(lock_key)
 
 @router.get("/attempts/{attempt_id}")
 def get_attempt_details(

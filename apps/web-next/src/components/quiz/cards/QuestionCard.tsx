@@ -38,7 +38,23 @@ const TYPE_LABEL: Record<string, string> = {
 export default function QuestionCard({ q, index, value, onChange }: Props) {
   const fmt = q.content_format || 'text';
   const isMulti = q.question_type === 'mcq_multi';
-  const selected: string[] = Array.isArray(value) ? value : value ? [value] : [];
+
+  // Normalize value: coerce single-element array to string for mcq_single/true_false
+  // This ensures proper radio selection and comparison (value === opt) works correctly.
+  let normalizedValue: string | string[];
+  if (isMulti) {
+    // For mcq_multi, keep it as an array
+    normalizedValue = Array.isArray(value) ? value : value ? [value] : [];
+  } else {
+    // For mcq_single and true_false, coerce to string
+    if (Array.isArray(value)) {
+      normalizedValue = value.length === 1 ? value[0] : '';
+    } else {
+      normalizedValue = value || '';
+    }
+  }
+
+  const selected: string[] = Array.isArray(normalizedValue) ? normalizedValue : normalizedValue ? [normalizedValue] : [];
 
   const toggleMulti = (opt: string) => {
     const set = new Set(selected);
@@ -83,7 +99,7 @@ export default function QuestionCard({ q, index, value, onChange }: Props) {
       {(q.question_type === 'mcq_single' || q.question_type === 'true_false' || isMulti) && (
         <div className="space-y-2">
           {optList.map((opt) => {
-            const checked = isMulti ? selected.includes(opt) : value === opt;
+            const checked = isMulti ? selected.includes(opt) : normalizedValue === opt;
             return (
               <label
                 key={opt}

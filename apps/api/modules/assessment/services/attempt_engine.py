@@ -108,18 +108,31 @@ async def grade_answer_set(
                 difficulty_weights.get(getattr(q, "difficulty", None) or "Medium", 1.0)
             )
 
-        grade = await grade_question(question_to_dict(q), decode_answer(raw))
+        decoded = decode_answer(raw)
+        grade = await grade_question(question_to_dict(q), decoded)
 
         detail = None
         if collect_details:
             qtype = getattr(q, "question_type", "mcq_single") or "mcq_single"
+            # FIX #3: Normalize user_answer and correct_answer for mcq_single (string, not list)
+            # mcq_single must use scalar strings; mcq_multiple uses lists
+            user_ans = raw
+            if qtype == "mcq_single" and isinstance(decoded, list) and decoded:
+                # If a single-choice answer was submitted as an array, extract the first element
+                user_ans = decoded[0] if decoded else raw
+
+            correct_ans = _correct_text(q)
+            if qtype == "mcq_single" and isinstance(correct_ans, list) and correct_ans:
+                # If stored correct answer is a list (shouldn't happen for mcq_single), extract first
+                correct_ans = correct_ans[0] if correct_ans else correct_ans
+
             detail = {
                 "question_id": q.id,
                 "question_text": q.question,
                 "question_type": qtype,
                 "options": q.options,
-                "user_answer": raw,
-                "correct_answer": _correct_text(q),
+                "user_answer": user_ans,
+                "correct_answer": correct_ans,
                 "is_correct": grade.is_correct,
                 "fraction": round(grade.fraction, 3),
                 "ai_rationale": grade.rationale,

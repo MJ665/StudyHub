@@ -16,6 +16,7 @@ import {
   ChevronUp
 } from 'lucide-react';
 import { RichText } from '../common/RichText';
+import RichContent from '../common/RichContent';
 import CodeEditor from './CodeEditor';
 import ApiService from '../../services/ApiService';
 import QuestionDiscussions from './QuestionDiscussions';
@@ -91,6 +92,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [navOpen, setNavOpen] = useState(false); // mobile question-navigator sheet
+  const [showBankInfo, setShowBankInfo] = useState(false); // collapsible bank context panel
 
   const currentQ = questions[currentIdx];
   const answeredCount = Object.keys(answers).length;
@@ -338,6 +340,72 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
             </div>
           </div>
 
+          {/* Bank Context Info Panel */}
+          {(bank?.chapter || bank?.sprint_name || bank?.difficulty || bank?.description || bank?.quick_references?.length > 0) && (
+            <div className="bg-[var(--color-surface-container)]/60 border border-[var(--color-outline-variant)] rounded-[2rem] overflow-hidden">
+              <button
+                onClick={() => setShowBankInfo(!showBankInfo)}
+                className="w-full flex items-center justify-between gap-3 px-6 py-4 hover:bg-[var(--color-surface-container-high)] transition-colors"
+              >
+                <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)]">
+                  <Info size={16} className="text-[var(--color-brand-primary)]" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">Assessment Context</span>
+                </div>
+                <ChevronUp size={16} className={`transition-transform ${showBankInfo ? '' : 'rotate-180'}`} />
+              </button>
+
+              {showBankInfo && (
+                <div className="border-t border-[var(--color-outline-variant)] px-6 py-4 space-y-4 text-[11px]">
+                  {bank?.sprint_name && (
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Sprint / Week</p>
+                      <p className="text-[var(--color-on-surface)] font-bold">{bank.sprint_name}</p>
+                    </div>
+                  )}
+
+                  {bank?.chapter && (
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Chapter / Topic</p>
+                      <p className="text-[var(--color-on-surface)] font-bold">{bank.chapter}</p>
+                    </div>
+                  )}
+
+                  {bank?.difficulty && (
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Difficulty</p>
+                      <span className="inline-block px-2.5 py-1 rounded-lg bg-[var(--color-brand-primary)]/10 text-[var(--color-brand-primary)] font-bold text-[10px]">
+                        {bank.difficulty}
+                      </span>
+                    </div>
+                  )}
+
+                  {bank?.description && (
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-1">Description</p>
+                      <p className="text-[var(--color-on-surface)] leading-relaxed">{bank.description}</p>
+                    </div>
+                  )}
+
+                  {bank?.quick_references && bank.quick_references.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Quick References</p>
+                      <div className="space-y-2">
+                        {bank.quick_references.map((ref: any, idx: number) => (
+                          <div key={idx} className="bg-[var(--color-surface-dim)] rounded-lg p-2.5 border border-[var(--color-outline-variant)]">
+                            <p className="text-[10px] font-bold text-[var(--color-brand-primary)] mb-1">{ref.title}</p>
+                            <p className="text-[10px] text-[var(--color-on-surface-variant)] leading-relaxed">
+                              <RichContent content={ref.content} format="text" />
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="bg-[var(--color-surface-container)]/40 border border-[var(--color-outline-variant)] p-6 rounded-[2rem] flex flex-col gap-4">
              <div className="flex items-center gap-3 text-[var(--color-on-surface-variant)]">
                 <Info size={16} />
@@ -412,7 +480,7 @@ export default function QuizFlow({ bank, questions: rawQuestions, onFinish, onCa
                     }} 
                   />
                 </div>
-              ) : ['mcq_multi', 'true_false', 'short_answer', 'essay'].includes(currentQ.question_type) ? (
+              ) : ['mcq_single', 'mcq_multi', 'true_false', 'short_answer', 'essay'].includes(currentQ.question_type) ? (
                 <QuestionCard
                   q={currentQ}
                   index={currentIdx}

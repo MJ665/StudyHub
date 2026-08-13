@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { X, Code, AlignLeft, Database, Plus, Loader2, Copy, Check, ChevronLeft, ChevronRight, Upload, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { X, Code, AlignLeft, Database, Plus, Loader2, Copy, Check, ChevronLeft, ChevronRight, Upload, AlertCircle, CheckCircle2, Eye, ChevronDown } from 'lucide-react';
 import ApiService from '../../services/ApiService';
 import { useToast } from '../ui/Toast';
 import QuestionBuilder from '../quiz/QuestionBuilder';
+import RichContent from '../common/RichContent';
 
 // Suggestions are now fetched dynamically from the database using ApiService.getTopics()
 // Question authoring is handled by the live JSON builder (QuestionBuilder);
@@ -55,6 +56,7 @@ export default function BankCreationModal({ user, courses: coursesProp, onClose,
   const [builderQuestions, setBuilderQuestions] = useState<any[]>([]);
 
   const [quickReferences, setQuickReferences] = useState('');
+  const [showPreview, setShowPreview] = useState(false);
 
   const filteredSuggestions = (topicSuggestions || []).filter(c =>
     chapterInput.trim() && c.toLowerCase().includes(chapterInput.toLowerCase()) && c !== chapterInput
@@ -62,27 +64,96 @@ export default function BankCreationModal({ user, courses: coursesProp, onClose,
 
   const generatePrompt = useCallback(() => {
     const topic = chapterInput || 'the selected topic';
-    return `Generate ${targetCount} strictly separate MCQ questions about ${topic} with a ${bankDiff} difficulty level. Output STRICTLY as a raw JSON object with two keys: "questions" (array of objects) and "quick_references" (array of {title: string, content: string}). 
-    
-    NO markdown code blocks, NO backticks, and NO explanatory text before or after the JSON.
-    
-    Each question object must have: "question" (string), "options" (array of exactly 4 strings), "answer" (string), "difficulty" (string), "user_description" (strictly empty string "").
-    
-    The "quick_references" should contain 5-8 key syntax snippets relevant to ${topic}. If no specific syntax is relevant, keep it as an empty array [].
+    return `Generate ${targetCount} strictly separate questions about ${topic} with ${bankDiff} difficulty. Mix diverse question types: mcq_single, mcq_multiple, true_false, short_answer, essay, coding, and config where applicable. Output STRICTLY as a raw JSON object with two keys: "questions" (array of objects) and "quick_references" (array of {title: string, content: string}).
 
-JSON Format:
+NO markdown code blocks, NO backticks, NO explanatory text before or after the JSON.
+
+Each question object MUST have:
+- question (string): The question stem
+- question_type (string): One of: mcq_single | mcq_multiple | true_false | short_answer | essay | coding | config
+- content_format (string): One of: text | markdown | latex | code
+- options (array of strings): REQUIRED for mcq_single/mcq_multiple (4+ options), true_false gets ["True", "False"]. Empty for others.
+- answer (string): The correct answer (for mcq_single/true_false). For mcq_multiple, return a single string and use correct_options array instead.
+- correct_options (array of integers, optional): For mcq_multiple, indices of correct options (e.g., [0, 2])
+- points (integer, optional): Default 1
+- difficulty (string): Use "${bankDiff}"
+- media_urls (array of strings, optional): URLs to images/code examples if relevant
+- explanation (string, optional): Explanation of the correct answer
+- model_answer (string, optional): For essay/short_answer, a model response
+- user_description (string): ALWAYS empty string ""
+
+JSON Format Example:
 {
   "questions": [
     {
-      "question": "Example question?",
-      "options": ["A", "B", "C", "D"],
-      "answer": "A",
+      "question": "What is an async function in JavaScript?",
+      "question_type": "mcq_single",
+      "content_format": "text",
+      "options": ["A function declared with async keyword", "A function with callbacks", "A promise constructor", "A middleware pattern"],
+      "answer": "A function declared with async keyword",
+      "points": 1,
       "difficulty": "${bankDiff}",
+      "media_urls": [],
+      "user_description": ""
+    },
+    {
+      "question": "Select ALL correct statements about promises:",
+      "question_type": "mcq_multiple",
+      "content_format": "text",
+      "options": ["Promises are immutable", "Promises can be rejected", "Promises can settle multiple times", "Promises chain via .then()"],
+      "answer": "",
+      "correct_options": [0, 1, 3],
+      "points": 2,
+      "difficulty": "${bankDiff}",
+      "user_description": ""
+    },
+    {
+      "question": "async/await was introduced in ES2017.",
+      "question_type": "true_false",
+      "content_format": "text",
+      "options": ["True", "False"],
+      "answer": "True",
+      "points": 1,
+      "difficulty": "${bankDiff}",
+      "user_description": ""
+    },
+    {
+      "question": "Write a function that delays execution by N milliseconds.",
+      "question_type": "short_answer",
+      "content_format": "text",
+      "options": [],
+      "answer": "",
+      "points": 2,
+      "difficulty": "${bankDiff}",
+      "model_answer": "const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));",
+      "user_description": ""
+    },
+    {
+      "question": "Explain when you would use Promise.race() over Promise.all().",
+      "question_type": "essay",
+      "content_format": "text",
+      "options": [],
+      "answer": "",
+      "points": 3,
+      "difficulty": "${bankDiff}",
+      "model_answer": "Use Promise.race() when you need the first settled promise (e.g., timeout scenarios). Use Promise.all() when all promises must resolve.",
+      "user_description": ""
+    },
+    {
+      "question": "Write a fetch wrapper with timeout.",
+      "question_type": "coding",
+      "content_format": "code",
+      "options": [],
+      "answer": "",
+      "points": 4,
+      "difficulty": "${bankDiff}",
+      "model_answer": "async function fetchWithTimeout(url, timeout = 5000) {\\n  const controller = new AbortController();\\n  const id = setTimeout(() => controller.abort(), timeout);\\n  try {\\n    return await fetch(url, { signal: controller.signal });\\n  } finally {\\n    clearTimeout(id);\\n  }\\n}",
       "user_description": ""
     }
   ],
   "quick_references": [
-    { "title": "cmd", "content": "description" }
+    { "title": "async syntax", "content": "async function name() { await promise; }" },
+    { "title": "Promise states", "content": "pending → fulfilled/rejected (immutable)" }
   ]
 }`;
   }, [chapterInput, bankDiff, targetCount]);
@@ -332,6 +403,73 @@ JSON Format:
                     Paste AI output into the JSON pane, or build via the form. */}
                 <QuestionBuilder questions={builderQuestions} onChange={setBuilderQuestions} />
                 <p className="text-[11px] text-[var(--color-on-surface-variant)]">{builderQuestions.filter((q: any) => (q?.question || '').trim()).length} question(s) ready.</p>
+
+                {/* Preview all questions panel */}
+                {builderQuestions.filter((q: any) => (q?.question || '').trim()).length > 0 && (
+                  <div className="mt-4 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-2xl overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setShowPreview(!showPreview)}
+                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-[var(--color-surface-bright)] transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Eye size={16} className="text-[var(--color-brand-primary)]" />
+                        <span className="text-sm font-bold text-[var(--color-on-surface)]">Preview All Questions</span>
+                        <span className="text-xs text-[var(--color-on-surface-variant)] ml-2">
+                          ({builderQuestions.filter((q: any) => (q?.question || '').trim()).length})
+                        </span>
+                      </div>
+                      <ChevronDown size={18} className={`transition-transform ${showPreview ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {showPreview && (
+                      <div className="border-t border-[var(--color-outline-variant)] p-4 space-y-4 max-h-[400px] overflow-y-auto">
+                        {builderQuestions.map((q: any, idx: number) => {
+                          if (!(q?.question || '').trim()) return null;
+                          const fmt = q.content_format || 'text';
+                          const TYPE_LABEL: Record<string, string> = {
+                            mcq_single: 'Single choice',
+                            mcq_multiple: 'Multiple choice',
+                            mcq_multi: 'Multiple choice',
+                            true_false: 'True/False',
+                            short_answer: 'Short answer',
+                            essay: 'Essay',
+                            coding: 'Coding',
+                            config: 'Configuration',
+                          };
+                          return (
+                            <div key={idx} className="pb-4 border-b border-[var(--color-outline-variant)] last:border-b-0">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="text-xs font-bold text-[var(--color-on-surface-variant)]">Q{idx + 1}</span>
+                                <span className="text-[10px] bg-[var(--color-brand-primary)]/10 text-[var(--color-brand-primary)] px-2 py-0.5 rounded font-bold">
+                                  {TYPE_LABEL[q.question_type] || q.question_type}
+                                </span>
+                                {q.points && <span className="text-[10px] text-[var(--color-on-surface-variant)]">{q.points}pt</span>}
+                              </div>
+                              <div className="text-sm text-[var(--color-on-surface)] mb-2 leading-relaxed">
+                                <RichContent content={q.question} format={fmt} mediaUrls={q.media_urls} />
+                              </div>
+                              {['mcq_single', 'mcq_multiple', 'mcq_multi', 'true_false'].includes(q.question_type) && q.options && (
+                                <div className="space-y-1.5 ml-2">
+                                  {q.options.map((opt: string, oi: number) => {
+                                    const isCorrect = q.question_type === 'mcq_multiple' || q.question_type === 'mcq_multi'
+                                      ? (q.correct_options || []).includes(oi)
+                                      : q.answer === opt;
+                                    return (
+                                      <div key={oi} className={`text-xs px-2 py-1 rounded ${isCorrect ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' : 'text-[var(--color-on-surface-variant)]'}`}>
+                                        <span className="font-bold">{String.fromCharCode(65 + oi)}.</span> <RichContent content={opt} format={fmt} />
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className="flex gap-3 pt-1">
                   <button onClick={() => setStep(2)} className="flex-1 bg-[var(--color-surface-container-high)] hover:bg-[var(--color-surface-bright)] text-[var(--color-on-surface)] py-3 rounded-xl font-bold flex items-center justify-center gap-2"><ChevronLeft size={18} /> Back</button>
