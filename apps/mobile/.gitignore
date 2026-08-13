@@ -15,3 +15,8 @@ node_modules/
 .env
 google-services.json
 play-service-account.json
+
+# Local Android signing secrets — never commit
+credentials.json
+*.jks
+.keystore-password.txt
