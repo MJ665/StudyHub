@@ -4,8 +4,6 @@ import {
   BackHandler,
   Linking,
   Platform,
-  RefreshControl,
-  ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
@@ -65,7 +63,6 @@ export default function WebAppScreen() {
   const insets = useSafeAreaInsets();
   const [canGoBack, setCanGoBack] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
   const [online, setOnline] = useState(true);
   const [errored, setErrored] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
@@ -175,12 +172,6 @@ export default function WebAppScreen() {
     return true;
   }, []);
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    webRef.current?.reload();
-    setTimeout(() => setRefreshing(false), 800);
-  }, []);
-
   const retry = useCallback(() => {
     setErrored(false);
     setLoading(true);
@@ -202,55 +193,52 @@ export default function WebAppScreen() {
       {/* Edge-to-edge is default in SDK 57 — StatusBar no longer takes a
           backgroundColor; the parent View's shellBg shows through the bar. */}
       <StatusBar style={shellDark ? 'light' : 'dark'} />
-      <ScrollView
-        contentContainerStyle={styles.fill}
-        // ScrollView only exists to host pull-to-refresh; the WebView owns scroll.
-        scrollEnabled={false}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#8083ff" />
-        }
-      >
-        <WebView
-          ref={webRef}
-          source={{ uri: INITIAL_URL }}
-          originWhitelist={['*']}
-          injectedJavaScript={INJECTED_JS}
-          onMessage={onMessage}
-          onShouldStartLoadWithRequest={onShouldStart}
-          onNavigationStateChange={(nav) => setCanGoBack(nav.canGoBack)}
-          onLoadStart={() => setErrored(false)}
-          onLoadEnd={() => {
-            setLoading(false);
-            SplashScreen.hideAsync().catch(() => {});
-          }}
-          // A failed main-frame load surfaces the native Retry screen (and the
-          // splash-hide effect ensures it's visible). Sub-resource errors on an
-          // already-loaded page are ignored so a flaky asset can't blank the app.
-          onError={(e) => {
-            setLoading(false);
-            const { url, description, code } = e.nativeEvent;
-            if (url === INITIAL_URL || !canGoBack) {
-              setErrored(true);
-              Sentry.captureException(
-                new Error(`WebView load failed: ${description} (code ${code})`),
-                { tags: { url } },
-              );
-            }
-          }}
-          renderError={() => <View style={{ flex: 1, backgroundColor: shellBg }} />}
-          // Persistence + storage so login survives restarts.
-          javaScriptEnabled
-          domStorageEnabled
-          sharedCookiesEnabled
-          thirdPartyCookiesEnabled
-          // File uploads (KT documents) + media capture.
-          allowFileAccess
-          allowsInlineMediaPlayback
-          mediaCapturePermissionGrantType="grant"
-          setSupportMultipleWindows={false}
-          style={{ backgroundColor: shellBg }}
-        />
-      </ScrollView>
+      {/* The WebView owns scrolling natively. A previous ScrollView+RefreshControl
+          wrapper hijacked the scroll gesture and reloaded the page on any downward
+          pull — so scrolling never worked. Render the WebView directly and keep
+          native pull-to-refresh OFF so scrolling is smooth and never reloads. */}
+      <WebView
+        ref={webRef}
+        source={{ uri: INITIAL_URL }}
+        originWhitelist={['*']}
+        injectedJavaScript={INJECTED_JS}
+        onMessage={onMessage}
+        onShouldStartLoadWithRequest={onShouldStart}
+        onNavigationStateChange={(nav) => setCanGoBack(nav.canGoBack)}
+        onLoadStart={() => setErrored(false)}
+        onLoadEnd={() => {
+          setLoading(false);
+          SplashScreen.hideAsync().catch(() => {});
+        }}
+        onError={(e) => {
+          setLoading(false);
+          const { url, description, code } = e.nativeEvent;
+          if (url === INITIAL_URL || !canGoBack) {
+            setErrored(true);
+            Sentry.captureException(
+              new Error(`WebView load failed: ${description} (code ${code})`),
+              { tags: { url } },
+            );
+          }
+        }}
+        renderError={() => <View style={{ flex: 1, backgroundColor: shellBg }} />}
+        // Native pull-to-refresh disabled: the app is a scrollable web page, and
+        // an accidental pull must NOT reload/interrupt scrolling.
+        pullToRefreshEnabled={false}
+        overScrollMode="never"
+        bounces={false}
+        // Persistence + storage so login survives restarts.
+        javaScriptEnabled
+        domStorageEnabled
+        sharedCookiesEnabled
+        thirdPartyCookiesEnabled
+        // File uploads (KT documents) + media capture.
+        allowFileAccess
+        allowsInlineMediaPlayback
+        mediaCapturePermissionGrantType="grant"
+        setSupportMultipleWindows={false}
+        style={[styles.fill, { backgroundColor: shellBg }]}
+      />
 
       {loading && (
         <View style={styles.loader} pointerEvents="none">
