@@ -9,7 +9,7 @@ import {
   Flame, Github, Edit3, Plus, Trash2, Link2,
   TrendingUp, TrendingDown, Award, Zap, Target, Clock, BarChart3,
   CheckCircle2, XCircle, Layers, BookOpen, Star, Trophy, Cpu, Sparkles,
-  X, GitBranch
+  X, GitBranch, Ban, Undo2
 } from 'lucide-react';
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer,
@@ -54,6 +54,37 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
     handleSyncIntel, setShowEditModal, setActiveTab, onBack,
     currentUserId, slug, toast, loading,
     scoreHistory, scoreDistribution, radarData, expertiseSkills, strengthEntries } = ctx;
+
+  const [blockedUsers, setBlockedUsers] = useState<any[]>([]);
+  const [loadingBlocked, setLoadingBlocked] = useState(false);
+
+  useEffect(() => {
+    if (isOwnProfile) {
+      const loadBlockedUsers = async () => {
+        setLoadingBlocked(true);
+        try {
+          const data = await ApiService.getBlockedUsers();
+          setBlockedUsers(data);
+        } catch (err) {
+          // Silently fail if blocked users can't be loaded
+        } finally {
+          setLoadingBlocked(false);
+        }
+      };
+      loadBlockedUsers();
+    }
+  }, [isOwnProfile]);
+
+  const handleUnblockUser = async (userId: number, userName: string) => {
+    try {
+      await ApiService.unblockUser(userId);
+      toast('success', `${userName} has been unblocked`);
+      setBlockedUsers(blockedUsers.filter(u => u.user_id !== userId));
+    } catch (err: any) {
+      toast('error', 'Failed to unblock user');
+    }
+  };
+
   return (
 <>
 {isOwnProfile && (
@@ -170,6 +201,53 @@ export default function SecurityTab({ ctx }: { ctx: ProfileTabCtx }) {
                   </div>
                 </div>
               </div>
+
+              {/* Blocked Users */}
+              {blockedUsers.length > 0 && (
+                <div className="col-span-1 lg:col-span-2 p-8 bg-[var(--color-surface-container)]/60 rounded-[2.5rem] border border-[var(--color-outline-variant)] space-y-6">
+                  <div className="flex items-center gap-4 mb-2">
+                    <div className="w-12 h-12 bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 rounded-2xl flex items-center justify-center text-[var(--color-warning)]">
+                      <Ban size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-black text-[var(--color-on-surface)]">Blocked Users</h3>
+                      <p className="text-[10px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-widest mt-1">Manage discussion blocks</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                    {blockedUsers.map(user => (
+                      <div
+                        key={user.user_id}
+                        className="flex items-center justify-between p-4 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] rounded-xl"
+                      >
+                        <div className="flex items-center gap-3">
+                          {user.profile_photo_url && (
+                            <img
+                              src={user.profile_photo_url}
+                              alt={user.full_name}
+                              className="w-8 h-8 rounded-full object-cover"
+                            />
+                          )}
+                          {!user.profile_photo_url && (
+                            <div className="w-8 h-8 rounded-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] flex items-center justify-center text-xs font-black text-[var(--color-on-surface-variant)]">
+                              {user.full_name.charAt(0)}
+                            </div>
+                          )}
+                          <span className="text-sm font-black text-[var(--color-on-surface)]">{user.full_name}</span>
+                        </div>
+                        <button
+                          onClick={() => handleUnblockUser(user.user_id, user.full_name)}
+                          className="p-2 hover:bg-[var(--color-success)]/10 text-[var(--color-on-surface-variant)] hover:text-[var(--color-success)] rounded-lg transition-all"
+                          title="Unblock this user"
+                        >
+                          <Undo2 size={16} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
 )}
 {!isOwnProfile && (

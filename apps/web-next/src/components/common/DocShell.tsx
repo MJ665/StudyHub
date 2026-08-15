@@ -40,7 +40,7 @@ export function DocShell({
 
       <footer className="border-t border-[var(--color-outline-variant)]">
         <p className="mx-auto max-w-3xl px-5 py-8 text-center text-xs text-[var(--color-on-surface-variant)] md:px-8">
-          © {new Date().getFullYear()} GrindBuddy · <a href="/privacy" className="hover:text-[var(--color-on-surface-variant)]">Privacy</a> · <a href="/terms" className="hover:text-[var(--color-on-surface-variant)]">Terms</a> · <a href="/contact-me" className="hover:text-[var(--color-on-surface-variant)]">Contact</a>
+          © {new Date().getFullYear()} GrindBuddy · <a href="/privacy" className="hover:text-[var(--color-on-surface-variant)]">Privacy</a> · <a href="/terms" className="hover:text-[var(--color-on-surface-variant)]">Terms</a> · <a href="/account-deletion" className="hover:text-[var(--color-on-surface-variant)]">Delete Account</a> · <a href="/contact-me" className="hover:text-[var(--color-on-surface-variant)]">Contact</a>
         </p>
       </footer>
     </div>

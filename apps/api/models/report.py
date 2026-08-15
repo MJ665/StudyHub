@@ -1,7 +1,7 @@
 import datetime
 from database import Base
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 
@@ -50,4 +50,29 @@ class ContentReport(Base):
 
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default="now()", nullable=False
+    )
+
+
+class UserBlock(Base):
+    """Track blocked users for Play Store compliance.
+
+    When user A blocks user B, A will not see any UGC (discussions, comments)
+    authored by B in feeds or profiles. Blocking is unidirectional: B can still
+    see A's content.
+    """
+
+    __tablename__ = "user_blocks"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    # The user doing the blocking
+    blocker_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    # The user being blocked
+    blocked_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default="now()", nullable=False
+    )
+
+    __table_args__ = (
+        UniqueConstraint("blocker_id", "blocked_id", name="uq_user_blocks_blocker_blocked"),
     )

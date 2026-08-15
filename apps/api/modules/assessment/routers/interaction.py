@@ -79,6 +79,38 @@ def report_question(
     return {"message": "Report submitted successfully", "report_id": report.id}
 
 
+@router.post("/discussions/{discussion_id}/report")
+async def report_discussion(
+    discussion_id: int,
+    issue_type: str = "other",
+    description: str | None = None,
+    db: AsyncSession = Depends(get_async_db),
+    current_user: dict = Depends(verify_token),
+):
+    """File a moderation report against a discussion (Play Store compliance)."""
+    from models.report import ContentReport
+
+    d = await db.get(models.QuestionDiscussion, discussion_id)
+    if not d:
+        raise HTTPException(status_code=404, detail="Discussion not found")
+
+    await _require_question_scope_async(d.question_id, db, current_user)
+
+    uid = int(current_user["sub"])
+    report = ContentReport(
+        content_type="discussion",
+        content_id=str(discussion_id),
+        user_id=uid,
+        issue_type=(issue_type or "other")[:50],
+        description=description,
+        content_title=(d.content or "")[:80],
+    )
+    db.add(report)
+    await db.commit()
+    await db.refresh(report)
+    return {"message": "Report submitted successfully", "report_id": report.id}
+
+
 @router.get("/reports/pending")
 def pending_reports(
     db: Session = Depends(get_db), current_user: dict = Depends(verify_token)
@@ -166,6 +198,15 @@ async def get_discussions(
     except Exception as e:
         logger.warning(f"Discussion cache lookup failed: {e}")
 
+    # Compute caller's blocked user set for filtering
+    blocker_id = int(current_user["sub"])
+    blocked_rows = await db.execute(
+        select(models.UserBlock.blocked_id).where(
+            models.UserBlock.blocker_id == blocker_id
+        )
+    )
+    blocked_ids = {row[0] for row in blocked_rows.all()}
+
     # Fetch the whole thread tree in ONE query and assemble it in memory: the old
     # code issued a user lookup per node (N+1) and walked a lazy relationship,
     # which an AsyncSession cannot do implicitly.
@@ -204,10 +245,10 @@ async def get_discussions(
             "upvotes": t.upvotes,
             "is_pinned": t.is_pinned,
             "created_at": t.created_at.isoformat() if t.created_at else None,
-            "replies": [serialize_thread(c) for c in children.get(t.id, [])],
+            "replies": [serialize_thread(c) for c in children.get(t.id, []) if c.user_id not in blocked_ids],
         }
 
-    res = [serialize_thread(t) for t in all_nodes if t.parent_id is None]
+    res = [serialize_thread(t) for t in all_nodes if t.parent_id is None and t.user_id not in blocked_ids]
     try:
         await redis_client.set(redis_key, json.dumps(res), ex=300)
     except Exception as e:
@@ -236,6 +277,15 @@ async def get_global_discussions(
     except Exception as e:
         logger.warning(f"Global discussion cache lookup failed: {e}")
 
+    # Compute caller's blocked user set for filtering
+    blocker_id = int(current_user["sub"])
+    blocked_rows = await db.execute(
+        select(models.UserBlock.blocked_id).where(
+            models.UserBlock.blocker_id == blocker_id
+        )
+    )
+    blocked_ids = {row[0] for row in blocked_rows.all()}
+
     base = select(models.QuestionDiscussion).where(
         models.QuestionDiscussion.parent_id.is_(None)
     )
@@ -258,6 +308,8 @@ async def get_global_discussions(
         .limit(size)
     )
     threads = rows.scalars().all()
+    # Filter out discussions from blocked users
+    threads = [t for t in threads if t.user_id not in blocked_ids]
 
     # Batch every lookup the old per-thread loop did one row at a time.
     user_ids = {t.user_id for t in threads}
@@ -616,3 +668,103 @@ def get_bookmarks(
             }
         )
     return ret
+
+
+# --- User Blocking (Play Store Compliance) ---
+@router.post("/users/{user_id}/block")
+async def block_user(
+    user_id: int,
+    db: AsyncSession = Depends(get_async_db),
+    current_user: dict = Depends(verify_token),
+):
+    """Block a user to hide their UGC in feeds and profiles."""
+    blocker_id = int(current_user["sub"])
+
+    # Cannot block yourself
+    if user_id == blocker_id:
+        raise HTTPException(status_code=400, detail="Cannot block yourself")
+
+    # Cannot block system user (id 0) or platform admin
+    if user_id == 0:
+        raise HTTPException(status_code=400, detail="Cannot block system user")
+
+    target_user = await db.get(models.User, user_id)
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if target_user.role == "PlatformAdmin":
+        raise HTTPException(status_code=400, detail="Cannot block platform administrators")
+
+    # Upsert: ignore if already blocked (idempotent)
+    existing = (
+        await db.execute(
+            select(models.UserBlock).where(
+                models.UserBlock.blocker_id == blocker_id,
+                models.UserBlock.blocked_id == user_id,
+            )
+        )
+    ).scalars().first()
+
+    if not existing:
+        block = models.UserBlock(blocker_id=blocker_id, blocked_id=user_id)
+        db.add(block)
+        await db.commit()
+
+    return {"message": "User blocked successfully", "blocked": True}
+
+
+@router.delete("/users/{user_id}/block")
+async def unblock_user(
+    user_id: int,
+    db: AsyncSession = Depends(get_async_db),
+    current_user: dict = Depends(verify_token),
+):
+    """Unblock a previously blocked user."""
+    blocker_id = int(current_user["sub"])
+
+    block = (
+        await db.execute(
+            select(models.UserBlock).where(
+                models.UserBlock.blocker_id == blocker_id,
+                models.UserBlock.blocked_id == user_id,
+            )
+        )
+    ).scalars().first()
+
+    if block:
+        await db.delete(block)
+        await db.commit()
+
+    return {"message": "User unblocked successfully", "blocked": False}
+
+
+@router.get("/blocks")
+async def get_blocked_users(
+    db: AsyncSession = Depends(get_async_db),
+    current_user: dict = Depends(verify_token),
+):
+    """Get list of blocked users for the current user."""
+    blocker_id = int(current_user["sub"])
+
+    blocks = (
+        await db.execute(
+            select(models.UserBlock).where(models.UserBlock.blocker_id == blocker_id)
+        )
+    ).scalars().all()
+
+    blocked_ids = {b.blocked_id for b in blocks}
+    blocked_users = []
+    if blocked_ids:
+        users = (
+            await db.execute(select(models.User).where(models.User.id.in_(blocked_ids)))
+        ).scalars().all()
+        blocked_users = [
+            {
+                "user_id": u.id,
+                "full_name": u.full_name,
+                "profile_photo_url": u.profile_photo_url,
+            }
+            for u in users
+        ]
+
+    return blocked_users

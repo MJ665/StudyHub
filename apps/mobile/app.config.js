@@ -40,7 +40,7 @@ const config = {
     package: 'in.mj665.GrindBuddy',
     // Explicit versionCode for local (expo prebuild + Gradle) builds. Bump this
     // for each Play Store upload. (EAS cloud builds can still auto-increment.)
-    versionCode: 2,
+    versionCode: 3,
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff', // GrindBuddy logo is on white — match it

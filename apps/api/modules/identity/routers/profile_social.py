@@ -1,6 +1,6 @@
 import models
 import schemas
-from auth_utils import verify_token
+from auth_utils import verify_token, verify_token_optional
 from database import get_async_db
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import or_, select
@@ -11,10 +11,14 @@ router = APIRouter(prefix="/profile", tags=["Public Profile"])
 
 
 @router.get("/{slug}")
-async def get_public_profile(slug: str, db: AsyncSession = Depends(get_async_db)):
+async def get_public_profile(
+    slug: str,
+    db: AsyncSession = Depends(get_async_db),
+    current_user: dict | None = Depends(verify_token_optional),
+):
     """
     Public endpoint to fetch user profile by email-prefix or custom slug.
-    No authentication required.
+    No authentication required, but if authenticated, filters blocked users' comments.
     """
     import json
 
@@ -58,6 +62,20 @@ async def get_public_profile(slug: str, db: AsyncSession = Depends(get_async_db)
         .order_by(models.ProfileComment.created_at.desc())
     )
     comments = _c.scalars().all()
+
+    # Compute blocked user set if authenticated
+    blocked_ids = set()
+    if current_user:
+        blocker_id = int(current_user["sub"])
+        blocked_rows = await db.execute(
+            select(models.UserBlock.blocked_id).where(
+                models.UserBlock.blocker_id == blocker_id
+            )
+        )
+        blocked_ids = {row[0] for row in blocked_rows.all()}
+
+    # Filter out comments from blocked users
+    filtered_comments = [c for c in comments if c.author_id not in blocked_ids]
 
     # 3. Fetch Full Intelligence Suite
     from services.performance_engine import performance_engine
@@ -125,7 +143,7 @@ async def get_public_profile(slug: str, db: AsyncSession = Depends(get_async_db)
                     else "anonymous",
                 },
             }
-            for c in comments
+            for c in filtered_comments
         ],
     }
 

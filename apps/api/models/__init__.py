@@ -38,7 +38,7 @@ from .org import (  # noqa: F401
     Vertical,
 )
 from .profile import ProfileComment  # noqa: F401
-from .report import ContentReport, QuestionReport  # noqa: F401
+from .report import ContentReport, QuestionReport, UserBlock  # noqa: F401
 from .resource import Resource, ResourceComment  # noqa: F401
 from .system import SystemTaskStatus  # noqa: F401
 from .job import BackgroundJob, JobStatus  # noqa: F401

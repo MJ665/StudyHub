@@ -576,4 +576,28 @@ export class ApiClient2 extends ApiClient1 {
     return this.request(`/kt/documents?${params.toString()}`, { headers });
   }
 
+  // ─── Discussion Moderation ────────────────────────────────────────────────
+  static async reportDiscussion(discussionId: number, data: { issue_type: string; description: string }) {
+    return this.request(`/interaction/discussions/${discussionId}/report`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async blockUser(userId: number) {
+    return this.request(`/interaction/users/${userId}/block`, {
+      method: 'POST'
+    });
+  }
+
+  static async unblockUser(userId: number) {
+    return this.request(`/interaction/users/${userId}/block`, {
+      method: 'DELETE'
+    });
+  }
+
+  static async getBlockedUsers() {
+    return this.request('/interaction/blocks');
+  }
+
 }
