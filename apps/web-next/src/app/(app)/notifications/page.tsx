@@ -11,9 +11,13 @@ export default function NotificationsPage() {
     <NotificationsView
       user={user}
       onBack={() => router.push('/dashboard')}
-      onNavigate={(type: string) =>
-        type === 'new_assignment' && router.push('/assignments')
-      }
+      onNavigate={(type: string, id?: number) => {
+        if (type === 'new_assignment') router.push('/assignments');
+        else if (type === 'exam_result') router.push(id ? `/exam-result/${id}` : '/exams');
+        else if (type === 'exam') router.push(id ? `/exam/${id}` : '/exams');
+        else if (type === 'attempt') router.push('/history');
+        else if (type === 'kt' || type === 'document') router.push('/kt');
+      }}
     />
   );
 }

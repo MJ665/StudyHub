@@ -975,6 +975,64 @@ def my_exam_attempts(
     }
 
 
+@router.get("/{exam_id}/my-result")
+def my_exam_result(
+    exam_id: int,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(verify_token),
+):
+    """The caller's OWN result for a single exam — powers the candidate results
+    page reachable from the result-release email + notification. Returns the
+    latest completed attempt with score/verdict and whether a certificate is
+    downloadable. Score stays withheld until the conductor releases results."""
+    uid = int(current_user["sub"])
+    exam = db.query(models.Exam).filter(models.Exam.id == exam_id).first()
+    if not exam:
+        raise HTTPException(404, "Exam not found")
+    attempt = (
+        db.query(models.ExamAttempt)
+        .filter(
+            models.ExamAttempt.exam_id == exam_id,
+            models.ExamAttempt.user_id == uid,
+            models.ExamAttempt.status != "in_progress",
+        )
+        .order_by(models.ExamAttempt.submitted_at.desc().nullslast())
+        .first()
+    )
+    if not attempt:
+        raise HTTPException(404, "You have no submitted attempt for this exam.")
+
+    released = attempt.result_status == "released"
+    verdict = (
+        (attempt.result_verdict or ("pass" if attempt.passed else "fail"))
+        if released
+        else None
+    )
+    total = attempt.total or 0.0
+    pct = (
+        round((attempt.score or 0.0) / total * 100.0, 1)
+        if (released and total > 0)
+        else None
+    )
+    return {
+        "attempt_id": attempt.id,
+        "exam_id": exam_id,
+        "exam_title": exam.title,
+        "result_status": attempt.result_status,  # released | pending | withheld
+        "released": released,
+        "score": attempt.score if released else None,
+        "total": attempt.total if released else None,
+        "percent": pct,
+        "passing_score": exam.passing_score,
+        "verdict": verdict,
+        "passed": (verdict == "pass") if released else None,
+        "submitted_at": attempt.submitted_at.isoformat() if attempt.submitted_at else None,
+        # A certificate is downloadable only when certs are enabled + released + pass.
+        "certificate_available": _exam_cert_gate(attempt, exam),
+        "flags": attempt.flags_count,
+    }
+
+
 @router.get("/{exam_id}/attempts")
 def exam_attempts_for_review(
     exam_id: int,
@@ -1086,7 +1144,7 @@ def release_exam_results(
             user_id=a.user_id, notification_type="exam_result",
             title="Your exam result is available",
             body=f'Results for "{exam.title}" have been released.',
-            link_type="exam", link_id=exam_id,
+            link_type="exam_result", link_id=exam_id,
         ))
 
         # Fetch user to get email and name for result release email

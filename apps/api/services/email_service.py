@@ -690,7 +690,9 @@ def send_exam_result_released(
 
     cert_info = ""
     if verdict == "pass":
-        cert_info = "<p style='color:#059669;font-weight:bold;margin:16px 0;'>Your certificate is ready to download!</p>"
+        cert_info = "<p style='color:#059669;font-weight:bold;margin:16px 0;'>🎓 Your certificate is ready — open your result below to view and download it.</p>"
+
+    btn_label = "View Result & Certificate" if verdict == "pass" else "View Result"
 
     html = f"""
     <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #e2e8f0;border-radius:12px;">
@@ -704,9 +706,9 @@ def send_exam_result_released(
       {verdict_badge}
       {cert_info}
       <div style="margin:24px 0;text-align:center;">
-        <a href="{_frontend_url()}/exam/{exam_id}"
+        <a href="{_frontend_url()}/exam-result/{exam_id}"
            style="background:#1e40af;color:white;padding:12px 32px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;">
-           View Results
+           {btn_label}
         </a>
       </div>
       <hr style="border:0;border-top:1px solid #e2e8f0;margin:16px 0;"/>

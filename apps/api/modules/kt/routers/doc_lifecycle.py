@@ -1,4 +1,5 @@
 """doc_lifecycle endpoints (moved verbatim from modules/kt/routers/documents.py)."""
+import models  # explicit: `models` is NOT re-exported by the star import below
 from fastapi import APIRouter
 
 from modules.kt.routers.documents_shared import *  # noqa: F401,F403

@@ -205,6 +205,14 @@ export class ApiClient3 extends ApiClient2 {
   static async myExamAttempts() {
     return this.request('/exams/me/attempts');
   }
+  /** The caller's own result for a single exam (powers the /exam-result page). */
+  static async getMyExamResult(examId: number) {
+    return this.request(`/exams/${examId}/my-result`);
+  }
+  /** Tokenized certificate URL for a passed+released exam attempt. */
+  static async getExamCertificate(attemptId: number) {
+    return this.request(`/exams/attempts/${attemptId}/certificate`);
+  }
   static async startExam(examId: number) {
     return this.request(`/exams/${examId}/start`, { method: 'POST' });
   }

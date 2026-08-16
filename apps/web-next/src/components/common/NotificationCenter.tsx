@@ -21,6 +21,7 @@ function notifLink(n: any): string | null {
   if (!t) return null;
   switch (t) {
     case 'exam': return id ? `/exam/${id}` : '/exams';
+    case 'exam_result': return id ? `/exam-result/${id}` : '/exams';
     case 'attempt': return '/history';
     case 'document':
     case 'kt': return '/kt';
