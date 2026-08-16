@@ -722,9 +722,13 @@ def list_governance_content(
         """L&D governs the whole super-organization, not just their own org.
         Scope to super_org when it resolves (covers content created in any
         sub-org), and always include the caller's own org so single-org and
-        legacy rows with a NULL super_organization_id are still visible."""
+        legacy rows with a NULL super_organization_id are still visible.
+
+        Not every content model carries super_organization_id (e.g. KTDocument
+        is keyed only by organization_id) — guard with hasattr so the scope
+        degrades to org-only rather than raising AttributeError."""
         conds = [model.organization_id == org_id]
-        if super_org_id is not None:
+        if super_org_id is not None and hasattr(model, "super_organization_id"):
             conds.append(model.super_organization_id == super_org_id)
         return query.filter(or_(*conds))
 
