@@ -40,19 +40,19 @@
 :root { color-scheme: light; }
 
 /* ── Navy · DARK ────────────────────────────────────────────────────────────
-   Deep navy-black surfaces + soft-white text + bright blue accent. */
+   Twitter-style near-black navy surfaces + bright white text + vivid blue accent. */
 :root[data-theme="navy-dark"] {
   color-scheme: dark;
-  --color-surface-dim: #0b1220;
-  --color-surface-container-low: #101a2e;
-  --color-surface-container: #131c30;
-  --color-surface-container-high: #1b2740;
-  --color-surface-container-highest: #223252;
-  --color-surface-bright: #2a3a5c;
+  --color-surface-dim: #0a0e15;
+  --color-surface-container-low: #0d1219;
+  --color-surface-container: #0f1420;
+  --color-surface-container-high: #131c2d;
+  --color-surface-container-highest: #1a2638;
+  --color-surface-bright: #222d45;
 
-  --color-on-surface: #e8edf7;
-  --color-on-surface-variant: #9fb0cc;
-  --color-outline-variant: #2a3550;
+  --color-on-surface: #f5f8fd;
+  --color-on-surface-variant: #a8b8d8;
+  --color-outline-variant: #1f2a3d;
 
   --color-brand-primary: #93b4ff;        /* blue (readable on dark) */
   --color-brand-primary-container: #3b82f6;

@@ -46,7 +46,7 @@ export default function BankCreationModal({ user, courses: coursesProp, onClose,
   const [timePerQuestion, setTimePerQuestion] = useState(30);
   const [showTimer, setShowTimer] = useState(true);
   const [shuffleQuestions, setShuffleQuestions] = useState(true);
-  const [shuffleOptions, setShuffleOptions] = useState(false);
+  const [shuffleOptions, setShuffleOptions] = useState(true);
   const [allowDescriptive, setAllowDescriptive] = useState(true);
   const [targetCount, setTargetCount] = useState(10);
   const [isOrgPublic, setIsOrgPublic] = useState(true);
