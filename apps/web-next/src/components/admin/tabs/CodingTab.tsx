@@ -230,7 +230,25 @@ export default function CodingTab({ ctx }: { ctx: AdminTabCtx }) {
                               #{q.id}
                             </td>
                             <td className="px-8 py-6 text-right">
-                              <button className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-all"><Settings size={16} /></button>
+                              <button
+                                onClick={() => {
+                                  if (confirm(`Delete challenge "${q.title}"? This cannot be undone.`)) {
+                                    setProcessing(true);
+                                    ApiService.deleteCodingQuestion(q.id)
+                                      .then(() => {
+                                        toast('success', `Challenge "${q.title}" deleted`);
+                                        fetchCodingQuestions();
+                                      })
+                                      .catch((err: any) => toast('error', `Delete failed: ${err.message}`))
+                                      .finally(() => setProcessing(false));
+                                  }
+                                }}
+                                disabled={processing}
+                                className="p-2 text-red-600 hover:text-red-700 disabled:opacity-50 transition-all"
+                                title="Delete this coding question"
+                              >
+                                <Trash2 size={16} />
+                              </button>
                             </td>
                           </tr>
                         ))}

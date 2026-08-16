@@ -38,6 +38,7 @@ import ResponsiveTabs from '../ui/ResponsiveTabs';
 import IntegrityTab from '../admin/tabs/IntegrityTab';
 import HierarchyTab from '../admin/tabs/HierarchyTab';
 import UsersTab from '../admin/tabs/UsersTab';
+import GovernanceTab from '../admin/tabs/GovernanceTab';
 import AdminOnboardingOverlay from '../admin/AdminOnboardingOverlay';
 
 const filterTree = (nodes: any[], term: string): any[] => {
@@ -114,8 +115,8 @@ export default function LDAdminDashboard({
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [taskData, setTaskData] = useState<any[]>([]);
 
-  type AdminTab = 'Hierarchy' | 'Users' | 'Curriculum' | 'Coding' | 'Audit' | 'Analytics' | 'Reports' | 'Inventory' | 'Integrity' | 'Telemetry';
-  const ADMIN_TABS: AdminTab[] = ['Hierarchy', 'Users', 'Curriculum', 'Coding', 'Audit', 'Analytics', 'Reports', 'Inventory', 'Integrity', 'Telemetry'];
+  type AdminTab = 'Hierarchy' | 'Users' | 'Curriculum' | 'Coding' | 'Audit' | 'Analytics' | 'Reports' | 'Governance' | 'Inventory' | 'Integrity' | 'Telemetry';
+  const ADMIN_TABS: AdminTab[] = ['Hierarchy', 'Users', 'Curriculum', 'Coding', 'Audit', 'Analytics', 'Reports', 'Governance', 'Inventory', 'Integrity', 'Telemetry'];
   // Tabs are URL-addressable (/admin?tab=Users) so admin views deep-link,
   // survive refresh, and appear in browser history (Phase 4).
   const [activeTab, setActiveTabState] = useState<AdminTab>(() => {
@@ -660,7 +661,7 @@ export default function LDAdminDashboard({
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             <ResponsiveTabs
               className="w-full md:w-auto"
-              tabs={['Hierarchy', 'Users', 'Curriculum', 'Coding', 'Inventory', 'Audit', 'Analytics', 'Reports', 'Integrity', 'Telemetry'].map((t) => ({ id: t, label: t }))}
+              tabs={['Hierarchy', 'Users', 'Curriculum', 'Coding', 'Inventory', 'Audit', 'Analytics', 'Reports', 'Governance', 'Integrity', 'Telemetry'].map((t) => ({ id: t, label: t }))}
               active={activeTab}
               onChange={(id) => setActiveTab(id as any)}
             />
@@ -692,6 +693,8 @@ export default function LDAdminDashboard({
               <AnalyticsTab ctx={adminCtx} />
             ) : activeTab === 'Reports' ? (
               <ReportsTab ctx={adminCtx} />
+            ) : activeTab === 'Governance' ? (
+              <GovernanceTab />
             ) : activeTab === 'Inventory' ? (
               <InventoryTab ctx={adminCtx} />
             ) : activeTab === 'Telemetry' ? (

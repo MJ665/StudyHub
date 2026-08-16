@@ -434,6 +434,28 @@ export class ApiClient2 extends ApiClient1 {
     });
   }
 
+  // ─── Content Governance ───────────────────────────────────────────────────
+  static async getGovernanceContent(filters?: { type?: string; q?: string; status?: string }) {
+    const params = new URLSearchParams();
+    if (filters?.type) params.set('type', filters.type);
+    if (filters?.q) params.set('q', filters.q);
+    if (filters?.status) params.set('status', filters.status);
+    return this.request(`/admin/content?${params}`);
+  }
+
+  static async quarantineContent(contentType: string, contentId: number | string, reason: string) {
+    return this.request(`/admin/${contentType}/${contentId}/quarantine`, {
+      method: 'POST',
+      body: JSON.stringify({ reason })
+    });
+  }
+
+  static async unquarantineContent(contentType: string, contentId: number | string) {
+    return this.request(`/admin/${contentType}/${contentId}/quarantine`, {
+      method: 'DELETE'
+    });
+  }
+
   static async reportKTDocument(docId: string, issueType: string, description: string) {
     const q = new URLSearchParams({ issue_type: issueType, description });
     return this.request(`/kt/documents/${docId}/report?${q}`, { method: 'POST' });

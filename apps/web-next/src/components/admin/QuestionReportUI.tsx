@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  AlertTriangle, 
-  CheckCircle2, 
-  Search, 
-  Filter, 
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Search,
+  Filter,
   ExternalLink,
   MessageSquare,
   Clock,
@@ -12,7 +12,9 @@ import {
   MoreVertical,
   Edit3,
   Trash2,
-  Loader2
+  Loader2,
+  Lock,
+  Unlock
 } from 'lucide-react';
 import ApiService from '../../services/ApiService';
 import { useToast } from '../ui/Toast';
@@ -23,6 +25,10 @@ export default function QuestionReportUI() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'resolved'>('pending');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showQuarantineModal, setShowQuarantineModal] = useState<any>(null);
+  const [quarantineReason, setQuarantineReason] = useState('');
+  const [deleteConfirm, setDeleteConfirm] = useState<any>(null);
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
     fetchReports();
@@ -51,6 +57,52 @@ export default function QuestionReportUI() {
       fetchReports();
     } catch (err: any) {
       toast('error', `Action failed: ${err.message}`);
+    }
+  };
+
+  const handleQuarantine = async () => {
+    if (!showQuarantineModal || !quarantineReason.trim()) {
+      toast('error', 'Please provide a quarantine reason');
+      return;
+    }
+
+    setProcessing(true);
+    try {
+      await ApiService.quarantineContent(
+        showQuarantineModal.content_type,
+        showQuarantineModal.content_id,
+        quarantineReason
+      );
+      toast('success', `Content quarantined: ${showQuarantineModal.content_title}`);
+      setShowQuarantineModal(null);
+      setQuarantineReason('');
+      fetchReports();
+    } catch (err: any) {
+      toast('error', `Quarantine failed: ${err.message}`);
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleDelete = async (report: any) => {
+    setProcessing(true);
+    try {
+      if (report.content_type === 'bank') {
+        await ApiService.deleteBank(Number(report.content_id));
+      } else if (report.content_type === 'coding_question') {
+        await ApiService.deleteCodingQuestion(Number(report.content_id));
+      } else if (report.content_type === 'kt_document') {
+        await ApiService.deleteKTDocument(String(report.content_id));
+      } else if (report.content_type === 'question') {
+        await ApiService.deleteQuestion(Number(report.content_id));
+      }
+      toast('success', `Content deleted: ${report.content_title}`);
+      setDeleteConfirm(null);
+      fetchReports();
+    } catch (err: any) {
+      toast('error', `Delete failed: ${err.message}`);
+    } finally {
+      setProcessing(false);
     }
   };
 
@@ -213,14 +265,34 @@ export default function QuestionReportUI() {
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  {report.content_type === 'question' ? (
+                  <div className="flex flex-wrap gap-2">
+                    {report.content_type === 'question' ? (
+                      <button
+                        onClick={() => openEdit(report)}
+                        className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] transition-all"
+                      >
+                        <Edit3 size={14} /> Edit
+                      </button>
+                    ) : null}
+
                     <button
-                      onClick={() => openEdit(report)}
-                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] transition-all"
+                      onClick={() => setShowQuarantineModal(report)}
+                      disabled={processing}
+                      className="flex items-center gap-1 px-3 py-2 bg-amber-500/20 text-amber-700 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-amber-500/30 transition-all disabled:opacity-50"
+                      title="Quarantine this content"
                     >
-                      <Edit3 size={14} /> Edit Question
+                      <Lock size={12} /> Quarantine
                     </button>
-                  ) : <span />}
+
+                    <button
+                      onClick={() => setDeleteConfirm(report)}
+                      disabled={processing}
+                      className="flex items-center gap-1 px-3 py-2 bg-red-500/20 text-red-700 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-red-500/30 transition-all disabled:opacity-50"
+                      title="Delete this content"
+                    >
+                      <Trash2 size={12} /> Delete
+                    </button>
+                  </div>
 
                   {report.status === 'pending' && (
                     <div className="flex gap-2">
@@ -273,6 +345,69 @@ export default function QuestionReportUI() {
                 </button>
                 <button disabled={savingEdit} onClick={() => saveEdit(true)} className="px-4 py-2 rounded-xl bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)] text-xs font-bold">
                   Save & Resolve
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Quarantine modal ── */}
+      <AnimatePresence>
+        {showQuarantineModal && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => !processing && setShowQuarantineModal(null)}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-lg bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 shadow-2xl"
+            >
+              <div className="flex items-center gap-2 text-amber-600 mb-4">
+                <Lock size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Quarantine Content</span>
+              </div>
+              <p className="text-sm text-[var(--color-on-surface-variant)] mb-4">
+                {showQuarantineModal.content_title}
+              </p>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-[var(--color-on-surface-variant)] mb-2">Reason for quarantine</label>
+              <textarea
+                value={quarantineReason}
+                onChange={(e) => setQuarantineReason(e.target.value)}
+                rows={3}
+                placeholder="Explain why this content is being quarantined..."
+                className="w-full bg-[var(--color-surface-dim)] border border-[var(--color-outline-variant)] rounded-xl p-3 text-sm text-[var(--color-on-surface)] mb-5 outline-none focus:ring-1 focus:ring-amber-500/50"
+              />
+              <div className="flex gap-2 justify-end">
+                <button disabled={processing} onClick={() => { setShowQuarantineModal(null); setQuarantineReason(''); }} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
+                <button disabled={processing || !quarantineReason.trim()} onClick={handleQuarantine} className="px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 disabled:opacity-50">
+                  {processing ? <Loader2 size={14} className="animate-spin inline mr-2" /> : null}
+                  Quarantine
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Delete confirmation modal ── */}
+      <AnimatePresence>
+        {deleteConfirm && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => !processing && setDeleteConfirm(null)}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-lg bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] rounded-3xl p-6 shadow-2xl"
+            >
+              <div className="flex items-center gap-2 text-red-600 mb-4">
+                <AlertTriangle size={16} /><span className="font-black uppercase tracking-widest text-[10px]">Delete Content</span>
+              </div>
+              <p className="text-sm text-[var(--color-on-surface-variant)] mb-4">
+                Are you sure you want to permanently delete <strong>{deleteConfirm.content_title}</strong>?
+                This action cannot be undone.
+              </p>
+              <div className="flex gap-2 justify-end">
+                <button disabled={processing} onClick={() => setDeleteConfirm(null)} className="px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] text-xs font-bold">Cancel</button>
+                <button disabled={processing} onClick={() => handleDelete(deleteConfirm)} className="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-bold hover:bg-red-700 disabled:opacity-50">
+                  {processing ? <Loader2 size={14} className="animate-spin inline mr-2" /> : null}
+                  Delete
                 </button>
               </div>
             </motion.div>

@@ -236,7 +236,25 @@ export default function CurriculumTab({ ctx }: { ctx: AdminTabCtx }) {
                           <span className="text-sm font-black text-[var(--color-on-surface)]">{c.name}</span>
                         </div>
                         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                          <button className="p-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)]"><Settings size={14} /></button>
+                          <button
+                            onClick={() => {
+                              if (confirm(`Delete bank "${c.name}"? This cannot be undone.`)) {
+                                setProcessing(true);
+                                ApiService.deleteBank(c.id)
+                                  .then(() => {
+                                    toast('success', `Bank "${c.name}" deleted`);
+                                    fetchData();
+                                  })
+                                  .catch((err: any) => toast('error', `Delete failed: ${err.message}`))
+                                  .finally(() => setProcessing(false));
+                              }
+                            }}
+                            disabled={processing}
+                            className="p-2 text-red-600 hover:text-red-700 disabled:opacity-50"
+                            title="Delete this bank"
+                          >
+                            <Trash2 size={14} />
+                          </button>
                         </div>
                       </div>
                     ))}

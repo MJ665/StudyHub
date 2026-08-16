@@ -129,6 +129,18 @@ def get_coding_questions(
                 )
             )
         query = query.filter(or_(*vis_clauses))
+        # Non-staff: exclude quarantined coding questions
+        quarantined_ids_result = (
+            db.query(models.ContentModeration.content_id)
+            .filter(
+                models.ContentModeration.content_type == "coding_question",
+                models.ContentModeration.status == "quarantined",
+            )
+            .all()
+        )
+        quarantined_ids = {int(qid[0]) for qid in quarantined_ids_result if qid[0].isdigit()}
+        if quarantined_ids:
+            query = query.filter(~CodingQuestion.id.in_(quarantined_ids))
 
     if course_id:
         query = query.filter(CodingQuestion.course_id == course_id)

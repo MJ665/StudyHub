@@ -593,3 +593,236 @@ def bulk_admin_action(
     )
 
     return {"message": f"Successfully performed {req.action} on {count} users."}
+
+
+@router.post("/{content_type}/{content_id}/quarantine")
+def quarantine_content(
+    content_type: str,
+    content_id: str,
+    body: Optional[dict] = None,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """Quarantine (suspend) content for L&D governance/compliance."""
+    from auth_utils import caller_org_id, caller_super_org_id
+
+    if content_type not in ("bank", "coding_question", "kt_document"):
+        raise HTTPException(status_code=400, detail="Invalid content_type")
+
+    reason = (body.get("reason") if body else None) or None
+    org_id = caller_org_id(current_user)
+    super_org_id = caller_super_org_id(current_user, db)
+
+    # Check if already quarantined (upsert via delete + insert)
+    existing = (
+        db.query(models.ContentModeration)
+        .filter(
+            models.ContentModeration.content_type == content_type,
+            models.ContentModeration.content_id == content_id,
+        )
+        .first()
+    )
+
+    if existing:
+        existing.status = "quarantined"
+        existing.reason = reason
+        existing.moderated_by = int(current_user["sub"])
+        moderation = existing
+    else:
+        moderation = models.ContentModeration(
+            content_type=content_type,
+            content_id=content_id,
+            status="quarantined",
+            reason=reason,
+            moderated_by=int(current_user["sub"]),
+            organization_id=org_id,
+            super_organization_id=super_org_id,
+        )
+        db.add(moderation)
+
+    db.commit()
+
+    log_admin_action(
+        db=db,
+        actor_id=int(current_user["sub"]),
+        actor_role=current_user["role"],
+        action="QUARANTINE_CONTENT",
+        resource_type=content_type.upper(),
+        resource_id=int(content_id) if content_id.isdigit() else None,
+        details={"content_id": content_id, "reason": reason},
+    )
+
+    return {"message": f"Content {content_id} quarantined", "status": "quarantined"}
+
+
+@router.delete("/{content_type}/{content_id}/quarantine")
+def unquarantine_content(
+    content_type: str,
+    content_id: str,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """Restore quarantined content (remove from quarantine)."""
+    if content_type not in ("bank", "coding_question", "kt_document"):
+        raise HTTPException(status_code=400, detail="Invalid content_type")
+
+    moderation = (
+        db.query(models.ContentModeration)
+        .filter(
+            models.ContentModeration.content_type == content_type,
+            models.ContentModeration.content_id == content_id,
+        )
+        .first()
+    )
+
+    if not moderation:
+        raise HTTPException(status_code=404, detail="Content is not quarantined")
+
+    db.delete(moderation)
+    db.commit()
+
+    log_admin_action(
+        db=db,
+        actor_id=int(current_user["sub"]),
+        actor_role=current_user["role"],
+        action="UNQUARANTINE_CONTENT",
+        resource_type=content_type.upper(),
+        resource_id=int(content_id) if content_id.isdigit() else None,
+        details={"content_id": content_id},
+    )
+
+    return {"message": f"Content {content_id} restored", "status": "active"}
+
+
+@router.get("/content")
+def list_governance_content(
+    type: Optional[str] = None,
+    q: Optional[str] = None,
+    status: Optional[str] = None,
+    page: int = 1,
+    size: int = 50,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_ldadmin),
+):
+    """List content (banks, coding questions, KT documents) with governance status (quarantined/active).
+
+    Supports optional filters:
+    - type: 'bank', 'coding_question', 'kt_document'
+    - q: title search (partial match, case-insensitive)
+    - status: 'quarantined', 'active'
+    """
+    from auth_utils import caller_org_id
+
+    org_id = caller_org_id(current_user)
+    items = []
+
+    # Fetch quarantine records (for fast status lookup)
+    quarantine_query = db.query(models.ContentModeration).filter(
+        models.ContentModeration.organization_id == org_id
+    )
+    if type:
+        quarantine_query = quarantine_query.filter(models.ContentModeration.content_type == type)
+    quarantine_records = quarantine_query.all()
+    quarantine_map = {
+        f"{r.content_type}:{r.content_id}": r
+        for r in quarantine_records
+    }
+
+    # 1) Banks
+    if not type or type == "bank":
+        bank_query = db.query(models.QuestionBank).filter(
+            models.QuestionBank.organization_id == org_id
+        )
+        if q:
+            bank_query = bank_query.filter(models.QuestionBank.name.ilike(f"%{q}%"))
+
+        banks = bank_query.all()
+        for bank in banks:
+            quarantine_key = f"bank:{bank.id}"
+            mod = quarantine_map.get(quarantine_key)
+            bank_status = "quarantined" if mod else "active"
+
+            if status and bank_status != status:
+                continue
+
+            author = db.query(models.User).filter(models.User.id == bank.created_by).first()
+            items.append({
+                "content_type": "bank",
+                "id": str(bank.id),
+                "title": bank.name,
+                "author_name": author.full_name if author else "Unknown",
+                "visibility": bank.visibility_scope,
+                "status": bank_status,
+                "created_at": None,
+            })
+
+    # 2) Coding Questions
+    if not type or type == "coding_question":
+        code_query = db.query(models.CodingQuestion).filter(
+            models.CodingQuestion.organization_id == org_id
+        )
+        if q:
+            code_query = code_query.filter(models.CodingQuestion.title.ilike(f"%{q}%"))
+
+        coding_questions = code_query.all()
+        for cq in coding_questions:
+            quarantine_key = f"coding_question:{cq.id}"
+            mod = quarantine_map.get(quarantine_key)
+            cq_status = "quarantined" if mod else "active"
+
+            if status and cq_status != status:
+                continue
+
+            author = db.query(models.User).filter(models.User.id == cq.created_by).first()
+            items.append({
+                "content_type": "coding_question",
+                "id": str(cq.id),
+                "title": cq.title,
+                "author_name": author.full_name if author else "Unknown",
+                "visibility": cq.visibility_scope if hasattr(cq, 'visibility_scope') else "org-internal",
+                "status": cq_status,
+                "created_at": None,
+            })
+
+    # 3) KT Documents
+    if not type or type == "kt_document":
+        kt_query = db.query(models.KTDocument).filter(
+            models.KTDocument.organization_id == org_id
+        )
+        if q:
+            kt_query = kt_query.filter(models.KTDocument.title.ilike(f"%{q}%"))
+
+        kt_docs = kt_query.all()
+        for kt in kt_docs:
+            quarantine_key = f"kt_document:{kt.id}"
+            mod = quarantine_map.get(quarantine_key)
+            kt_status = "quarantined" if mod else "active"
+
+            if status and kt_status != status:
+                continue
+
+            author = db.query(models.User).filter(models.User.id == kt.author_id).first() if kt.author_id else None
+            items.append({
+                "content_type": "kt_document",
+                "id": kt.id,
+                "title": kt.title,
+                "author_name": author.full_name if author else "Unknown",
+                "visibility": kt.access_level if hasattr(kt, 'access_level') else "project_only",
+                "status": kt_status,
+                "created_at": kt.created_at.isoformat() if hasattr(kt, 'created_at') and kt.created_at else None,
+            })
+
+    # Simple pagination
+    total = len(items)
+    pages = (total + size - 1) // size
+    start_idx = (page - 1) * size
+    end_idx = start_idx + size
+    paginated_items = items[start_idx:end_idx]
+
+    return {
+        "items": paginated_items,
+        "total": total,
+        "page": page,
+        "size": size,
+        "pages": pages,
+    }

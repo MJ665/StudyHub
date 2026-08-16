@@ -120,6 +120,18 @@ def get_banks(
         query = query.filter(
             or_(*_visibility_conds)
         )
+        # Non-staff: exclude quarantined banks
+        quarantined_bank_ids = (
+            db.query(models.ContentModeration.content_id)
+            .filter(
+                models.ContentModeration.content_type == "bank",
+                models.ContentModeration.status == "quarantined",
+            )
+            .all()
+        )
+        quarantined_ids = {int(bid[0]) for bid in quarantined_bank_ids if bid[0].isdigit()}
+        if quarantined_ids:
+            query = query.filter(~models.QuestionBank.id.in_(quarantined_ids))
 
     query = query.group_by(models.QuestionBank.id).order_by(
         models.QuestionBank.id.desc()
@@ -429,6 +441,20 @@ def get_bank_questions(
     # (was role-only via require_admin/verify_token — an admin in org A could
     # read/edit/delete org B's bank.)
     assert_same_super_org(bank, current_user, db, "Bank")
+
+    # Non-staff: check if bank is quarantined and reject if so
+    if current_user.get("role") not in ("LDAdmin", "Owner", "PlatformAdmin"):
+        quarantine = (
+            db.query(models.ContentModeration)
+            .filter(
+                models.ContentModeration.content_type == "bank",
+                models.ContentModeration.content_id == str(bank_id),
+                models.ContentModeration.status == "quarantined",
+            )
+            .first()
+        )
+        if quarantine:
+            raise HTTPException(status_code=403, detail="This content is not available")
 
     # ENFORCEMENT: Check if user is eligible for this bank (Task limits, Assignment mandates)
     # JWT payload uses "sub" for user ID

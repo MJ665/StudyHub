@@ -286,6 +286,19 @@ async def list_documents(
             )
         )
 
+    # Non-staff: exclude quarantined KT documents
+    if current_user and current_user.get("role") not in ["PlatformAdmin", "Mentor", "GroupAdmin", "LDAdmin", "Owner"]:
+        # Get quarantined KT document IDs
+        quarantine_res = await db.execute(
+            select(models.ContentModeration.content_id).where(
+                models.ContentModeration.content_type == "kt_document",
+                models.ContentModeration.status == "quarantined",
+            )
+        )
+        quarantined_ids = [row[0] for row in quarantine_res.fetchall()]
+        if quarantined_ids:
+            q = q.where(~KTDocument.id.in_(quarantined_ids))
+
     await db.scalar(select(func.count()).select_from(q.subquery()))
     result = await db.execute(
         # Eager-load endorsements: KTDocumentOut reads them during model_validate,

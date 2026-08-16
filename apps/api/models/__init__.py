@@ -17,6 +17,7 @@ from .challenge import DailyChallenge  # noqa: F401
 from .coding import CodingHintCache, CodingQuestion, CodingTestCase  # noqa: F401
 from .course import Course, GroupCourseSubscription, VerticalCourse  # noqa: F401
 from .discussion import QuestionDiscussion  # noqa: F401
+from .moderation import ContentModeration  # noqa: F401
 from .exam import (  # noqa: F401
     DEFAULT_EXAM_SETTINGS,
     Exam,
