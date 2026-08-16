@@ -711,14 +711,26 @@ def list_governance_content(
     - q: title search (partial match, case-insensitive)
     - status: 'quarantined', 'active'
     """
-    from auth_utils import caller_org_id
+    from auth_utils import caller_org_id, caller_super_org_id
+    from sqlalchemy import or_
 
     org_id = caller_org_id(current_user)
+    super_org_id = caller_super_org_id(current_user, db)
     items = []
 
+    def _tenant_scope(query, model):
+        """L&D governs the whole super-organization, not just their own org.
+        Scope to super_org when it resolves (covers content created in any
+        sub-org), and always include the caller's own org so single-org and
+        legacy rows with a NULL super_organization_id are still visible."""
+        conds = [model.organization_id == org_id]
+        if super_org_id is not None:
+            conds.append(model.super_organization_id == super_org_id)
+        return query.filter(or_(*conds))
+
     # Fetch quarantine records (for fast status lookup)
-    quarantine_query = db.query(models.ContentModeration).filter(
-        models.ContentModeration.organization_id == org_id
+    quarantine_query = _tenant_scope(
+        db.query(models.ContentModeration), models.ContentModeration
     )
     if type:
         quarantine_query = quarantine_query.filter(models.ContentModeration.content_type == type)
@@ -730,8 +742,8 @@ def list_governance_content(
 
     # 1) Banks
     if not type or type == "bank":
-        bank_query = db.query(models.QuestionBank).filter(
-            models.QuestionBank.organization_id == org_id
+        bank_query = _tenant_scope(
+            db.query(models.QuestionBank), models.QuestionBank
         )
         if q:
             bank_query = bank_query.filter(models.QuestionBank.name.ilike(f"%{q}%"))
@@ -758,8 +770,8 @@ def list_governance_content(
 
     # 2) Coding Questions
     if not type or type == "coding_question":
-        code_query = db.query(models.CodingQuestion).filter(
-            models.CodingQuestion.organization_id == org_id
+        code_query = _tenant_scope(
+            db.query(models.CodingQuestion), models.CodingQuestion
         )
         if q:
             code_query = code_query.filter(models.CodingQuestion.title.ilike(f"%{q}%"))
@@ -786,8 +798,8 @@ def list_governance_content(
 
     # 3) KT Documents
     if not type or type == "kt_document":
-        kt_query = db.query(models.KTDocument).filter(
-            models.KTDocument.organization_id == org_id
+        kt_query = _tenant_scope(
+            db.query(models.KTDocument), models.KTDocument
         )
         if q:
             kt_query = kt_query.filter(models.KTDocument.title.ilike(f"%{q}%"))

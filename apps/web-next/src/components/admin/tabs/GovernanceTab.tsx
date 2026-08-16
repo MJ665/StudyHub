@@ -41,7 +41,10 @@ export default function GovernanceTab() {
         q: searchQuery || undefined,
         status: statusFilter || undefined
       });
-      setItems(Array.isArray(res) ? res : []);
+      // Backend returns a paginated envelope { items, total, page, size };
+      // tolerate a bare array too in case the shape ever changes.
+      const list = Array.isArray(res) ? res : (res?.items ?? []);
+      setItems(list);
     } catch (err: any) {
       toast('error', `Failed to load governance content: ${err.message}`);
     } finally {
