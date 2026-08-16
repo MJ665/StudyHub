@@ -117,10 +117,10 @@ export default function CodeEditor({ question, onFinish }: any) {
       const data = res.data?.evaluation || (res as any).evaluation || res; 
       setEvalResult(data);
       
-      const verdict = data.passed ? 'Likely correct' : 'Needs work';
+      const verdict = data.is_correct ? 'Likely correct' : 'Needs work';
       setOutput(`AI Assessment Complete (code was reviewed by AI, not executed against test cases).\nScore: ${data.score}%\nAI Verdict: ${verdict}\nGrade: ${data.grade}\n\nFeedback:\n${data.feedback}`);
 
-      if (data.passed) toast('success', `AI score: ${data.score}% — criteria look met.`);
+      if (data.is_correct) toast('success', `AI score: ${data.score}% — criteria look met.`);
       else toast('warning', `AI score: ${data.score}% — review the suggestions.`);
     } catch (err: any) {
       setOutput(`Error: ${err.message}`);
@@ -460,14 +460,14 @@ export default function CodeEditor({ question, onFinish }: any) {
            {evalResult ? (
              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 space-y-6 overflow-y-auto w-full">
                 <div className="text-center p-8 rounded-[2.5rem] bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)] relative overflow-hidden">
-                   <div className={`absolute inset-0 opacity-5 pointer-events-none ${evalResult.passed ? 'bg-[var(--color-success)]' : 'bg-[var(--color-danger)]'}`} />
-                   <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center border-4 relative ${evalResult.passed ? 'border-[var(--color-success)]/50 bg-[var(--color-success)]/10 shadow-lg shadow-[var(--color-success)]/10' : 'border-[var(--color-danger)]/50 bg-[var(--color-danger)]/10 shadow-lg shadow-[var(--color-danger)]/10'}`}>
-                      <span className={`text-3xl font-black ${evalResult.passed ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
+                   <div className={`absolute inset-0 opacity-5 pointer-events-none ${evalResult.is_correct ? 'bg-[var(--color-success)]' : 'bg-[var(--color-danger)]'}`} />
+                   <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center border-4 relative ${evalResult.is_correct ? 'border-[var(--color-success)]/50 bg-[var(--color-success)]/10 shadow-lg shadow-[var(--color-success)]/10' : 'border-[var(--color-danger)]/50 bg-[var(--color-danger)]/10 shadow-lg shadow-[var(--color-danger)]/10'}`}>
+                      <span className={`text-3xl font-black ${evalResult.is_correct ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}`}>
                         {evalResult.score}%
                       </span>
                    </div>
-                   <h3 className="text-lg font-black text-[var(--color-on-surface)] uppercase tracking-tight mb-1">{evalResult.passed ? 'Mission Success' : 'Directives Failed'}</h3>
-                   <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-[0.2em]">{evalResult.passed ? 'Logic Protocol Verified' : 'Refinement Mandatory'}</p>
+                   <h3 className="text-lg font-black text-[var(--color-on-surface)] uppercase tracking-tight mb-1">{evalResult.is_correct ? 'Mission Success' : 'Directives Failed'}</h3>
+                   <p className="text-[9px] font-black text-[var(--color-on-surface-variant)] uppercase tracking-[0.2em]">{evalResult.is_correct ? 'Logic Protocol Verified' : 'Refinement Mandatory'}</p>
                 </div>
 
                 <div className="space-y-2">
@@ -494,7 +494,7 @@ export default function CodeEditor({ question, onFinish }: any) {
                 )}
 
                 <div className="pt-4 space-y-3">
-                   {evalResult.passed ? (
+                   {evalResult.is_correct ? (
                      <button onClick={() => onFinish(evalResult)} className="w-full py-5 bg-[var(--color-success)] hover:bg-[var(--color-success)] text-[var(--color-surface-dim)] rounded-2xl font-black transition-all shadow-xl shadow-[var(--color-success)]/20 uppercase tracking-[0.2em] text-[10px]">
                        Proceed to Next Sector
                      </button>

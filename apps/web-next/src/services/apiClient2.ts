@@ -332,6 +332,18 @@ export class ApiClient2 extends ApiClient1 {
     });
   }
 
+  static async explainAnswer(data: { question: string, user_answer: string, correct_answer?: string, model_answer?: string, context?: string }) {
+    return this.request('/ai/explain-answer', {
+      method: 'POST',
+      body: JSON.stringify({
+        question_text: data.question,
+        user_answer: data.user_answer,
+        correct_answer: data.correct_answer || data.model_answer,
+        context: data.context
+      })
+    });
+  }
+
   static async summarizeContent(content: string, summaryType: 'study_notes' | 'flashcards' | 'quiz_questions' = 'study_notes') {
     return this.request('/ai/summarize', {
       method: 'POST',

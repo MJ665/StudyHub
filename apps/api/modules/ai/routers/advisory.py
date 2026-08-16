@@ -312,3 +312,59 @@ async def ask_ai(
                 "response": f"I'm sorry, I'm having trouble connecting to my brain right now. You asked: '{req.user_query}'"
             },
         }
+
+@router.post("/explain-answer")
+async def explain_answer(
+    req: ExplainRequest,
+    current_user: dict = Depends(verify_token),
+):
+    """
+    Explains why a student's answer/logic is wrong. Peer-review helper.
+    Accepts question_text, user_answer, and correct_answer.
+    Returns concise, encouraging explanation with graceful fallback.
+    """
+    if is_injection(req.question_text) or (
+        req.user_answer and is_injection(req.user_answer)
+    ):
+        raise HTTPException(status_code=400, detail="Prompt injection detected.")
+
+    user_id_str = str(current_user["sub"])
+    await _check_rate_limit(user_id_str, "explain_answer")
+
+    # Call LLM
+    llm = _get_llm(temperature=0.5, max_tokens=500)
+    if not llm:
+        # Graceful fallback: return 200 with helpful default
+        return {
+            "explanation": "I'm unable to provide an explanation right now. Remember: compare your answer with the correct answer and think about what you might have missed."
+        }
+
+    from langchain_core.messages import HumanMessage, SystemMessage
+
+    # Build the prompt
+    user_answer_text = req.user_answer or "Skipped/No answer provided"
+    prompt_body = f"""Student's answer: {user_answer_text}
+Correct answer: {req.correct_answer}
+Question: {req.question_text}"""
+
+    if req.context:
+        prompt_body += f"\nAdditional context: {req.context}"
+
+    sys_prompt = """You are GrindBuddy AI, a supportive and encouraging tutor.
+Explain in 2-3 sentences why the student's logic or answer was incorrect.
+Be empathetic, constructive, and educational.
+Explain the correct reasoning clearly.
+Format your response in clean, readable Markdown with short paragraphs."""
+
+    user_msg = f"Please explain why this answer is wrong:\n\n{prompt_body}"
+    messages = [SystemMessage(content=sys_prompt), HumanMessage(content=user_msg)]
+
+    try:
+        res = llm.invoke(messages)
+        return {"explanation": res.content}
+    except Exception as e:
+        logger.error(f"Explain answer error: {e}")
+        # Return 200 with graceful fallback instead of 500
+        return {
+            "explanation": "I'm having trouble analyzing this right now. Try comparing your answer with the correct one step-by-step to understand where the logic differs."
+        }

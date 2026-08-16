@@ -117,16 +117,27 @@ export default function Leaderboard({ bank: initialBank, user, onBack, onViewPro
     const key = `${attemptId}-${questionId}`;
     if (aiLoading[key]) return; // Extra safety guard
 
-    const query = aiQueries[key] || "Analyze my logic and explain why I was wrong or right in detail.";
-    
+    // Find the question details from the expanded attempt
+    const attempt = leaderboard.find(a => a.id === attemptId);
+    const questionItem = attempt?.descriptive_answers?.find((q: any) => q.question_id === questionId);
+
+    if (!questionItem) {
+      if (toast) toast.error('Could not find question details.');
+      return;
+    }
+
     startTransition(async () => {
       setAiLoading(prev => ({ ...prev, [key]: true }));
       try {
-        const res = await ApiService.askAI(attemptId, questionId, query);
-        // /ai/ask nests the reply under `data` ({ai_generated, data:{response}}).
-        // Flatten so the render (aiData.response / is_out_of_context / from_cache) resolves.
-        setAiResponses(prev => ({ ...prev, [key]: { ...(res?.data || {}), ...res } }));
-        
+        const res = await ApiService.explainAnswer({
+          question: questionItem.question_text,
+          user_answer: questionItem.user_answer || 'Skipped',
+          correct_answer: questionItem.correct_answer
+        });
+
+        // explainAnswer returns { explanation: str }
+        setAiResponses(prev => ({ ...prev, [key]: { response: res?.explanation || res?.data?.explanation || res } }));
+
         // Strategic Cooldown: Prevent spamming even if request is fast
         setTimeout(() => {
           setAiLoading(prev => ({ ...prev, [key]: false }));
