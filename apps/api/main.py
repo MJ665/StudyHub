@@ -285,6 +285,13 @@ async def on_startup():
             _conn.execute(_sql_text("CREATE EXTENSION IF NOT EXISTS vector"))
         Base.metadata.create_all(bind=engine)
         logger.info("✅ Database schema provisioned successfully.")
+        # create_all builds MISSING tables but never ALTERs existing ones (no
+        # Alembic here). If the DB carried an older schema (e.g. a `users` table
+        # created before `full_name` existed), reconcile the drift additively so
+        # ensure_system + every later query find the columns they expect.
+        from schema_reconciler import reconcile_schema
+
+        reconcile_schema(engine, Base.metadata)
     except Exception as e:
         logger.error(f"❌ Schema provisioning failed: {e}")
         # Fail loudly in production: proceeding without a schema only produces
