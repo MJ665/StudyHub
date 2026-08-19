@@ -46,13 +46,16 @@ def reconcile_schema(engine, metadata) -> int:
             # create_all already built this table fresh, with every column.
             continue
         try:
-            db_cols = {c["name"] for c in insp.get_columns(table.name)}
+            live_cols = {c["name"]: c for c in insp.get_columns(table.name)}
+            pk_cols = set(insp.get_pk_constraint(table.name).get("constrained_columns") or [])
         except Exception as e:  # noqa: BLE001
             logger.error(f"🔧 schema reconcile: cannot read columns of {table.name}: {e}")
             continue
+        model_col_names = {c.name for c in table.columns}
 
+        # (1) ADD columns the model defines but the live DB is missing.
         for col in table.columns:
-            if col.name in db_cols:
+            if col.name in live_cols:
                 continue
             try:
                 coltype = col.type.compile(dialect=engine.dialect)
@@ -81,6 +84,32 @@ def reconcile_schema(engine, metadata) -> int:
                     f"🔧 schema reconcile: failed to add {table.name}.{col.name}: {e}"
                 )
 
+        # (2) RELAX legacy NOT NULL columns the model no longer defines. An old
+        # required column (e.g. users.name after the model moved to full_name)
+        # the ORM never populates would make every INSERT fail with a not-null
+        # violation. Dropping NOT NULL only relaxes a constraint — it never drops
+        # data. Skip primary-key columns (PK implies NOT NULL) and columns that
+        # carry a default (INSERTs can rely on it).
+        for name, info in live_cols.items():
+            if name in model_col_names or name in pk_cols:
+                continue
+            is_not_null = info.get("nullable") is False
+            has_default = info.get("default") is not None
+            if not is_not_null or has_default:
+                continue
+            ddl = f'ALTER TABLE "{table.name}" ALTER COLUMN "{name}" DROP NOT NULL'
+            try:
+                with engine.begin() as conn:
+                    conn.execute(text(ddl))
+                added += 1
+                logger.info(
+                    f"🔧 schema reconcile: relaxed legacy NOT NULL on {table.name}.{name}"
+                )
+            except Exception as e:  # noqa: BLE001
+                logger.error(
+                    f"🔧 schema reconcile: failed to relax {table.name}.{name}: {e}"
+                )
+
     if added:
-        logger.info(f"🔧 schema reconcile: {added} missing column(s) added.")
+        logger.info(f"🔧 schema reconcile: {added} change(s) applied.")
     return added
